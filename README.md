@@ -8,12 +8,12 @@ The internet of things is significant because an object than can represent itsel
 
 By installing a device with GPS, 3D Accelerometer and GSM modem into a car’s on-board computer one can stream several metrics into the clouds. Such data appeals to many business models and applications including: 
 
-	- Ecodriving: fuel calculation, RPM analysis and idling detection.
-	- Location aware services: position, heading and speed.
-	- Driver safety: braking, acceleration and cornering.
-	- Theft notification.
-	- Car diagnostics: DTC collection and remote mechanic access.
-	- Insurance: Impact detection, Mileage, Speeding and trip engine.
+ - Ecodriving: fuel calculation, RPM analysis and idling detection.
+ - Location aware services: position, heading and speed.
+ - Driver safety: braking, acceleration and cornering.
+ - Theft notification.
+ - Car diagnostics: DTC collection and remote mechanic access.
+ - Insurance: Impact detection, Mileage, Speeding and trip engine.
 
 Such information would be useful to various parties including, business’ with company fleets of vehicles, insurance companies, or even parents concerned about their children's driving.
 
@@ -21,32 +21,32 @@ CarCloud will be a mobile and web based desktop application that focuses on supp
 
 ## Programming Languages:
 
-	- Java
-	- SQL
-	- HTML
-	- JavaScript
-	- CSS
+ - Java
+ - SQL
+ - HTML
+ - JavaScript
+ - CSS
 
 ## Programming Tools:
 
-	- Spring boot - Skeleton configuration for creating spring applications.
-	- Maven - build automation tool for java.
-	- Spring MVC - Web component of the Spring Framework. Provides rich functionality for building robust Web Applications.
-	- Jackson - JSON marshaller for java.
-	- Spring Data JPA - Easily implemented Java Persistence API based repositories. 
-	- Hibernate - Object-relational mapping library for java.
-	- Liquibase - Allows tracking, managing and applying database schema changes.
-	- Ehcache - Second level cache for hibernate.
-	- Logback - Log management
-	- HakariCP - Connection pooling for JDBC.
-	- Metrics - Captures JVM and application-level metrics.
-	- Swagger - Automated API documentation generator.
-	- AngularJS - JavaScript framework for creating single page web applications.
-	- GulpJS - build system for web based front ends.
-	- BootStrap - Set of tools for building web applications. It supplies various templates and JavaScript extensions.
-	- IonicFramework - Front-End framework for developing hybrid mobile apps.
-	- PhoneGap - Hybrid mobile app development framework.
-	- MySQL - Relational Database.
+ - Spring boot - Skeleton configuration for creating spring applications.
+ - Maven - build automation tool for java.
+ - Spring MVC - Web component of the Spring Framework. Provides rich functionality for building robust Web Applications.
+ - Jackson - JSON marshaller for java.
+ - Spring Data JPA - Easily implemented Java Persistence API based repositories. 
+ - Hibernate - Object-relational mapping library for java.
+ - Liquibase - Allows tracking, managing and applying database schema changes.
+ - Ehcache - Second level cache for hibernate.
+ - Logback - Log management
+ - HakariCP - Connection pooling for JDBC.
+ - Metrics - Captures JVM and application-level metrics.
+ - Swagger - Automated API documentation generator.
+ - AngularJS - JavaScript framework for creating single page web applications.
+ - GulpJS - build system for web based front ends.
+ - BootStrap - Set of tools for building web applications. It supplies various templates and JavaScript extensions.
+ - IonicFramework - Front-End framework for developing hybrid mobile apps.
+ - PhoneGap - Hybrid mobile app development framework.
+ - MySQL - Relational Database.
 
 ## Learning Outcomes:
 
@@ -72,6 +72,6 @@ The device for reporting the car metrics will be supplied by http://munic.io.
 
 ## Special Hardware / Software requirements
 
-	- Computer capable of running the latest version of Google Chrome.
-	- Mobile Device capable of running android 4.4.
-	- Munic.io Box device that will interface between the car’s onboard computer and the CarCloud backend.
+ - Computer capable of running the latest version of Google Chrome.
+ - Mobile Device capable of running android 4.4.
+ - Munic.io Box device that will interface between the car’s onboard computer and the CarCloud backend.
