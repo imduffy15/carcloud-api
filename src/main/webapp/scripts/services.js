@@ -120,7 +120,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Accept": "application/json",
-                    "Authorization": "Basic " + Base64Service.encode("carcloudapp" + ':' + "mySecretOAuthSecret")
+                    "Authorization": "Basic " + Base64Service.encode("carcloudapp" + ':' + "Echoong7zooNga3tvohy6Xaeoon9Aem3ange8Iga5ooDa1ahb8LaS2")
                 },
                 ignoreAuthModule: 'ignoreAuthModule'
             }).success(function (data, status, headers, config) {
@@ -131,12 +131,12 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
                     Session.create(data.login, data.firstName, data.lastName, data.email, data.roles);
                     $rootScope.account = Session;
                     authService.loginConfirmed(data, function (config) {
-                        console.log("setting new header");
                         config.headers['Authorization'] = 'Bearer ' + Token.get('access_token');
                         return config;
                     });
                 });
             }).error(function (data, status, headers, config) {
+                console.log("invalidating");
                 $rootScope.authenticationError = true;
                 Session.invalidate();
             });
