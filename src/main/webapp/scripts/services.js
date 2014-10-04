@@ -3,28 +3,28 @@
 /* Services */
 
 carcloudApp.factory('Register', function ($resource) {
-    return $resource('http://localhost:8080/app/rest/register', {}, {
+    return $resource('app/rest/register', {}, {
     });
 });
 
 carcloudApp.factory('Activate', function ($resource) {
-    return $resource('http://localhost:8080/app/rest/activate', {}, {
+    return $resource('app/rest/activate', {}, {
         'get': { method: 'GET', params: {}, isArray: false}
     });
 });
 
 carcloudApp.factory('Account', function ($resource) {
-    return $resource('http://localhost:8080/app/rest/account', {}, {
+    return $resource('app/rest/account', {}, {
     });
 });
 
 carcloudApp.factory('Password', function ($resource) {
-    return $resource('http://localhost:8080/app/rest/account/change_password', {}, {
+    return $resource('app/rest/account/change_password', {}, {
     });
 });
 
 carcloudApp.factory('MetricsService', function ($resource) {
-    return $resource('http://localhost:8080/metrics/metrics', {}, {
+    return $resource('metrics/metrics', {}, {
         'get': { method: 'GET'}
     });
 });
@@ -42,7 +42,7 @@ carcloudApp.factory('ThreadDumpService', function ($http) {
 carcloudApp.factory('HealthCheckService', function ($rootScope, $http) {
     return {
         check: function () {
-            return $http.get('http://localhost:8080/health').then(function (response) {
+            return $http.get('health').then(function (response) {
                 return response.data;
             });
         }
@@ -50,7 +50,7 @@ carcloudApp.factory('HealthCheckService', function ($rootScope, $http) {
 });
 
 carcloudApp.factory('LogsService', function ($resource) {
-    return $resource('http://localhost:8080/app/rest/logs', {}, {
+    return $resource('app/rest/logs', {}, {
         'findAll': { method: 'GET', isArray: true},
         'changeLevel': { method: 'PUT'}
     });
@@ -59,12 +59,12 @@ carcloudApp.factory('LogsService', function ($resource) {
 carcloudApp.factory('AuditsService', function ($http) {
     return {
         findAll: function () {
-            return $http.get('http://localhost:8080/app/rest/audits/all').then(function (response) {
+            return $http.get('app/rest/audits/all').then(function (response) {
                 return response.data;
             });
         },
         findByDates: function (fromDate, toDate) {
-            return $http.get('http://localhost:8080/app/rest/audits/byDates', {params: {fromDate: fromDate, toDate: toDate}}).then(function (response) {
+            return $http.get('app/rest/audits/byDates', {params: {fromDate: fromDate, toDate: toDate}}).then(function (response) {
                 return response.data;
             });
         }
@@ -93,7 +93,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
     return {
         login: function (param) {
             var data = "username=" + param.username + "&password=" + param.password + "&grant_type=password&scope=read%20write&client_secret=Echoong7zooNga3tvohy6Xaeoon9Aem3ange8Iga5ooDa1ahb8LaS2&client_id=carcloudapp";
-            $http.post('http://localhost:8080/oauth/token', data, {
+            $http.post('oauth/token', data, {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Accept": "application/json",
@@ -197,7 +197,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
             $rootScope.account = null;
             Token.remove();
 
-            $http.get('http://localhost:8080/app/logout');
+            $http.get('app/logout');
             Session.invalidate();
             delete httpHeaders.common['Authorization'];
             authService.loginCancelled();
