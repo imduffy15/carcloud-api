@@ -6,9 +6,9 @@ spring:
 
     datasource:
         dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
-        url: jdbc:mysql://localhost:3306/carcloud
-        databaseName:
-        serverName:
+        url: jdbc:mysql://localhost:3306/carcloud?zeroDateTimeBehavior=convertToNull
+        databaseName: carcloud
+        serverName: carcloud
         username: carcloud
         password: carcloud
         cachePrepStmts: true
