@@ -1,0 +1,40 @@
+# Disable the spring security default configuration from spring-boot-actuator
+management.security.enabled: true
+security.basic.enabled: false
+
+# Disable Jolokia - An http/json bridge for remote JMX access
+endpoints.jolokia.enabled: false
+
+async:
+    corePoolSize: 2
+    maxPoolSize: 50
+    queueCapacity: 10000
+
+spring:
+    mail:
+        host: localhost
+        port: 25
+        user:
+        password:
+        protocol: smtp
+        tls: false
+        auth: false
+        from: carcloud@localhost
+
+    messageSource:
+        cacheSeconds: 1
+
+authentication:
+    oauth:
+        clientid: carcloudapp
+        secret: Echoong7zooNga3tvohy6Xaeoon9Aem3ange8Iga5ooDa1ahb8LaS2
+        # Token is valid 24 hours
+        tokenValidityInSeconds: 86400
+
+swagger:
+    title: CarCloud
+    description: Tracking, Monitoring and more
+    termsOfServiceUrl: http://carcloud.ianduffy.ie/
+    contact: Ian Duffy (ian@ianduffy.ie)
+    license: Apache 2.0
+    licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.html

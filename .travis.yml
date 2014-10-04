@@ -1,0 +1,11 @@
+language: java
+cache:
+  directories:
+  - $HOME/.m2
+  - node_modules
+jdk:
+  - oraclejdk7
+install:
+  - sudo apt-get install -y nodejs npm
+  - npm install
+  - bower install

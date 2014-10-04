@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" logicalFilePath="none" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet author="jhipster" id="1412434316945-12" logicalFilePath="none">
+        <dropTable tableName="OAUTH_ACCESS_TOKEN"/>
+    </changeSet>
+    <changeSet author="jhipster" id="1412434316945-13" logicalFilePath="none">
+        <dropTable tableName="OAUTH_APPROVALS"/>
+    </changeSet>
+    <changeSet author="jhipster" id="1412434316945-14" logicalFilePath="none">
+        <dropTable tableName="OAUTH_CLIENT_DETAILS"/>
+    </changeSet>
+    <changeSet author="jhipster" id="1412434316945-15" logicalFilePath="none">
+        <dropTable tableName="OAUTH_CLIENT_TOKEN"/>
+    </changeSet>
+    <changeSet author="jhipster" id="1412434316945-16" logicalFilePath="none">
+        <dropTable tableName="OAUTH_CODE"/>
+    </changeSet>
+    <changeSet author="jhipster" id="1412434316945-17" logicalFilePath="none">
+        <dropTable tableName="OAUTH_REFRESH_TOKEN"/>
+    </changeSet>
+    <changeSet author="jhipster" id="1412434316945-18" logicalFilePath="none">
+        <dropTable tableName="T_PERSISTENT_TOKEN"/>
+    </changeSet>
+    <changeSet author="jhipster" id="1412434316945-19" logicalFilePath="none">
+        <dropColumn columnName="LANG_KEY" tableName="T_USER"/>
+    </changeSet>
+    <changeSet author="jhipster" id="1412434316945-20" logicalFilePath="none">
+        <dropDefaultValue columnDataType="boolean" columnName="activated" tableName="T_USER"/>
+    </changeSet>
+    <changeSet author="jhipster" id="1412434316945-21" logicalFilePath="none">
+        <dropDefaultValue columnDataType="varchar(50)" columnName="created_by" tableName="T_USER"/>
+    </changeSet>
+    <changeSet author="jhipster" id="1412434316945-22" logicalFilePath="none">
+        <dropDefaultValue columnDataType="timestamp" columnName="created_date" tableName="T_USER"/>
+    </changeSet>
+</databaseChangeLog>
