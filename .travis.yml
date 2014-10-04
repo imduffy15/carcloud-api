@@ -8,4 +8,3 @@ jdk:
 install:
   - sudo apt-get install -y nodejs npm
   - npm install
-  - bower install
