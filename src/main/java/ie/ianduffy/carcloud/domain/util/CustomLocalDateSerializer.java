@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Custom Jackson serializer for displaying Joda Time dates.
  */
-class CustomLocalDateSerializer extends JsonSerializer<LocalDate> {
+public class CustomLocalDateSerializer extends JsonSerializer<LocalDate> {
 
     private static final DateTimeFormatter formatter =
             DateTimeFormat.forPattern("yyyy-MM-dd");

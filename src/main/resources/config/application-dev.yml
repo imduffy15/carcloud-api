@@ -58,6 +58,6 @@ hotReload:
     liquibase:
       defaultCatalogName:
       defaultSchema: public
-#      excludeTables: T_AUTHORITY,T_PERSISTENT_AUDIT_EVENT,T_PERSISTENT_AUDIT_EVENT_DATA,T_PERSISTENT_TOKEN,T_USER,T_USER_AUTHORITY,oauth_access_token,oauth_approvals,oauth_client_details,oauth_client_token,oauth_code,oauth_refresh_token
+      excludeTables: T_AUTHORITY,T_PERSISTENT_AUDIT_EVENT,T_PERSISTENT_AUDIT_EVENT_DATA,T_PERSISTENT_TOKEN,T_USER,T_USER_AUTHORITY,oauth_access_token,oauth_approvals,oauth_client_details,oauth_client_token,oauth_code,oauth_refresh_token
     watchdir:
       - target/classes

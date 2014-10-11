@@ -159,10 +159,10 @@ public class WebConfigurer implements ServletContextInitializer {
     }
 
     private void initCorsFilter(ServletContext servletContext,
-                                              EnumSet<DispatcherType> disps) {
+                                EnumSet<DispatcherType> disps) {
         log.debug("Registering CORS Filter");
         FilterRegistration.Dynamic corsFilter =
-            servletContext.addFilter("corsFilter", DelegatingFilterProxy.class);
+                servletContext.addFilter("corsFilter", DelegatingFilterProxy.class);
 
         corsFilter.setInitParameter("cors.allowOrigin", "*");
         corsFilter.setInitParameter("cors.supportsCredentials", "false");

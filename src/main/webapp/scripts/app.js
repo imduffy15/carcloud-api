@@ -109,7 +109,7 @@ carcloudApp
                 }
             });
 
-	    httpHeaders = $httpProvider.defaults.headers;
+        httpHeaders = $httpProvider.defaults.headers;
 
     })
     .run(function ($rootScope, $location, $http, AuthenticationSharedService, Session, USER_ROLES) {

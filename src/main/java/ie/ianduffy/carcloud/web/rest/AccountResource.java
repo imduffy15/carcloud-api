@@ -4,8 +4,6 @@ import com.codahale.metrics.annotation.Timed;
 import ie.ianduffy.carcloud.domain.Authority;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.repository.UserRepository;
-import ie.ianduffy.carcloud.security.SecurityUtils;
-import ie.ianduffy.carcloud.service.MailService;
 import ie.ianduffy.carcloud.service.UserService;
 import ie.ianduffy.carcloud.web.rest.dto.UserDTO;
 import org.apache.commons.lang.StringUtils;
@@ -15,18 +13,17 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.context.IWebContext;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.context.SpringWebContext;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * REST controller for managing the current user's account.

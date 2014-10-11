@@ -19,6 +19,7 @@ import java.util.Map;
 class DatabaseHealthIndicator extends AbstractHealthIndicator {
 
     private static final Map<String, String> queries = new HashMap<>();
+
     static {
         queries.put("HSQL Database Engine",
                 "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SYSTEM_USERS");
