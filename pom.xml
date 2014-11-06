@@ -119,7 +119,8 @@
         <joda-time-hibernate.version>1.3</joda-time-hibernate.version>
         <json-path.version>0.9.1</json-path.version>
         <geronimo-javamail_1.4_mail.version>1.8.4</geronimo-javamail_1.4_mail.version>
-        <hibernate-entitymanager.version>4.3.6.Final</hibernate-entitymanager.version>
+        <hibernate.version>4.3.7.Final</hibernate.version>
+        <hibernate-entitymanager.version>4.3.7.Final</hibernate-entitymanager.version>
         <HikariCP.version>1.4.0</HikariCP.version>
         <jhipster-loaded.version>0.12</jhipster-loaded.version>
         <liquibase.version>3.1.1</liquibase.version>

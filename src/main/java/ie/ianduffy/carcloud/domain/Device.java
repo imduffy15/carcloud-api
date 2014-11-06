@@ -29,11 +29,11 @@ public class Device extends AbstractAuditingEntity implements Serializable {
 
 
     @Fetch(FetchMode.JOIN)
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "T_DEVICE_USER",
-            joinColumns = {@JoinColumn(name = "DEVICE_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "EMAIL", referencedColumnName = "email")})
+            joinColumns = {@JoinColumn(name = "device_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "email", referencedColumnName = "email")})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<User> owners = new HashSet<>();
 
