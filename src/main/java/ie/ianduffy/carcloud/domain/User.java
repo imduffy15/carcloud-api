@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -20,52 +21,39 @@ import java.util.Set;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractAuditingEntity implements Serializable {
 
-    @NotNull
-    @Size(min = 0, max = 50)
     @Id
-    @Column(length = 50)
-    private String login;
+    @Email
+    @NotNull
+    @Size(min = 0, max = 100)
+    @Column(length = 100, unique = true)
+    private String email;
+
+    @NotNull
+    @Pattern(regexp = "^\\+?[0-9. ()-]{10,25}$")
+    @Column(length = 100)
+    private String phone;
 
     @JsonIgnore
     @Size(min = 0, max = 100)
     @Column(length = 100)
     private String password;
 
-    @Size(min = 0, max = 50)
+    @Size(min = 1, max = 50)
     @Column(name = "first_name", length = 50)
     private String firstName;
 
-    @Size(min = 0, max = 50)
+    @Size(min = 1, max = 50)
     @Column(name = "last_name", length = 50)
     private String lastName;
-
-    @Email
-    @Size(min = 0, max = 100)
-    @Column(length = 100, unique = true)
-    private String email;
-
-    private boolean activated = true;
-
-    @Size(min = 0, max = 20)
-    @Column(name = "activation_key", length = 20)
-    private String activationKey;
 
     @JsonIgnore
     @ManyToMany
     @JoinTable(
-            name = "T_USER_AUTHORITY",
-            joinColumns = {@JoinColumn(name = "login", referencedColumnName = "login")},
-            inverseJoinColumns = {@JoinColumn(name = "name", referencedColumnName = "name")})
+        name = "T_USER_AUTHORITY",
+        joinColumns = {@JoinColumn(name = "email", referencedColumnName = "email")},
+        inverseJoinColumns = {@JoinColumn(name = "name", referencedColumnName = "name")})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Authority> authorities = new HashSet<>();
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
 
     public String getPassword() {
         return password;
@@ -99,20 +87,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.email = email;
     }
 
-    public boolean getActivated() {
-        return activated;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setActivated(boolean activated) {
-        this.activated = activated;
-    }
-
-    public String getActivationKey() {
-        return activationKey;
-    }
-
-    public void setActivationKey(String activationKey) {
-        this.activationKey = activationKey;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public Set<Authority> getAuthorities() {
@@ -134,25 +114,22 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
         User user = (User) o;
 
-        return login.equals(user.login);
+        return email.equals(user.email);
 
     }
 
     @Override
     public int hashCode() {
-        return login.hashCode();
+        return email.hashCode();
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", activated='" + activated + '\'' +
-                ", activationKey='" + activationKey + '\'' +
-                "}";
+            ", password='" + password + '\'' +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", email='" + email + '\'' +
+            "}";
     }
 }

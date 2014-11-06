@@ -17,7 +17,7 @@ import java.util.Set;
 @Entity
 @Table(name = "T_DEVICE")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Device implements Serializable {
+public class Device extends AbstractAuditingEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -33,7 +33,7 @@ public class Device implements Serializable {
     @JoinTable(
             name = "T_DEVICE_USER",
             joinColumns = {@JoinColumn(name = "DEVICE_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "LOGIN", referencedColumnName = "login")})
+            inverseJoinColumns = {@JoinColumn(name = "EMAIL", referencedColumnName = "email")})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<User> owners = new HashSet<>();
 

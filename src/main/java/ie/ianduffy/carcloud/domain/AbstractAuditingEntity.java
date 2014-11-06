@@ -3,15 +3,11 @@ package ie.ianduffy.carcloud.domain;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.joda.time.DateTime;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.EntityListeners;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -43,6 +39,10 @@ abstract class AbstractAuditingEntity {
     @Column(name = "last_modified_date")
     private DateTime lastModifiedDate = DateTime.now();
 
+    @Version
+    @Column(name="OPT_LOCK")
+    private int version;
+
     public String getCreatedBy() {
         return createdBy;
     }
@@ -73,5 +73,13 @@ abstract class AbstractAuditingEntity {
 
     public void setLastModifiedDate(DateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 }

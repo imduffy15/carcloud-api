@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface DeviceRepository extends JpaRepository<Device, Long> {
 
-    @Query("select d from Device d where :#{#user.login} MEMBER OF d.owners")
+    @Query("select d from Device d where :#{#user.email} MEMBER OF d.owners")
     List<Device> findDevicesForCurrentUser(@Param("user") User user);
 
 }

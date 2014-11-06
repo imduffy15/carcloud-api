@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,14 +54,13 @@ public class AccountResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<?> registerAccount(@RequestBody UserDTO userDTO, HttpServletRequest request,
-                                             HttpServletResponse response) {
-        User user = userRepository.findOne(userDTO.getLogin());
+    public ResponseEntity<?> registerAccount(@Valid UserDTO userDTO) {
+        User user = userRepository.findOne(userDTO.getEmail());
         if (user != null) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         } else {
-            user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstName(),
-                    userDTO.getLastName(), userDTO.getEmail().toLowerCase());
+            user = userService.createUserInformation(userDTO.getPassword(), userDTO.getFirstName(),
+                    userDTO.getLastName(), userDTO.getEmail(), userDTO.getPhone());
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }
@@ -95,11 +95,10 @@ public class AccountResource {
         }
         return new ResponseEntity<>(
                 new UserDTO(
-                        user.getLogin(),
-                        null,
                         user.getFirstName(),
                         user.getLastName(),
                         user.getEmail(),
+                        user.getPhone(),
                         roles),
                 HttpStatus.OK);
     }

@@ -19,7 +19,7 @@ spring:
         show_sql: true
         generate-ddl: false
         hibernate:
-            ddl-auto: none
+            ddl-auto: create-drop
             naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
         properties:
             hibernate.cache.use_second_level_cache: true

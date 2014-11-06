@@ -28,12 +28,17 @@ public class DeviceService {
     private DeviceRepository deviceRepository;
 
     public Device create(Device device) {
-        Device newDevice = new Device();
-        newDevice.setDescription(device.getDescription());
-        Set<User> owners = new HashSet<>();
-        owners.add(userService.getUserWithAuthorities());
-        newDevice.setOwners(owners);
-        deviceRepository.save(newDevice);
+        Device newDevice;
+        if(device.getId() != null) {
+            newDevice = deviceRepository.save(device);
+        } else {
+            newDevice = new Device();
+            newDevice.setDescription(device.getDescription());
+            Set<User> owners = new HashSet<>();
+            owners.add(userService.getUserWithAuthorities());
+            newDevice.setOwners(owners);
+            deviceRepository.save(newDevice);
+        }
         return newDevice;
     }
 }

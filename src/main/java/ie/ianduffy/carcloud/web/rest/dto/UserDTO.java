@@ -4,8 +4,6 @@ import java.util.List;
 
 public class UserDTO {
 
-    private String login;
-
     private String password;
 
     private String firstName;
@@ -14,27 +12,36 @@ public class UserDTO {
 
     private String email;
 
+    private String phone;
+
     private List<String> roles;
 
     public UserDTO() {
     }
 
-    public UserDTO(String login, String password, String firstName, String lastName, String email,
+    public UserDTO(String firstName, String lastName, String email, String phone,
                    List<String> roles) {
-        this.login = login;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.roles = roles;
+    }
+
+    public UserDTO(String password, String firstName, String lastName, String email, String phone,
+                   List<String> roles) {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.phone = phone;
         this.roles = roles;
     }
 
+
+
     public String getPassword() {
         return password;
-    }
-
-    public String getLogin() {
-        return login;
     }
 
     public String getFirstName() {
@@ -49,6 +56,10 @@ public class UserDTO {
         return email;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
     public List<String> getRoles() {
         return roles;
     }
@@ -56,13 +67,13 @@ public class UserDTO {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("UserDTO{");
-        sb.append("login='").append(login).append('\'');
         if (password != null) {
             sb.append(", password='").append(password.length()).append('\'');
         }
         sb.append(", firstName='").append(firstName).append('\'');
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append(", email='").append(email).append('\'');
+        sb.append(", phone='").append(phone).append('\'');
         sb.append(", roles=").append(roles);
         sb.append('}');
         return sb.toString();
