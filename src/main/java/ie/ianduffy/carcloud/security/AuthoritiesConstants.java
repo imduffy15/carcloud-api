@@ -2,6 +2,8 @@ package ie.ianduffy.carcloud.security;
 
 /**
  * Constants for Spring Security authorities.
+ *
+ * SPAM 0.0.1 - Usage of constants
  */
 public final class AuthoritiesConstants {
 

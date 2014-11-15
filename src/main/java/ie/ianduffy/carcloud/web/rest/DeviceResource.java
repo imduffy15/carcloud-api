@@ -38,8 +38,8 @@ public class DeviceResource {
      * POST  /rest/devices -> Create a new device.
      */
     @RequestMapping(value = "/rest/devices",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public void create(@RequestBody Device device) {
         deviceService.create(device);
@@ -49,8 +49,8 @@ public class DeviceResource {
      * GET  /rest/devices -> get all the devices.
      */
     @RequestMapping(value = "/rest/devices",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<Device> getAll() {
         log.debug("REST request to get all Devices");
@@ -62,8 +62,8 @@ public class DeviceResource {
      * GET  /rest/devices/:id -> get the "id" device.
      */
     @RequestMapping(value = "/rest/devices/{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Device> get(@PathVariable Long id, HttpServletResponse response) {
         log.debug("REST request to get Device : {}", id);
@@ -78,8 +78,8 @@ public class DeviceResource {
      * DELETE  /rest/devices/:id -> delete the "id" device.
      */
     @RequestMapping(value = "/rest/devices/{id}",
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.DELETE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public void delete(@PathVariable Long id) {
         log.debug("REST request to delete Device : {}", id);

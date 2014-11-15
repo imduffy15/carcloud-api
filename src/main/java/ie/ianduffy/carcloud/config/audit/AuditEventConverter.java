@@ -25,7 +25,7 @@ public class AuditEventConverter {
 
         for (PersistentAuditEvent persistentAuditEvent : persistentAuditEvents) {
             AuditEvent auditEvent = new AuditEvent(persistentAuditEvent.getAuditEventDate().toDate(), persistentAuditEvent.getPrincipal(),
-                    persistentAuditEvent.getAuditEventType(), convertDataToObjects(persistentAuditEvent.getData()));
+                persistentAuditEvent.getAuditEventType(), convertDataToObjects(persistentAuditEvent.getData()));
             auditEvents.add(auditEvent);
         }
 

@@ -3,16 +3,22 @@ package ie.ianduffy.carcloud.domain;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.joda.time.DateTime;
-import org.springframework.data.annotation.*;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EntityListeners;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
 
 /**
  * Base abstract class for entities which will hold definitions for created, last modified by and created,
  * last modified by date.
+ *
+ * SPAM 0.0.1 - Usage of a base class.
  */
 @MappedSuperclass
 @Audited
@@ -38,7 +44,7 @@ abstract class AbstractAuditingEntity {
     private DateTime lastModifiedDate = DateTime.now();
 
     @Version
-    @Column(name="OPT_LOCK")
+    @Column(name = "OPT_LOCK")
     private int version;
 
     public String getCreatedBy() {

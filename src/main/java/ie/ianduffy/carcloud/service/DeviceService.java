@@ -29,7 +29,7 @@ public class DeviceService {
 
     public Device create(Device device) {
         Device newDevice;
-        if(device.getId() != null) {
+        if (device.getId() != null) {
             newDevice = deviceRepository.save(device);
         } else {
             newDevice = new Device();

@@ -23,11 +23,11 @@ angular.module('carcloudApp')
             replace: true,
             restrict: 'E',
             template: '<div id="strength">' +
-                '<small>Password strength:</small>' +
-                '<ul id="strengthBar">' +
-                '<li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li>' +
-                '</ul>' +
-                '</div>',
+            '<small>Password strength:</small>' +
+            '<ul id="strengthBar">' +
+            '<li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li>' +
+            '</ul>' +
+            '</div>',
             link: function (scope, iElement, attr) {
                 var strength = {
                     colors: ['#F00', '#F90', '#FF0', '#9F0', '#0F0'],
@@ -79,7 +79,7 @@ angular.module('carcloudApp')
                             idx = 4;
                         }
 
-                        return { idx: idx + 1, col: this.colors[idx] };
+                        return {idx: idx + 1, col: this.colors[idx]};
                     }
                 };
                 scope.$watch(attr.passwordToCheck, function (password) {
@@ -87,9 +87,9 @@ angular.module('carcloudApp')
                         var c = strength.getColor(strength.mesureStrength(password));
                         iElement.removeClass('ng-hide');
                         iElement.find('ul').children('li')
-                            .css({ "background": "#DDD" })
+                            .css({"background": "#DDD"})
                             .slice(0, c.idx)
-                            .css({ "background": c.col });
+                            .css({"background": c.col});
                     }
                 });
             }

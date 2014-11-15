@@ -15,6 +15,8 @@ import java.util.Set;
 
 /**
  * A user.
+ *
+ * SPAM 0.0.1 - Usage of a base class.
  */
 @Entity
 @Table(name = "T_USER")

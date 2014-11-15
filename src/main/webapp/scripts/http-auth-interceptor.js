@@ -20,8 +20,10 @@
                  */
                 loginConfirmed: function (data, configUpdater) {
                     var updater = configUpdater || function (config) {
-                        return config;
-                    };
+                            return config;
+                        };
+
+                    // SPAM 0.0.1 - Example of event broadcasting
                     $rootScope.$broadcast('event:auth-loginConfirmed', data);
                     httpBuffer.retryAll(updater);
                 },
@@ -34,6 +36,7 @@
                  */
                 loginCancelled: function (data, reason) {
                     httpBuffer.rejectAll(reason);
+                    // SPAM 0.0.1 - Example of event broadcasting
                     $rootScope.$broadcast('event:auth-loginCancelled', data);
                 }
             };
@@ -55,9 +58,11 @@
                     if (response.status === 401 && !response.config.ignoreAuthModule) {
                         var deferred = $q.defer();
                         httpBuffer.append(response.config, deferred);
+                        // SPAM 0.0.1 - Example of event broadcasting
                         $rootScope.$broadcast('event:auth-loginRequired', response);
                         return deferred.promise;
                     } else if (response.status === 403 && !response.config.ignoreAuthModule) {
+                        // SPAM 0.0.1 - Example of event broadcasting
                         $rootScope.$broadcast('event:auth-notAuthorized', response);
                     }
                     // otherwise, default behaviour

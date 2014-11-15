@@ -2,30 +2,37 @@
 
 /* Services */
 
+// SPAM 0.0.1 - Example of facade on $resource
+
 carcloudApp.factory('Register', function ($resource) {
-    return $resource('app/rest/register', {}, {
-    });
+    return $resource('http://localhost:8080/app/rest/register', {}, {});
 });
+
+// SPAM 0.0.1 - Example of facade on $resource
 
 carcloudApp.factory('Activate', function ($resource) {
-    return $resource('app/rest/activate', {}, {
-        'get': { method: 'GET', params: {}, isArray: false}
+    return $resource('http://localhost:8080/app/rest/activate', {}, {
+        'get': {method: 'GET', params: {}, isArray: false}
     });
 });
+
+// SPAM 0.0.1 - Example of facade on $resource
 
 carcloudApp.factory('Account', function ($resource) {
-    return $resource('app/rest/account', {}, {
-    });
+    return $resource('http://localhost:8080/app/rest/account', {}, {});
 });
 
+// SPAM 0.0.1 - Example of facade on $resource
+
 carcloudApp.factory('Password', function ($resource) {
-    return $resource('app/rest/account/change_password', {}, {
-    });
+    return $resource('http://localhost:8080/app/rest/account/change_password', {}, {});
 });
+
+// SPAM 0.0.1 - Example of facade on $resource
 
 carcloudApp.factory('MetricsService', function ($resource) {
     return $resource('metrics/metrics', {}, {
-        'get': { method: 'GET'}
+        'get': {method: 'GET'}
     });
 });
 
@@ -50,21 +57,26 @@ carcloudApp.factory('HealthCheckService', function ($rootScope, $http) {
 });
 
 carcloudApp.factory('LogsService', function ($resource) {
-    return $resource('app/rest/logs', {}, {
-        'findAll': { method: 'GET', isArray: true},
-        'changeLevel': { method: 'PUT'}
+    return $resource('http://localhost:8080/app/rest/logs', {}, {
+        'findAll': {method: 'GET', isArray: true},
+        'changeLevel': {method: 'PUT'}
     });
 });
 
 carcloudApp.factory('AuditsService', function ($http) {
     return {
         findAll: function () {
-            return $http.get('app/rest/audits/all').then(function (response) {
+            return $http.get('http://localhost:8080/app/rest/audits/all').then(function (response) {
                 return response.data;
             });
         },
         findByDates: function (fromDate, toDate) {
-            return $http.get('app/rest/audits/byDates', {params: {fromDate: fromDate, toDate: toDate}}).then(function (response) {
+            return $http.get('http://localhost:8080/app/rest/audits/byDates', {
+                params: {
+                    fromDate: fromDate,
+                    toDate: toDate
+                }
+            }).then(function (response) {
                 return response.data;
             });
         }
@@ -93,7 +105,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
     return {
         login: function (param) {
             var data = "username=" + param.username + "&password=" + param.password + "&grant_type=password&scope=read%20write&client_secret=Echoong7zooNga3tvohy6Xaeoon9Aem3ange8Iga5ooDa1ahb8LaS2&client_id=carcloudapp";
-            $http.post('oauth/token', data, {
+            $http.post('http://localhost:8080/oauth/token', data, {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Accept": "application/json",
@@ -116,7 +128,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
         },
         refresh: function () {
             var data = "refresh_token=" + Token.get('refresh_token') + "&grant_type=refresh_token&client_secret=mySecretOAuthSecret&client_id=carcloudapp";
-            $http.post('oauth/token', data, {
+            $http.post('http://localhost:8080/oauth/token', data, {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Accept": "application/json",
@@ -182,7 +194,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
             var isAuthorized = false;
             angular.forEach(authorizedRoles, function (authorizedRole) {
                 var authorized = (!!Session.login &&
-                    Session.userRoles.indexOf(authorizedRole) !== -1);
+                Session.userRoles.indexOf(authorizedRole) !== -1);
 
                 if (authorized || authorizedRole == '*') {
                     isAuthorized = true;
@@ -197,7 +209,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
             $rootScope.account = null;
             Token.remove();
 
-            $http.get('app/logout');
+            $http.get('http://localhost:8080/app/logout');
             Session.invalidate();
             delete httpHeaders.common['Authorization'];
             authService.loginCancelled();

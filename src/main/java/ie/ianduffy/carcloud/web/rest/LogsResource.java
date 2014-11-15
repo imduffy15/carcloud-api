@@ -20,8 +20,8 @@ import java.util.List;
 public class LogsResource {
 
     @RequestMapping(value = "/rest/logs",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<LoggerDTO> getList() {
         LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
@@ -33,7 +33,7 @@ public class LogsResource {
     }
 
     @RequestMapping(value = "/rest/logs",
-            method = RequestMethod.PUT)
+        method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Timed
     public void changeLevel(@RequestBody LoggerDTO jsonLogger) {

@@ -29,9 +29,9 @@ public class SwaggerConfiguration implements EnvironmentAware {
     @Bean
     public SwaggerSpringMvcPlugin swaggerSpringMvcPlugin(SpringSwaggerConfig springSwaggerConfig) {
         return new SwaggerSpringMvcPlugin(springSwaggerConfig)
-                .apiInfo(apiInfo())
-                .genericModelSubstitutes(ResponseEntity.class)
-                .includePatterns(DEFAULT_INCLUDE_PATTERN);
+            .apiInfo(apiInfo())
+            .genericModelSubstitutes(ResponseEntity.class)
+            .includePatterns(DEFAULT_INCLUDE_PATTERN);
     }
 
     /**
@@ -39,11 +39,11 @@ public class SwaggerConfiguration implements EnvironmentAware {
      */
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                propertyResolver.getProperty("title"),
-                propertyResolver.getProperty("description"),
-                propertyResolver.getProperty("termsOfServiceUrl"),
-                propertyResolver.getProperty("contact"),
-                propertyResolver.getProperty("license"),
-                propertyResolver.getProperty("licenseUrl"));
+            propertyResolver.getProperty("title"),
+            propertyResolver.getProperty("description"),
+            propertyResolver.getProperty("termsOfServiceUrl"),
+            propertyResolver.getProperty("contact"),
+            propertyResolver.getProperty("license"),
+            propertyResolver.getProperty("licenseUrl"));
     }
 }

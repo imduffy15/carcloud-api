@@ -10,6 +10,8 @@ import java.util.Collection;
 
 /**
  * Utility class for Spring Security.
+ *
+ * SPAM 0.0.1 - Final / Static class for utilities.
  */
 public final class SecurityUtils {
 

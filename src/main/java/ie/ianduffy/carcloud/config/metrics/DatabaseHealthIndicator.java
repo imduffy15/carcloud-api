@@ -22,7 +22,7 @@ class DatabaseHealthIndicator extends AbstractHealthIndicator {
 
     static {
         queries.put("HSQL Database Engine",
-                "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SYSTEM_USERS");
+            "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SYSTEM_USERS");
         queries.put("Oracle", "SELECT 'Hello' from DUAL");
         queries.put("Apache Derby", "SELECT 1 FROM SYSIBM.SYSDUMMY1");
         queries.put("MySQL", "SELECT 1");
@@ -46,7 +46,7 @@ class DatabaseHealthIndicator extends AbstractHealthIndicator {
         if (StringUtils.hasText(query)) {
             try {
                 builder.withDetail("hello",
-                        this.jdbcTemplate.queryForObject(query, Object.class));
+                    this.jdbcTemplate.queryForObject(query, Object.class));
             } catch (Exception ex) {
                 builder.down(ex);
             }
@@ -57,7 +57,7 @@ class DatabaseHealthIndicator extends AbstractHealthIndicator {
         return this.jdbcTemplate.execute(new ConnectionCallback<String>() {
             @Override
             public String doInConnection(Connection connection) throws SQLException,
-                    DataAccessException {
+                DataAccessException {
 
                 return connection.getMetaData().getDatabaseProductName();
             }

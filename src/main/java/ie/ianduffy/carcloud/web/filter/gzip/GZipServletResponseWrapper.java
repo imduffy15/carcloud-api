@@ -15,7 +15,7 @@ class GZipServletResponseWrapper extends HttpServletResponseWrapper {
     private boolean disableFlushBuffer = false;
 
     public GZipServletResponseWrapper(HttpServletResponse response, GZIPOutputStream gzout)
-            throws IOException {
+        throws IOException {
         super(response);
         gzipOutputStream = new GZipServletOutputStream(gzout);
     }
@@ -64,7 +64,7 @@ class GZipServletResponseWrapper extends HttpServletResponseWrapper {
     public ServletOutputStream getOutputStream() throws IOException {
         if (this.printWriter != null) {
             throw new IllegalStateException(
-                    "PrintWriter obtained already - cannot get OutputStream");
+                "PrintWriter obtained already - cannot get OutputStream");
         }
 
         return this.gzipOutputStream;
@@ -74,10 +74,10 @@ class GZipServletResponseWrapper extends HttpServletResponseWrapper {
     public PrintWriter getWriter() throws IOException {
         if (this.printWriter == null) {
             this.gzipOutputStream = new GZipServletOutputStream(
-                    getResponse().getOutputStream());
+                getResponse().getOutputStream());
 
             this.printWriter = new PrintWriter(new OutputStreamWriter(
-                    this.gzipOutputStream, getResponse().getCharacterEncoding()), true);
+                this.gzipOutputStream, getResponse().getCharacterEncoding()), true);
         }
 
         return this.printWriter;

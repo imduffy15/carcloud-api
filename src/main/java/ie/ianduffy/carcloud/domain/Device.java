@@ -13,6 +13,8 @@ import java.util.Set;
 
 /**
  * A Device.
+ *
+ * SPAM 0.0.1 - Extention of a base class.
  */
 @Entity
 @Table(name = "T_DEVICE")
@@ -31,9 +33,9 @@ public class Device extends AbstractAuditingEntity implements Serializable {
     @Fetch(FetchMode.JOIN)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "T_DEVICE_USER",
-            joinColumns = {@JoinColumn(name = "device_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "email", referencedColumnName = "email")})
+        name = "T_DEVICE_USER",
+        joinColumns = {@JoinColumn(name = "device_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "email", referencedColumnName = "email")})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<User> owners = new HashSet<>();
 
@@ -95,8 +97,8 @@ public class Device extends AbstractAuditingEntity implements Serializable {
     @Override
     public String toString() {
         return "Device{" +
-                "id=" + id +
-                ", owner=" + owners +
-                '}';
+            "id=" + id +
+            ", owner=" + owners +
+            '}';
     }
 }

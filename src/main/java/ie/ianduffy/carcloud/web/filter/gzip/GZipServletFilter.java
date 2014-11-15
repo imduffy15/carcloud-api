@@ -10,6 +10,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.zip.GZIPOutputStream;
 
+/**
+ * This filter is used in production, to gzip resources.
+ * </p>
+ *
+ * SPAM 0.0.1 - Example of facade "filter"
+ */
 public class GZipServletFilter implements Filter {
 
     private final Logger log = LoggerFactory.getLogger(GZipServletFilter.class);
@@ -99,8 +105,8 @@ public class GZipServletFilter implements Filter {
 
         if (includeRequest && log.isDebugEnabled()) {
             log.debug("{} resulted in an include request. This is unusable, because"
-                            + "the response will be assembled into the overrall response. Not gzipping.",
-                    request.getRequestURL());
+                    + "the response will be assembled into the overrall response. Not gzipping.",
+                request.getRequestURL());
         }
         return includeRequest;
     }

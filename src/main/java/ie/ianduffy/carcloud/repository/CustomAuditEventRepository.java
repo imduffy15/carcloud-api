@@ -14,6 +14,8 @@ import java.util.List;
 
 /**
  * Wraps an implementation of Spring Boot's AuditEventRepository.
+ *
+ * SPAM 0.0.1 - Example of wrapping.
  */
 @Repository
 public class CustomAuditEventRepository {
@@ -37,7 +39,7 @@ public class CustomAuditEventRepository {
                     persistentAuditEvents = persistenceAuditEventRepository.findByPrincipal(principal);
                 } else {
                     persistentAuditEvents =
-                            persistenceAuditEventRepository.findByPrincipalAndAuditEventDateGreaterThan(principal, new LocalDateTime(after));
+                        persistenceAuditEventRepository.findByPrincipalAndAuditEventDateGreaterThan(principal, new LocalDateTime(after));
                 }
 
                 return auditEventConverter.convertToAuditEvent(persistentAuditEvents);

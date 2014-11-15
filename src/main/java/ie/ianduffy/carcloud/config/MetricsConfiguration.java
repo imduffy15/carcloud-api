@@ -100,9 +100,9 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
                 Integer graphitePort = propertyResolver.getRequiredProperty(PROP_PORT, Integer.class);
                 Graphite graphite = new Graphite(new InetSocketAddress(graphiteHost, graphitePort));
                 GraphiteReporter graphiteReporter = GraphiteReporter.forRegistry(metricRegistry)
-                        .convertRatesTo(TimeUnit.SECONDS)
-                        .convertDurationsTo(TimeUnit.MILLISECONDS)
-                        .build(graphite);
+                    .convertRatesTo(TimeUnit.SECONDS)
+                    .convertDurationsTo(TimeUnit.MILLISECONDS)
+                    .build(graphite);
                 graphiteReporter.start(1, TimeUnit.MINUTES);
             }
         }
