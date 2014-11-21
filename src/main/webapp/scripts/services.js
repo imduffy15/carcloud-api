@@ -84,15 +84,13 @@ carcloudApp.factory('AuditsService', function ($http) {
 });
 
 carcloudApp.factory('Session', function () {
-    this.create = function (login, firstName, lastName, email, userRoles) {
-        this.login = login;
+    this.create = function (email, firstName, lastName, userRoles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.userRoles = userRoles;
     };
     this.invalidate = function () {
-        this.login = null;
         this.firstName = null;
         this.lastName = null;
         this.email = null;
@@ -117,7 +115,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
                 Token.set(data);
 
                 Account.get(function (data) {
-                    Session.create(data.login, data.firstName, data.lastName, data.email, data.roles);
+                    Session.create(data.email, data.firstName, data.lastName, data.roles);
                     $rootScope.account = Session;
                     authService.loginConfirmed(data);
                 });
@@ -140,7 +138,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
                 Token.set(data);
 
                 Account.get(function (data) {
-                    Session.create(data.login, data.firstName, data.lastName, data.email, data.roles);
+                    Session.create(data.email, data.firstName, data.lastName, data.roles);
                     $rootScope.account = Session;
                     authService.loginConfirmed(data, function (config) {
                         config.headers['Authorization'] = 'Bearer ' + Token.get('access_token');
@@ -165,7 +163,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
                         return;
                     }
                     Account.get(function (data) {
-                        Session.create(data.login, data.firstName, data.lastName, data.email, data.roles);
+                        Session.create(data.email, data.firstName, data.lastName, data.roles);
                         $rootScope.account = Session;
 
                         if (!$rootScope.isAuthorized(authorizedRoles)) {
@@ -193,9 +191,9 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
 
             var isAuthorized = false;
             angular.forEach(authorizedRoles, function (authorizedRole) {
-                var authorized = (!!Session.login &&
+                var authorized = (!!Session.email &&
                 Session.userRoles.indexOf(authorizedRole) !== -1);
-
+                console.log(authorized);
                 if (authorized || authorizedRole == '*') {
                     isAuthorized = true;
                 }
