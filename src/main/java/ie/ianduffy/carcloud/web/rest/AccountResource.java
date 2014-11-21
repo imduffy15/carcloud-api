@@ -35,12 +35,6 @@ public class AccountResource {
     private final Logger log = LoggerFactory.getLogger(AccountResource.class);
 
     @Inject
-    private ServletContext servletContext;
-
-    @Inject
-    private ApplicationContext applicationContext;
-
-    @Inject
     private UserRepository userRepository;
 
     @Inject
@@ -53,7 +47,7 @@ public class AccountResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<?> registerAccount(@Valid UserDTO userDTO) {
+    public ResponseEntity<?> registerAccount(@RequestBody UserDTO userDTO) {
         User user = userRepository.findOne(userDTO.getEmail());
         if (user != null) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);

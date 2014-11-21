@@ -17,8 +17,6 @@ import javax.persistence.Version;
 /**
  * Base abstract class for entities which will hold definitions for created, last modified by and created,
  * last modified by date.
- *
- * SPAM 0.0.1 - Usage of a base class.
  */
 @MappedSuperclass
 @Audited
