@@ -5,26 +5,30 @@ spring:
     profiles: dev
 
     datasource:
-        dataSourceClassName: org.h2.jdbcx.JdbcDataSource
-        url: jdbc:h2:mem:carcloud
-        databaseName:
-        serverName:
-        username:
+        dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+        url: jdbc:mysql://localhost:3306/carcloud
+        databaseName: carcloud
+        serverName: carcloud
+        username: root
         password:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
 
     jpa:
-        database-platform: org.hibernate.dialect.H2Dialect
-        database: H2
+        database-platform: org.hibernate.dialect.MySQLDialect
+        database: MYSQL
         openInView: false
         show_sql: true
-        generate-ddl: false
+        generate-ddl: true
         hibernate:
             ddl-auto: none
-            naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+            naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
         properties:
             hibernate.cache.use_second_level_cache: true
             hibernate.cache.use_query_cache: false
-            hibernate.generate_statistics: true
+            hibernate.generate_statistics: false
             hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
 
     mail:

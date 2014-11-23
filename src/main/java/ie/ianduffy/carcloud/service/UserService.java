@@ -78,4 +78,10 @@ public class UserService {
         currentUser.getAuthorities().size(); // eagerly load the association
         return currentUser;
     }
+
+    @Transactional(readOnly = true)
+    public User getUser(String email) {
+        User currentUser = userRepository.findOne(email);
+        return currentUser;
+    }
 }

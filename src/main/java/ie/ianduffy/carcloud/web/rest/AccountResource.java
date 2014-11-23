@@ -35,9 +35,6 @@ public class AccountResource {
     private final Logger log = LoggerFactory.getLogger(AccountResource.class);
 
     @Inject
-    private UserRepository userRepository;
-
-    @Inject
     private UserService userService;
 
     /**
@@ -48,7 +45,7 @@ public class AccountResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<?> registerAccount(@RequestBody UserDTO userDTO) {
-        User user = userRepository.findOne(userDTO.getEmail());
+        User user = userService.getUser(userDTO.getEmail());
         if (user != null) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         } else {
