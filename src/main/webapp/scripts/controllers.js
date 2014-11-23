@@ -170,7 +170,7 @@ carcloudApp.controller('MetricsController', function ($scope, MetricsService, He
             });
 
             $scope.threadDumpAll = $scope.threadDumpRunnable + $scope.threadDumpWaiting +
-                $scope.threadDumpTimedWaiting + $scope.threadDumpBlocked;
+            $scope.threadDumpTimedWaiting + $scope.threadDumpBlocked;
 
         });
     };

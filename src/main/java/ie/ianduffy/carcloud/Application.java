@@ -35,6 +35,7 @@ public class Application {
         SpringApplication app = new SpringApplication(Application.class);
         app.setShowBanner(false);
 
+
         SimpleCommandLinePropertySource source = new SimpleCommandLinePropertySource(args);
 
         // Check if the selected profile has been set as argument.

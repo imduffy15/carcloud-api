@@ -109,10 +109,11 @@ carcloudApp
                 }
             });
 
-	    httpHeaders = $httpProvider.defaults.headers;
+        httpHeaders = $httpProvider.defaults.headers;
 
     })
     .run(function ($rootScope, $location, $http, AuthenticationSharedService, Session, USER_ROLES) {
+        // SPAM 0.0.1 - Example of event listeners
         $rootScope.$on('$routeChangeStart', function (event, next) {
             $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
             $rootScope.userRoles = USER_ROLES;
@@ -120,6 +121,7 @@ carcloudApp
         });
 
         // Call when the the client is confirmed
+        // SPAM 0.0.1 - Example of event listeners
         $rootScope.$on('event:auth-loginConfirmed', function (data) {
             $rootScope.authenticated = true;
             if ($location.path() === "/login") {
@@ -128,17 +130,20 @@ carcloudApp
         });
 
         // Call when the 401 response is returned by the server
+        // SPAM 0.0.1 - Example of event listeners
         $rootScope.$on('event:auth-loginRequired', function (rejection) {
             AuthenticationSharedService.refresh();
         });
 
         // Call when the 403 response is returned by the server
+        // SPAM 0.0.1 - Example of event listeners
         $rootScope.$on('event:auth-notAuthorized', function (rejection) {
             $rootScope.errorMessage = 'errors.403';
             $location.path('/error').replace();
         });
 
         // Call when the user logs out
+        // SPAM 0.0.1 - Example of event listeners
         $rootScope.$on('event:auth-loginCancelled', function () {
             $location.path('');
         });

@@ -14,6 +14,8 @@ import java.io.IOException;
  * It is configured to serve resources from the "dist" directory, which is the Grunt
  * destination directory.
  * </p>
+ *
+ * SPAM 0.0.1 - Example of facade "filter"
  */
 public class StaticResourcesProductionFilter implements Filter {
 

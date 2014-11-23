@@ -1,7 +1,9 @@
 package ie.ianduffy.carcloud.config;
 
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,6 +22,7 @@ import javax.inject.Inject;
 
 @Configuration
 @EnableWebSecurity
+@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Inject
@@ -33,25 +36,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Inject
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
+            .userDetailsService(userDetailsService)
+            .passwordEncoder(passwordEncoder());
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers(HttpMethod.OPTIONS, "/**")
-                .antMatchers("/bower_components/**")
-                .antMatchers("/fonts/**")
-                .antMatchers("/images/**")
-                .antMatchers("/scripts/**")
-                .antMatchers("/styles/**")
-                .antMatchers("/views/**")
-                .antMatchers("/i18n/**")
-                .antMatchers("/swagger-ui/**")
-                .antMatchers("/app/rest/register")
-                .antMatchers("/app/rest/activate")
-                .antMatchers("/console/**");
+            .antMatchers(HttpMethod.OPTIONS, "/**")
+            .antMatchers("/bower_components/**")
+            .antMatchers("/fonts/**")
+            .antMatchers("/images/**")
+            .antMatchers("/scripts/**")
+            .antMatchers("/styles/**")
+            .antMatchers("/views/**")
+            .antMatchers("/i18n/**")
+            .antMatchers("/swagger-ui/**")
+            .antMatchers("/app/rest/register")
+            .antMatchers("/app/rest/activate")
+            .antMatchers("/console/**");
     }
 
 

@@ -83,8 +83,8 @@ public class WebConfigurer implements ServletContextInitializer {
 
         log.debug("Registering static resources production Filter");
         FilterRegistration.Dynamic staticResourcesProductionFilter =
-                servletContext.addFilter("staticResourcesProductionFilter",
-                        new StaticResourcesProductionFilter());
+            servletContext.addFilter("staticResourcesProductionFilter",
+                new StaticResourcesProductionFilter());
 
         staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/");
         staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/index.html");
@@ -103,8 +103,8 @@ public class WebConfigurer implements ServletContextInitializer {
                                               EnumSet<DispatcherType> disps) {
         log.debug("Registering Cachig HTTP Headers Filter");
         FilterRegistration.Dynamic cachingHttpHeadersFilter =
-                servletContext.addFilter("cachingHttpHeadersFilter",
-                        new CachingHttpHeadersFilter());
+            servletContext.addFilter("cachingHttpHeadersFilter",
+                new CachingHttpHeadersFilter());
 
         cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/images/*");
         cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/fonts/*");
@@ -119,20 +119,20 @@ public class WebConfigurer implements ServletContextInitializer {
     private void initMetrics(ServletContext servletContext, EnumSet<DispatcherType> disps) {
         log.debug("Initializing Metrics registries");
         servletContext.setAttribute(InstrumentedFilter.REGISTRY_ATTRIBUTE,
-                metricRegistry);
+            metricRegistry);
         servletContext.setAttribute(MetricsServlet.METRICS_REGISTRY,
-                metricRegistry);
+            metricRegistry);
 
         log.debug("Registering Metrics Filter");
         FilterRegistration.Dynamic metricsFilter = servletContext.addFilter("webappMetricsFilter",
-                new InstrumentedFilter());
+            new InstrumentedFilter());
 
         metricsFilter.addMappingForUrlPatterns(disps, true, "/*");
         metricsFilter.setAsyncSupported(true);
 
         log.debug("Registering Metrics Servlet");
         ServletRegistration.Dynamic metricsAdminServlet =
-                servletContext.addServlet("metricsServlet", new MetricsServlet());
+            servletContext.addServlet("metricsServlet", new MetricsServlet());
 
         metricsAdminServlet.addMapping("/metrics/metrics/*");
         metricsAdminServlet.setAsyncSupported(true);
@@ -159,7 +159,7 @@ public class WebConfigurer implements ServletContextInitializer {
     }
 
     private void initCorsFilter(ServletContext servletContext,
-                                              EnumSet<DispatcherType> disps) {
+                                EnumSet<DispatcherType> disps) {
         log.debug("Registering CORS Filter");
         FilterRegistration.Dynamic corsFilter =
             servletContext.addFilter("corsFilter", DelegatingFilterProxy.class);

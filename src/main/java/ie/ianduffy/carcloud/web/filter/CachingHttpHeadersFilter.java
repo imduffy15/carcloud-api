@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * This filter is used in production, to put HTTP cache headers with a long (1 month) expiration time.
  * </p>
+ *
+ * SPAM 0.0.1 - Example of facade "filter"
  */
 public class CachingHttpHeadersFilter implements Filter {
 

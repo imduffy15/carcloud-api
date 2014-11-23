@@ -371,7 +371,8 @@
                         class="badge">{{threadDumpWaiting}}</span></span>&nbsp;
                 <span class="label label-warning" ng-click="threadDumpFilter = {threadState: 'TIMED_WAITING'}">Timed Waiting&nbsp;<span
                         class="badge">{{threadDumpTimedWaiting}}</span></span>&nbsp;
-                <span class="label label-danger" ng-click="threadDumpFilter = {threadState: 'BLOCKED'}">Blocked&nbsp;<span
+                <span class="label label-danger"
+                      ng-click="threadDumpFilter = {threadState: 'BLOCKED'}">Blocked&nbsp;<span
                         class="badge">{{threadDumpBlocked}}</span></span>&nbsp;
                 <div class="voffset2">&nbsp;</div>
                 <div class="row" ng-repeat="(k, v) in threadDump | filter:threadDumpFilter">

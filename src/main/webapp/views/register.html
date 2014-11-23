@@ -23,32 +23,6 @@
             <form ng-show="!success" name="form" role="form" novalidate
                   class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
                   ng-submit="register()">
-
-                <div class="form-group">
-                    <label>Login</label>
-                    <input type="text" class="form-control" name="login"
-                           placeholder="Username"
-                           ng-model="registerAccount.login" ng-minlength=1 ng-maxlength=50 required>
-
-                    <div class="error"
-                         ng-show="form.login.$dirty && form.login.$invalid">
-                        <small class="error"
-                               ng-show="form.login.$error.required"
-                              >
-                            Your login is required.
-                        </small>
-                        <small class="error"
-                               ng-show="form.login.$error.minlength"
-                              >
-                            Your login is required to be at least 1 character
-                        </small>
-                        <small class="error"
-                               ng-show="form.login.$error.maxlength"
-                              >
-                            Your login cannot be longer than 50 characters
-                        </small>
-                    </div>
-                </div>
                 <div class="form-group">
                     <label>E-mail</label>
                     <input type="email" class="form-control" name="email"
@@ -67,13 +41,37 @@
                         </small>
                         <small class="error"
                                ng-show="form.email.$error.minlength"
-                              >
+                                >
                             Your e-mail is required to be at least 5 characters
                         </small>
                         <small class="error"
                                ng-show="form.email.$error.maxlength"
-                              >
+                                >
                             Your e-mail cannot be longer than 100 characters
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" class="form-control" name="phone"
+                           placeholder="Phone number"
+                           ng-model="registerAccount.phone" ng-minlength=10 ng-maxlength=100 required>
+
+                    <div class="error"
+                         ng-show="form.phone.$dirty && form.phone.$invalid">
+                        <small class="error"
+                               ng-show="form.email.$error.required">
+                            Your phone number is required.
+                        </small>
+                        <small class="error"
+                               ng-show="form.phone.$error.minlength"
+                            >
+                            Your phone number is required to be at least 10 characters
+                        </small>
+                        <small class="error"
+                               ng-show="form.phone.$error.maxlength"
+                            >
+                            Your phone number cannot be longer than 100 characters
                         </small>
                     </div>
                 </div>
@@ -87,17 +85,17 @@
                          ng-show="form.password.$dirty && form.password.$invalid">
                         <small class="error"
                                ng-show="form.password.$error.required"
-                              >
+                                >
                             Your password is required.
                         </small>
                         <small class="error"
                                ng-show="form.password.$error.minlength"
-                              >
+                                >
                             Your password is required to be at least 5 characters
                         </small>
                         <small class="error"
                                ng-show="form.password.$error.maxlength"
-                              >
+                                >
                             Your password cannot be longer than 50 characters
                         </small>
                     </div>
@@ -113,24 +111,24 @@
                          ng-show="form.confirmPassword.$dirty && form.confirmPassword.$invalid">
                         <small class="error"
                                ng-show="form.confirmPassword.$error.required"
-                              >
+                                >
                             Your password confirmation is required.
                         </small>
                         <small class="error"
                                ng-show="form.confirmPassword.$error.minlength"
-                              >
+                                >
                             Your password confirmation is required to be at least 5 characters
                         </small>
                         <small class="error"
                                ng-show="form.confirmPassword.$error.maxlength"
-                              >
+                                >
                             Your password confirmation cannot be longer than 50 characters
                         </small>
                     </div>
                 </div>
 
                 <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary"
-                       >Register
+                        >Register
                 </button>
             </form>
             <p></p>

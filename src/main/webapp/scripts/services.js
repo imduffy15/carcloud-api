@@ -2,30 +2,37 @@
 
 /* Services */
 
+// SPAM 0.0.1 - Example of facade on $resource
+
 carcloudApp.factory('Register', function ($resource) {
-    return $resource('app/rest/register', {}, {
-    });
+    return $resource('app/rest/register', {}, {});
 });
+
+// SPAM 0.0.1 - Example of facade on $resource
 
 carcloudApp.factory('Activate', function ($resource) {
     return $resource('app/rest/activate', {}, {
-        'get': { method: 'GET', params: {}, isArray: false}
+        'get': {method: 'GET', params: {}, isArray: false}
     });
 });
+
+// SPAM 0.0.1 - Example of facade on $resource
 
 carcloudApp.factory('Account', function ($resource) {
-    return $resource('app/rest/account', {}, {
-    });
+    return $resource('app/rest/account', {}, {});
 });
 
+// SPAM 0.0.1 - Example of facade on $resource
+
 carcloudApp.factory('Password', function ($resource) {
-    return $resource('app/rest/account/change_password', {}, {
-    });
+    return $resource('app/rest/account/change_password', {}, {});
 });
+
+// SPAM 0.0.1 - Example of facade on $resource
 
 carcloudApp.factory('MetricsService', function ($resource) {
     return $resource('metrics/metrics', {}, {
-        'get': { method: 'GET'}
+        'get': {method: 'GET'}
     });
 });
 
@@ -51,8 +58,8 @@ carcloudApp.factory('HealthCheckService', function ($rootScope, $http) {
 
 carcloudApp.factory('LogsService', function ($resource) {
     return $resource('app/rest/logs', {}, {
-        'findAll': { method: 'GET', isArray: true},
-        'changeLevel': { method: 'PUT'}
+        'findAll': {method: 'GET', isArray: true},
+        'changeLevel': {method: 'PUT'}
     });
 });
 
@@ -64,7 +71,12 @@ carcloudApp.factory('AuditsService', function ($http) {
             });
         },
         findByDates: function (fromDate, toDate) {
-            return $http.get('app/rest/audits/byDates', {params: {fromDate: fromDate, toDate: toDate}}).then(function (response) {
+            return $http.get('app/rest/audits/byDates', {
+                params: {
+                    fromDate: fromDate,
+                    toDate: toDate
+                }
+            }).then(function (response) {
                 return response.data;
             });
         }
@@ -72,15 +84,13 @@ carcloudApp.factory('AuditsService', function ($http) {
 });
 
 carcloudApp.factory('Session', function () {
-    this.create = function (login, firstName, lastName, email, userRoles) {
-        this.login = login;
+    this.create = function (email, firstName, lastName, userRoles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.userRoles = userRoles;
     };
     this.invalidate = function () {
-        this.login = null;
         this.firstName = null;
         this.lastName = null;
         this.email = null;
@@ -93,7 +103,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
     return {
         login: function (param) {
             var data = "username=" + param.username + "&password=" + param.password + "&grant_type=password&scope=read%20write&client_secret=Echoong7zooNga3tvohy6Xaeoon9Aem3ange8Iga5ooDa1ahb8LaS2&client_id=carcloudapp";
-            $http.post('oauth/token', data, {
+            $http.post('/oauth/token', data, {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Accept": "application/json",
@@ -105,7 +115,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
                 Token.set(data);
 
                 Account.get(function (data) {
-                    Session.create(data.login, data.firstName, data.lastName, data.email, data.roles);
+                    Session.create(data.email, data.firstName, data.lastName, data.roles);
                     $rootScope.account = Session;
                     authService.loginConfirmed(data);
                 });
@@ -116,7 +126,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
         },
         refresh: function () {
             var data = "refresh_token=" + Token.get('refresh_token') + "&grant_type=refresh_token&client_secret=mySecretOAuthSecret&client_id=carcloudapp";
-            $http.post('oauth/token', data, {
+            $http.post('/oauth/token', data, {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Accept": "application/json",
@@ -128,7 +138,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
                 Token.set(data);
 
                 Account.get(function (data) {
-                    Session.create(data.login, data.firstName, data.lastName, data.email, data.roles);
+                    Session.create(data.email, data.firstName, data.lastName, data.roles);
                     $rootScope.account = Session;
                     authService.loginConfirmed(data, function (config) {
                         config.headers['Authorization'] = 'Bearer ' + Token.get('access_token');
@@ -153,7 +163,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
                         return;
                     }
                     Account.get(function (data) {
-                        Session.create(data.login, data.firstName, data.lastName, data.email, data.roles);
+                        Session.create(data.email, data.firstName, data.lastName, data.roles);
                         $rootScope.account = Session;
 
                         if (!$rootScope.isAuthorized(authorizedRoles)) {
@@ -181,9 +191,9 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
 
             var isAuthorized = false;
             angular.forEach(authorizedRoles, function (authorizedRole) {
-                var authorized = (!!Session.login &&
-                    Session.userRoles.indexOf(authorizedRole) !== -1);
-
+                var authorized = (!!Session.email &&
+                Session.userRoles.indexOf(authorizedRole) !== -1);
+                console.log(authorized);
                 if (authorized || authorizedRole == '*') {
                     isAuthorized = true;
                 }

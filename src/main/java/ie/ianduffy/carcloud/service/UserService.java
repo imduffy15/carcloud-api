@@ -33,10 +33,8 @@ public class UserService {
     @Inject
     private AuthorityRepository authorityRepository;
 
-    public User createUserInformation(String login, String password, String firstName, String lastName, String email) {
+    public User createUserInformation(String password, String firstName, String lastName, String email, String phone) {
         User newUser = new User();
-
-        newUser.setLogin(login);
 
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setPassword(encryptedPassword);
@@ -44,6 +42,7 @@ public class UserService {
         newUser.setFirstName(firstName);
         newUser.setLastName(lastName);
         newUser.setEmail(email);
+        newUser.setPhone(phone);
 
         Authority authority = authorityRepository.findOne("ROLE_USER");
         Set<Authority> authorities = new HashSet<>();

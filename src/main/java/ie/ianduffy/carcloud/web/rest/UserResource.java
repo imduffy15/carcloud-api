@@ -32,8 +32,8 @@ public class UserResource {
      * GET  /rest/users/:login -> get the "login" user.
      */
     @RequestMapping(value = "/rest/users/{login}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     public User getUser(@PathVariable String login, HttpServletResponse response) {

@@ -1,6 +1,5 @@
 package ie.ianduffy.carcloud.config;
 
-import com.thetransactioncompany.cors.CORSFilter;
 import ie.ianduffy.carcloud.security.AjaxLogoutSuccessHandler;
 import ie.ianduffy.carcloud.security.AuthoritiesConstants;
 import ie.ianduffy.carcloud.security.Http401UnauthorizedEntryPoint;
@@ -10,7 +9,6 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -22,9 +20,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
-import org.springframework.security.web.access.channel.ChannelProcessingFilter;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
-import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.inject.Inject;
@@ -48,41 +43,41 @@ public class OAuth2ServerConfiguration {
 
 
             http
-                    .exceptionHandling()
-                    .authenticationEntryPoint(authenticationEntryPoint)
-                    .and()
-                    .logout()
-                    .logoutUrl("/app/logout")
-                    .logoutSuccessHandler(ajaxLogoutSuccessHandler)
-                    .and()
-                    .csrf()
-                    .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/oauth/authorize"))
-                    .disable()
-                    .headers()
-                    .frameOptions().disable()
-                    .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    .and()
-                    .authorizeRequests()
-                    .antMatchers("/views/**").permitAll()
-                    .antMatchers("/app/rest/authenticate").permitAll()
-                    .antMatchers("/app/rest/register").permitAll()
-                    .antMatchers("/app/rest/logs/**").hasAnyAuthority(AuthoritiesConstants.ADMIN)
-                    .antMatchers("/app/**").authenticated()
-                    .antMatchers("/websocket/tracker").hasAuthority(AuthoritiesConstants.ADMIN)
-                    .antMatchers("/websocket/**").permitAll()
-                    .antMatchers("/metrics/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                    .antMatchers("/health/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                    .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                    .antMatchers("/dump/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                    .antMatchers("/shutdown/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                    .antMatchers("/beans/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                    .antMatchers("/info/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                    .antMatchers("/autoconfig/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                    .antMatchers("/env/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                    .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                    .antMatchers("/api-docs/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                    .antMatchers("/protected/**").authenticated();
+                .exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPoint)
+                .and()
+                .logout()
+                .logoutUrl("/app/logout")
+                .logoutSuccessHandler(ajaxLogoutSuccessHandler)
+                .and()
+                .csrf()
+                .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/oauth/authorize"))
+                .disable()
+                .headers()
+                .frameOptions().disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/views/**").permitAll()
+                .antMatchers("/app/rest/authenticate").permitAll()
+                .antMatchers("/app/rest/register").permitAll()
+                .antMatchers("/app/rest/logs/**").hasAnyAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/app/**").authenticated()
+                .antMatchers("/websocket/tracker").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/websocket/**").permitAll()
+                .antMatchers("/metrics/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/health/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/dump/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/shutdown/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/beans/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/info/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/autoconfig/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/env/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/api-docs/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/protected/**").authenticated();
 
         }
     }
@@ -111,23 +106,23 @@ public class OAuth2ServerConfiguration {
 
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints)
-                throws Exception {
+            throws Exception {
 
             endpoints
-                    .tokenStore(tokenStore())
-                    .authenticationManager(authenticationManager);
+                .tokenStore(tokenStore())
+                .authenticationManager(authenticationManager);
         }
 
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
             clients
-                    .inMemory()
-                    .withClient(propertyResolver.getProperty(PROP_CLIENTID))
-                    .scopes("read", "write")
-                    .authorities(AuthoritiesConstants.ADMIN, AuthoritiesConstants.USER)
-                    .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
-                    .secret(propertyResolver.getProperty(PROP_SECRET))
-                    .accessTokenValiditySeconds(propertyResolver.getProperty(PROP_TOKEN_VALIDITY_SECONDS, Integer.class, 1800));
+                .inMemory()
+                .withClient(propertyResolver.getProperty(PROP_CLIENTID))
+                .scopes("read", "write")
+                .authorities(AuthoritiesConstants.ADMIN, AuthoritiesConstants.USER)
+                .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
+                .secret(propertyResolver.getProperty(PROP_SECRET))
+                .accessTokenValiditySeconds(propertyResolver.getProperty(PROP_TOKEN_VALIDITY_SECONDS, Integer.class, 1800));
         }
 
         @Override

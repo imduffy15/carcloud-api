@@ -12,7 +12,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Version;
 
 /**
  * Base abstract class for entities which will hold definitions for created, last modified by and created,
@@ -24,12 +24,10 @@ import javax.validation.constraints.NotNull;
 abstract class AbstractAuditingEntity {
 
     @CreatedBy
-    @NotNull
     @Column(name = "created_by", nullable = false, length = 50)
     private String createdBy;
 
     @CreatedDate
-    @NotNull
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "created_date", nullable = false)
     private DateTime createdDate = DateTime.now();
@@ -42,6 +40,9 @@ abstract class AbstractAuditingEntity {
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "last_modified_date")
     private DateTime lastModifiedDate = DateTime.now();
+
+    @Version
+    private int version;
 
     public String getCreatedBy() {
         return createdBy;
@@ -73,5 +74,13 @@ abstract class AbstractAuditingEntity {
 
     public void setLastModifiedDate(DateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 }
