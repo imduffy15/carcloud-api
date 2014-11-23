@@ -42,7 +42,6 @@ abstract class AbstractAuditingEntity {
     private DateTime lastModifiedDate = DateTime.now();
 
     @Version
-    @Column(name = "OPT_LOCK")
     private int version;
 
     public String getCreatedBy() {

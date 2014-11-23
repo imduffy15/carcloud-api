@@ -1,213 +1,213 @@
-<?xml version="1.0" encoding="utf-8"?>
-<databaseChangeLog
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <property name="now" value="now()" dbms="mysql,h2"/>
     <property name="now" value="current_timestamp" dbms="postgresql"/>
 
-    <changeSet author="duffy (generated)" id="1415254705959-2">
-        <createTable tableName="OAUTH_ACCESS_TOKEN">
-            <column name="TOKEN_ID" type="VARCHAR(255)"/>
-            <column name="TOKEN" type="BLOB"/>
-            <column name="AUTHENTICATION_ID" type="VARCHAR(255)"/>
-            <column name="USER_NAME" type="VARCHAR(255)"/>
-            <column name="CLIENT_ID" type="VARCHAR(255)"/>
-            <column name="AUTHENTICATION" type="BLOB"/>
-            <column name="REFRESH_TOKEN" type="VARCHAR(255)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-3">
-        <createTable tableName="OAUTH_APPROVALS">
-            <column name="USERID" type="VARCHAR(255)"/>
-            <column name="CLIENTID" type="VARCHAR(255)"/>
-            <column name="SCOPE" type="VARCHAR(255)"/>
-            <column name="STATUS" type="VARCHAR(255)"/>
-            <column name="EXPIRESAT" type="TIMESTAMP"/>
-            <column name="LASTMODIFIEDAT" type="TIMESTAMP"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-4">
-        <createTable tableName="OAUTH_CLIENT_DETAILS">
-            <column name="CLIENT_ID" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="RESOURCE_IDS" type="VARCHAR(255)"/>
-            <column name="CLIENT_SECRET" type="VARCHAR(255)"/>
-            <column name="SCOPE" type="VARCHAR(255)"/>
-            <column name="AUTHORIZED_GRANT_TYPES" type="VARCHAR(255)"/>
-            <column name="WEB_SERVER_REDIRECT_URI" type="VARCHAR(255)"/>
-            <column name="AUTHORITIES" type="VARCHAR(255)"/>
-            <column name="ACCESS_TOKEN_VALIDITY" type="INT(10)"/>
-            <column name="REFRESH_TOKEN_VALIDITY" type="INT(10)"/>
-            <column name="ADDITIONAL_INFORMATION" type="VARCHAR(255)"/>
-            <column name="AUTOAPPROVE" type="VARCHAR(255)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-5">
-        <createTable tableName="OAUTH_CLIENT_TOKEN">
-            <column name="TOKEN_ID" type="VARCHAR(255)"/>
-            <column name="TOKEN" type="BLOB"/>
-            <column name="AUTHENTICATION_ID" type="VARCHAR(255)"/>
-            <column name="USER_NAME" type="VARCHAR(255)"/>
-            <column name="CLIENT_ID" type="VARCHAR(255)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-6">
-        <createTable tableName="OAUTH_CODE">
-            <column name="CODE" type="VARCHAR(255)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-7">
-        <createTable tableName="OAUTH_REFRESH_TOKEN">
-            <column name="TOKEN_ID" type="VARCHAR(255)"/>
-            <column name="TOKEN" type="BLOB"/>
-            <column name="AUTHENTICATION" type="BLOB"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-8">
-        <createTable tableName="T_AUTHORITY">
-            <column name="NAME" type="VARCHAR(50)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-9">
-        <createTable tableName="T_DEVICE">
-            <column name="ID" type="BIGINT(19)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="CREATED_BY" type="VARCHAR(50)"/>
-            <column name="CREATED_DATE" type="TIMESTAMP"/>
-            <column name="LAST_MODIFIED_BY" type="VARCHAR(50)"/>
-            <column name="LAST_MODIFIED_DATE" type="TIMESTAMP"/>
-            <column name="OPT_LOCK" type="INT(10)"/>
-            <column name="DESCRIPTION" type="VARCHAR(150)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-10">
-        <createTable tableName="T_DEVICE_USER">
-            <column name="DEVICE_ID" type="BIGINT(19)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="EMAIL" type="VARCHAR(100)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-11">
-        <createTable tableName="T_PERSISTENT_AUDIT_EVENT">
-            <column name="EVENT_ID" type="BIGINT(19)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="EVENT_DATE" type="TIMESTAMP"/>
-            <column name="EVENT_TYPE" type="VARCHAR(255)"/>
-            <column name="PRINCIPAL" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-12">
-        <createTable tableName="T_PERSISTENT_AUDIT_EVENT_DATA">
-            <column name="EVENT_ID" type="BIGINT(19)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="VALUE" type="VARCHAR(255)"/>
-            <column name="NAME" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-13">
-        <createTable tableName="T_USER">
-            <column name="EMAIL" type="VARCHAR(100)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="CREATED_BY" type="VARCHAR(50)"/>
-            <column name="CREATED_DATE" type="TIMESTAMP"/>
-            <column name="LAST_MODIFIED_BY" type="VARCHAR(50)"/>
-            <column name="LAST_MODIFIED_DATE" type="TIMESTAMP"/>
-            <column name="OPT_LOCK" type="INT(10)"/>
-            <column name="FIRST_NAME" type="VARCHAR(50)"/>
-            <column name="LAST_NAME" type="VARCHAR(50)"/>
-            <column name="PASSWORD" type="VARCHAR(100)"/>
-            <column name="PHONE" type="VARCHAR(100)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-14">
-        <createTable tableName="T_USER_AUTHORITY">
-            <column name="EMAIL" type="VARCHAR(100)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="NAME" type="VARCHAR(50)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-15">
-        <addPrimaryKey columnNames="EMAIL, NAME" constraintName="CONSTRAINT_1" tableName="T_USER_AUTHORITY"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-16">
-        <addPrimaryKey columnNames="ID" constraintName="CONSTRAINT_2" tableName="T_DEVICE"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-17">
-        <addPrimaryKey columnNames="DEVICE_ID, EMAIL" constraintName="CONSTRAINT_4" tableName="T_DEVICE_USER"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-18">
-        <addPrimaryKey columnNames="NAME" constraintName="CONSTRAINT_8" tableName="T_AUTHORITY"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-19">
-        <addPrimaryKey columnNames="EMAIL" constraintName="CONSTRAINT_9" tableName="T_USER"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-20">
-        <addPrimaryKey columnNames="EVENT_ID" constraintName="CONSTRAINT_D" tableName="T_PERSISTENT_AUDIT_EVENT"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-21">
-        <addPrimaryKey columnNames="EVENT_ID, NAME" constraintName="CONSTRAINT_E" tableName="T_PERSISTENT_AUDIT_EVENT_DATA"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-22">
-        <addPrimaryKey columnNames="CLIENT_ID" constraintName="PK_OAUTH_CLIENT_DETAILS" tableName="OAUTH_CLIENT_DETAILS"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-23">
-        <addForeignKeyConstraint baseColumnNames="DEVICE_ID" baseTableName="T_DEVICE_USER" constraintName="FK_A0CO7BQEWUN2P6KT1A41N70XK" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableName="T_DEVICE"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-24">
-        <addForeignKeyConstraint baseColumnNames="EVENT_ID" baseTableName="T_PERSISTENT_AUDIT_EVENT_DATA" constraintName="FK_CLWVDSOYBICB9NXW6WHOM5M26" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="EVENT_ID" referencedTableName="T_PERSISTENT_AUDIT_EVENT"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-25">
-        <addForeignKeyConstraint baseColumnNames="EMAIL" baseTableName="T_DEVICE_USER" constraintName="FK_ENI7O00LJ5CTKXL9FQXYW0VEE" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="EMAIL" referencedTableName="T_USER"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-26">
-        <addForeignKeyConstraint baseColumnNames="EMAIL" baseTableName="T_USER_AUTHORITY" constraintName="FK_FR51FCYULXN31IJIOTP4FX7I5" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="EMAIL" referencedTableName="T_USER"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-27">
-        <addForeignKeyConstraint baseColumnNames="NAME" baseTableName="T_USER_AUTHORITY" constraintName="FK_HUIDHLOP1T5C0WPREK7PG55C" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="NAME" referencedTableName="T_AUTHORITY"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="1415254705959-28">
+    <changeSet author="duffy (generated)" id="1416701746711-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <createTable tableName="hibernate_sequences">
-            <column name="sequence_name" type="varchar(255)"/>
-            <column name="sequence_next_hi_value" type="integer"/>
+            <column name="sequence_name" type="VARCHAR(255)"/>
+            <column name="sequence_next_hi_value" type="INT"/>
         </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="oauth_access_token">
+            <column name="token_id" type="VARCHAR(255)"/>
+            <column name="token" type="BLOB"/>
+            <column name="authentication_id" type="VARCHAR(255)"/>
+            <column name="user_name" type="VARCHAR(255)"/>
+            <column name="client_id" type="VARCHAR(255)"/>
+            <column name="authentication" type="BLOB"/>
+            <column name="refresh_token" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-3" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="oauth_approvals">
+            <column name="userid" type="VARCHAR(255)"/>
+            <column name="clientid" type="VARCHAR(255)"/>
+            <column name="scope" type="VARCHAR(255)"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="expiresat" type="TIMESTAMP"/>
+            <column name="lastmodifiedat" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-4" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="oauth_client_details">
+            <column name="client_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="resource_ids" type="VARCHAR(255)"/>
+            <column name="CLIENT_SECRET" type="VARCHAR(255)"/>
+            <column name="scope" type="VARCHAR(255)"/>
+            <column name="authorized_grant_types" type="VARCHAR(255)"/>
+            <column name="web_server_redirect_uri" type="VARCHAR(255)"/>
+            <column name="authorities" type="VARCHAR(255)"/>
+            <column name="access_token_validity" type="INT"/>
+            <column name="refresh_token_validity" type="INT"/>
+            <column name="additional_information" type="VARCHAR(255)"/>
+            <column name="autoapprove" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-5" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="oauth_client_token">
+            <column name="token_id" type="VARCHAR(255)"/>
+            <column name="token" type="BLOB"/>
+            <column name="authentication_id" type="VARCHAR(255)"/>
+            <column name="user_name" type="VARCHAR(255)"/>
+            <column name="client_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-6" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="oauth_code">
+            <column name="code" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-7" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="oauth_refresh_token">
+            <column name="token_id" type="VARCHAR(255)"/>
+            <column name="token" type="BLOB"/>
+            <column name="authentication" type="BLOB"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-8" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="t_authority">
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-9" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="t_device">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="VARCHAR(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+            <column name="version" type="INT"/>
+            <column name="description" type="VARCHAR(150)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-10" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="t_device_user">
+            <column name="device_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-11" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="t_persistent_audit_event">
+            <column name="event_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="event_date" type="timestamp"/>
+            <column name="event_type" type="VARCHAR(255)"/>
+            <column name="principal" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-12" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="t_persistent_audit_event_data">
+            <column name="event_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-13" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="t_user">
+            <column name="email" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="VARCHAR(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+            <column name="version" type="INT"/>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+            <column name="password" type="VARCHAR(100)"/>
+            <column name="phone" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-14" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <createTable tableName="t_user_authority">
+            <column name="email" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-15" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addPrimaryKey columnNames="name" constraintName="PRIMARY" tableName="t_authority"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-16" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_device"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-17" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addPrimaryKey columnNames="device_id, email" constraintName="PRIMARY" tableName="t_device_user"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-18" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addPrimaryKey columnNames="event_id" constraintName="PRIMARY" tableName="t_persistent_audit_event"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-19" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addPrimaryKey columnNames="event_id, name" constraintName="PRIMARY" tableName="t_persistent_audit_event_data"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-20" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addPrimaryKey columnNames="email" constraintName="PRIMARY" tableName="t_user"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-21" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addPrimaryKey columnNames="email, name" constraintName="PRIMARY" tableName="t_user_authority"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-22" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addForeignKeyConstraint baseColumnNames="email" baseTableName="t_device_user" constraintName="FK_a7w4v8nvob8unjp443af3l4i1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="email" referencedTableName="t_user"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-23" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_device_user" constraintName="FK_ajld8l002xq11wn0x3akffj1b" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_device"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-24" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="t_persistent_audit_event_data" constraintName="FK_cekdwiaydjn97qi7ebeexb1bw" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="event_id" referencedTableName="t_persistent_audit_event"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-25" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addForeignKeyConstraint baseColumnNames="email" baseTableName="t_user_authority" constraintName="FK_ck38oabii4y4cf5coi2w5lfia" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="email" referencedTableName="t_user"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="1416701746711-26" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addForeignKeyConstraint baseColumnNames="name" baseTableName="t_user_authority" constraintName="FK_tghvo3hwad0ifdm39n7bph8b" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="name" referencedTableName="t_authority"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="1415254705959-29">
         <loadData encoding="UTF-8"
                   file="config/liquibase/users.csv"
                   separator=";"
-                  tableName="T_USER">
-            <column name="activated" type="boolean"/>
+                  tableName="t_user">
         </loadData>
-
         <loadData encoding="UTF-8"
                   file="config/liquibase/authorities.csv"
                   separator=";"
-                  tableName="T_AUTHORITY"/>
+                  tableName="t_authority"/>
 
         <loadData encoding="UTF-8"
                   file="config/liquibase/users_authorities.csv"
                   separator=";"
-                  tableName="T_USER_AUTHORITY"/>
+                  tableName="t_user_authority"/>
     </changeSet>
 </databaseChangeLog>

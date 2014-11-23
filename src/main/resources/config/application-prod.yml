@@ -6,7 +6,7 @@ spring:
 
     datasource:
         dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
-        url: jdbc:mysql://localhost:3306/carcloud?zeroDateTimeBehavior=convertToNull
+        url: jdbc:mysql://localhost:3306/carcloud
         databaseName: carcloud
         serverName: carcloud
         username: carcloud
@@ -17,14 +17,14 @@ spring:
         useServerPrepStmts: true
 
     jpa:
-        database-platform: org.hibernate.dialect.MySQLInnoDBDialect
+        database-platform: org.hibernate.dialect.MySQLDialect
         database: MYSQL
         openInView: false
-        show_sql: false
+        show_sql: true
         generate-ddl: false
         hibernate:
             ddl-auto: none
-            naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+            naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
         properties:
             hibernate.cache.use_second_level_cache: true
             hibernate.cache.use_query_cache: false
