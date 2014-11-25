@@ -96,7 +96,7 @@
         </createTable>
     </changeSet>
     <changeSet author="duffy (generated)" id="1416701746711-10" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <createTable tableName="t_device_user">
+        <createTable tableName="t_device_owner">
             <column name="device_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
@@ -167,7 +167,7 @@
         <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_device"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="1416701746711-17" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addPrimaryKey columnNames="device_id, email" constraintName="PRIMARY" tableName="t_device_user"/>
+        <addPrimaryKey columnNames="device_id, email" constraintName="PRIMARY" tableName="t_device_owner"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="1416701746711-18" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
         <addPrimaryKey columnNames="event_id" constraintName="PRIMARY" tableName="t_persistent_audit_event"/>
@@ -182,13 +182,13 @@
         <addPrimaryKey columnNames="email, name" constraintName="PRIMARY" tableName="t_user_authority"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="1416701746711-22" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addForeignKeyConstraint baseColumnNames="email" baseTableName="t_device_user"
+        <addForeignKeyConstraint baseColumnNames="email" baseTableName="t_device_owner"
                                  constraintName="FK_a7w4v8nvob8unjp443af3l4i1" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="email" referencedTableName="t_user"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="1416701746711-23" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_device_user"
+        <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_device_owner"
                                  constraintName="FK_ajld8l002xq11wn0x3akffj1b" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="t_device"/>
@@ -226,5 +226,15 @@
                   file="config/liquibase/users_authorities.csv"
                   separator=";"
                   tableName="t_user_authority"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/devices.csv"
+                  separator=";"
+                  tableName="t_device"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/devices_owners.csv"
+                  separator=";"
+                  tableName="t_device_owner"/>
     </changeSet>
 </databaseChangeLog>

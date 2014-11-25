@@ -1,6 +1,9 @@
 package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import ie.ianduffy.carcloud.domain.Device;
+import ie.ianduffy.carcloud.domain.Track;
+import ie.ianduffy.carcloud.repository.DeviceRepository;
 import ie.ianduffy.carcloud.repository.TrackRepository;
 import ie.ianduffy.carcloud.web.rest.dto.TrackDTO;
 import org.slf4j.Logger;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * REST controller for managing Track.
@@ -25,6 +29,9 @@ public class TrackResource {
     @Inject
     private TrackRepository trackRepository;
 
+    @Inject
+    private DeviceRepository deviceRepository;
+
     /**
      * POST  /rest/tracks -> Create a new track.
      */
@@ -32,23 +39,28 @@ public class TrackResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void create(@RequestBody TrackDTO track) {
+    public Track create(@RequestBody TrackDTO track) {
         log.debug("REST request to save Track : {}", track);
-//        trackRepository.save(track);
+        Device device = deviceRepository.findOne(track.getPayload().getDeviceId());
+
+        Track newTrack = new Track(device, track.getPayload().getLocation(),
+            track.getPayload().getReceivedAt(), track.getPayload().getRecordedAt());
+        trackRepository.save(newTrack);
+        return newTrack;
     }
 
-//
-//    /**
-//     * GET  /rest/tracks -> get all the tracks.
-//     */
-//    @RequestMapping(value = "/rest/tracks",
-//            method = RequestMethod.GET,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    @Timed
-//    public List<Track> getAll() {
-//        log.debug("REST request to get all Tracks");
-//        return trackRepository.findAll();
-//    }
+
+    /**
+     * GET  /rest/tracks -> get all the tracks.
+     */
+    @RequestMapping(value = "/rest/tracks",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<Track> getAll() {
+        log.debug("REST request to get all Tracks");
+        return trackRepository.findAll();
+    }
 //
 //    /**
 //     * GET  /rest/tracks/:id -> get the "id" track.
