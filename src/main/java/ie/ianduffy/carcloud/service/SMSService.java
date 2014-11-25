@@ -43,7 +43,6 @@ public class SMSService {
         this.from = env.getProperty("nexmo.from");
     }
 
-    @Async
     public void sendSMS(String number, String message) {
         TextMessage textMessage = new TextMessage(from, number, message);
         SmsSubmissionResult[] results = null;

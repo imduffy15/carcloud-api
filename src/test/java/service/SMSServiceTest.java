@@ -29,7 +29,7 @@ public class SMSServiceTest {
 
     @Test
     public void sendSms() {
-        smsService.sendSMS("+353861770680", "CarCloud SMS test.");
+        smsService.sendSMS("+353861770680", "CarCloud SMS Test");
     }
 
 }
