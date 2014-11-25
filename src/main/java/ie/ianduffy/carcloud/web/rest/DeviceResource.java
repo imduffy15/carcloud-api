@@ -24,13 +24,10 @@ import java.util.List;
 public class DeviceResource {
 
     private final Logger log = LoggerFactory.getLogger(DeviceResource.class);
-
-    @Inject
-    private DeviceService deviceService;
-
     @Inject
     private DeviceRepository deviceRepository;
-
+    @Inject
+    private DeviceService deviceService;
     @Inject
     private UserService userService;
 
@@ -46,16 +43,15 @@ public class DeviceResource {
     }
 
     /**
-     * GET  /rest/devices -> get all the devices.
+     * DELETE  /rest/devices/:id -> delete the "id" device.
      */
-    @RequestMapping(value = "/rest/devices",
-        method = RequestMethod.GET,
+    @RequestMapping(value = "/rest/devices/{id}",
+        method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<Device> getAll() {
-        log.debug("REST request to get all Devices");
-//        return deviceRepository.findAll();
-        return deviceRepository.findDevicesForCurrentUser(userService.getUserWithAuthorities());
+    public void delete(@PathVariable Long id) {
+        log.debug("REST request to delete Device : {}", id);
+        deviceRepository.delete(id);
     }
 
     /**
@@ -75,14 +71,15 @@ public class DeviceResource {
     }
 
     /**
-     * DELETE  /rest/devices/:id -> delete the "id" device.
+     * GET  /rest/devices -> get all the devices.
      */
-    @RequestMapping(value = "/rest/devices/{id}",
-        method = RequestMethod.DELETE,
+    @RequestMapping(value = "/rest/devices",
+        method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void delete(@PathVariable Long id) {
-        log.debug("REST request to delete Device : {}", id);
-        deviceRepository.delete(id);
+    public List<Device> getAll() {
+        log.debug("REST request to get all Devices");
+//        return deviceRepository.findAll();
+        return deviceRepository.findDevicesForCurrentUser(userService.getUserWithAuthorities());
     }
 }

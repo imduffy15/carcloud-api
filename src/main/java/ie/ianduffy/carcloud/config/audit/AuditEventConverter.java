@@ -11,6 +11,34 @@ import java.util.*;
 public class AuditEventConverter {
 
     /**
+     * Internal conversion. This method will allow to save additional data.
+     * By default, it will save the object as string
+     *
+     * @param data the data to convert
+     * @return a map of String, String
+     */
+    public Map<String, String> convertDataToStrings(Map<String, Object> data) {
+        Map<String, String> results = new HashMap<>();
+
+        if (data != null) {
+            for (String key : data.keySet()) {
+                Object object = data.get(key);
+
+                // Extract the data that will be saved.
+                if (object instanceof WebAuthenticationDetails) {
+                    WebAuthenticationDetails authenticationDetails = (WebAuthenticationDetails) object;
+                    results.put("remoteAddress", authenticationDetails.getRemoteAddress());
+                    results.put("sessionId", authenticationDetails.getSessionId());
+                } else {
+                    results.put(key, object.toString());
+                }
+            }
+        }
+
+        return results;
+    }
+
+    /**
      * Convert a list of PersistentAuditEvent to a list of AuditEvent
      *
      * @param persistentAuditEvents the list to convert
@@ -44,34 +72,6 @@ public class AuditEventConverter {
         if (data != null) {
             for (String key : data.keySet()) {
                 results.put(key, data.get(key));
-            }
-        }
-
-        return results;
-    }
-
-    /**
-     * Internal conversion. This method will allow to save additional data.
-     * By default, it will save the object as string
-     *
-     * @param data the data to convert
-     * @return a map of String, String
-     */
-    public Map<String, String> convertDataToStrings(Map<String, Object> data) {
-        Map<String, String> results = new HashMap<>();
-
-        if (data != null) {
-            for (String key : data.keySet()) {
-                Object object = data.get(key);
-
-                // Extract the data that will be saved.
-                if (object instanceof WebAuthenticationDetails) {
-                    WebAuthenticationDetails authenticationDetails = (WebAuthenticationDetails) object;
-                    results.put("remoteAddress", authenticationDetails.getRemoteAddress());
-                    results.put("sessionId", authenticationDetails.getSessionId());
-                } else {
-                    results.put(key, object.toString());
-                }
             }
         }
 

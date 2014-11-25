@@ -21,15 +21,6 @@ import java.util.Map;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class PersistentAuditEvent {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "event_id")
-    private Long id;
-
-    @NotNull
-    @Column(nullable = false)
-    private String principal;
-
     @Column(name = "event_date")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     private LocalDateTime auditEventDate;
@@ -43,21 +34,14 @@ public class PersistentAuditEvent {
     @CollectionTable(name = "T_PERSISTENT_AUDIT_EVENT_DATA", joinColumns = @JoinColumn(name = "event_id"))
     private Map<String, String> data = new HashMap<>();
 
-    public Long getId() {
-        return id;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "event_id")
+    private Long id;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPrincipal() {
-        return principal;
-    }
-
-    public void setPrincipal(String principal) {
-        this.principal = principal;
-    }
+    @NotNull
+    @Column(nullable = false)
+    private String principal;
 
     public LocalDateTime getAuditEventDate() {
         return auditEventDate;
@@ -81,5 +65,21 @@ public class PersistentAuditEvent {
 
     public void setData(Map<String, String> data) {
         this.data = data;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getPrincipal() {
+        return principal;
+    }
+
+    public void setPrincipal(String principal) {
+        this.principal = principal;
     }
 }

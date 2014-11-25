@@ -13,7 +13,7 @@ import java.util.Set;
 
 /**
  * A Device.
- *
+ * <p/>
  * SPAM 0.0.1 - Extention of a base class.
  */
 @Entity
@@ -21,14 +21,13 @@ import java.util.Set;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Device extends AbstractAuditingEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
-
     @Size(min = 1, max = 150)
     @Column(name = "description", length = 150)
     private String description;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private Long id;
 
     @Fetch(FetchMode.JOIN)
     @ManyToMany(fetch = FetchType.LAZY)
@@ -47,14 +46,6 @@ public class Device extends AbstractAuditingEntity implements Serializable {
         this.owners = owners;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -63,12 +54,25 @@ public class Device extends AbstractAuditingEntity implements Serializable {
         this.description = description;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Set<User> getOwners() {
         return owners;
     }
 
     public void setOwners(Set<User> owners) {
         this.owners = owners;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
     }
 
     @Override
@@ -87,11 +91,6 @@ public class Device extends AbstractAuditingEntity implements Serializable {
         }
 
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return (int) (id ^ (id >>> 32));
     }
 
     @Override

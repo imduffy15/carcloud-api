@@ -24,7 +24,7 @@ describe('Services Tests ', function () {
         it('should call backend on logout then call authService.loginCancelled', function () {
             //GIVEN
             //set up some data for the http call to return and test later.
-            var returnData = { result: 'ok' };
+            var returnData = {result: 'ok'};
             //expectGET to make sure this is called once.
             httpBackend.expectGET('app/logout').respond(returnData);
 

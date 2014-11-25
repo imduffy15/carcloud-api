@@ -5,6 +5,15 @@ public class MetadataDTO {
     private String account;
     private String event;
 
+    MetadataDTO() {
+
+    }
+
+    MetadataDTO(String account, String event) {
+        this.account = account;
+        this.event = event;
+    }
+
     public String getAccount() {
         return account;
     }
@@ -18,15 +27,6 @@ public class MetadataDTO {
     }
 
     public void setEvent(String event) {
-        this.event = event;
-    }
-
-    MetadataDTO() {
-
-    }
-
-    MetadataDTO(String account, String event) {
-        this.account = account;
         this.event = event;
     }
 

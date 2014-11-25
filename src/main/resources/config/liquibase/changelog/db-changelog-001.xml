@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <property name="now" value="now()" dbms="mysql,h2"/>
     <property name="now" value="current_timestamp" dbms="postgresql"/>
@@ -180,19 +182,34 @@
         <addPrimaryKey columnNames="email, name" constraintName="PRIMARY" tableName="t_user_authority"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="1416701746711-22" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addForeignKeyConstraint baseColumnNames="email" baseTableName="t_device_user" constraintName="FK_a7w4v8nvob8unjp443af3l4i1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="email" referencedTableName="t_user"/>
+        <addForeignKeyConstraint baseColumnNames="email" baseTableName="t_device_user"
+                                 constraintName="FK_a7w4v8nvob8unjp443af3l4i1" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="email" referencedTableName="t_user"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="1416701746711-23" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_device_user" constraintName="FK_ajld8l002xq11wn0x3akffj1b" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_device"/>
+        <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_device_user"
+                                 constraintName="FK_ajld8l002xq11wn0x3akffj1b" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="t_device"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="1416701746711-24" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="t_persistent_audit_event_data" constraintName="FK_cekdwiaydjn97qi7ebeexb1bw" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="event_id" referencedTableName="t_persistent_audit_event"/>
+        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="t_persistent_audit_event_data"
+                                 constraintName="FK_cekdwiaydjn97qi7ebeexb1bw" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="event_id" referencedTableName="t_persistent_audit_event"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="1416701746711-25" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addForeignKeyConstraint baseColumnNames="email" baseTableName="t_user_authority" constraintName="FK_ck38oabii4y4cf5coi2w5lfia" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="email" referencedTableName="t_user"/>
+        <addForeignKeyConstraint baseColumnNames="email" baseTableName="t_user_authority"
+                                 constraintName="FK_ck38oabii4y4cf5coi2w5lfia" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="email" referencedTableName="t_user"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="1416701746711-26" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
-        <addForeignKeyConstraint baseColumnNames="name" baseTableName="t_user_authority" constraintName="FK_tghvo3hwad0ifdm39n7bph8b" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="name" referencedTableName="t_authority"/>
+        <addForeignKeyConstraint baseColumnNames="name" baseTableName="t_user_authority"
+                                 constraintName="FK_tghvo3hwad0ifdm39n7bph8b" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="name" referencedTableName="t_authority"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="1415254705959-29">
         <loadData encoding="UTF-8"

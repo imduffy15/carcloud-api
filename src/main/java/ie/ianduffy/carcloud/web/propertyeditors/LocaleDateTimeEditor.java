@@ -14,9 +14,8 @@ import java.util.Date;
  */
 public class LocaleDateTimeEditor extends PropertyEditorSupport {
 
-    private final DateTimeFormatter formatter;
-
     private final boolean allowEmpty;
+    private final DateTimeFormatter formatter;
 
     /**
      * Create a new LocaleDateTimeEditor instance, using the given format for

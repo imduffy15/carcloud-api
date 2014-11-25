@@ -22,10 +22,10 @@ public class DeviceService {
     private final Logger log = LoggerFactory.getLogger(DeviceService.class);
 
     @Inject
-    private UserService userService;
+    private DeviceRepository deviceRepository;
 
     @Inject
-    private DeviceRepository deviceRepository;
+    private UserService userService;
 
     public Device create(Device device) {
         Device newDevice;

@@ -21,8 +21,11 @@ public class LocaleConfiguration extends WebMvcConfigurerAdapter implements Envi
     private RelaxedPropertyResolver propertyResolver;
 
     @Override
-    public void setEnvironment(Environment environment) {
-        this.propertyResolver = new RelaxedPropertyResolver(environment, "spring.messageSource.");
+    public void addInterceptors(InterceptorRegistry registry) {
+        final LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("language");
+
+        registry.addInterceptor(localeChangeInterceptor);
     }
 
     @Bean(name = "localeResolver")
@@ -43,11 +46,8 @@ public class LocaleConfiguration extends WebMvcConfigurerAdapter implements Envi
     }
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        final LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-        localeChangeInterceptor.setParamName("language");
-
-        registry.addInterceptor(localeChangeInterceptor);
+    public void setEnvironment(Environment environment) {
+        this.propertyResolver = new RelaxedPropertyResolver(environment, "spring.messageSource.");
     }
 }
 

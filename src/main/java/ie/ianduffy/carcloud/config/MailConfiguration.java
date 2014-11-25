@@ -14,28 +14,22 @@ import java.util.Properties;
 @Configuration
 public class MailConfiguration implements EnvironmentAware {
 
-    private static final String ENV_SPRING_MAIL = "spring.mail.";
     private static final String DEFAULT_HOST = "127.0.0.1";
-    private static final String PROP_HOST = "host";
     private static final String DEFAULT_PROP_HOST = "localhost";
-    private static final String PROP_PORT = "port";
-    private static final String PROP_USER = "user";
-    private static final String PROP_PASSWORD = "password";
-    private static final String PROP_PROTO = "protocol";
-    private static final String PROP_TLS = "tls";
+    private static final String ENV_SPRING_MAIL = "spring.mail.";
     private static final String PROP_AUTH = "auth";
+    private static final String PROP_HOST = "host";
+    private static final String PROP_PASSWORD = "password";
+    private static final String PROP_PORT = "port";
+    private static final String PROP_PROTO = "protocol";
     private static final String PROP_SMTP_AUTH = "mail.smtp.auth";
     private static final String PROP_STARTTLS = "mail.smtp.starttls.enable";
+    private static final String PROP_TLS = "tls";
     private static final String PROP_TRANSPORT_PROTO = "mail.transport.protocol";
-
+    private static final String PROP_USER = "user";
     private final Logger log = LoggerFactory.getLogger(MailConfiguration.class);
 
     private RelaxedPropertyResolver propertyResolver;
-
-    @Override
-    public void setEnvironment(Environment environment) {
-        this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_SPRING_MAIL);
-    }
 
     @Bean
     public JavaMailSenderImpl javaMailSender() {
@@ -66,5 +60,10 @@ public class MailConfiguration implements EnvironmentAware {
         sendProperties.setProperty(PROP_TRANSPORT_PROTO, protocol);
         sender.setJavaMailProperties(sendProperties);
         return sender;
+    }
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_SPRING_MAIL);
     }
 }

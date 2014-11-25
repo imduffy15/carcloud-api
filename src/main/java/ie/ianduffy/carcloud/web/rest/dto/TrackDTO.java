@@ -1,8 +1,5 @@
 package ie.ianduffy.carcloud.web.rest.dto;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class TrackDTO {
 
     private MetadataDTO meta;

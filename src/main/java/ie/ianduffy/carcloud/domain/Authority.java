@@ -34,6 +34,11 @@ public class Authority implements Serializable {
     }
 
     @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -46,11 +51,6 @@ public class Authority implements Serializable {
 
         return !(name != null ? !name.equals(authority.name) : authority.name != null);
 
-    }
-
-    @Override
-    public int hashCode() {
-        return name != null ? name.hashCode() : 0;
     }
 
     @Override

@@ -14,9 +14,8 @@ import javax.mail.MessagingException;
  */
 class JavaMailHealthIndicator extends AbstractHealthIndicator {
 
-    private final Logger log = LoggerFactory.getLogger(JavaMailHealthIndicator.class);
-
     private final JavaMailSenderImpl javaMailSender;
+    private final Logger log = LoggerFactory.getLogger(JavaMailHealthIndicator.class);
 
     public JavaMailHealthIndicator(JavaMailSenderImpl javaMailSender) {
         Assert.notNull(javaMailSender, "javaMailSender must not be null");

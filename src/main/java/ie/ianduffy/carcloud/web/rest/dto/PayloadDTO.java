@@ -7,16 +7,32 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class PayloadDTO {
+    private String asset;
+    private Map<String, Map<String, String>> fields;
     private Long id;
     private String idStr;
-    private String asset;
+    private ArrayList<Float> loc;
+    private DateTime receivedAt;
     private DateTime recordedAt;
     private DateTime recordedAtMs;
-    private DateTime receivedAt;
-    private ArrayList<Float> loc;
-    private Map<String, Map<String, String>> fields;
 
     PayloadDTO() {
+    }
+
+    public String getAsset() {
+        return asset;
+    }
+
+    public void setAsset(String asset) {
+        this.asset = asset;
+    }
+
+    public Map<String, Map<String, String>> getFields() {
+        return fields;
+    }
+
+    public void setFields(Map<String, Map<String, String>> fields) {
+        this.fields = fields;
     }
 
     public Long getId() {
@@ -37,12 +53,22 @@ public class PayloadDTO {
         this.idStr = idStr;
     }
 
-    public String getAsset() {
-        return asset;
+    public ArrayList<Float> getLoc() {
+        return loc;
     }
 
-    public void setAsset(String asset) {
-        this.asset = asset;
+    public void setLoc(ArrayList<Float> loc) {
+        this.loc = loc;
+    }
+
+    @JsonProperty("received_at")
+    public DateTime getReceivedAt() {
+        return receivedAt;
+    }
+
+    @JsonProperty("received_at")
+    public void setReceivedAt(DateTime receivedAt) {
+        this.receivedAt = receivedAt;
     }
 
     @JsonProperty("recorded_at")
@@ -63,32 +89,6 @@ public class PayloadDTO {
     @JsonProperty("recorded_at_ms")
     public void setRecordedAtMs(DateTime recordedAtMs) {
         this.recordedAtMs = recordedAtMs;
-    }
-
-    @JsonProperty("received_at")
-    public DateTime getReceivedAt() {
-        return receivedAt;
-    }
-
-    @JsonProperty("received_at")
-    public void setReceivedAt(DateTime receivedAt) {
-        this.receivedAt = receivedAt;
-    }
-
-    public ArrayList<Float> getLoc() {
-        return loc;
-    }
-
-    public void setLoc(ArrayList<Float> loc) {
-        this.loc = loc;
-    }
-
-    public Map<String, Map<String, String>> getFields() {
-        return fields;
-    }
-
-    public void setFields(Map<String, Map<String, String>> fields) {
-        this.fields = fields;
     }
 
     @Override

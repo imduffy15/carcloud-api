@@ -27,11 +27,6 @@ public class AsyncConfiguration implements AsyncConfigurer, EnvironmentAware {
     private RelaxedPropertyResolver propertyResolver;
 
     @Override
-    public void setEnvironment(Environment environment) {
-        this.propertyResolver = new RelaxedPropertyResolver(environment, "async.");
-    }
-
-    @Override
     @Bean
     public Executor getAsyncExecutor() {
         log.debug("Creating Async Task Executor");
@@ -46,5 +41,10 @@ public class AsyncConfiguration implements AsyncConfigurer, EnvironmentAware {
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
         return new SimpleAsyncUncaughtExceptionHandler();
+    }
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.propertyResolver = new RelaxedPropertyResolver(environment, "async.");
     }
 }

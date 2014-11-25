@@ -29,24 +29,19 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
 
     private static final String ENV_METRICS = "metrics.";
     private static final String ENV_METRICS_GRAPHITE = "metrics.graphite.";
-    private static final String PROP_JMX_ENABLED = "jmx.enabled";
-    private static final String PROP_GRAPHITE_ENABLED = "enabled";
-    private static final String PROP_PORT = "port";
-    private static final String PROP_HOST = "host";
-    private static final String PROP_METRIC_REG_JVM_MEMORY = "jvm.memory";
-    private static final String PROP_METRIC_REG_JVM_GARBAGE = "jvm.garbage";
-    private static final String PROP_METRIC_REG_JVM_THREADS = "jvm.threads";
-    private static final String PROP_METRIC_REG_JVM_FILES = "jvm.files";
-    private static final String PROP_METRIC_REG_JVM_BUFFERS = "jvm.buffers";
-    private static final MetricRegistry METRIC_REGISTRY = new MetricRegistry();
     private static final HealthCheckRegistry HEALTH_CHECK_REGISTRY = new HealthCheckRegistry();
+    private static final MetricRegistry METRIC_REGISTRY = new MetricRegistry();
+    private static final String PROP_GRAPHITE_ENABLED = "enabled";
+    private static final String PROP_HOST = "host";
+    private static final String PROP_JMX_ENABLED = "jmx.enabled";
+    private static final String PROP_METRIC_REG_JVM_BUFFERS = "jvm.buffers";
+    private static final String PROP_METRIC_REG_JVM_FILES = "jvm.files";
+    private static final String PROP_METRIC_REG_JVM_GARBAGE = "jvm.garbage";
+    private static final String PROP_METRIC_REG_JVM_MEMORY = "jvm.memory";
+    private static final String PROP_METRIC_REG_JVM_THREADS = "jvm.threads";
+    private static final String PROP_PORT = "port";
     private final Logger log = LoggerFactory.getLogger(MetricsConfiguration.class);
     private RelaxedPropertyResolver propertyResolver;
-
-    @Override
-    public void setEnvironment(Environment environment) {
-        this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_METRICS);
-    }
 
     @Override
     @Bean
@@ -75,6 +70,11 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
         }
     }
 
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_METRICS);
+    }
+
     @Configuration
     @ConditionalOnClass(Graphite.class)
     public static class GraphiteRegistry implements EnvironmentAware {
@@ -85,11 +85,6 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
         private MetricRegistry metricRegistry;
 
         private RelaxedPropertyResolver propertyResolver;
-
-        @Override
-        public void setEnvironment(Environment environment) {
-            this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_METRICS_GRAPHITE);
-        }
 
         @PostConstruct
         private void init() {
@@ -105,6 +100,11 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
                     .build(graphite);
                 graphiteReporter.start(1, TimeUnit.MINUTES);
             }
+        }        @Override
+        public void setEnvironment(Environment environment) {
+            this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_METRICS_GRAPHITE);
         }
+
+
     }
 }

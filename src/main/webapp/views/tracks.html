@@ -53,31 +53,31 @@
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Sample text</th>
-                    <th>Sample date</th>
-                    <th></th>
-                </tr>
+            <tr>
+                <th>ID</th>
+                <th>Sample text</th>
+                <th>Sample date</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="track in tracks">
-                    <td>{{track.id}}</td>
-                    <td>{{track.sampleTextAttribute}}</td>
-                    <td>{{track.sampleDateAttribute}}</td>
-                    <td>
-                        <button type="submit"
-                                ng-click="update(track.id)"
-                                class="btn">
-                            <span class="glyphicon glyphicon-pencil"></span> Edit
-                        </button>
-                        <button type="submit"
-                                ng-click="delete(track.id)"
-                                class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove-circle"></span> Delete
-                        </button>
-                    </td>
-                </tr>
+            <tr ng-repeat="track in tracks">
+                <td>{{track.id}}</td>
+                <td>{{track.sampleTextAttribute}}</td>
+                <td>{{track.sampleDateAttribute}}</td>
+                <td>
+                    <button type="submit"
+                            ng-click="update(track.id)"
+                            class="btn">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(track.id)"
+                            class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                    </button>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

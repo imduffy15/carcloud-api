@@ -25,10 +25,6 @@ public class LoggingAspect {
     @Inject
     private Environment env;
 
-    @Pointcut("within(ie.ianduffy.carcloud.repository..*) || within(ie.ianduffy.carcloud.service..*) || within(ie.ianduffy.carcloud.web.rest..*)")
-    public void loggingPoincut() {
-    }
-
     @AfterThrowing(pointcut = "loggingPoincut()", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
@@ -57,5 +53,9 @@ public class LoggingAspect {
 
             throw e;
         }
+    }
+
+    @Pointcut("within(ie.ianduffy.carcloud.repository..*) || within(ie.ianduffy.carcloud.service..*) || within(ie.ianduffy.carcloud.web.rest..*)")
+    public void loggingPoincut() {
     }
 }

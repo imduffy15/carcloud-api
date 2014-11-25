@@ -66,7 +66,11 @@ describe('Controllers Tests ', function () {
             $scope = $rootScope.$new();
 
             AccountService = Account;
-            $controller('SettingsController', {$scope: $scope, resolvedAccount: AccountService, Account: AccountService});
+            $controller('SettingsController', {
+                $scope: $scope,
+                resolvedAccount: AccountService,
+                Account: AccountService
+            });
         }));
 
         it('should save account', function () {
@@ -81,7 +85,10 @@ describe('Controllers Tests ', function () {
 
             //THEN
             expect(AccountService.save).toHaveBeenCalled();
-            expect(AccountService.save).toHaveBeenCalledWith({firstName: "John", lastName: "Doe"}, jasmine.any(Function), jasmine.any(Function));
+            expect(AccountService.save).toHaveBeenCalledWith({
+                firstName: "John",
+                lastName: "Doe"
+            }, jasmine.any(Function), jasmine.any(Function));
 
             //SIMULATE SUCCESS CALLBACK CALL FROM SERVICE
             AccountService.save.calls.mostRecent().args[1]();

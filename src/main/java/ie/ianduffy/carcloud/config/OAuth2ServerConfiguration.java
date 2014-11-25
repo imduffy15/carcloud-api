@@ -29,14 +29,60 @@ import javax.sql.DataSource;
 public class OAuth2ServerConfiguration {
 
     @Configuration
+    @EnableAuthorizationServer
+    protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter implements EnvironmentAware {
+
+        private static final String ENV_OAUTH = "authentication.oauth.";
+        private static final String PROP_CLIENTID = "clientid";
+        private static final String PROP_SECRET = "secret";
+        private static final String PROP_TOKEN_VALIDITY_SECONDS = "tokenValidityInSeconds";
+        @Inject
+        @Qualifier("authenticationManagerBean")
+        private AuthenticationManager authenticationManager;
+        @Inject
+        private DataSource dataSource;
+        private RelaxedPropertyResolver propertyResolver;
+
+        @Override
+        public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+            clients
+                .inMemory()
+                .withClient(propertyResolver.getProperty(PROP_CLIENTID))
+                .scopes("read", "write")
+                .authorities(AuthoritiesConstants.ADMIN, AuthoritiesConstants.USER)
+                .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
+                .secret(propertyResolver.getProperty(PROP_SECRET))
+                .accessTokenValiditySeconds(propertyResolver.getProperty(PROP_TOKEN_VALIDITY_SECONDS, Integer.class, 1800));
+        }
+
+        @Override
+        public void configure(AuthorizationServerEndpointsConfigurer endpoints)
+            throws Exception {
+
+            endpoints
+                .tokenStore(tokenStore())
+                .authenticationManager(authenticationManager);
+        }
+
+        @Bean
+        public TokenStore tokenStore() {
+            return new JdbcTokenStore(dataSource);
+        }
+
+        @Override
+        public void setEnvironment(Environment environment) {
+            this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_OAUTH);
+        }
+    }
+
+    @Configuration
     @EnableResourceServer
     protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
         @Inject
-        private Http401UnauthorizedEntryPoint authenticationEntryPoint;
-
-        @Inject
         private AjaxLogoutSuccessHandler ajaxLogoutSuccessHandler;
+        @Inject
+        private Http401UnauthorizedEntryPoint authenticationEntryPoint;
 
         @Override
         public void configure(HttpSecurity http) throws Exception {
@@ -79,55 +125,6 @@ public class OAuth2ServerConfiguration {
                 .antMatchers("/api-docs/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/protected/**").authenticated();
 
-        }
-    }
-
-    @Configuration
-    @EnableAuthorizationServer
-    protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter implements EnvironmentAware {
-
-        private static final String ENV_OAUTH = "authentication.oauth.";
-        private static final String PROP_CLIENTID = "clientid";
-        private static final String PROP_SECRET = "secret";
-        private static final String PROP_TOKEN_VALIDITY_SECONDS = "tokenValidityInSeconds";
-
-        private RelaxedPropertyResolver propertyResolver;
-
-        @Inject
-        private DataSource dataSource;
-        @Inject
-        @Qualifier("authenticationManagerBean")
-        private AuthenticationManager authenticationManager;
-
-        @Bean
-        public TokenStore tokenStore() {
-            return new JdbcTokenStore(dataSource);
-        }
-
-        @Override
-        public void configure(AuthorizationServerEndpointsConfigurer endpoints)
-            throws Exception {
-
-            endpoints
-                .tokenStore(tokenStore())
-                .authenticationManager(authenticationManager);
-        }
-
-        @Override
-        public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-            clients
-                .inMemory()
-                .withClient(propertyResolver.getProperty(PROP_CLIENTID))
-                .scopes("read", "write")
-                .authorities(AuthoritiesConstants.ADMIN, AuthoritiesConstants.USER)
-                .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
-                .secret(propertyResolver.getProperty(PROP_SECRET))
-                .accessTokenValiditySeconds(propertyResolver.getProperty(PROP_TOKEN_VALIDITY_SECONDS, Integer.class, 1800));
-        }
-
-        @Override
-        public void setEnvironment(Environment environment) {
-            this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_OAUTH);
         }
     }
 }

@@ -15,38 +15,13 @@ import java.util.Set;
 
 /**
  * A user.
- *
+ * <p/>
  * SPAM 0.0.1 - Usage of a base class.
  */
 @Entity
 @Table(name = "T_USER")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractAuditingEntity implements Serializable {
-
-    @Id
-    @Email
-    @NotNull
-    @Size(min = 0, max = 100)
-    @Column(length = 100, unique = true)
-    private String email;
-
-    @NotNull
-    @Pattern(regexp = "^\\+?[0-9. ()-]{10,25}$")
-    @Column(length = 100)
-    private String phone;
-
-    @JsonIgnore
-    @Size(min = 0, max = 100)
-    @Column(length = 100)
-    private String password;
-
-    @Size(min = 1, max = 50)
-    @Column(name = "first_name", length = 50)
-    private String firstName;
-
-    @Size(min = 1, max = 50)
-    @Column(name = "last_name", length = 50)
-    private String lastName;
 
     @JsonIgnore
     @ManyToMany
@@ -56,13 +31,41 @@ public class User extends AbstractAuditingEntity implements Serializable {
         inverseJoinColumns = {@JoinColumn(name = "name", referencedColumnName = "name")})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Authority> authorities = new HashSet<>();
+    @Id
+    @Email
+    @NotNull
+    @Size(min = 0, max = 100)
+    @Column(length = 100, unique = true)
+    private String email;
+    @Size(min = 1, max = 50)
+    @Column(name = "first_name", length = 50)
+    private String firstName;
+    @Size(min = 1, max = 50)
+    @Column(name = "last_name", length = 50)
+    private String lastName;
+    @JsonIgnore
+    @Size(min = 0, max = 100)
+    @Column(length = 100)
+    private String password;
+    @NotNull
+    @Pattern(regexp = "^\\+?[0-9. ()-]{10,25}$")
+    @Column(length = 100)
+    private String phone;
 
-    public String getPassword() {
-        return password;
+    public Set<Authority> getAuthorities() {
+        return authorities;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstName() {
@@ -81,12 +84,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPassword() {
+        return password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPhone() {
@@ -97,12 +100,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.phone = phone;
     }
 
-    public Set<Authority> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(Set<Authority> authorities) {
-        this.authorities = authorities;
+    @Override
+    public int hashCode() {
+        return email.hashCode();
     }
 
     @Override
@@ -118,11 +118,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
         return email.equals(user.email);
 
-    }
-
-    @Override
-    public int hashCode() {
-        return email.hashCode();
     }
 
     @Override

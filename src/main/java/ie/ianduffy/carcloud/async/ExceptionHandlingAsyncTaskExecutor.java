@@ -12,12 +12,27 @@ import java.util.concurrent.Future;
 public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
     InitializingBean, DisposableBean {
 
-    private final Logger log = LoggerFactory.getLogger(ExceptionHandlingAsyncTaskExecutor.class);
-
     private final AsyncTaskExecutor executor;
+    private final Logger log = LoggerFactory.getLogger(ExceptionHandlingAsyncTaskExecutor.class);
 
     public ExceptionHandlingAsyncTaskExecutor(AsyncTaskExecutor executor) {
         this.executor = executor;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        if (executor instanceof InitializingBean) {
+            InitializingBean bean = (InitializingBean) executor;
+            bean.afterPropertiesSet();
+        }
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        if (executor instanceof DisposableBean) {
+            DisposableBean bean = (DisposableBean) executor;
+            bean.destroy();
+        }
     }
 
     @Override
@@ -28,21 +43,6 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
     @Override
     public void execute(Runnable task, long startTimeout) {
         executor.execute(createWrappedRunnable(task), startTimeout);
-    }
-
-    private <T> Callable<T> createCallable(final Callable<T> task) {
-        return new Callable<T>() {
-
-            @Override
-            public T call() throws Exception {
-                try {
-                    return task.call();
-                } catch (Exception e) {
-                    handle(e);
-                    throw e;
-                }
-            }
-        };
     }
 
     private Runnable createWrappedRunnable(final Runnable task) {
@@ -73,19 +73,18 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
         return executor.submit(createCallable(task));
     }
 
-    @Override
-    public void destroy() throws Exception {
-        if (executor instanceof DisposableBean) {
-            DisposableBean bean = (DisposableBean) executor;
-            bean.destroy();
-        }
-    }
+    private <T> Callable<T> createCallable(final Callable<T> task) {
+        return new Callable<T>() {
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        if (executor instanceof InitializingBean) {
-            InitializingBean bean = (InitializingBean) executor;
-            bean.afterPropertiesSet();
-        }
+            @Override
+            public T call() throws Exception {
+                try {
+                    return task.call();
+                } catch (Exception e) {
+                    handle(e);
+                    throw e;
+                }
+            }
+        };
     }
 }

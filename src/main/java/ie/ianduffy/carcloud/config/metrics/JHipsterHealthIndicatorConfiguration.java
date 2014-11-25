@@ -12,10 +12,9 @@ import javax.sql.DataSource;
 public class JHipsterHealthIndicatorConfiguration {
 
     @Inject
-    private JavaMailSenderImpl javaMailSender;
-
-    @Inject
     private DataSource dataSource;
+    @Inject
+    private JavaMailSenderImpl javaMailSender;
 
     @Bean
     public HealthIndicator dbHealthIndicator() {

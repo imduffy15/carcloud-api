@@ -20,6 +20,15 @@ import java.util.List;
 public class LogsResource {
 
     @RequestMapping(value = "/rest/logs",
+        method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Timed
+    public void changeLevel(@RequestBody LoggerDTO jsonLogger) {
+        LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
+        context.getLogger(jsonLogger.getName()).setLevel(Level.valueOf(jsonLogger.getLevel()));
+    }
+
+    @RequestMapping(value = "/rest/logs",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -30,14 +39,5 @@ public class LogsResource {
             loggers.add(new LoggerDTO(logger));
         }
         return loggers;
-    }
-
-    @RequestMapping(value = "/rest/logs",
-        method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Timed
-    public void changeLevel(@RequestBody LoggerDTO jsonLogger) {
-        LoggerContext context = (LoggerContext) LoggerFactory.getILoggerFactory();
-        context.getLogger(jsonLogger.getName()).setLevel(Level.valueOf(jsonLogger.getLevel()));
     }
 }

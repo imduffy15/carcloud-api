@@ -8,9 +8,9 @@
     <diskStore path="java.io.tmpdir"/>
 
     <defaultCache
-            eternal="false"
-            overflowToDisk="false"
-            />
+        eternal="false"
+        overflowToDisk="false"
+        />
 
     <cache name="ie.ianduffy.carcloud.domain.User"
            timeToLiveSeconds="3600">

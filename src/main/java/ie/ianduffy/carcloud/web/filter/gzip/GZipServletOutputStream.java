@@ -13,13 +13,8 @@ class GZipServletOutputStream extends ServletOutputStream {
     }
 
     @Override
-    public void close() throws IOException {
-        this.stream.close();
-    }
-
-    @Override
-    public void flush() throws IOException {
-        this.stream.flush();
+    public void write(int b) throws IOException {
+        this.stream.write(b);
     }
 
     @Override
@@ -33,7 +28,12 @@ class GZipServletOutputStream extends ServletOutputStream {
     }
 
     @Override
-    public void write(int b) throws IOException {
-        this.stream.write(b);
+    public void flush() throws IOException {
+        this.stream.flush();
+    }
+
+    @Override
+    public void close() throws IOException {
+        this.stream.close();
     }
 }

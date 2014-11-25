@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * This filter is used in production, to put HTTP cache headers with a long (1 month) expiration time.
  * </p>
- *
+ * <p/>
  * SPAM 0.0.1 - Example of facade "filter"
  */
 public class CachingHttpHeadersFilter implements Filter {
@@ -25,11 +25,6 @@ public class CachingHttpHeadersFilter implements Filter {
     }
 
     @Override
-    public void destroy() {
-        // Nothing to destroy
-    }
-
-    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
@@ -43,5 +38,10 @@ public class CachingHttpHeadersFilter implements Filter {
         httpResponse.setDateHeader("Last-Modified", LAST_MODIFIED);
 
         chain.doFilter(request, response);
+    }
+
+    @Override
+    public void destroy() {
+        // Nothing to destroy
     }
 }

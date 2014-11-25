@@ -13,7 +13,7 @@ import java.util.zip.GZIPOutputStream;
 /**
  * This filter is used in production, to gzip resources.
  * </p>
- *
+ * <p/>
  * SPAM 0.0.1 - Example of facade "filter"
  */
 public class GZipServletFilter implements Filter {
@@ -23,11 +23,6 @@ public class GZipServletFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         // Nothing to initialize
-    }
-
-    @Override
-    public void destroy() {
-        // Nothing to destroy
     }
 
     @Override
@@ -94,6 +89,11 @@ public class GZipServletFilter implements Filter {
             }
             chain.doFilter(request, response);
         }
+    }
+
+    @Override
+    public void destroy() {
+        // Nothing to destroy
     }
 
     /**

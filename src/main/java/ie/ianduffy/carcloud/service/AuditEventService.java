@@ -23,10 +23,9 @@ import java.util.List;
 public class AuditEventService {
 
     @Inject
-    private PersistenceAuditEventRepository persistenceAuditEventRepository;
-
-    @Inject
     private AuditEventConverter auditEventConverter;
+    @Inject
+    private PersistenceAuditEventRepository persistenceAuditEventRepository;
 
     public List<AuditEvent> findAll() {
         return auditEventConverter.convertToAuditEvent(persistenceAuditEventRepository.findAll());

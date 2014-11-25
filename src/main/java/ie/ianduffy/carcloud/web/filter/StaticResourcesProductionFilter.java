@@ -14,7 +14,7 @@ import java.io.IOException;
  * It is configured to serve resources from the "dist" directory, which is the Grunt
  * destination directory.
  * </p>
- *
+ * <p/>
  * SPAM 0.0.1 - Example of facade "filter"
  */
 public class StaticResourcesProductionFilter implements Filter {
@@ -22,11 +22,6 @@ public class StaticResourcesProductionFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         // Nothing to initialize
-    }
-
-    @Override
-    public void destroy() {
-        // Nothing to destroy
     }
 
     @Override
@@ -40,5 +35,10 @@ public class StaticResourcesProductionFilter implements Filter {
         }
         String newURI = "/dist" + requestURI;
         request.getRequestDispatcher(newURI).forward(request, response);
+    }
+
+    @Override
+    public void destroy() {
+        // Nothing to destroy
     }
 }

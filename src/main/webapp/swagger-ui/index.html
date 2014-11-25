@@ -49,7 +49,7 @@
 
             var authToken = JSON.parse(localStorage.getItem("token")).access_token;
             window.authorizations.add("key", new ApiKeyAuthorization("Authorization",
-                            "Bearer " + authToken, "header"));
+                "Bearer " + authToken, "header"));
             window.swaggerUi.load();
         });
     </script>

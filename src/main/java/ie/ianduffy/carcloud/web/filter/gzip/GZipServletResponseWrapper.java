@@ -10,9 +10,9 @@ import java.util.zip.GZIPOutputStream;
 
 class GZipServletResponseWrapper extends HttpServletResponseWrapper {
 
+    private boolean disableFlushBuffer = false;
     private GZipServletOutputStream gzipOutputStream = null;
     private PrintWriter printWriter = null;
-    private boolean disableFlushBuffer = false;
 
     public GZipServletResponseWrapper(HttpServletResponse response, GZIPOutputStream gzout)
         throws IOException {
@@ -34,29 +34,15 @@ class GZipServletResponseWrapper extends HttpServletResponseWrapper {
     }
 
     /**
-     * Flush OutputStream or PrintWriter
-     *
-     * @throws IOException
+     * Flushes all the streams for this response.
      */
-    @Override
-    public void flushBuffer() throws IOException {
-
-        //PrintWriter.flush() does not throw exception
-        if (this.printWriter != null) {
-            this.printWriter.flush();
+    public void flush() throws IOException {
+        if (printWriter != null) {
+            printWriter.flush();
         }
 
-        if (this.gzipOutputStream != null) {
-            this.gzipOutputStream.flush();
-        }
-
-        // doing this might leads to response already committed exception
-        // when the PageInfo has not yet built but the buffer already flushed
-        // Happens in Weblogic when a servlet forward to a JSP page and the forward
-        // method trigger a flush before it forwarded to the JSP
-        // disableFlushBuffer for that purpose is 'true' by default
-        if (!disableFlushBuffer) {
-            super.flushBuffer();
+        if (gzipOutputStream != null) {
+            gzipOutputStream.flush();
         }
     }
 
@@ -91,15 +77,29 @@ class GZipServletResponseWrapper extends HttpServletResponseWrapper {
     }
 
     /**
-     * Flushes all the streams for this response.
+     * Flush OutputStream or PrintWriter
+     *
+     * @throws IOException
      */
-    public void flush() throws IOException {
-        if (printWriter != null) {
-            printWriter.flush();
+    @Override
+    public void flushBuffer() throws IOException {
+
+        //PrintWriter.flush() does not throw exception
+        if (this.printWriter != null) {
+            this.printWriter.flush();
         }
 
-        if (gzipOutputStream != null) {
-            gzipOutputStream.flush();
+        if (this.gzipOutputStream != null) {
+            this.gzipOutputStream.flush();
+        }
+
+        // doing this might leads to response already committed exception
+        // when the PageInfo has not yet built but the buffer already flushed
+        // Happens in Weblogic when a servlet forward to a JSP page and the forward
+        // method trigger a flush before it forwarded to the JSP
+        // disableFlushBuffer for that purpose is 'true' by default
+        if (!disableFlushBuffer) {
+            super.flushBuffer();
         }
     }
 

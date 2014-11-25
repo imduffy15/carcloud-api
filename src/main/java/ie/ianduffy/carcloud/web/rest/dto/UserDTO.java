@@ -4,14 +4,11 @@ import java.util.List;
 
 public class UserDTO {
 
-    private String password;
-
+    private String email;
     private String firstName;
 
     private String lastName;
-
-    private String email;
-
+    private String password;
     private String phone;
 
     private List<String> roles;
@@ -38,9 +35,8 @@ public class UserDTO {
         this.roles = roles;
     }
 
-
-    public String getPassword() {
-        return password;
+    public String getEmail() {
+        return email;
     }
 
     public String getFirstName() {
@@ -51,8 +47,8 @@ public class UserDTO {
         return lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPassword() {
+        return password;
     }
 
     public String getPhone() {

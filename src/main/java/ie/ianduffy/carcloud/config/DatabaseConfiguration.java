@@ -29,16 +29,8 @@ import java.util.List;
 public class DatabaseConfiguration implements EnvironmentAware {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
-
-    private RelaxedPropertyResolver propertyResolver;
-
     private Environment environment;
-
-    @Override
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-        this.propertyResolver = new RelaxedPropertyResolver(environment, "spring.datasource.");
-    }
+    private RelaxedPropertyResolver propertyResolver;
 
     @Bean(destroyMethod = "shutdown")
     @ConditionalOnMissingClass(name = "ie.ianduffy.carcloud.config.HerokuDatabaseConfiguration.class")
@@ -80,6 +72,11 @@ public class DatabaseConfiguration implements EnvironmentAware {
     }
 
     @Bean
+    public Hibernate4Module hibernate4Module() {
+        return new Hibernate4Module();
+    }
+
+    @Bean
     public SpringLiquibase liquibase(DataSource dataSource) {
         log.debug("Configuring Liquibase");
         SpringLiquibase liquibase = new SpringLiquibase();
@@ -89,9 +86,10 @@ public class DatabaseConfiguration implements EnvironmentAware {
         return liquibase;
     }
 
-    @Bean
-    public Hibernate4Module hibernate4Module() {
-        return new Hibernate4Module();
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+        this.propertyResolver = new RelaxedPropertyResolver(environment, "spring.datasource.");
     }
 }
 

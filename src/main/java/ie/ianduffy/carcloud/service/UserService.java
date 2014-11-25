@@ -25,13 +25,21 @@ public class UserService {
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Inject
+    private AuthorityRepository authorityRepository;
+
+    @Inject
     private PasswordEncoder passwordEncoder;
 
     @Inject
     private UserRepository userRepository;
 
-    @Inject
-    private AuthorityRepository authorityRepository;
+    public void changePassword(String password) {
+        User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        String encryptedPassword = passwordEncoder.encode(password);
+        currentUser.setPassword(encryptedPassword);
+        userRepository.save(currentUser);
+        log.debug("Changed password for User: {}", currentUser);
+    }
 
     public User createUserInformation(String password, String firstName, String lastName, String email, String phone) {
         User newUser = new User();
@@ -55,21 +63,10 @@ public class UserService {
         return newUser;
     }
 
-    public void updateUserInformation(String firstName, String lastName, String email) {
-        User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
-        currentUser.setFirstName(firstName);
-        currentUser.setLastName(lastName);
-        currentUser.setEmail(email);
-        userRepository.save(currentUser);
-        log.debug("Changed Information for User: {}", currentUser);
-    }
-
-    public void changePassword(String password) {
-        User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
-        String encryptedPassword = passwordEncoder.encode(password);
-        currentUser.setPassword(encryptedPassword);
-        userRepository.save(currentUser);
-        log.debug("Changed password for User: {}", currentUser);
+    @Transactional(readOnly = true)
+    public User getUser(String email) {
+        User currentUser = userRepository.findOne(email);
+        return currentUser;
     }
 
     @Transactional(readOnly = true)
@@ -79,9 +76,12 @@ public class UserService {
         return currentUser;
     }
 
-    @Transactional(readOnly = true)
-    public User getUser(String email) {
-        User currentUser = userRepository.findOne(email);
-        return currentUser;
+    public void updateUserInformation(String firstName, String lastName, String email) {
+        User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        currentUser.setFirstName(firstName);
+        currentUser.setLastName(lastName);
+        currentUser.setEmail(email);
+        userRepository.save(currentUser);
+        log.debug("Changed Information for User: {}", currentUser);
     }
 }

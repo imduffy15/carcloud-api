@@ -38,6 +38,15 @@ public class WebConfigurer implements ServletContextInitializer {
     @Inject
     private MetricRegistry metricRegistry;
 
+    /**
+     * Initializes the CORS Filter.
+     */
+
+    @Bean
+    public CORSFilter corsFilter() {
+        return new CORSFilter();
+    }
+
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         log.info("Web application configuration, using profiles: {}", Arrays.toString(env.getActiveProfiles()));
@@ -56,61 +65,6 @@ public class WebConfigurer implements ServletContextInitializer {
             initH2Console(servletContext);
         }
         log.info("Web application fully configured");
-    }
-
-    /**
-     * Initializes the GZip filter.
-     */
-    private void initGzipFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
-        log.debug("Registering GZip Filter");
-        FilterRegistration.Dynamic compressingFilter = servletContext.addFilter("gzipFilter", new GZipServletFilter());
-        Map<String, String> parameters = new HashMap<>();
-        compressingFilter.setInitParameters(parameters);
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.css");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.json");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.html");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.js");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "/app/rest/*");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "/metrics/*");
-        compressingFilter.setAsyncSupported(true);
-    }
-
-    /**
-     * Initializes the static resources production Filter.
-     */
-    private void initStaticResourcesProductionFilter(ServletContext servletContext,
-                                                     EnumSet<DispatcherType> disps) {
-
-        log.debug("Registering static resources production Filter");
-        FilterRegistration.Dynamic staticResourcesProductionFilter =
-            servletContext.addFilter("staticResourcesProductionFilter",
-                new StaticResourcesProductionFilter());
-
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/index.html");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/images/*");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/fonts/*");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/scripts/*");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/styles/*");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/views/*");
-        staticResourcesProductionFilter.setAsyncSupported(true);
-    }
-
-    /**
-     * Initializes the cachig HTTP Headers Filter.
-     */
-    private void initCachingHttpHeadersFilter(ServletContext servletContext,
-                                              EnumSet<DispatcherType> disps) {
-        log.debug("Registering Cachig HTTP Headers Filter");
-        FilterRegistration.Dynamic cachingHttpHeadersFilter =
-            servletContext.addFilter("cachingHttpHeadersFilter",
-                new CachingHttpHeadersFilter());
-
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/images/*");
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/fonts/*");
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/scripts/*");
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/styles/*");
-        cachingHttpHeadersFilter.setAsyncSupported(true);
     }
 
     /**
@@ -140,22 +94,58 @@ public class WebConfigurer implements ServletContextInitializer {
     }
 
     /**
-     * Initializes H2 console
+     * Initializes the cachig HTTP Headers Filter.
      */
-    private void initH2Console(ServletContext servletContext) {
-        log.debug("Initialize H2 console");
-        ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new org.h2.server.web.WebServlet());
-        h2ConsoleServlet.addMapping("/console/*");
-        h2ConsoleServlet.setLoadOnStartup(1);
+    private void initCachingHttpHeadersFilter(ServletContext servletContext,
+                                              EnumSet<DispatcherType> disps) {
+        log.debug("Registering Cachig HTTP Headers Filter");
+        FilterRegistration.Dynamic cachingHttpHeadersFilter =
+            servletContext.addFilter("cachingHttpHeadersFilter",
+                new CachingHttpHeadersFilter());
+
+        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/images/*");
+        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/fonts/*");
+        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/scripts/*");
+        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/styles/*");
+        cachingHttpHeadersFilter.setAsyncSupported(true);
     }
 
     /**
-     * Initializes the CORS Filter.
+     * Initializes the static resources production Filter.
      */
+    private void initStaticResourcesProductionFilter(ServletContext servletContext,
+                                                     EnumSet<DispatcherType> disps) {
 
-    @Bean
-    public CORSFilter corsFilter() {
-        return new CORSFilter();
+        log.debug("Registering static resources production Filter");
+        FilterRegistration.Dynamic staticResourcesProductionFilter =
+            servletContext.addFilter("staticResourcesProductionFilter",
+                new StaticResourcesProductionFilter());
+
+        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/");
+        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/index.html");
+        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/images/*");
+        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/fonts/*");
+        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/scripts/*");
+        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/styles/*");
+        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/views/*");
+        staticResourcesProductionFilter.setAsyncSupported(true);
+    }
+
+    /**
+     * Initializes the GZip filter.
+     */
+    private void initGzipFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
+        log.debug("Registering GZip Filter");
+        FilterRegistration.Dynamic compressingFilter = servletContext.addFilter("gzipFilter", new GZipServletFilter());
+        Map<String, String> parameters = new HashMap<>();
+        compressingFilter.setInitParameters(parameters);
+        compressingFilter.addMappingForUrlPatterns(disps, true, "*.css");
+        compressingFilter.addMappingForUrlPatterns(disps, true, "*.json");
+        compressingFilter.addMappingForUrlPatterns(disps, true, "*.html");
+        compressingFilter.addMappingForUrlPatterns(disps, true, "*.js");
+        compressingFilter.addMappingForUrlPatterns(disps, true, "/app/rest/*");
+        compressingFilter.addMappingForUrlPatterns(disps, true, "/metrics/*");
+        compressingFilter.setAsyncSupported(true);
     }
 
     private void initCorsFilter(ServletContext servletContext,
@@ -171,5 +161,15 @@ public class WebConfigurer implements ServletContextInitializer {
         corsFilter.setInitParameter("targetFilterLifecycle", "true");
         corsFilter.addMappingForUrlPatterns(disps, false, "/*");
         corsFilter.setAsyncSupported(true);
+    }
+
+    /**
+     * Initializes H2 console
+     */
+    private void initH2Console(ServletContext servletContext) {
+        log.debug("Initialize H2 console");
+        ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new org.h2.server.web.WebServlet());
+        h2ConsoleServlet.addMapping("/console/*");
+        h2ConsoleServlet.setLoadOnStartup(1);
     }
 }

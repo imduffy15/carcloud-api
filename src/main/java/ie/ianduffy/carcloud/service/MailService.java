@@ -30,20 +30,23 @@ public class MailService {
     @Inject
     private Environment env;
 
+    private String from;
+
     @Inject
     private JavaMailSenderImpl javaMailSender;
-
     @Inject
     private MessageSource messageSource;
-
-    /**
-     * System default email address that sends the e-mails.
-     */
-    private String from;
 
     @PostConstruct
     public void init() {
         this.from = env.getProperty("spring.mail.from");
+    }
+
+    @Async
+    public void sendActivationEmail(final String email, String content, Locale locale) {
+        log.debug("Sending activation e-mail to '{}'", email);
+        String subject = messageSource.getMessage("email.activation.title", null, locale);
+        sendEmail(email, subject, content, false, true);
     }
 
     @Async
@@ -64,12 +67,5 @@ public class MailService {
         } catch (Exception e) {
             log.warn("E-mail could not be sent to user '{}', exception is: {}", to, e.getMessage());
         }
-    }
-
-    @Async
-    public void sendActivationEmail(final String email, String content, Locale locale) {
-        log.debug("Sending activation e-mail to '{}'", email);
-        String subject = messageSource.getMessage("email.activation.title", null, locale);
-        sendEmail(email, subject, content, false, true);
     }
 }

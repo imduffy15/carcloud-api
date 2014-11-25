@@ -13,20 +13,20 @@ public final class RandomUtil {
     }
 
     /**
-     * Generates a password.
-     *
-     * @return the generated password
-     */
-    public static String generatePassword() {
-        return RandomStringUtils.randomAlphanumeric(DEF_COUNT);
-    }
-
-    /**
      * Generates an activation key.
      *
      * @return the generated activation key
      */
     public static String generateActivationKey() {
         return RandomStringUtils.randomNumeric(DEF_COUNT);
+    }
+
+    /**
+     * Generates a password.
+     *
+     * @return the generated password
+     */
+    public static String generatePassword() {
+        return RandomStringUtils.randomAlphanumeric(DEF_COUNT);
     }
 }
