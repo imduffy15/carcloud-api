@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.javadocmd.simplelatlng.LatLng;
 import org.joda.time.DateTime;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +28,7 @@ public class PayloadDTO {
 
     @JsonProperty("asset")
     public void setDeviceId(String deviceId) {
-        this.deviceId =  Long.parseLong(deviceId);
+        this.deviceId = Long.parseLong(deviceId);
     }
 
     public Map<String, Map<String, String>> getFields() {

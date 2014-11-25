@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <changeSet author="duffy (generated)" id="1416955928001-1">
+        <createTable tableName="t_track">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="latitude" type="DOUBLE"/>
+            <column name="longitude" type="DOUBLE"/>
+            <column name="received_at" type="timestamp"/>
+            <column name="recorded_at" type="timestamp"/>
+            <column name="device" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="duffy (generated)" id="1416955928001-2" context="prod">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_track"/>
+    </changeSet>
+
+</databaseChangeLog>

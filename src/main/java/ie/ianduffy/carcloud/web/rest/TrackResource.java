@@ -25,12 +25,10 @@ import java.util.List;
 public class TrackResource {
 
     private final Logger log = LoggerFactory.getLogger(TrackResource.class);
-
-    @Inject
-    private TrackRepository trackRepository;
-
     @Inject
     private DeviceRepository deviceRepository;
+    @Inject
+    private TrackRepository trackRepository;
 
     /**
      * POST  /rest/tracks -> Create a new track.

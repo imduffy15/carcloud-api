@@ -100,7 +100,9 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
                     .build(graphite);
                 graphiteReporter.start(1, TimeUnit.MINUTES);
             }
-        }        @Override
+        }
+
+        @Override
         public void setEnvironment(Environment environment) {
             this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_METRICS_GRAPHITE);
         }

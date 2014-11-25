@@ -8,22 +8,16 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-
-import java.util.Properties;
 
 @Configuration
 public class SMSConfiguration implements EnvironmentAware {
 
 
-    private final Logger log = LoggerFactory.getLogger(SMSConfiguration.class);
-
-    private RelaxedPropertyResolver propertyResolver;
-
     private static final String ENV_NEXOMO = "nexmo.";
-
     private static final String PROP_KEY = "key";
     private static final String PROP_SECRET = "secret";
+    private final Logger log = LoggerFactory.getLogger(SMSConfiguration.class);
+    private RelaxedPropertyResolver propertyResolver;
 
     @Bean
     public NexmoSmsClient nexmoSmsClient() {

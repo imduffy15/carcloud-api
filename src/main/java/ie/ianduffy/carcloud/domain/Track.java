@@ -29,9 +29,11 @@ public class Track implements Serializable {
     private Double latitude;
     private Double longitude;
 
+    @Column(name = "received_at")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime receivedAt;
 
+    @Column(name = "recorded_at")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime recordedAt;
 
@@ -71,6 +73,10 @@ public class Track implements Serializable {
         this.id = id;
     }
 
+    public Double getLatitude() {
+        return latitude;
+    }
+
     @JsonIgnore
     public LatLng getLocation() {
         return new LatLng(latitude, longitude);
@@ -79,10 +85,6 @@ public class Track implements Serializable {
     public void setLocation(LatLng location) {
         latitude = location.getLatitude();
         longitude = location.getLongitude();
-    }
-
-    public Double getLatitude() {
-        return latitude;
     }
 
     public Double getLongitude() {
