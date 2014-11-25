@@ -53,7 +53,7 @@
         <resetJUL>true</resetJUL>
     </contextListener>
 
-    <root level="WARN">
+    <root level="DEBUG">
         <appender-ref ref="CONSOLE"/>
     </root>
 

@@ -38,7 +38,3 @@ swagger:
     contact: Ian Duffy (ian@ianduffy.ie)
     license: Apache 2.0
     licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.html
-
-nexmo:
-    username: carcloud
-    password: carcloud

@@ -110,6 +110,7 @@
         <!-- Spring-Boot settings -->
         <run.addResources>false</run.addResources>
         <!-- Libraries versions -->
+        <apache-http.version>4.1.1</apache-http.version>
         <assertj-core.version>1.6.1</assertj-core.version>
         <awaitility.version>1.4.0</awaitility.version>
         <commons-lang.version>2.6</commons-lang.version>
@@ -127,13 +128,13 @@
         <liquibase-hibernate.version>3.3</liquibase-hibernate.version>
         <liquibase-slf4j.version>1.2.1</liquibase-slf4j.version>
         <metrics-spring.version>3.0.1</metrics-spring.version>
-        <nexmo.version>1.2</nexmo.version>
         <simple-lat-long.version>RELEASE</simple-lat-long.version>
         <spring.version>4.1.0.RELEASE</spring.version>
         <spring-data-releasetrain.version>Evans-RELEASE</spring-data-releasetrain.version>
         <spring-security-oauth2.version>2.0.3.RELEASE</spring-security-oauth2.version>
         <swagger-springmvc.version>0.8.8</swagger-springmvc.version>
         <usertype-core.version>3.2.0.GA</usertype-core.version>
+        <nexmo.version>1.5.0</nexmo.version>
     </properties>
 
     <repositories>
@@ -191,14 +192,18 @@
             </snapshots>
         </repository>
         <repository>
-            <id>javanto-releases</id>
-            <url>https://raw.github.com/javanto/repository/releases</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
+            <id>central</id>
+            <name>libs-release</name>
+            <url>http://artifactory.ianduffy.ie/artifactory/libs-release</url>
+        </repository>
+        <repository>
+            <snapshots />
+            <id>snapshots</id>
+            <name>libs-snapshot</name>
+            <url>http://artifactory.ianduffy.ie/artifactory/libs-snapshot</url>
         </repository>
     </repositories>
     <pluginRepositories>
@@ -223,6 +228,11 @@
     </prerequisites>
 
     <dependencies>
+        <dependency>
+            <groupId>com.nexmo</groupId>
+            <artifactId>nexmo-java-sdk</artifactId>
+            <version>${nexmo.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.codahale.metrics</groupId>
             <artifactId>metrics-core</artifactId>
@@ -281,11 +291,6 @@
             <artifactId>jackson-datatype-joda</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.nexmo</groupId>
-            <artifactId>nexmo-java-sdk</artifactId>
-            <version>${nexmo.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.ryantenney.metrics</groupId>
             <artifactId>metrics-spring</artifactId>
             <version>${metrics-spring.version}</version>
@@ -336,6 +341,11 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time-hibernate</artifactId>
             <version>${joda-time-hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${apache-http.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.geronimo.javamail</groupId>

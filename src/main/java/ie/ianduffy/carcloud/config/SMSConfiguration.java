@@ -22,19 +22,19 @@ public class SMSConfiguration implements EnvironmentAware {
 
     private static final String ENV_NEXOMO = "nexmo.";
 
-    private static final String PROP_USERNAME = "username";
-    private static final String PROP_PASSWORD = "password";
+    private static final String PROP_KEY = "key";
+    private static final String PROP_SECRET = "secret";
 
     @Bean
     public NexmoSmsClient nexmoSmsClient() {
         log.debug("Configuring SMS Client");
-        String username = propertyResolver.getProperty(PROP_USERNAME);
-        String password = propertyResolver.getProperty(PROP_PASSWORD);
+        String key = propertyResolver.getProperty(PROP_KEY);
+        String secret = propertyResolver.getProperty(PROP_SECRET);
         NexmoSmsClient nexmoSmsClient = null;
         try {
-            nexmoSmsClient = new NexmoSmsClient(username, password);
+            nexmoSmsClient = new NexmoSmsClient(key, secret);
         } catch (Exception e) {
-            log.warn(e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
         return nexmoSmsClient;
     }
