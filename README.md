@@ -1,5 +1,18 @@
 # CarCloud
 
+## Execution
+
+You will need Maven and Java 7 installed on your machine.
+
+Run:
+
+```bash
+mvn -Pdev spring-boot:run
+```
+
+Maven will download all third party dependencies and the application will come up on port 8080.
+The downloads may take some time depending on your connection.
+
 ## Description
 
 The internet of things is a computing vision where everyday physical objects will be connected to the internet and to identify themselves to other devices.
