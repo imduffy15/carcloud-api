@@ -20,6 +20,11 @@ public class GZipServletFilter implements Filter {
 
     private final Logger log = LoggerFactory.getLogger(GZipServletFilter.class);
 
+    private boolean acceptsGZipEncoding(HttpServletRequest httpRequest) {
+        String acceptEncoding = httpRequest.getHeader("Accept-Encoding");
+        return acceptEncoding != null && acceptEncoding.contains("gzip");
+    }
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         // Nothing to initialize
@@ -109,10 +114,5 @@ public class GZipServletFilter implements Filter {
                 request.getRequestURL());
         }
         return includeRequest;
-    }
-
-    private boolean acceptsGZipEncoding(HttpServletRequest httpRequest) {
-        String acceptEncoding = httpRequest.getHeader("Accept-Encoding");
-        return acceptEncoding != null && acceptEncoding.contains("gzip");
     }
 }

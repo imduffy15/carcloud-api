@@ -63,8 +63,7 @@ carcloudApp.controller('RegisterController', function ($scope, Register) {
                 },
                 function (httpResponse) {
                     $scope.success = null;
-                    if (httpResponse.status === 304 &&
-                        httpResponse.data.error && httpResponse.data.error === "Not Modified") {
+                    if (httpResponse.status === 304) {
                         $scope.error = null;
                         $scope.errorUserExists = "ERROR";
                     } else {

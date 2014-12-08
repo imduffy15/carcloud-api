@@ -84,22 +84,25 @@ carcloudApp.factory('AuditsService', function ($http) {
 });
 
 carcloudApp.factory('Session', function () {
-    this.create = function (email, firstName, lastName, userRoles) {
+    this.create = function (email, firstName, lastName, authorities) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.userRoles = userRoles;
+        this.authorities = [];
+        angular.forEach(authorities, function(authority) {
+            this.authorities.push(authority['name']);
+        }, this);
     };
     this.invalidate = function () {
         this.firstName = null;
         this.lastName = null;
         this.email = null;
-        this.userRoles = null;
+        this.authorities = null;
     };
     return this;
 });
 
-carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, authService, Session, Account, Base64Service, Token) {
+carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, $location, authService, Session, Account, Base64Service, Token) {
     return {
         login: function (param) {
             var data = "username=" + param.username + "&password=" + param.password + "&grant_type=password&scope=read%20write&client_secret=Echoong7zooNga3tvohy6Xaeoon9Aem3ange8Iga5ooDa1ahb8LaS2&client_id=carcloudapp";
@@ -115,7 +118,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
                 Token.set(data);
 
                 Account.get(function (data) {
-                    Session.create(data.email, data.firstName, data.lastName, data.roles);
+                    Session.create(data.email, data.firstName, data.lastName, data.authorities);
                     $rootScope.account = Session;
                     authService.loginConfirmed(data);
                 });
@@ -138,7 +141,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
                 Token.set(data);
 
                 Account.get(function (data) {
-                    Session.create(data.email, data.firstName, data.lastName, data.roles);
+                    Session.create(data.email, data.firstName, data.lastName, data.authorities);
                     $rootScope.account = Session;
                     authService.loginConfirmed(data, function (config) {
                         config.headers['Authorization'] = 'Bearer ' + Token.get('access_token');
@@ -146,12 +149,11 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
                     });
                 });
             }).error(function (data, status, headers, config) {
-                console.log("invalidating");
                 $rootScope.authenticationError = true;
                 Session.invalidate();
             });
         },
-        valid: function (authorizedRoles) {
+        valid: function (authorities) {
             if (Token.get('access_token')) httpHeaders.common['Authorization'] = 'Bearer ' + Token.get('access_token');
 
             $http.get('protected/authentication_check.gif', {
@@ -163,10 +165,10 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
                         return;
                     }
                     Account.get(function (data) {
-                        Session.create(data.email, data.firstName, data.lastName, data.roles);
+                        Session.create(data.email, data.firstName, data.lastName, data.authorities);
                         $rootScope.account = Session;
 
-                        if (!$rootScope.isAuthorized(authorizedRoles)) {
+                        if (!$rootScope.isAuthorized(authorities)) {
                             event.preventDefault();
                             // user is not allowed
                             $rootScope.$broadcast("event:auth-notAuthorized");
@@ -180,21 +182,19 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
                 $rootScope.authenticated = false;
             });
         },
-        isAuthorized: function (authorizedRoles) {
-            if (!angular.isArray(authorizedRoles)) {
-                if (authorizedRoles == '*') {
+        isAuthorized: function (authorities) {
+            if (!angular.isArray(authorities)) {
+                if (authorities == '*') {
                     return true;
                 }
 
-                authorizedRoles = [authorizedRoles];
+                authorities = [authorities];
             }
 
             var isAuthorized = false;
-            angular.forEach(authorizedRoles, function (authorizedRole) {
-                var authorized = (!!Session.email &&
-                Session.userRoles.indexOf(authorizedRole) !== -1);
-                console.log(authorized);
-                if (authorized || authorizedRole == '*') {
+            angular.forEach(authorities, function (authority) {
+                var authorized = (Session.authorities.indexOf(authority) !== -1);
+                if (authorized || authorities == '*') {
                     isAuthorized = true;
                 }
             });

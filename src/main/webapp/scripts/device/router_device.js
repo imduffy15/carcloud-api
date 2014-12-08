@@ -12,7 +12,7 @@ carcloudApp
                     }]
                 },
                 access: {
-                    authorizedRoles: [USER_ROLES.all]
+                    authorities: [USER_ROLES.all]
                 }
             })
     });

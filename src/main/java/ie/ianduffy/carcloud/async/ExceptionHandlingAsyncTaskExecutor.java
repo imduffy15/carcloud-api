@@ -27,6 +27,35 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
         }
     }
 
+    private <T> Callable<T> createCallable(final Callable<T> task) {
+        return new Callable<T>() {
+
+            @Override
+            public T call() throws Exception {
+                try {
+                    return task.call();
+                } catch (Exception e) {
+                    handle(e);
+                    throw e;
+                }
+            }
+        };
+    }
+
+    private Runnable createWrappedRunnable(final Runnable task) {
+        return new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    task.run();
+                } catch (Exception e) {
+                    handle(e);
+                }
+            }
+        };
+    }
+
     @Override
     public void destroy() throws Exception {
         if (executor instanceof DisposableBean) {
@@ -45,24 +74,6 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
         executor.execute(createWrappedRunnable(task), startTimeout);
     }
 
-    private Runnable createWrappedRunnable(final Runnable task) {
-        return new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    task.run();
-                } catch (Exception e) {
-                    handle(e);
-                }
-            }
-        };
-    }
-
-    void handle(Exception e) {
-        log.error("Caught async exception", e);
-    }
-
     @Override
     public Future<?> submit(Runnable task) {
         return executor.submit(createWrappedRunnable(task));
@@ -73,18 +84,7 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
         return executor.submit(createCallable(task));
     }
 
-    private <T> Callable<T> createCallable(final Callable<T> task) {
-        return new Callable<T>() {
-
-            @Override
-            public T call() throws Exception {
-                try {
-                    return task.call();
-                } catch (Exception e) {
-                    handle(e);
-                    throw e;
-                }
-            }
-        };
+    void handle(Exception e) {
+        log.error("Caught async exception", e);
     }
 }

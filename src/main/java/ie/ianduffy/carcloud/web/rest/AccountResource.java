@@ -1,8 +1,6 @@
 package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import ie.ianduffy.carcloud.domain.Authority;
-import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.service.UserService;
 import ie.ianduffy.carcloud.web.rest.dto.UserDTO;
 import org.apache.commons.lang.StringUtils;
@@ -18,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.Valid;
 
 /**
  * REST controller for managing the current user's account.
@@ -56,22 +53,8 @@ public class AccountResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<UserDTO> getAccount() {
-        User user = userService.getUserWithAuthorities();
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        List<String> roles = new ArrayList<>();
-        for (Authority authority : user.getAuthorities()) {
-            roles.add(authority.getName());
-        }
-        return new ResponseEntity<>(
-            new UserDTO(
-                user.getFirstName(),
-                user.getLastName(),
-                user.getEmail(),
-                user.getPhone(),
-                roles),
-            HttpStatus.OK);
+        UserDTO userDTO = userService.getUserWithAuthorities();
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     /**
@@ -93,15 +76,12 @@ public class AccountResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<?> registerAccount(@RequestBody UserDTO userDTO) {
-        User user = userService.getUser(userDTO.getEmail());
-        if (user != null) {
+    public ResponseEntity<UserDTO> registerAccount(@Valid @RequestBody UserDTO userDTO) {
+        UserDTO user = userService.create(userDTO);
+        if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-        } else {
-            user = userService.createUserInformation(userDTO.getPassword(), userDTO.getFirstName(),
-                userDTO.getLastName(), userDTO.getEmail(), userDTO.getPhone());
-            return new ResponseEntity<>(HttpStatus.CREATED);
         }
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /**
@@ -111,7 +91,7 @@ public class AccountResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void saveAccount(@RequestBody UserDTO userDTO) {
-        userService.updateUserInformation(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail());
+    public void saveAccount(@Valid @RequestBody UserDTO userDTO) {
+        userService.update(userDTO);
     }
 }

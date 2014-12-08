@@ -47,24 +47,63 @@ public class WebConfigurer implements ServletContextInitializer {
         return new CORSFilter();
     }
 
-    @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
-        log.info("Web application configuration, using profiles: {}", Arrays.toString(env.getActiveProfiles()));
-        EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
-        initMetrics(servletContext, disps);
-        if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
-            initCachingHttpHeadersFilter(servletContext, disps);
-            initStaticResourcesProductionFilter(servletContext, disps);
-        }
+    /**
+     * Initializes the cachig HTTP Headers Filter.
+     */
+    private void initCachingHttpHeadersFilter(ServletContext servletContext,
+                                              EnumSet<DispatcherType> disps) {
+        log.debug("Registering Cachig HTTP Headers Filter");
+        FilterRegistration.Dynamic cachingHttpHeadersFilter =
+            servletContext.addFilter("cachingHttpHeadersFilter",
+                new CachingHttpHeadersFilter());
 
-        initGzipFilter(servletContext, disps);
+        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/images/*");
+        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/fonts/*");
+        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/scripts/*");
+        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/styles/*");
+        cachingHttpHeadersFilter.setAsyncSupported(true);
+    }
 
-        initCorsFilter(servletContext, disps);
+    private void initCorsFilter(ServletContext servletContext,
+                                EnumSet<DispatcherType> disps) {
+        log.debug("Registering CORS Filter");
+        FilterRegistration.Dynamic corsFilter =
+            servletContext.addFilter("corsFilter", DelegatingFilterProxy.class);
 
-        if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
-            initH2Console(servletContext);
-        }
-        log.info("Web application fully configured");
+        corsFilter.setInitParameter("cors.allowOrigin", "*");
+        corsFilter.setInitParameter("cors.supportsCredentials", "false");
+        corsFilter.setInitParameter("cors.supportedMethods", "GET, POST, HEAD, PUT, PATCH, DELETE, OPTIONS");
+        corsFilter.setInitParameter("cors.maxAge", "86400");
+        corsFilter.setInitParameter("targetFilterLifecycle", "true");
+        corsFilter.addMappingForUrlPatterns(disps, false, "/*");
+        corsFilter.setAsyncSupported(true);
+    }
+
+    /**
+     * Initializes the GZip filter.
+     */
+    private void initGzipFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
+        log.debug("Registering GZip Filter");
+        FilterRegistration.Dynamic compressingFilter = servletContext.addFilter("gzipFilter", new GZipServletFilter());
+        Map<String, String> parameters = new HashMap<>();
+        compressingFilter.setInitParameters(parameters);
+        compressingFilter.addMappingForUrlPatterns(disps, true, "*.css");
+        compressingFilter.addMappingForUrlPatterns(disps, true, "*.json");
+        compressingFilter.addMappingForUrlPatterns(disps, true, "*.html");
+        compressingFilter.addMappingForUrlPatterns(disps, true, "*.js");
+        compressingFilter.addMappingForUrlPatterns(disps, true, "/app/rest/*");
+        compressingFilter.addMappingForUrlPatterns(disps, true, "/metrics/*");
+        compressingFilter.setAsyncSupported(true);
+    }
+
+    /**
+     * Initializes H2 console
+     */
+    private void initH2Console(ServletContext servletContext) {
+        log.debug("Initialize H2 console");
+        ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new org.h2.server.web.WebServlet());
+        h2ConsoleServlet.addMapping("/console/*");
+        h2ConsoleServlet.setLoadOnStartup(1);
     }
 
     /**
@@ -94,23 +133,6 @@ public class WebConfigurer implements ServletContextInitializer {
     }
 
     /**
-     * Initializes the cachig HTTP Headers Filter.
-     */
-    private void initCachingHttpHeadersFilter(ServletContext servletContext,
-                                              EnumSet<DispatcherType> disps) {
-        log.debug("Registering Cachig HTTP Headers Filter");
-        FilterRegistration.Dynamic cachingHttpHeadersFilter =
-            servletContext.addFilter("cachingHttpHeadersFilter",
-                new CachingHttpHeadersFilter());
-
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/images/*");
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/fonts/*");
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/scripts/*");
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/styles/*");
-        cachingHttpHeadersFilter.setAsyncSupported(true);
-    }
-
-    /**
      * Initializes the static resources production Filter.
      */
     private void initStaticResourcesProductionFilter(ServletContext servletContext,
@@ -131,45 +153,23 @@ public class WebConfigurer implements ServletContextInitializer {
         staticResourcesProductionFilter.setAsyncSupported(true);
     }
 
-    /**
-     * Initializes the GZip filter.
-     */
-    private void initGzipFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
-        log.debug("Registering GZip Filter");
-        FilterRegistration.Dynamic compressingFilter = servletContext.addFilter("gzipFilter", new GZipServletFilter());
-        Map<String, String> parameters = new HashMap<>();
-        compressingFilter.setInitParameters(parameters);
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.css");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.json");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.html");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.js");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "/app/rest/*");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "/metrics/*");
-        compressingFilter.setAsyncSupported(true);
-    }
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        log.info("Web application configuration, using profiles: {}", Arrays.toString(env.getActiveProfiles()));
+        EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
+        initMetrics(servletContext, disps);
+        if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
+            initCachingHttpHeadersFilter(servletContext, disps);
+            initStaticResourcesProductionFilter(servletContext, disps);
+        }
 
-    private void initCorsFilter(ServletContext servletContext,
-                                EnumSet<DispatcherType> disps) {
-        log.debug("Registering CORS Filter");
-        FilterRegistration.Dynamic corsFilter =
-            servletContext.addFilter("corsFilter", DelegatingFilterProxy.class);
+        initGzipFilter(servletContext, disps);
 
-        corsFilter.setInitParameter("cors.allowOrigin", "*");
-        corsFilter.setInitParameter("cors.supportsCredentials", "false");
-        corsFilter.setInitParameter("cors.supportedMethods", "GET, POST, HEAD, PUT, PATCH, DELETE, OPTIONS");
-        corsFilter.setInitParameter("cors.maxAge", "86400");
-        corsFilter.setInitParameter("targetFilterLifecycle", "true");
-        corsFilter.addMappingForUrlPatterns(disps, false, "/*");
-        corsFilter.setAsyncSupported(true);
-    }
+        initCorsFilter(servletContext, disps);
 
-    /**
-     * Initializes H2 console
-     */
-    private void initH2Console(ServletContext servletContext) {
-        log.debug("Initialize H2 console");
-        ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new org.h2.server.web.WebServlet());
-        h2ConsoleServlet.addMapping("/console/*");
-        h2ConsoleServlet.setLoadOnStartup(1);
+        if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
+            initH2Console(servletContext);
+        }
+        log.info("Web application fully configured");
     }
 }

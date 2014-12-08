@@ -4,7 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import ie.ianduffy.carcloud.domain.Device;
 import ie.ianduffy.carcloud.repository.DeviceRepository;
 import ie.ianduffy.carcloud.service.DeviceService;
-import ie.ianduffy.carcloud.service.UserService;
+import ie.ianduffy.carcloud.web.rest.dto.DeviceDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -28,8 +28,6 @@ public class DeviceResource {
     private DeviceRepository deviceRepository;
     @Inject
     private DeviceService deviceService;
-    @Inject
-    private UserService userService;
 
     /**
      * POST  /rest/devices -> Create a new device.
@@ -38,8 +36,12 @@ public class DeviceResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void create(@RequestBody Device device) {
-        deviceService.create(device);
+    public ResponseEntity<?> create(@Valid @RequestBody DeviceDTO deviceDTO) {
+        Device device = deviceService.createOrUpdate(deviceDTO);
+        if (device == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
@@ -49,7 +51,7 @@ public class DeviceResource {
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable("id") Long id) {
         log.debug("REST request to delete Device : {}", id);
         deviceRepository.delete(id);
     }
@@ -61,9 +63,9 @@ public class DeviceResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Device> get(@PathVariable Long id, HttpServletResponse response) {
+    public ResponseEntity<DeviceDTO> get(@PathVariable("id") Long id) {
         log.debug("REST request to get Device : {}", id);
-        Device device = deviceRepository.findOne(id);
+        DeviceDTO device = deviceService.findOneForCurrentUser(id);
         if (device == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -77,9 +79,8 @@ public class DeviceResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<Device> getAll() {
+    public List<DeviceDTO> getAll() {
         log.debug("REST request to get all Devices");
-//        return deviceRepository.findAll();
-        return deviceRepository.findDevicesForCurrentUser(userService.getUserWithAuthorities());
+        return deviceService.findAllForCurrentUser();
     }
 }

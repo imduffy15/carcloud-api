@@ -123,11 +123,8 @@ public class Track implements Serializable {
 
         Track track = (Track) o;
 
-        if (id != track.id) {
-            return false;
-        }
+        return id == track.id;
 
-        return true;
     }
 
     @Override

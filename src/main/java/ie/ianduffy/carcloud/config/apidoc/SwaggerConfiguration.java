@@ -18,6 +18,19 @@ public class SwaggerConfiguration implements EnvironmentAware {
 
     private RelaxedPropertyResolver propertyResolver;
 
+    /**
+     * API Info as it appears on the swagger-ui page
+     */
+    private ApiInfo apiInfo() {
+        return new ApiInfo(
+            propertyResolver.getProperty("title"),
+            propertyResolver.getProperty("description"),
+            propertyResolver.getProperty("termsOfServiceUrl"),
+            propertyResolver.getProperty("contact"),
+            propertyResolver.getProperty("license"),
+            propertyResolver.getProperty("licenseUrl"));
+    }
+
     @Override
     public void setEnvironment(Environment environment) {
         this.propertyResolver = new RelaxedPropertyResolver(environment, "swagger.");
@@ -32,18 +45,5 @@ public class SwaggerConfiguration implements EnvironmentAware {
             .apiInfo(apiInfo())
             .genericModelSubstitutes(ResponseEntity.class)
             .includePatterns(DEFAULT_INCLUDE_PATTERN);
-    }
-
-    /**
-     * API Info as it appears on the swagger-ui page
-     */
-    private ApiInfo apiInfo() {
-        return new ApiInfo(
-            propertyResolver.getProperty("title"),
-            propertyResolver.getProperty("description"),
-            propertyResolver.getProperty("termsOfServiceUrl"),
-            propertyResolver.getProperty("contact"),
-            propertyResolver.getProperty("license"),
-            propertyResolver.getProperty("licenseUrl"));
     }
 }

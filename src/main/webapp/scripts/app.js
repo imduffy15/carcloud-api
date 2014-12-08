@@ -13,60 +13,48 @@ carcloudApp
                 templateUrl: 'views/register.html',
                 controller: 'RegisterController',
                 access: {
-                    authorizedRoles: [USER_ROLES.all]
+                    authorities: [USER_ROLES.all]
                 }
             })
             .when('/activate', {
                 templateUrl: 'views/activate.html',
                 controller: 'ActivationController',
                 access: {
-                    authorizedRoles: [USER_ROLES.all]
+                    authorities: [USER_ROLES.all]
                 }
             })
             .when('/login', {
                 templateUrl: 'views/login.html',
                 controller: 'LoginController',
                 access: {
-                    authorizedRoles: [USER_ROLES.all]
+                    authorities: [USER_ROLES.all]
                 }
             })
             .when('/error', {
                 templateUrl: 'views/error.html',
                 access: {
-                    authorizedRoles: [USER_ROLES.all]
+                    authorities: [USER_ROLES.all]
                 }
             })
             .when('/settings', {
                 templateUrl: 'views/settings.html',
                 controller: 'SettingsController',
                 access: {
-                    authorizedRoles: [USER_ROLES.all]
+                    authorities: [USER_ROLES.user]
                 }
             })
             .when('/password', {
                 templateUrl: 'views/password.html',
                 controller: 'PasswordController',
                 access: {
-                    authorizedRoles: [USER_ROLES.all]
-                }
-            })
-            .when('/sessions', {
-                templateUrl: 'views/sessions.html',
-                controller: 'SessionsController',
-                resolve: {
-                    resolvedSessions: ['Sessions', function (Sessions) {
-                        return Sessions.get();
-                    }]
-                },
-                access: {
-                    authorizedRoles: [USER_ROLES.all]
+                    authorities: [USER_ROLES.user]
                 }
             })
             .when('/metrics', {
                 templateUrl: 'views/metrics.html',
                 controller: 'MetricsController',
                 access: {
-                    authorizedRoles: [USER_ROLES.admin]
+                    authorities: [USER_ROLES.user]
                 }
             })
             .when('/logs', {
@@ -78,34 +66,34 @@ carcloudApp
                     }]
                 },
                 access: {
-                    authorizedRoles: [USER_ROLES.admin]
+                    authorities: [USER_ROLES.user]
                 }
             })
             .when('/audits', {
                 templateUrl: 'views/audits.html',
                 controller: 'AuditsController',
                 access: {
-                    authorizedRoles: [USER_ROLES.admin]
+                    authorities: [USER_ROLES.user]
                 }
             })
             .when('/logout', {
                 templateUrl: 'views/main.html',
                 controller: 'LogoutController',
                 access: {
-                    authorizedRoles: [USER_ROLES.all]
+                    authorities: [USER_ROLES.user]
                 }
             })
             .when('/docs', {
                 templateUrl: 'views/docs.html',
                 access: {
-                    authorizedRoles: [USER_ROLES.admin]
+                    authorities: [USER_ROLES.user]
                 }
             })
             .otherwise({
                 templateUrl: 'views/main.html',
                 controller: 'MainController',
                 access: {
-                    authorizedRoles: [USER_ROLES.all]
+                    authorities: [USER_ROLES.all]
                 }
             });
 
@@ -117,7 +105,7 @@ carcloudApp
         $rootScope.$on('$routeChangeStart', function (event, next) {
             $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
             $rootScope.userRoles = USER_ROLES;
-            AuthenticationSharedService.valid(next.access.authorizedRoles);
+            AuthenticationSharedService.valid(next.access.authorities);
         });
 
         // Call when the the client is confirmed
@@ -130,16 +118,21 @@ carcloudApp
         });
 
         // Call when the 401 response is returned by the server
-        // SPAM 0.0.1 - Example of event listeners
-        $rootScope.$on('event:auth-loginRequired', function (rejection) {
-            AuthenticationSharedService.refresh();
+        $rootScope.$on('event:auth-loginRequired', function(rejection) {
+            Session.invalidate();
+            $rootScope.authenticated = false;
+            if ($location.path() !== "/" && $location.path() !== "" && $location.path() !== "/register" &&
+                $location.path() !== "/activate" && $location.path() !== "/login") {
+                var redirect = $location.path();
+                $location.path('/login').search('redirect', redirect).replace();
+            }
         });
 
         // Call when the 403 response is returned by the server
         // SPAM 0.0.1 - Example of event listeners
         $rootScope.$on('event:auth-notAuthorized', function (rejection) {
-            $rootScope.errorMessage = 'errors.403';
-            $location.path('/error').replace();
+            $rootScope.errorMessage = 'You are not authorized to access the page.';
+            $location.path('/error');
         });
 
         // Call when the user logs out

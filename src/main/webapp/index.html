@@ -16,6 +16,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/ionicons/css/ionicons.css">
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 </head>
@@ -35,14 +36,14 @@
             <ul class="nav navbar-nav nav-pills navbar-right">
                 <li>
                     <a href="#">
-                        <span class="glyphicon glyphicon-home"></span>
+                        <span class="ion-ios-home"></span>
                         <span>Home</span>
                     </a>
                 </li>
                 <li class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
                                 <span>
-                                    <span class="glyphicon glyphicon-user"></span>
+                                    <span class="ion-person"></span>
                                     <span class="hidden-tablet">
                                         Account
                                     </span>
@@ -50,19 +51,25 @@
                                 </span>
                     </a>
                     <ul class="dropdown-menu" ng-controller="MenuController">
-                        <li ng-switch-when="true"><a href="#/settings"><span class="glyphicon glyphicon-wrench"></span>
+                        <li ng-switch-when="true"><a href="#/settings"><span class="ion-settings"></span>
                             &#xA0;<span>Settings</span></a></li>
-                        <li ng-switch-when="true"><a href="#/password"><span class="glyphicon glyphicon-lock"></span>
+                        <li ng-switch-when="true"><a href="#/password"><span class="ion-locked"></span>
                             &#xA0;<span>Password</span></a></li>
-                        <li ng-switch-when="true"><a href="#/logout"><span class="glyphicon glyphicon-log-out"></span>
+                        <li ng-switch-when="true"><a href="#/logout"><span class="ion-log-out"></span>
                             &#xA0;<span>Log out</span></a></li>
-                        <li ng-switch-when="false"><a href="#/login"><span class="glyphicon glyphicon-log-in"></span>
+                        <li ng-switch-when="false"><a href="#/login"><span class="ion-log-in"></span>
                             &#xA0;<span>Authenticate</span></a></li>
 
                         <li ng-switch-when="false"><a href="#/register"><span
-                            class="glyphicon glyphicon-plus-sign"></span>
+                            class="ion-plus"></span>
                             &#xA0;<span>Register</span></a></li>
                     </ul>
+                </li>
+                <li ng-switch-when="true">
+                    <a href="#/device">
+                        <span class="ion-android-car"></span>
+                        <span>Devices</span>
+                    </a>
                 </li>
                 <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer"
                     ng-controller="AdminController">

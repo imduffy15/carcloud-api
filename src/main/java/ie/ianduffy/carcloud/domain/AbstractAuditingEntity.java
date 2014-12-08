@@ -24,12 +24,12 @@ import javax.persistence.Version;
 abstract class AbstractAuditingEntity {
 
     @CreatedBy
-    @Column(name = "created_by", nullable = false, length = 50)
+    @Column(name = "created_by", length = 50)
     private String createdBy;
 
     @CreatedDate
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    @Column(name = "created_date", nullable = false)
+    @Column(name = "created_date")
     private DateTime createdDate = DateTime.now();
 
     @LastModifiedBy

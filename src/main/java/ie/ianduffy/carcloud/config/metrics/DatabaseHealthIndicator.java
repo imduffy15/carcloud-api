@@ -38,6 +38,17 @@ class DatabaseHealthIndicator extends AbstractHealthIndicator {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    String detectQuery(String product) {
+        String query = this.query;
+        if (!StringUtils.hasText(query)) {
+            query = queries.get(product);
+        }
+        if (!StringUtils.hasText(query)) {
+            query = "SELECT 1";
+        }
+        return query;
+    }
+
     @Override
     protected void doHealthCheck(Health.Builder builder) throws Exception {
         String product = getProduct();
@@ -62,17 +73,6 @@ class DatabaseHealthIndicator extends AbstractHealthIndicator {
                 return connection.getMetaData().getDatabaseProductName();
             }
         });
-    }
-
-    String detectQuery(String product) {
-        String query = this.query;
-        if (!StringUtils.hasText(query)) {
-            query = queries.get(product);
-        }
-        if (!StringUtils.hasText(query)) {
-            query = "SELECT 1";
-        }
-        return query;
     }
 
     public void setQuery(String query) {

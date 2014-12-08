@@ -11,6 +11,24 @@ import java.util.*;
 public class AuditEventConverter {
 
     /**
+     * Internal conversion. This is needed to support the current SpringBoot actuator AuditEventRepository interface
+     *
+     * @param data the data to convert
+     * @return a map of String, Object
+     */
+    Map<String, Object> convertDataToObjects(Map<String, String> data) {
+        Map<String, Object> results = new HashMap<>();
+
+        if (data != null) {
+            for (String key : data.keySet()) {
+                results.put(key, data.get(key));
+            }
+        }
+
+        return results;
+    }
+
+    /**
      * Internal conversion. This method will allow to save additional data.
      * By default, it will save the object as string
      *
@@ -58,23 +76,5 @@ public class AuditEventConverter {
         }
 
         return auditEvents;
-    }
-
-    /**
-     * Internal conversion. This is needed to support the current SpringBoot actuator AuditEventRepository interface
-     *
-     * @param data the data to convert
-     * @return a map of String, Object
-     */
-    Map<String, Object> convertDataToObjects(Map<String, String> data) {
-        Map<String, Object> results = new HashMap<>();
-
-        if (data != null) {
-            for (String key : data.keySet()) {
-                results.put(key, data.get(key));
-            }
-        }
-
-        return results;
     }
 }

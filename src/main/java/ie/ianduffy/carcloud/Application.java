@@ -26,6 +26,15 @@ public class Application {
     private Environment env;
 
     /**
+     * Set a default profile if it has not been set
+     */
+    private static void addDefaultProfile(SpringApplication app, SimpleCommandLinePropertySource source) {
+        if (!source.containsProperty("spring.profiles.active")) {
+            app.setAdditionalProfiles(Constants.SPRING_PROFILE_DEVELOPMENT);
+        }
+    }
+
+    /**
      * Main method, used to run the application.
      * <p/>
      * To run the application with hot reload enabled, add the following arguments to your JVM:
@@ -43,15 +52,6 @@ public class Application {
         addDefaultProfile(app, source);
 
         app.run(args);
-    }
-
-    /**
-     * Set a default profile if it has not been set
-     */
-    private static void addDefaultProfile(SpringApplication app, SimpleCommandLinePropertySource source) {
-        if (!source.containsProperty("spring.profiles.active")) {
-            app.setAdditionalProfiles(Constants.SPRING_PROFILE_DEVELOPMENT);
-        }
     }
 
     /**

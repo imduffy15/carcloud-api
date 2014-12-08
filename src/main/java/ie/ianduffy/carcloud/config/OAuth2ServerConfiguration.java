@@ -64,14 +64,14 @@ public class OAuth2ServerConfiguration {
                 .authenticationManager(authenticationManager);
         }
 
-        @Bean
-        public TokenStore tokenStore() {
-            return new JdbcTokenStore(dataSource);
-        }
-
         @Override
         public void setEnvironment(Environment environment) {
             this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_OAUTH);
+        }
+
+        @Bean
+        public TokenStore tokenStore() {
+            return new JdbcTokenStore(dataSource);
         }
     }
 

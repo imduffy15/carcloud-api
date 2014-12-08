@@ -1,10 +1,13 @@
 package ie.ianduffy.carcloud.service;
 
-import ie.ianduffy.carcloud.domain.Authority;
+import com.google.common.collect.Sets;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.repository.AuthorityRepository;
 import ie.ianduffy.carcloud.repository.UserRepository;
+import ie.ianduffy.carcloud.security.AuthoritiesConstants;
 import ie.ianduffy.carcloud.security.SecurityUtils;
+import ie.ianduffy.carcloud.web.rest.dto.UserDTO;
+import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,8 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Service class for managing users.
@@ -22,66 +23,54 @@ import java.util.Set;
 @Transactional
 public class UserService {
 
-    private final Logger log = LoggerFactory.getLogger(UserService.class);
-
     @Inject
     private AuthorityRepository authorityRepository;
-
+    @Inject
+    private Mapper mapper;
     @Inject
     private PasswordEncoder passwordEncoder;
-
     @Inject
     private UserRepository userRepository;
 
     public void changePassword(String password) {
-        User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        User user = userRepository.findOne(SecurityUtils.getCurrentLogin());
         String encryptedPassword = passwordEncoder.encode(password);
-        currentUser.setPassword(encryptedPassword);
-        userRepository.save(currentUser);
-        log.debug("Changed password for User: {}", currentUser);
+        user.setPassword(encryptedPassword);
+        userRepository.save(user);
     }
 
-    public User createUserInformation(String password, String firstName, String lastName, String email, String phone) {
-        User newUser = new User();
+    public UserDTO create(UserDTO userDTO) {
+        if (userRepository.findOne(userDTO.getEmail()) != null) {
+            return null;
+        }
 
-        String encryptedPassword = passwordEncoder.encode(password);
-        newUser.setPassword(encryptedPassword);
+        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        if (userDTO.getAuthorities() == null || userDTO.getAuthorities().size() <= 0) {
+            userDTO.setAuthorities(Sets.newHashSet(authorityRepository.findOne(AuthoritiesConstants.USER)));
+        }
 
-        newUser.setFirstName(firstName);
-        newUser.setLastName(lastName);
-        newUser.setEmail(email);
-        newUser.setPhone(phone);
-
-        Authority authority = authorityRepository.findOne("ROLE_USER");
-        Set<Authority> authorities = new HashSet<>();
-        authorities.add(authority);
-        newUser.setAuthorities(authorities);
-
-        userRepository.save(newUser);
-
-        log.debug("Created Information for User: {}", newUser);
-        return newUser;
+        User user = new User();
+        mapper.map(userDTO, user);
+        userRepository.save(user);
+        mapper.map(user, userDTO);
+        return userDTO;
     }
 
     @Transactional(readOnly = true)
-    public User getUser(String email) {
-        User currentUser = userRepository.findOne(email);
-        return currentUser;
+    public UserDTO getUserWithAuthorities() {
+        User user = userRepository.findOne(SecurityUtils.getCurrentLogin());
+        user.getAuthorities().size();
+        UserDTO userDTO = new UserDTO();
+        mapper.map(user, userDTO);
+        return userDTO;
     }
 
-    @Transactional(readOnly = true)
-    public User getUserWithAuthorities() {
+    public void update(UserDTO userDTO) {
         User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
-        currentUser.getAuthorities().size(); // eagerly load the association
-        return currentUser;
-    }
-
-    public void updateUserInformation(String firstName, String lastName, String email) {
-        User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
-        currentUser.setFirstName(firstName);
-        currentUser.setLastName(lastName);
-        currentUser.setEmail(email);
+        currentUser.setFirstName(userDTO.getFirstName());
+        currentUser.setLastName(userDTO.getLastName());
+        currentUser.setEmail(userDTO.getEmail());
+        currentUser.setVersion(userDTO.getVersion());
         userRepository.save(currentUser);
-        log.debug("Changed Information for User: {}", currentUser);
     }
 }

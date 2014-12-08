@@ -1,62 +1,76 @@
 package ie.ianduffy.carcloud.web.rest.dto;
 
-import java.util.List;
+import ie.ianduffy.carcloud.domain.Authority;
+import org.hibernate.validator.constraints.Email;
 
-public class UserDTO {
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import java.util.Set;
 
+public class UserDTO extends AbstractAuditingEntityDTO {
+
+    private Set<Authority> authorities;
+    @Email
+    @Size(min = 0, max = 100)
     private String email;
+    @Size(min = 1, max = 50)
     private String firstName;
-
+    @Size(min = 1, max = 50)
     private String lastName;
+    @Size(min = 0, max = 100)
     private String password;
+    @Pattern(regexp = "^\\+?[0-9. ()-]{10,25}$")
     private String phone;
-
-    private List<String> roles;
 
     public UserDTO() {
     }
 
-    public UserDTO(String firstName, String lastName, String email, String phone,
-                   List<String> roles) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.roles = roles;
+    public Set<Authority> getAuthorities() {
+        return authorities;
     }
 
-    public UserDTO(String password, String firstName, String lastName, String email, String phone,
-                   List<String> roles) {
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.roles = roles;
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
     }
 
     public String getEmail() {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getFirstName() {
         return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public List<String> getRoles() {
-        return roles;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override
@@ -69,7 +83,7 @@ public class UserDTO {
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append(", email='").append(email).append('\'');
         sb.append(", phone='").append(phone).append('\'');
-        sb.append(", roles=").append(roles);
+        sb.append(", authorities=").append(authorities);
         sb.append('}');
         return sb.toString();
     }

@@ -6,6 +6,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -26,7 +27,7 @@ public class Device extends AbstractAuditingEntity implements Serializable {
     private String description;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @NotNull
     private Long id;
 
     @Fetch(FetchMode.JOIN)
@@ -40,10 +41,6 @@ public class Device extends AbstractAuditingEntity implements Serializable {
 
     public Device() {
 
-    }
-
-    public Device(Set<User> owner) {
-        this.owners = owners;
     }
 
     public String getDescription() {
@@ -86,11 +83,8 @@ public class Device extends AbstractAuditingEntity implements Serializable {
 
         Device device = (Device) o;
 
-        if (id != device.id) {
-            return false;
-        }
+        return id == device.id;
 
-        return true;
     }
 
     @Override
