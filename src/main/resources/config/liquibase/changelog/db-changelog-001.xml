@@ -82,9 +82,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="created_by" type="VARCHAR(50)" defaultValue="system@carcloud.ianduffy.ie"/>
-            <column name="created_date" type="datetime" defaultValueDate="${now}"/>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}"/>
             <column name="last_modified_by" type="VARCHAR(50)"/>
-            <column name="last_modified_date" type="datetime"/>
+            <column name="last_modified_date" type="timestamp"/>
             <column name="version" type="INT">
                 <constraints nullable="false"/>
             </column>
@@ -106,7 +106,7 @@
             <column name="event_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="event_date" type="datetime"/>
+            <column name="event_date" type="timestamp"/>
             <column name="event_type" type="VARCHAR(255)"/>
             <column name="principal" type="VARCHAR(255)">
                 <constraints nullable="false"/>
@@ -129,10 +129,10 @@
             <column name="id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="latitude" type="DOUBLE(22)"/>
-            <column name="longitude" type="DOUBLE(22)"/>
-            <column name="received_at" type="datetime"/>
-            <column name="recorded_at" type="datetime"/>
+            <column name="latitude" type="DOUBLE"/>
+            <column name="longitude" type="DOUBLE"/>
+            <column name="received_at" type="timestamp"/>
+            <column name="recorded_at" type="timestamp"/>
             <column name="device" type="BIGINT"/>
         </createTable>
     </changeSet>
@@ -142,9 +142,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="created_by" type="VARCHAR(50)" defaultValue="system@carcloud.ianduffy.ie"/>
-            <column name="created_date" type="datetime" defaultValueDate="${now}"/>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}"/>
             <column name="last_modified_by" type="VARCHAR(50)"/>
-            <column name="last_modified_date" type="datetime"/>
+            <column name="last_modified_date" type="timestamp"/>
             <column name="version" type="INT">
                 <constraints nullable="false"/>
             </column>
