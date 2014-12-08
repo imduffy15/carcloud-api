@@ -58,7 +58,7 @@ gulp.task('images', function () {
 
 
 gulp.task('styles', [], function () {
-    return gulp.src(yeoman.app + '{,*/}*.css').
+    return gulp.src(yeoman.app + '{,**/**}*.css').
         pipe(gulp.dest(yeoman.tmp));
 });
 
