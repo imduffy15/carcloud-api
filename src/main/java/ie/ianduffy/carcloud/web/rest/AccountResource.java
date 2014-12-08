@@ -3,7 +3,6 @@ package ie.ianduffy.carcloud.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import ie.ianduffy.carcloud.service.UserService;
 import ie.ianduffy.carcloud.web.rest.dto.UserDTO;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -38,9 +37,6 @@ public class AccountResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<?> changePassword(@RequestBody String password) {
-        if (StringUtils.isEmpty(password)) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
         userService.changePassword(password);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -76,12 +72,12 @@ public class AccountResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<UserDTO> registerAccount(@Valid @RequestBody UserDTO userDTO) {
+    public ResponseEntity<?> registerAccount(@Valid @RequestBody UserDTO userDTO) {
         UserDTO user = userService.create(userDTO);
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+            return new ResponseEntity<>("Login name already registered!", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     /**

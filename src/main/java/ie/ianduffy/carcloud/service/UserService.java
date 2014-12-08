@@ -8,8 +8,6 @@ import ie.ianduffy.carcloud.security.AuthoritiesConstants;
 import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.rest.dto.UserDTO;
 import org.dozer.Mapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,7 +50,10 @@ public class UserService {
         User user = new User();
         mapper.map(userDTO, user);
         userRepository.save(user);
+
+        userDTO = new UserDTO();
         mapper.map(user, userDTO);
+
         return userDTO;
     }
 

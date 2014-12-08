@@ -22,7 +22,7 @@ class GZipServletResponseWrapper extends HttpServletResponseWrapper {
 
     public void close() throws IOException {
 
-        //PrintWriter.close does not throw exceptions. Thus, the call does not need
+        //PrintWriter.close does not throw exception. Thus, the call does not need
         //be inside a try-catch block.
         if (this.printWriter != null) {
             this.printWriter.close();

@@ -7,6 +7,8 @@ import ie.ianduffy.carcloud.repository.DeviceRepository;
 import ie.ianduffy.carcloud.web.rest.dto.DeviceDTO;
 import ie.ianduffy.carcloud.web.rest.dto.UserDTO;
 import org.dozer.Mapper;
+import org.hibernate.StaleObjectStateException;
+import org.hibernate.StaleStateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -83,6 +85,10 @@ public class DeviceService {
             device.setOwners(Sets.newHashSet(user));
         }
 
+        if(deviceDTO.getVersion() != device.getVersion()) {
+            throw new StaleStateException("Unexpected version. Got " + deviceDTO.getVersion() + " expected " + device.getVersion());
+        }
+
         mapper.map(deviceDTO, device);
 
         deviceRepository.save(device);
@@ -97,6 +103,7 @@ public class DeviceService {
         if (!device.getOwners().contains(user)) {
             return null;
         }
+
         return setProperties(device, deviceDTO);
     }
 }

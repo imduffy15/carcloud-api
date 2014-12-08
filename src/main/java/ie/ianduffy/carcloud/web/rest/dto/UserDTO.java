@@ -10,15 +10,20 @@ import java.util.Set;
 public class UserDTO extends AbstractAuditingEntityDTO {
 
     private Set<Authority> authorities;
+
     @Email
     @Size(min = 0, max = 100)
     private String email;
+
     @Size(min = 1, max = 50)
     private String firstName;
+
     @Size(min = 1, max = 50)
     private String lastName;
-    @Size(min = 0, max = 100)
+
+    @Size(min = 1, max = 100)
     private String password;
+
     @Pattern(regexp = "^\\+?[0-9. ()-]{10,25}$")
     private String phone;
 
