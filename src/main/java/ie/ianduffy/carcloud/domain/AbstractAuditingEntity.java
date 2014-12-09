@@ -1,5 +1,6 @@
 package ie.ianduffy.carcloud.domain;
 
+import lombok.Data;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.joda.time.DateTime;
@@ -18,6 +19,7 @@ import javax.persistence.Version;
  * Base abstract class for entities which will hold definitions for created, last modified by and created,
  * last modified by date.
  */
+@Data
 @MappedSuperclass
 @Audited
 @EntityListeners(AuditingEntityListener.class)
@@ -43,44 +45,4 @@ abstract class AbstractAuditingEntity {
 
     @Version
     private int version;
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public DateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(DateTime createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
-    public DateTime getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(DateTime lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
 }

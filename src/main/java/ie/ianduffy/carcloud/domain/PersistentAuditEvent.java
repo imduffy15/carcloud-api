@@ -1,5 +1,6 @@
 package ie.ianduffy.carcloud.domain;
 
+import lombok.Data;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -15,7 +16,7 @@ import java.util.Map;
  *
  * @see org.springframework.boot.actuate.audit.AuditEvent
  */
-
+@Data
 @Entity
 @Table(name = "T_PERSISTENT_AUDIT_EVENT")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -42,44 +43,4 @@ public class PersistentAuditEvent {
     @NotNull
     @Column(nullable = false)
     private String principal;
-
-    public LocalDateTime getAuditEventDate() {
-        return auditEventDate;
-    }
-
-    public void setAuditEventDate(LocalDateTime auditEventDate) {
-        this.auditEventDate = auditEventDate;
-    }
-
-    public String getAuditEventType() {
-        return auditEventType;
-    }
-
-    public void setAuditEventType(String auditEventType) {
-        this.auditEventType = auditEventType;
-    }
-
-    public Map<String, String> getData() {
-        return data;
-    }
-
-    public void setData(Map<String, String> data) {
-        this.data = data;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPrincipal() {
-        return principal;
-    }
-
-    public void setPrincipal(String principal) {
-        this.principal = principal;
-    }
 }

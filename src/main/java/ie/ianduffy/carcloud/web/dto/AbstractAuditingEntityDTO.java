@@ -1,11 +1,13 @@
 package ie.ianduffy.carcloud.web.dto;
 
+import lombok.Data;
 import org.springframework.hateoas.Link;
 import org.springframework.util.Assert;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Data
 public abstract class AbstractAuditingEntityDTO {
 
     private final Map<String, String> links;
@@ -33,17 +35,5 @@ public abstract class AbstractAuditingEntityDTO {
             link = new Link(links.get(rel), rel);
         }
         return link;
-    }
-
-    public Map<String, String> getLinks() {
-        return links;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
     }
 }

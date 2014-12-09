@@ -3,12 +3,14 @@ package ie.ianduffy.carcloud.web.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.javadocmd.simplelatlng.LatLng;
+import lombok.Data;
 import org.joda.time.DateTime;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+@Data
 @JsonIgnoreProperties({"id_str", "id", "recorded_at"})
 public class PayloadDTO {
     private Long deviceId;
@@ -18,9 +20,6 @@ public class PayloadDTO {
     private DateTime receivedAt;
     private DateTime recordedAt;
 
-    PayloadDTO() {
-    }
-
     @JsonProperty("asset")
     public Long getDeviceId() {
         return deviceId;
@@ -29,14 +28,6 @@ public class PayloadDTO {
     @JsonProperty("asset")
     public void setDeviceId(String deviceId) {
         this.deviceId = Long.parseLong(deviceId);
-    }
-
-    public Map<String, Map<String, String>> getFields() {
-        return fields;
-    }
-
-    public void setFields(Map<String, Map<String, String>> fields) {
-        this.fields = fields;
     }
 
     @JsonProperty("loc")
@@ -67,17 +58,5 @@ public class PayloadDTO {
     @JsonProperty("recorded_at_ms")
     public void setRecordedAt(DateTime recordedAt) {
         this.recordedAt = recordedAt;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("PayloadDTO{");
-        sb.append(", deviceId='").append(deviceId).append('\'');
-        sb.append(", recorededAt='").append(recordedAt).append('\'');
-        sb.append(", receivedAt='").append(receivedAt).append('\'');
-        sb.append(", location='").append(location).append('\'');
-        sb.append(", fields='").append(fields).append('\'');
-        sb.append('}');
-        return sb.toString();
     }
 }

@@ -1,5 +1,6 @@
 package ie.ianduffy.carcloud.domain;
 
+import lombok.Data;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
@@ -17,6 +18,7 @@ import java.util.List;
  * <p/>
  * SPAM 0.0.1 - Extention of a base class.
  */
+@Data
 @Entity
 @Table(name = "T_DEVICE")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -40,60 +42,4 @@ public class Device extends AbstractAuditingEntity implements Serializable {
         inverseJoinColumns = {@JoinColumn(name = "login", referencedColumnName = "login")})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<User> owners = new ArrayList<>();
-
-    public Device() {
-
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public List<User> getOwners() {
-        return owners;
-    }
-
-    public void setOwners(List<User> owners) {
-        this.owners = owners;
-    }
-
-    @Override
-    public int hashCode() {
-        return (int) (id ^ (id >>> 32));
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Device device = (Device) o;
-
-        return id == device.id;
-
-    }
-
-    @Override
-    public String toString() {
-        return "Device{" +
-            "id=" + id +
-            ", owner=" + owners +
-            '}';
-    }
 }

@@ -2,6 +2,7 @@ package ie.ianduffy.carcloud.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.javadocmd.simplelatlng.LatLng;
+import lombok.Data;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -14,6 +15,7 @@ import java.util.List;
 /**
  * A Track.
  */
+@Data
 @Entity
 @Table(name = "T_TRACK")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -57,26 +59,6 @@ public class Track implements Serializable {
         this.recordedAt = recordedAt;
     }
 
-    public Device getDevice() {
-        return device;
-    }
-
-    public void setDevice(Device device) {
-        this.device = device;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Double getLatitude() {
-        return latitude;
-    }
-
     @JsonIgnore
     public LatLng getLocation() {
         return new LatLng(latitude, longitude);
@@ -85,52 +67,5 @@ public class Track implements Serializable {
     public void setLocation(LatLng location) {
         latitude = location.getLatitude();
         longitude = location.getLongitude();
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public DateTime getReceivedAt() {
-        return receivedAt;
-    }
-
-    public void setReceivedAt(DateTime receivedAt) {
-        this.receivedAt = receivedAt;
-    }
-
-    public DateTime getRecordedAt() {
-        return recordedAt;
-    }
-
-    public void setRecordedAt(DateTime recordedAt) {
-        this.recordedAt = recordedAt;
-    }
-
-    @Override
-    public int hashCode() {
-        return (int) (id ^ (id >>> 32));
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Track track = (Track) o;
-
-        return id == track.id;
-
-    }
-
-    @Override
-    public String toString() {
-        return "Track{" +
-            "id=" + id +
-            '}';
     }
 }
