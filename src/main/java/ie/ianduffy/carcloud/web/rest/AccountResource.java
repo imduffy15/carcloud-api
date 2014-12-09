@@ -29,7 +29,7 @@ public class AccountResource {
     private final Logger log = LoggerFactory.getLogger(AccountResource.class);
 
     @Inject
-    UserDTOAssembler userDTOAssembler;
+    private UserDTOAssembler userDTOAssembler;
 
     @Inject
     private UserService userService;

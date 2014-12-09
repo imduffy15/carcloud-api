@@ -124,7 +124,7 @@ carcloudApp
         });
 
         // Call when the 401 response is returned by the server
-        $rootScope.$on('event:auth-loginRequired', function(rejection) {
+        $rootScope.$on('event:auth-loginRequired', function (rejection) {
             Session.invalidate();
             $rootScope.authenticated = false;
             if ($location.path() !== "/" && $location.path() !== "" && $location.path() !== "/register" && $location.path() !== "/login") {

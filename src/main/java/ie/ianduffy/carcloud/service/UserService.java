@@ -64,8 +64,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User getUser() {
-        User user = userRepository.findOne(SecurityUtils.getCurrentLogin());
-        return user;
+        return userRepository.findOne(SecurityUtils.getCurrentLogin());
     }
 
     @Transactional(readOnly = true)

@@ -92,38 +92,38 @@ angular.module('carcloudAppUtils', [])
             }
         };
     })
-    .factory('Session', function($rootScope, $q, StorageService, Account) {
+    .factory('Session', function ($rootScope, $q, StorageService, Account) {
         var SESSION = 'session';
         var service = {};
         var session = null;
 
-        service.get = function() {
-            if(session == null) {
+        service.get = function () {
+            if (session == null) {
                 session = StorageService.get(SESSION);
             }
             return session;
         };
 
-        service.create = function() {
+        service.create = function () {
             var deferred = $q.defer();
 
-            Account.get().$promise.then(function(account) {
-               account.resource("authorities").query().$promise.then(function(authorities) {
-                   session = {};
-                   session.login = account.login;
-                   session.email = account.email;
-                   session.firstName = account.firstName;
-                   session.lastName = account.lastName;
-                   session.authorities = authorities;
-                   StorageService.save(SESSION, session);
-                   deferred.resolve(session);
-               });
+            Account.get().$promise.then(function (account) {
+                account.resource("authorities").query().$promise.then(function (authorities) {
+                    session = {};
+                    session.login = account.login;
+                    session.email = account.email;
+                    session.firstName = account.firstName;
+                    session.lastName = account.lastName;
+                    session.authorities = authorities;
+                    StorageService.save(SESSION, session);
+                    deferred.resolve(session);
+                });
             });
 
             return deferred.promise;
         };
 
-        service.invalidate = function() {
+        service.invalidate = function () {
             session = null;
             StorageService.remove(SESSION);
         };

@@ -98,7 +98,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
                 httpHeaders.common['Authorization'] = 'Bearer ' + data.access_token;
                 Token.set(data);
 
-                Session.create().then(function() {
+                Session.create().then(function () {
                     authService.loginConfirmed(null);
                 });
             }).error(function (data, status, headers, config) {
@@ -119,7 +119,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
                 if (data.access_token) httpHeaders.common['Authorization'] = 'Bearer ' + data.access_token;
                 Token.set(data);
 
-                Session.create().then(function() {
+                Session.create().then(function () {
                     authService.loginConfirmed(null, function (config) {
                         config.headers['Authorization'] = 'Bearer ' + Token.get('access_token');
                         return config;
@@ -133,7 +133,7 @@ carcloudApp.factory('AuthenticationSharedService', function ($rootScope, $http, 
         },
         valid: function (authorities) {
             if (Token.get('access_token')) httpHeaders.common['Authorization'] = 'Bearer ' + Token.get('access_token');
-            if($rootScope.authenticated) {
+            if ($rootScope.authenticated) {
                 if (!$rootScope.isAuthorized(authorities)) {
                     event.preventDefault();
                     $rootScope.$broadcast("event:auth-notAuthorized");

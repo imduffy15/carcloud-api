@@ -6,8 +6,6 @@ import ie.ianduffy.carcloud.repository.DeviceRepository;
 import ie.ianduffy.carcloud.web.dto.DeviceDTO;
 import org.dozer.Mapper;
 import org.hibernate.StaleStateException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +19,6 @@ import java.util.List;
 @Service
 @Transactional
 public class DeviceService {
-
-    private final Logger log = LoggerFactory.getLogger(DeviceService.class);
 
     @Inject
     private DeviceRepository deviceRepository;
@@ -64,9 +60,7 @@ public class DeviceService {
     public List<Device> findAllForCurrentUser() {
         User user = userService.getUser();
 
-        List<Device> devices = deviceRepository.findAllForCurrentUser(user);
-
-        return devices;
+        return deviceRepository.findAllForCurrentUser(user);
     }
 
     public Device findOneForCurrentUser(Long id) {

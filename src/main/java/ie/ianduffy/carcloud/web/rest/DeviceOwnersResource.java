@@ -3,13 +3,9 @@ package ie.ianduffy.carcloud.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import ie.ianduffy.carcloud.domain.Device;
 import ie.ianduffy.carcloud.domain.User;
-import ie.ianduffy.carcloud.repository.DeviceRepository;
 import ie.ianduffy.carcloud.service.DeviceService;
-import ie.ianduffy.carcloud.web.assembler.DeviceDTOAssembler;
 import ie.ianduffy.carcloud.web.assembler.UserDTOAssembler;
 import ie.ianduffy.carcloud.web.dto.UserDTO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +23,6 @@ import java.util.List;
 @RequestMapping("/app/rest/devices/{id}/owners")
 public class DeviceOwnersResource {
 
-    private final Logger log = LoggerFactory.getLogger(DeviceOwnersResource.class);
-    @Inject
-    private DeviceDTOAssembler deviceDTOAssembler;
-    @Inject
-    private DeviceRepository deviceRepository;
     @Inject
     private DeviceService deviceService;
     @Inject

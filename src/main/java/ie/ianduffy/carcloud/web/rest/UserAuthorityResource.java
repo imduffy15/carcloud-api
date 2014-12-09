@@ -4,9 +4,6 @@ import com.codahale.metrics.annotation.Timed;
 import ie.ianduffy.carcloud.domain.Authority;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.service.UserService;
-import ie.ianduffy.carcloud.web.assembler.UserDTOAssembler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +21,6 @@ import java.util.List;
 @RequestMapping("/app/rest/users/{login}/authorities")
 public class UserAuthorityResource {
 
-    private final Logger log = LoggerFactory.getLogger(UserAuthorityResource.class);
-    @Inject
-    private UserDTOAssembler userDTOAssembler;
     @Inject
     private UserService userService;
 
