@@ -1,8 +1,10 @@
 package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.service.UserService;
-import ie.ianduffy.carcloud.web.rest.dto.UserDTO;
+import ie.ianduffy.carcloud.web.assembler.UserDTOAssembler;
+import ie.ianduffy.carcloud.web.dto.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,9 @@ public class AccountResource {
     private final Logger log = LoggerFactory.getLogger(AccountResource.class);
 
     @Inject
+    UserDTOAssembler userDTOAssembler;
+
+    @Inject
     private UserService userService;
 
     /**
@@ -49,8 +54,8 @@ public class AccountResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<UserDTO> getAccount() {
-        UserDTO userDTO = userService.getUserWithAuthorities();
-        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        User user = userService.getUser();
+        return new ResponseEntity<>(userDTOAssembler.toResource(user), HttpStatus.OK);
     }
 
     /**
@@ -73,11 +78,12 @@ public class AccountResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<?> registerAccount(@Valid @RequestBody UserDTO userDTO) {
-        UserDTO user = userService.create(userDTO);
+        User user = userService.create(userDTO);
         if (user == null) {
             return new ResponseEntity<>("Login name already registered!", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+
+        return new ResponseEntity<>(userDTOAssembler.toResource(user), HttpStatus.CREATED);
     }
 
     /**

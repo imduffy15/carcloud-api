@@ -6,11 +6,16 @@
 
     <mapping>
         <class-a>ie.ianduffy.carcloud.domain.User</class-a>
-        <class-b>ie.ianduffy.carcloud.web.rest.dto.UserDTO</class-b>
+        <class-b>ie.ianduffy.carcloud.web.dto.UserDTO</class-b>
         <field-exclude type="one-way">
             <a>password</a>
             <b>password</b>
         </field-exclude>
+    </mapping>
+
+    <mapping map-null="false">
+        <class-a>ie.ianduffy.carcloud.domain.Device</class-a>
+        <class-b>ie.ianduffy.carcloud.web.dto.DeviceDTO</class-b>
     </mapping>
 
 </mappings>

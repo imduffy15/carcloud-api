@@ -1,4 +1,4 @@
-package ie.ianduffy.carcloud.web.rest.dto;
+package ie.ianduffy.carcloud.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -2,46 +2,46 @@ package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import ie.ianduffy.carcloud.domain.User;
-import ie.ianduffy.carcloud.repository.UserRepository;
-import ie.ianduffy.carcloud.security.AuthoritiesConstants;
+import ie.ianduffy.carcloud.service.UserService;
+import ie.ianduffy.carcloud.web.assembler.UserDTOAssembler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * REST controller for managing users.
  */
 @RestController
-@RequestMapping("/app")
+@RequestMapping("/app/rest/users")
 public class UserResource {
 
     private final Logger log = LoggerFactory.getLogger(UserResource.class);
-
     @Inject
-    private UserRepository userRepository;
+    private UserDTOAssembler userDTOAssembler;
+    @Inject
+    private UserService userService;
 
     /**
-     * GET  /rest/users/:login -> get the "login" user.
+     * GET  /rest/tracks/:id -> get the "id" track.
      */
-    @RequestMapping(value = "/rest/users/{login}",
+    @RequestMapping(value = "/{login}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public User getUser(@PathVariable String login, HttpServletResponse response) {
-        log.debug("REST request to get User : {}", login);
-        User user = userRepository.findOne(login);
+    public ResponseEntity<?> get(@PathVariable("login") String login) {
+        log.debug("REST request to get Track : {}", login);
+        User user = userService.getUser(login);
         if (user == null) {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return user;
+        return new ResponseEntity<>(userDTOAssembler.toResource(user), HttpStatus.OK);
     }
 }

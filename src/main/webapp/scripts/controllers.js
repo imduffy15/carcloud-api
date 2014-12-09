@@ -16,8 +16,7 @@ carcloudApp.controller('LoginController', function ($scope, $location, Authentic
     $scope.login = function () {
         AuthenticationSharedService.login({
             username: $scope.username,
-            password: $scope.password,
-            rememberMe: $scope.rememberMe
+            password: $scope.password
         });
     }
 });
@@ -26,7 +25,7 @@ carcloudApp.controller('LogoutController', function ($location, AuthenticationSh
     AuthenticationSharedService.logout();
 });
 
-carcloudApp.controller('SettingsController', function ($scope, Account) {
+carcloudApp.controller('SettingsController', function ($rootScope, $scope, Account) {
     $scope.success = null;
     $scope.error = null;
     $scope.settingsAccount = Account.get();

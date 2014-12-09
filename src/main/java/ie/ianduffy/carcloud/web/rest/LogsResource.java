@@ -3,7 +3,7 @@ package ie.ianduffy.carcloud.web.rest;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
 import com.codahale.metrics.annotation.Timed;
-import ie.ianduffy.carcloud.web.rest.dto.LoggerDTO;
+import ie.ianduffy.carcloud.web.dto.LoggerDTO;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

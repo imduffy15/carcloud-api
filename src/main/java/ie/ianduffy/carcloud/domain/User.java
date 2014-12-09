@@ -10,8 +10,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A user.
@@ -23,15 +23,14 @@ import java.util.Set;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractAuditingEntity implements Serializable {
 
-    @JsonIgnore
+    @OrderBy
     @ManyToMany
     @JoinTable(
         name = "T_USER_AUTHORITY",
-        joinColumns = {@JoinColumn(name = "email", referencedColumnName = "email")},
+        joinColumns = {@JoinColumn(name = "login", referencedColumnName = "login")},
         inverseJoinColumns = {@JoinColumn(name = "name", referencedColumnName = "name")})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Authority> authorities = new HashSet<>();
-    @Id
+    private List<Authority> authorities = new ArrayList<>();
     @Email
     @NotNull
     @Size(min = 0, max = 100)
@@ -43,20 +42,26 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "last_name", length = 50)
     private String lastName;
+    @NotNull
+    @Size(min = 0, max = 50)
+    @Id
+    @Column(length = 50)
+    private String login;
     @JsonIgnore
     @Size(min = 0, max = 100)
     @Column(length = 100)
     private String password;
+
     @NotNull
     @Pattern(regexp = "^\\+?[0-9. ()-]{10,25}$")
-    @Column(length = 100)
+    @Column(length = 100, unique = true)
     private String phone;
 
-    public Set<Authority> getAuthorities() {
+    public List<Authority> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(Set<Authority> authorities) {
+    public void setAuthorities(List<Authority> authorities) {
         this.authorities = authorities;
     }
 
@@ -84,6 +89,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.lastName = lastName;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -102,7 +115,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        return email.hashCode();
+        return login.hashCode();
     }
 
     @Override
@@ -116,17 +129,22 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
         User user = (User) o;
 
-        return email.equals(user.email);
+        if (!login.equals(user.login)) {
+            return false;
+        }
 
+        return true;
     }
 
     @Override
     public String toString() {
         return "User{" +
+            "login='" + login + '\'' +
             ", password='" + password + '\'' +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", email='" + email + '\'' +
+            ", phone='" + phone + '\'' +
             "}";
     }
 }

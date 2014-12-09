@@ -1,6 +1,6 @@
-email;name
-system@carcloud.ianduffy.ie;ROLE_ADMIN
-system@carcloud.ianduffy.ie;ROLE_USER
-admin@carcloud.ianduffy.ie;ROLE_ADMIN
-admin@carcloud.ianduffy.ie;ROLE_USER
-user@carcloud.ianduffy.ie;ROLE_USER
+login;name
+system;ROLE_ADMIN
+system;ROLE_USER
+admin;ROLE_ADMIN
+admin;ROLE_USER
+user;ROLE_USER

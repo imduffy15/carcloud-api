@@ -5,7 +5,7 @@ import ie.ianduffy.carcloud.domain.Device;
 import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.repository.DeviceRepository;
 import ie.ianduffy.carcloud.repository.TrackRepository;
-import ie.ianduffy.carcloud.web.rest.dto.TrackDTO;
+import ie.ianduffy.carcloud.web.dto.TrackDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;

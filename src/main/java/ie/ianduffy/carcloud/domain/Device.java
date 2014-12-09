@@ -9,8 +9,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A Device.
@@ -28,16 +28,18 @@ public class Device extends AbstractAuditingEntity implements Serializable {
 
     @Id
     @NotNull
+    @Column(unique = true)
     private Long id;
 
+    @OrderBy
     @Fetch(FetchMode.JOIN)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "T_DEVICE_OWNER",
         joinColumns = {@JoinColumn(name = "device_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "email", referencedColumnName = "email")})
+        inverseJoinColumns = {@JoinColumn(name = "login", referencedColumnName = "login")})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<User> owners = new HashSet<>();
+    private List<User> owners = new ArrayList<>();
 
     public Device() {
 
@@ -59,11 +61,11 @@ public class Device extends AbstractAuditingEntity implements Serializable {
         this.id = id;
     }
 
-    public Set<User> getOwners() {
+    public List<User> getOwners() {
         return owners;
     }
 
-    public void setOwners(Set<User> owners) {
+    public void setOwners(List<User> owners) {
         this.owners = owners;
     }
 

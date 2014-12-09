@@ -1,4 +1,4 @@
-package ie.ianduffy.carcloud.web.rest.dto;
+package ie.ianduffy.carcloud.web.dto;
 
 public class TrackDTO {
 

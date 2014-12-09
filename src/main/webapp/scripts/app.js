@@ -4,10 +4,10 @@
 var httpHeaders;
 
 var carcloudApp = angular.module('carcloudApp', ['http-auth-interceptor',
-    'ngResource', 'ngRoute', 'ngCookies', 'carcloudAppUtils', 'truncate']);
+    'ngResource', 'ngRoute', 'ngCookies', 'carcloudAppUtils', 'truncate', 'hateoas']);
 
 carcloudApp
-    .config(function ($routeProvider, $httpProvider, $sceDelegateProvider, USER_ROLES) {
+    .config(function ($routeProvider, $httpProvider, $sceDelegateProvider, HateoasInterceptorProvider, USER_ROLES) {
         $routeProvider
             .when('/register', {
                 templateUrl: 'views/register.html',
@@ -97,10 +97,15 @@ carcloudApp
                 }
             });
 
+        HateoasInterceptorProvider.transformAllResponses();
         httpHeaders = $httpProvider.defaults.headers;
 
     })
     .run(function ($rootScope, $location, $http, AuthenticationSharedService, Session, USER_ROLES) {
+
+        $rootScope.authenticated = !!Session.get();
+        $rootScope.account = Session.get();
+
         // SPAM 0.0.1 - Example of event listeners
         $rootScope.$on('$routeChangeStart', function (event, next) {
             $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
@@ -112,8 +117,9 @@ carcloudApp
         // SPAM 0.0.1 - Example of event listeners
         $rootScope.$on('event:auth-loginConfirmed', function (data) {
             $rootScope.authenticated = true;
+            $rootScope.account = Session.get();
             if ($location.path() === "/login") {
-                $location.path('/').replace();
+                $location.path('/');
             }
         });
 
@@ -121,10 +127,8 @@ carcloudApp
         $rootScope.$on('event:auth-loginRequired', function(rejection) {
             Session.invalidate();
             $rootScope.authenticated = false;
-            if ($location.path() !== "/" && $location.path() !== "" && $location.path() !== "/register" &&
-                $location.path() !== "/activate" && $location.path() !== "/login") {
-                var redirect = $location.path();
-                $location.path('/login').search('redirect', redirect).replace();
+            if ($location.path() !== "/" && $location.path() !== "" && $location.path() !== "/register" && $location.path() !== "/login") {
+                $location.path('/login');
             }
         });
 

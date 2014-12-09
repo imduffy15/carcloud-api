@@ -13,9 +13,9 @@ import java.util.List;
  */
 public interface DeviceRepository extends JpaRepository<Device, Long> {
 
-    @Query("select d from Device d where :#{#user.email} MEMBER OF d.owners")
+    @Query("select d from Device d where :#{#user.login} MEMBER OF d.owners")
     List<Device> findAllForCurrentUser(@Param("user") User user);
 
-    @Query("select d from Device d where :#{#user.email} MEMBER OF d.owners and d.id = :#{#id}")
+    @Query("select d from Device d where :#{#user.login} MEMBER OF d.owners and d.id = :#{#id}")
     Device findOneForCurrentUser(@Param("user") User user, @Param("id") Long id);
 }

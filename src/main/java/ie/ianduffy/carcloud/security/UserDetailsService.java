@@ -29,13 +29,13 @@ public class UserDetailsService implements org.springframework.security.core.use
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(final String email) {
-        log.debug("Authenticating {}", email);
-        String lowercaseEmail = email.toLowerCase();
+    public UserDetails loadUserByUsername(final String login) {
+        log.debug("Authenticating {}", login);
+        String lowercaseLogin = login.toLowerCase();
 
-        User userFromDatabase = userRepository.findOne(lowercaseEmail);
+        User userFromDatabase = userRepository.findOne(login);
         if (userFromDatabase == null) {
-            throw new UsernameNotFoundException("User " + lowercaseEmail + " was not found in the database");
+            throw new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database");
         }
 
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
@@ -44,7 +44,7 @@ public class UserDetailsService implements org.springframework.security.core.use
             grantedAuthorities.add(grantedAuthority);
         }
 
-        return new org.springframework.security.core.userdetails.User(lowercaseEmail, userFromDatabase.getPassword(),
+        return new org.springframework.security.core.userdetails.User(lowercaseLogin, userFromDatabase.getPassword(),
             grantedAuthorities);
     }
 }

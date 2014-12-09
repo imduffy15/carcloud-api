@@ -1,13 +1,10 @@
 package ie.ianduffy.carcloud.service;
 
-import com.google.common.collect.Sets;
 import ie.ianduffy.carcloud.domain.Device;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.repository.DeviceRepository;
-import ie.ianduffy.carcloud.web.rest.dto.DeviceDTO;
-import ie.ianduffy.carcloud.web.rest.dto.UserDTO;
+import ie.ianduffy.carcloud.web.dto.DeviceDTO;
 import org.dozer.Mapper;
-import org.hibernate.StaleObjectStateException;
 import org.hibernate.StaleStateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -34,9 +31,23 @@ public class DeviceService {
     @Inject
     private UserService userService;
 
+    public Device addOwner(Long id, String owner) {
+        Device device = findOneForCurrentUser(id);
+        List<User> owners = device.getOwners();
+        owners.add(userService.getUser(owner));
+        device.setOwners(owners);
+
+        deviceRepository.save(device);
+        return device;
+    }
+
     private Device create(DeviceDTO deviceDTO) {
         Device device = new Device();
-        return setProperties(device, deviceDTO);
+        device.setOwners(Arrays.asList(userService.getUser()));
+
+        mapper.map(deviceDTO, device);
+        deviceRepository.save(device);
+        return device;
     }
 
     public Device createOrUpdate(DeviceDTO deviceDTO) {
@@ -50,42 +61,39 @@ public class DeviceService {
         return create(deviceDTO);
     }
 
-    public List<DeviceDTO> findAllForCurrentUser() {
-        UserDTO userDTO = userService.getUserWithAuthorities();
-        User user = new User();
-        mapper.map(userDTO, user);
+    public List<Device> findAllForCurrentUser() {
+        User user = userService.getUser();
 
         List<Device> devices = deviceRepository.findAllForCurrentUser(user);
-        List<DeviceDTO> deviceDTOs = new ArrayList<>();
-        for (Device device : devices) {
-            DeviceDTO deviceDTO = new DeviceDTO();
-            mapper.map(device, deviceDTO);
-            deviceDTOs.add(deviceDTO);
-        }
-        return deviceDTOs;
+
+        return devices;
     }
 
-    public DeviceDTO findOneForCurrentUser(Long id) {
-        UserDTO userDTO = userService.getUserWithAuthorities();
-        User user = new User();
-        mapper.map(userDTO, user);
+    public Device findOneForCurrentUser(Long id) {
+        User user = userService.getUser();
 
         Device device = deviceRepository.findOneForCurrentUser(user, id);
         if (device == null) return null;
-        DeviceDTO deviceDTO = new DeviceDTO();
-        mapper.map(device, deviceDTO);
-        return deviceDTO;
+        return device;
     }
 
-    private Device setProperties(Device device, DeviceDTO deviceDTO) {
-        if (deviceDTO.getOwners().size() <= 0) {
-            UserDTO userDTO = userService.getUserWithAuthorities();
-            User user = new User();
-            mapper.map(userDTO, user);
-            device.setOwners(Sets.newHashSet(user));
+    public void removeOwner(Long id, int index) {
+        Device device = findOneForCurrentUser(id);
+        List<User> owners = device.getOwners();
+        owners.remove(index);
+        device.setOwners(owners);
+        deviceRepository.save(device);
+    }
+
+    private Device update(Device device, DeviceDTO deviceDTO) {
+        User user = userService.getUser();
+        deviceDTO.setId(null);
+
+        if (!device.getOwners().contains(user)) {
+            return null;
         }
 
-        if(deviceDTO.getVersion() != device.getVersion()) {
+        if (deviceDTO.getVersion() != device.getVersion()) {
             throw new StaleStateException("Unexpected version. Got " + deviceDTO.getVersion() + " expected " + device.getVersion());
         }
 
@@ -93,17 +101,5 @@ public class DeviceService {
 
         deviceRepository.save(device);
         return device;
-    }
-
-    private Device update(Device device, DeviceDTO deviceDTO) {
-        UserDTO userDTO = userService.getUserWithAuthorities();
-        User user = new User();
-        mapper.map(userDTO, user);
-
-        if (!device.getOwners().contains(user)) {
-            return null;
-        }
-
-        return setProperties(device, deviceDTO);
     }
 }

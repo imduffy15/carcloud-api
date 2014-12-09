@@ -38,6 +38,11 @@ sed -i -E \
     -e 's/BIGINT\(19\)/BIGINT/g' \
     -e 's/BIT\(1\)/BIT/g' \
     -e 's/INT\(10\)/INT/g' \
+    -e 's/datetime/timestamp/g' \
+    -e 's/DOUBLE\(22\)/DOUBLE/g' \
+    -e 's/name="created_by" type="VARCHAR\(50\)"/name="created_by" type="VARCHAR\(50\)" defaultValue="system"/g' \
+    -e 's/name="created_date" type="timestamp"/name="created_date" type="timestamp" defaultValueDate="${now}"/g' \
+    -e 's/objectQuotingStrategy="QUOTE_ALL_OBJECTS"//g' \
     dump.xml
 
 cat dump.xml

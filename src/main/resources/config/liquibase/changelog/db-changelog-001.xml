@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-
     <property name="now" value="now()" dbms="mysql,h2"/>
     <property name="now" value="current_timestamp" dbms="postgresql"/>
-
-    <changeSet author="duffy (generated)" id="dump1">
+    <changeSet author="duffy (generated)" id="dump1" >
         <createTable tableName="hibernate_sequences">
             <column name="sequence_name" type="VARCHAR(255)"/>
             <column name="sequence_next_hi_value" type="INT"/>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump2">
+    <changeSet author="duffy (generated)" id="dump2" >
         <createTable tableName="oauth_access_token">
             <column name="token_id" type="VARCHAR(255)"/>
             <column name="token" type="BLOB"/>
@@ -21,7 +19,7 @@
             <column name="refresh_token" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump3">
+    <changeSet author="duffy (generated)" id="dump3" >
         <createTable tableName="oauth_approvals">
             <column name="userid" type="VARCHAR(255)"/>
             <column name="clientid" type="VARCHAR(255)"/>
@@ -31,7 +29,7 @@
             <column name="lastmodifiedat" type="TIMESTAMP"/>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump4">
+    <changeSet author="duffy (generated)" id="dump4" >
         <createTable tableName="oauth_client_details">
             <column name="client_id" type="VARCHAR(255)">
                 <constraints nullable="false"/>
@@ -48,7 +46,7 @@
             <column name="autoapprove" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump5">
+    <changeSet author="duffy (generated)" id="dump5" >
         <createTable tableName="oauth_client_token">
             <column name="token_id" type="VARCHAR(255)"/>
             <column name="token" type="BLOB"/>
@@ -57,32 +55,32 @@
             <column name="client_id" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump6">
+    <changeSet author="duffy (generated)" id="dump6" >
         <createTable tableName="oauth_code">
             <column name="code" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump7">
+    <changeSet author="duffy (generated)" id="dump7" >
         <createTable tableName="oauth_refresh_token">
             <column name="token_id" type="VARCHAR(255)"/>
             <column name="token" type="BLOB"/>
             <column name="authentication" type="BLOB"/>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump8">
+    <changeSet author="duffy (generated)" id="dump8" >
         <createTable tableName="t_authority">
             <column name="name" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump9">
+    <changeSet author="duffy (generated)" id="dump9" >
         <createTable tableName="t_device">
             <column name="id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by" type="VARCHAR(50)" defaultValue="system@carcloud.ianduffy.ie"/>
-            <column name="created_date" type="timestamp" defaultValueDate="${now}"/>
+            <column name="created_by" type="VARCHAR(50)"/>
+            <column name="created_date" type="timestamp"/>
             <column name="last_modified_by" type="VARCHAR(50)"/>
             <column name="last_modified_date" type="timestamp"/>
             <column name="version" type="INT">
@@ -91,17 +89,17 @@
             <column name="description" type="VARCHAR(150)"/>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump10">
+    <changeSet author="duffy (generated)" id="dump10" >
         <createTable tableName="t_device_owner">
             <column name="device_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="email" type="VARCHAR(100)">
+            <column name="login" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump11">
+    <changeSet author="duffy (generated)" id="dump11" >
         <createTable tableName="t_persistent_audit_event">
             <column name="event_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -113,7 +111,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump12">
+    <changeSet author="duffy (generated)" id="dump12" >
         <createTable tableName="t_persistent_audit_event_data">
             <column name="event_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -124,7 +122,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump13">
+    <changeSet author="duffy (generated)" id="dump13" >
         <createTable tableName="t_track">
             <column name="id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -136,16 +134,19 @@
             <column name="device" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump14">
+    <changeSet author="duffy (generated)" id="dump14" >
         <createTable tableName="t_user">
-            <column name="email" type="VARCHAR(100)">
+            <column name="login" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by" type="VARCHAR(50)" defaultValue="system@carcloud.ianduffy.ie"/>
-            <column name="created_date" type="timestamp" defaultValueDate="${now}"/>
+            <column name="created_by" type="VARCHAR(50)"/>
+            <column name="created_date" type="timestamp"/>
             <column name="last_modified_by" type="VARCHAR(50)"/>
             <column name="last_modified_date" type="timestamp"/>
             <column name="version" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
             <column name="first_name" type="VARCHAR(50)"/>
@@ -156,9 +157,9 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump15">
+    <changeSet author="duffy (generated)" id="dump15" >
         <createTable tableName="t_user_authority">
-            <column name="email" type="VARCHAR(100)">
+            <column name="login" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(50)">
@@ -173,39 +174,36 @@
         <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_device"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump18" context="prod">
-        <addPrimaryKey columnNames="device_id, email" constraintName="PRIMARY" tableName="t_device_owner"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="dump19" context="prod">
         <addPrimaryKey columnNames="event_id" constraintName="PRIMARY" tableName="t_persistent_audit_event"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump20" context="prod">
+    <changeSet author="duffy (generated)" id="dump19" context="prod">
         <addPrimaryKey columnNames="event_id, name" constraintName="PRIMARY" tableName="t_persistent_audit_event_data"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump21" context="prod">
+    <changeSet author="duffy (generated)" id="dump20" context="prod">
         <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_track"/>
     </changeSet>
+    <changeSet author="duffy (generated)" id="dump21" context="prod">
+        <addPrimaryKey columnNames="login" constraintName="PRIMARY" tableName="t_user"/>
+    </changeSet>
     <changeSet author="duffy (generated)" id="dump22" context="prod">
-        <addPrimaryKey columnNames="email" constraintName="PRIMARY" tableName="t_user"/>
+        <addUniqueConstraint columnNames="email" constraintName="UK_i6qjjoe560mee5ajdg7v1o6mi" deferrable="false" disabled="false" initiallyDeferred="false" tableName="t_user"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump23" context="prod">
-        <addPrimaryKey columnNames="email, name" constraintName="PRIMARY" tableName="t_user_authority"/>
+        <addUniqueConstraint columnNames="phone" constraintName="UK_m5bu5erj83eubjsa1nyms0t89" deferrable="false" disabled="false" initiallyDeferred="false" tableName="t_user"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump24" context="prod">
-        <addForeignKeyConstraint baseColumnNames="email" baseTableName="t_device_owner" constraintName="FK_2ym2vl2tq9mtdhdswtifqex2p" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="email" referencedTableName="t_user"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="dump25" context="prod">
         <addForeignKeyConstraint baseColumnNames="device" baseTableName="t_track" constraintName="FK_5cg1uha0yly9nqsellq1bodrk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_device"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump26" context="prod">
+    <changeSet author="duffy (generated)" id="dump25" context="prod">
         <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="t_persistent_audit_event_data" constraintName="FK_cekdwiaydjn97qi7ebeexb1bw" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="event_id" referencedTableName="t_persistent_audit_event"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump27" context="prod">
-        <addForeignKeyConstraint baseColumnNames="email" baseTableName="t_user_authority" constraintName="FK_ck38oabii4y4cf5coi2w5lfia" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="email" referencedTableName="t_user"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="dump28" context="prod">
+    <changeSet author="duffy (generated)" id="dump26" context="prod">
         <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_device_owner" constraintName="FK_ib7vnp2olk25703c5xwpshvdc" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_device"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump29" context="prod">
+    <changeSet author="duffy (generated)" id="dump27" context="prod">
+        <addForeignKeyConstraint baseColumnNames="login" baseTableName="t_user_authority" constraintName="FK_sxi66of84md6cagjs8bj9hl73" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="login" referencedTableName="t_user"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="dump28" context="prod">
         <addForeignKeyConstraint baseColumnNames="name" baseTableName="t_user_authority" constraintName="FK_tghvo3hwad0ifdm39n7bph8b" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="name" referencedTableName="t_authority"/>
     </changeSet>
 </databaseChangeLog>

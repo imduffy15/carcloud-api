@@ -92,6 +92,44 @@ angular.module('carcloudAppUtils', [])
             }
         };
     })
+    .factory('Session', function($rootScope, $q, StorageService, Account) {
+        var SESSION = 'session';
+        var service = {};
+        var session = null;
+
+        service.get = function() {
+            if(session == null) {
+                session = StorageService.get(SESSION);
+            }
+            return session;
+        };
+
+        service.create = function() {
+            var deferred = $q.defer();
+
+            Account.get().$promise.then(function(account) {
+               account.resource("authorities").query().$promise.then(function(authorities) {
+                   session = {};
+                   session.login = account.login;
+                   session.email = account.email;
+                   session.firstName = account.firstName;
+                   session.lastName = account.lastName;
+                   session.authorities = authorities;
+                   StorageService.save(SESSION, session);
+                   deferred.resolve(session);
+               });
+            });
+
+            return deferred.promise;
+        };
+
+        service.invalidate = function() {
+            session = null;
+            StorageService.remove(SESSION);
+        };
+
+        return service;
+    })
     .factory('Token', ['$location', '$http', 'StorageService', '$rootScope',
         function ($location, $http, StorageService, $rootScope) {
             var TOKEN = 'token';
@@ -100,7 +138,6 @@ angular.module('carcloudAppUtils', [])
 
             service.get = function (key) {
 
-                // read the token from the localStorage
                 if (token == null) {
                     token = StorageService.get(TOKEN);
                 }
@@ -114,7 +151,6 @@ angular.module('carcloudAppUtils', [])
 
             service.set = function (oauthResponse) {
                 token = {};
-                console.log(oauthResponse);
                 token.access_token = oauthResponse.access_token;
                 token.refresh_token = oauthResponse.refresh_token;
                 setExpiresAt(oauthResponse);

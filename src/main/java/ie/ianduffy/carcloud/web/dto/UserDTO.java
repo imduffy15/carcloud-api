@@ -1,26 +1,21 @@
-package ie.ianduffy.carcloud.web.rest.dto;
+package ie.ianduffy.carcloud.web.dto;
 
-import ie.ianduffy.carcloud.domain.Authority;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.Set;
 
 public class UserDTO extends AbstractAuditingEntityDTO {
-
-    private Set<Authority> authorities;
 
     @Email
     @Size(min = 0, max = 100)
     private String email;
-
     @Size(min = 1, max = 50)
     private String firstName;
-
     @Size(min = 1, max = 50)
     private String lastName;
-
+    @Size(min = 0, max = 50)
+    private String login;
     @Size(min = 1, max = 100)
     private String password;
 
@@ -28,14 +23,7 @@ public class UserDTO extends AbstractAuditingEntityDTO {
     private String phone;
 
     public UserDTO() {
-    }
-
-    public Set<Authority> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(Set<Authority> authorities) {
-        this.authorities = authorities;
+        super();
     }
 
     public String getEmail() {
@@ -60,6 +48,14 @@ public class UserDTO extends AbstractAuditingEntityDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
@@ -88,7 +84,6 @@ public class UserDTO extends AbstractAuditingEntityDTO {
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append(", email='").append(email).append('\'');
         sb.append(", phone='").append(phone).append('\'');
-        sb.append(", authorities=").append(authorities);
         sb.append('}');
         return sb.toString();
     }
