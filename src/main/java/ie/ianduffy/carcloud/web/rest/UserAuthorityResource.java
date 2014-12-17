@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * REST controller for managing Device.
+ * REST controller for managing a user's authorities.
  */
 @RestController
 @RequestMapping("/app/rest/users/{login}/authorities")
@@ -24,9 +24,6 @@ public class UserAuthorityResource {
     @Inject
     private UserService userService;
 
-    /**
-     * POST  /rest/devices/:id/owners -> Create a new owner.
-     */
     @RequestMapping(method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -34,9 +31,6 @@ public class UserAuthorityResource {
         userService.addAuthority(login, authority);
     }
 
-    /**
-     * DELETE  /rest/devices/:id/owners/:index -> delete the owner.
-     */
     @RequestMapping(value = "/{index}",
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -45,9 +39,6 @@ public class UserAuthorityResource {
         userService.removeAuthority(login, index);
     }
 
-    /**
-     * GET  /rest/devices/:id/owner/:index -> get the "id" device.
-     */
     @RequestMapping(value = "/{index}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,9 +51,6 @@ public class UserAuthorityResource {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    /**
-     * GET  /rest/devices -> get all the devices.
-     */
     @RequestMapping(method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed

@@ -18,4 +18,10 @@
         <class-b>ie.ianduffy.carcloud.web.dto.DeviceDTO</class-b>
     </mapping>
 
+    <mapping map-null="false">
+        <class-a>ie.ianduffy.carcloud.domain.Track</class-a>
+        <class-b>ie.ianduffy.carcloud.web.dto.TrackDTO</class-b>
+    </mapping>
+
+
 </mappings>

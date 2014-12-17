@@ -13,20 +13,16 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * A Device.
- * <p/>
- * SPAM 0.0.1 - Extention of a base class.
  */
 @Data
 @Entity
 @Table(name = "T_DEVICE")
 @ToString(exclude = {"owners", "tracks"})
-@EqualsAndHashCode(exclude = {"owners", "tracks"})
+@EqualsAndHashCode(exclude = {"owners", "tracks"}, callSuper = false)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Device extends AbstractAuditingEntity implements Serializable {
 
@@ -49,9 +45,11 @@ public class Device extends AbstractAuditingEntity implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<User> owners = new ArrayList<>();
 
+    @OrderBy
     @LazyCollection(LazyCollectionOption.EXTRA)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "device", fetch = FetchType.LAZY)
-    private Set<Track> tracks = new HashSet<>();
+    private List<Track> tracks = new ArrayList<>();
 
     public Device() {
     }

@@ -29,9 +29,6 @@ public class UserResource {
     @Inject
     private UserService userService;
 
-    /**
-     * GET  /rest/tracks/:id -> get the "id" track.
-     */
     @RequestMapping(value = "/{login}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)

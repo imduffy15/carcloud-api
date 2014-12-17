@@ -14,8 +14,6 @@ import java.util.List;
 
 /**
  * Wraps an implementation of Spring Boot's AuditEventRepository.
- * <p/>
- * SPAM 0.0.1 - Example of wrapping.
  */
 @Repository
 public class CustomAuditEventRepository {

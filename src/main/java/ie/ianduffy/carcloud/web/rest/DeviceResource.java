@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * REST controller for managing Device.
+ * REST controller for managing devices.
  */
 @RestController
 @RequestMapping("/app/rest/devices")
@@ -29,13 +29,8 @@ public class DeviceResource {
     @Inject
     private DeviceDTOAssembler deviceDTOAssembler;
     @Inject
-    private DeviceRepository deviceRepository;
-    @Inject
     private DeviceService deviceService;
 
-    /**
-     * POST  /rest/devices -> Create a new device.
-     */
     @RequestMapping(method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -47,37 +42,28 @@ public class DeviceResource {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /**
-     * DELETE  /rest/devices/:id -> delete the "id" device.
-     */
-    @RequestMapping(value = "/{id}",
+    @RequestMapping(value = "/{device_id}",
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void delete(@PathVariable("id") Long id) {
-        log.debug("REST request to delete Device : {}", id);
-        deviceRepository.delete(id);
+    public void delete(@PathVariable("device_id") Long deviceId) {
+        log.debug("REST request to delete Device : {}", deviceId);
+        deviceService.delete(deviceId);
     }
 
-    /**
-     * GET  /rest/devices/:id -> get the "id" device.
-     */
-    @RequestMapping(value = "/{id}",
+    @RequestMapping(value = "/{device_id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<DeviceDTO> get(@PathVariable("id") Long id) {
-        log.debug("REST request to get Device : {}", id);
-        Device device = deviceService.findOneForCurrentUser(id);
+    public ResponseEntity<DeviceDTO> get(@PathVariable("device_id") Long deviceId) {
+        log.debug("REST request to get Device : {}", deviceId);
+        Device device = deviceService.findOneForCurrentUser(deviceId);
         if (device == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(deviceDTOAssembler.toResource(device), HttpStatus.OK);
     }
 
-    /**
-     * GET  /rest/devices -> get all the devices.
-     */
     @RequestMapping(method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed

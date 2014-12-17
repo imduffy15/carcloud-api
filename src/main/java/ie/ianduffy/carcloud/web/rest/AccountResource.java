@@ -34,9 +34,6 @@ public class AccountResource {
     @Inject
     private UserService userService;
 
-    /**
-     * POST  /rest/change_password -> changes the current user's password
-     */
     @RequestMapping(value = "/rest/account/change_password",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -46,21 +43,18 @@ public class AccountResource {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /**
-     * GET  /rest/account -> get the current user.
-     */
     @RequestMapping(value = "/rest/account",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<UserDTO> getAccount() {
+    public ResponseEntity<?> getAccount() {
         User user = userService.getUser();
+        if(user == null) {
+            return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(userDTOAssembler.toResource(user), HttpStatus.OK);
     }
 
-    /**
-     * GET  /rest/authenticate -> check if the user is authenticated, and return its login.
-     */
     @RequestMapping(value = "/rest/authenticate",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -70,9 +64,6 @@ public class AccountResource {
         return request.getRemoteUser();
     }
 
-    /**
-     * POST  /rest/register -> register the user.
-     */
     @RequestMapping(value = "/rest/register",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -86,9 +77,6 @@ public class AccountResource {
         return new ResponseEntity<>(userDTOAssembler.toResource(user), HttpStatus.CREATED);
     }
 
-    /**
-     * POST  /rest/account -> update the current user information.
-     */
     @RequestMapping(value = "/rest/account",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)

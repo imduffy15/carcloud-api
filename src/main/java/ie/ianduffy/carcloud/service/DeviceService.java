@@ -1,9 +1,11 @@
 package ie.ianduffy.carcloud.service;
 
 import ie.ianduffy.carcloud.domain.Device;
+import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.repository.DeviceRepository;
 import ie.ianduffy.carcloud.web.dto.DeviceDTO;
+import ie.ianduffy.carcloud.web.dto.TrackDTO;
 import org.dozer.Mapper;
 import org.hibernate.StaleStateException;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,20 @@ public class DeviceService {
         List<User> owners = device.getOwners();
         owners.add(userService.getUser(owner));
         device.setOwners(owners);
+
+        deviceRepository.save(device);
+        return device;
+    }
+
+    public Device addTrack(Long id, TrackDTO trackDTO) {
+        Device device = findOneForCurrentUser(id);
+        List<Track> tracks = device.getTracks();
+        Track track = new Track();
+
+        mapper.map(trackDTO, track);
+
+        tracks.add(track);
+        device.setTracks(tracks);
 
         deviceRepository.save(device);
         return device;
@@ -71,12 +87,46 @@ public class DeviceService {
         return device;
     }
 
+    public User getOwner(Long id, int index) {
+        Device device = findOneForCurrentUser(id);
+        return device.getOwners().get(index);
+    }
+
+    public List<User> getOwners(Long id) {
+        Device device = findOneForCurrentUser(id);
+        return device.getOwners();
+    }
+
+    public Track getTrack(Long id, int index) {
+        Device device = findOneForCurrentUser(id);
+        return device.getTracks().get(index);
+    }
+
+    public List<Track> getTracks(Long id) {
+        Device device = findOneForCurrentUser(id);
+        device.getTracks().size();
+        List<Track> tracks = device.getTracks();
+        return tracks;
+    }
+
     public void removeOwner(Long id, int index) {
         Device device = findOneForCurrentUser(id);
         List<User> owners = device.getOwners();
         owners.remove(index);
         device.setOwners(owners);
         deviceRepository.save(device);
+    }
+
+    public void removeTrack(Long id, int index) {
+        Device device = findOneForCurrentUser(id);
+        List<Track> tracks = device.getTracks();
+        tracks.remove(index);
+        device.setTracks(tracks);
+        deviceRepository.save(device);
+    }
+
+    public void delete(Long id) {
+        deviceRepository.delete(id);
     }
 
     private Device update(Device device, DeviceDTO deviceDTO) {

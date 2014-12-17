@@ -13,10 +13,6 @@ import javax.inject.Inject;
 
 /**
  * Service for sending SMSs.
- * <p/>
- * <p>
- * We use the @Async annotation to send SMSs asynchronously.
- * </p>
  */
 @Service
 public class SMSService {

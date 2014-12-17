@@ -20,14 +20,12 @@ import java.util.List;
 
 /**
  * A user.
- * <p/>
- * SPAM 0.0.1 - Usage of a base class.
  */
 @Data
 @Entity
 @Table(name = "T_USER")
 @ToString(exclude = {"authorities"})
-@EqualsAndHashCode(exclude = {"authorities"})
+@EqualsAndHashCode(exclude = {"authorities"}, callSuper = false)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractAuditingEntity implements Serializable {
 

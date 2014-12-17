@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Data
 @JsonIgnoreProperties({"id_str", "id", "recorded_at"})
-public class PayloadDTO {
+public class MunicPayloadDTO {
     private Long deviceId;
     private Map<String, Map<String, String>> fields;
 
