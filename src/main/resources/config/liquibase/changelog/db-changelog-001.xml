@@ -131,7 +131,7 @@
             <column name="longitude" type="DOUBLE"/>
             <column name="received_at" type="timestamp"/>
             <column name="recorded_at" type="timestamp"/>
-            <column name="device" type="BIGINT"/>
+            <column name="device_id" type="BIGINT"/>
         </createTable>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump14" >
@@ -192,18 +192,21 @@
         <addUniqueConstraint columnNames="phone" constraintName="UK_m5bu5erj83eubjsa1nyms0t89" deferrable="false" disabled="false" initiallyDeferred="false" tableName="t_user"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump24" context="prod">
-        <addForeignKeyConstraint baseColumnNames="device" baseTableName="t_track" constraintName="FK_5cg1uha0yly9nqsellq1bodrk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_device"/>
+        <addForeignKeyConstraint baseColumnNames="login" baseTableName="t_device_owner" constraintName="FK_62d6kr44eonfbsr5aajkttkbr" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="login" referencedTableName="t_user"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump25" context="prod">
         <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="t_persistent_audit_event_data" constraintName="FK_cekdwiaydjn97qi7ebeexb1bw" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="event_id" referencedTableName="t_persistent_audit_event"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump26" context="prod">
-        <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_device_owner" constraintName="FK_ib7vnp2olk25703c5xwpshvdc" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_device"/>
+        <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_track" constraintName="FK_cwnm9lpwcabuyi89h1qkuaavj" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_device"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump27" context="prod">
-        <addForeignKeyConstraint baseColumnNames="login" baseTableName="t_user_authority" constraintName="FK_sxi66of84md6cagjs8bj9hl73" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="login" referencedTableName="t_user"/>
+        <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_device_owner" constraintName="FK_ib7vnp2olk25703c5xwpshvdc" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_device"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump28" context="prod">
+        <addForeignKeyConstraint baseColumnNames="login" baseTableName="t_user_authority" constraintName="FK_sxi66of84md6cagjs8bj9hl73" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="login" referencedTableName="t_user"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="dump29" context="prod">
         <addForeignKeyConstraint baseColumnNames="name" baseTableName="t_user_authority" constraintName="FK_tghvo3hwad0ifdm39n7bph8b" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="name" referencedTableName="t_authority"/>
     </changeSet>
 </databaseChangeLog>

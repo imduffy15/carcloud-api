@@ -67,13 +67,13 @@ public class UserAuthorityResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<?> getAll(@PathVariable("login") String login) {
-        User user = userService.getUser(login);
-        List<String> authorities = new ArrayList<>();
-        if (user.getAuthorities() != null) {
-            for (Authority authority : user.getAuthorities()) {
-                authorities.add(authority.getName());
+        List<Authority> authorities = userService.getAuthorities(login);
+        List<String> authoritiesDTO = new ArrayList<>();
+        if (authorities != null) {
+            for (Authority authority : authorities) {
+                authoritiesDTO.add(authority.getName());
             }
         }
-        return new ResponseEntity<>(authorities, HttpStatus.OK);
+        return new ResponseEntity<>(authoritiesDTO, HttpStatus.OK);
     }
 }

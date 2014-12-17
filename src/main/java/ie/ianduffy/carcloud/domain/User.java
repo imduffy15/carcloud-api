@@ -2,8 +2,12 @@ package ie.ianduffy.carcloud.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
@@ -22,17 +26,21 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "T_USER")
+@ToString(exclude = {"authorities"})
+@EqualsAndHashCode(exclude = {"authorities"})
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractAuditingEntity implements Serializable {
 
     @OrderBy
-    @ManyToMany
     @JoinTable(
         name = "T_USER_AUTHORITY",
         joinColumns = {@JoinColumn(name = "login", referencedColumnName = "login")},
         inverseJoinColumns = {@JoinColumn(name = "name", referencedColumnName = "name")})
+    @ManyToMany(fetch = FetchType.LAZY)
+    @LazyCollection(LazyCollectionOption.EXTRA)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<Authority> authorities = new ArrayList<>();
+
     @Email
     @NotNull
     @Size(min = 0, max = 100)

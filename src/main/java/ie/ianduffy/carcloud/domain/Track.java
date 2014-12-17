@@ -3,6 +3,8 @@ package ie.ianduffy.carcloud.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.javadocmd.simplelatlng.LatLng;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -18,10 +20,13 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "T_TRACK")
+@ToString(exclude = {"device"})
+@EqualsAndHashCode(exclude = {"device"})
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Track implements Serializable {
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "device_id")
     private Device device;
 
     @Id
@@ -68,4 +73,5 @@ public class Track implements Serializable {
         latitude = location.getLatitude();
         longitude = location.getLongitude();
     }
+
 }

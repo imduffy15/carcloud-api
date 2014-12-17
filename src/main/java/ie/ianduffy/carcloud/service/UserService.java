@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Service class for managing users.
@@ -63,15 +64,20 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User getUser() {
-        return userRepository.findOne(SecurityUtils.getCurrentLogin());
+    public List<Authority> getAuthorities(String login) {
+        User user = getUser(login);
+        return user.getAuthorities();
     }
 
     @Transactional(readOnly = true)
     public User getUser(String login) {
         User user = userRepository.findOne(login);
-        user.getAuthorities().size();
         return user;
+    }
+
+    @Transactional(readOnly = true)
+    public User getUser() {
+        return userRepository.findOne(SecurityUtils.getCurrentLogin());
     }
 
     public void removeAuthority(String login, int index) {
