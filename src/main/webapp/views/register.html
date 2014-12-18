@@ -25,23 +25,23 @@
                   ng-submit="register()">
                 <div class="form-group">
                     <label>Username</label>
-                    <input type="text" class="form-control" name="login"
+                    <input type="text" class="form-control" name="username"
                            placeholder="Username"
-                           ng-model="registerAccount.login" ng-minlength=5 ng-maxlength=100 required>
+                           ng-model="registerAccount.username" ng-minlength=5 ng-maxlength=100 required>
 
                     <div class="error"
-                         ng-show="form.login.$dirty && form.login.$invalid">
+                         ng-show="form.username.$dirty && form.username.$invalid">
                         <small class="error"
-                               ng-show="form.login.$error.required">
+                               ng-show="form.username.$error.required">
                             Your username is required.
                         </small>
                         <small class="error"
-                               ng-show="form.login.$error.minlength"
+                               ng-show="form.username.$error.minlength"
                             >
                             Your username is required to be at least 5 characters
                         </small>
                         <small class="error"
-                               ng-show="form.login.$error.maxlength"
+                               ng-show="form.username.$error.maxlength"
                             >
                             Your username cannot be longer than 100 characters
                         </small>

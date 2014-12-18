@@ -48,6 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/swagger-ui/**")
             .antMatchers("/app/rest/register")
             .antMatchers("/app/rest/activate")
+            .antMatchers("/app/munic")
             .antMatchers("/console/**");
     }
 

@@ -1,9 +1,9 @@
 package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import ie.ianduffy.carcloud.assembler.UserDTOAssembler;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.service.UserService;
-import ie.ianduffy.carcloud.web.assembler.UserDTOAssembler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -29,11 +29,11 @@ public class UserResource {
     @Inject
     private UserService userService;
 
-    @RequestMapping(value = "/{login}",
+    @RequestMapping(value = "/{username}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<?> get(@PathVariable("login") String login) {
+    public ResponseEntity<?> get(@PathVariable("username") String login) {
         log.debug("REST request to get Track : {}", login);
         User user = userService.getUser(login);
         if (user == null) {

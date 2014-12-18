@@ -1,9 +1,9 @@
-package ie.ianduffy.carcloud.web.dto;
+package ie.ianduffy.carcloud.web.munic.dto;
 
 import lombok.Data;
 
 @Data
-public class MunicMetadataDTO {
+public class MetadataDTO {
     private String account;
     private String event;
 }

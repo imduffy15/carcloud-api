@@ -2,10 +2,9 @@ package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import ie.ianduffy.carcloud.domain.Device;
-import ie.ianduffy.carcloud.repository.DeviceRepository;
 import ie.ianduffy.carcloud.service.DeviceService;
-import ie.ianduffy.carcloud.web.assembler.DeviceDTOAssembler;
-import ie.ianduffy.carcloud.web.dto.DeviceDTO;
+import ie.ianduffy.carcloud.assembler.DeviceDTOAssembler;
+import ie.ianduffy.carcloud.dto.DeviceDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -47,7 +46,6 @@ public class DeviceResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public void delete(@PathVariable("device_id") Long deviceId) {
-        log.debug("REST request to delete Device : {}", deviceId);
         deviceService.delete(deviceId);
     }
 

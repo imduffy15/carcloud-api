@@ -40,5 +40,29 @@
     <cache name="ie.ianduffy.carcloud.domain.PersistentAuditEvent"
            timeToLiveSeconds="3600">
     </cache>
+
+    <cache name="ie.ianduffy.carcloud.domain.Track"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="ie.ianduffy.carcloud.domain.Device"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="ie.ianduffy.carcloud.domain.Device.tracks"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="ie.ianduffy.carcloud.domain.Device.owners"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="org.hibernate.cache.spi.UpdateTimestampsCache"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="org.hibernate.cache.internal.StandardQueryCache"
+           timeToLiveSeconds="3600">
+    </cache>
 </ehcache>
 

@@ -9,6 +9,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,12 +28,12 @@ import java.util.List;
 @ToString(exclude = {"authorities"})
 @EqualsAndHashCode(exclude = {"authorities"}, callSuper = false)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class User extends AbstractAuditingEntity implements Serializable {
+public class User extends AbstractAuditingEntity implements Serializable, UserDetails {
 
     @OrderBy
     @JoinTable(
         name = "T_USER_AUTHORITY",
-        joinColumns = {@JoinColumn(name = "login", referencedColumnName = "login")},
+        joinColumns = {@JoinColumn(name = "username", referencedColumnName = "username")},
         inverseJoinColumns = {@JoinColumn(name = "name", referencedColumnName = "name")})
     @ManyToMany(fetch = FetchType.LAZY)
     @LazyCollection(LazyCollectionOption.EXTRA)
@@ -50,18 +51,37 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "last_name", length = 50)
     private String lastName;
-    @NotNull
-    @Size(min = 0, max = 50)
-    @Id
-    @Column(length = 50)
-    private String login;
     @JsonIgnore
     @Size(min = 0, max = 100)
     @Column(length = 100)
     private String password;
-
     @NotNull
     @Pattern(regexp = "^\\+?[0-9. ()-]{10,25}$")
     @Column(length = 100, unique = true)
     private String phone;
+    @NotNull
+    @Size(min = 0, max = 50)
+    @Id
+    @Column(length = 50)
+    private String username;
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

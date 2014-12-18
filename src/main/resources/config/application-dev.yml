@@ -54,7 +54,7 @@ hotReload:
     package:
       project: ie.ianduffy.carcloud
       domain: ie.ianduffy.carcloud.domain
-      restdto: ie.ianduffy.carcloud.web.dto
+      restdto: ie.ianduffy.carcloud.web.rest.dto
     liquibase:
       defaultCatalogName:
       defaultSchema: public

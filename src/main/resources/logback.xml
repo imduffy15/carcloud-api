@@ -48,6 +48,11 @@
     <logger name="com.mangofactory.swagger" level="warn"/>
     <logger name="com.wordnik.swagger" level="warn"/>
     <logger name="liquibase" level="warn"/>
+    <logger name="org.dozer" level="warn"/>
+    <logger name="javax.xml.bind" level="warn"/>
+    <logger name="com.sun.xml" level="warn"/>
+    <logger name="org.jboss.logging" level="warn"/>
+
 
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
         <resetJUL>true</resetJUL>

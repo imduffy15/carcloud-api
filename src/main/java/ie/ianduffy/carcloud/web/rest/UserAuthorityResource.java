@@ -18,7 +18,7 @@ import java.util.List;
  * REST controller for managing a user's authorities.
  */
 @RestController
-@RequestMapping("/app/rest/users/{login}/authorities")
+@RequestMapping("/app/rest/users/{username}/authorities")
 public class UserAuthorityResource {
 
     @Inject
@@ -27,7 +27,7 @@ public class UserAuthorityResource {
     @RequestMapping(method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void create(@PathVariable("login") String login, @Valid @RequestBody String authority) {
+    public void create(@PathVariable("username") String login, @Valid @RequestBody String authority) {
         userService.addAuthority(login, authority);
     }
 
@@ -35,7 +35,7 @@ public class UserAuthorityResource {
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void delete(@PathVariable("login") String login, @PathVariable("index") int index) {
+    public void delete(@PathVariable("username") String login, @PathVariable("index") int index) {
         userService.removeAuthority(login, index);
     }
 
@@ -43,7 +43,7 @@ public class UserAuthorityResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<?> get(@PathVariable("login") String login, @PathVariable("index") int index) {
+    public ResponseEntity<?> get(@PathVariable("username") String login, @PathVariable("index") int index) {
         User user = userService.getUser(login);
         if (user.getAuthorities() != null) {
             return new ResponseEntity<>(user.getAuthorities().get(index).getName(), HttpStatus.OK);
@@ -54,7 +54,7 @@ public class UserAuthorityResource {
     @RequestMapping(method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<?> getAll(@PathVariable("login") String login) {
+    public ResponseEntity<?> getAll(@PathVariable("username") String login) {
         List<Authority> authorities = userService.getAuthorities(login);
         List<String> authoritiesDTO = new ArrayList<>();
         if (authorities != null) {

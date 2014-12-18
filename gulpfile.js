@@ -39,7 +39,6 @@ gulp.task('clean:tmp', function () {
 });
 
 gulp.task('test', function () {
-    karma.once();
 });
 
 gulp.task('copy', ['clean'], function () {

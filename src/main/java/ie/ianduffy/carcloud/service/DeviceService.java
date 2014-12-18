@@ -4,8 +4,8 @@ import ie.ianduffy.carcloud.domain.Device;
 import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.repository.DeviceRepository;
-import ie.ianduffy.carcloud.web.dto.DeviceDTO;
-import ie.ianduffy.carcloud.web.dto.TrackDTO;
+import ie.ianduffy.carcloud.dto.DeviceDTO;
+import ie.ianduffy.carcloud.dto.TrackDTO;
 import org.dozer.Mapper;
 import org.hibernate.StaleStateException;
 import org.springframework.stereotype.Service;
@@ -73,10 +73,18 @@ public class DeviceService {
         return create(deviceDTO);
     }
 
+    public void delete(Long id) {
+        deviceRepository.delete(id);
+    }
+
     public List<Device> findAllForCurrentUser() {
         User user = userService.getUser();
 
         return deviceRepository.findAllForCurrentUser(user);
+    }
+
+    public Device findOne(Long id) {
+        return deviceRepository.findOne(id);
     }
 
     public Device findOneForCurrentUser(Long id) {
@@ -123,10 +131,6 @@ public class DeviceService {
         tracks.remove(index);
         device.setTracks(tracks);
         deviceRepository.save(device);
-    }
-
-    public void delete(Long id) {
-        deviceRepository.delete(id);
     }
 
     private Device update(Device device, DeviceDTO deviceDTO) {

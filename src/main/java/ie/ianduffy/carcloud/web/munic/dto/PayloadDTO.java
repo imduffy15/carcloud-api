@@ -1,4 +1,4 @@
-package ie.ianduffy.carcloud.web.dto;
+package ie.ianduffy.carcloud.web.munic.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Data
 @JsonIgnoreProperties({"id_str", "id", "recorded_at"})
-public class MunicPayloadDTO {
+public class PayloadDTO {
     private Long deviceId;
     private Map<String, Map<String, String>> fields;
 

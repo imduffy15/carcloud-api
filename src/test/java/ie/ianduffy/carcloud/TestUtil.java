@@ -1,4 +1,4 @@
-package ie.ianduffy.carcloud.web.rest;
+package ie.ianduffy.carcloud;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;

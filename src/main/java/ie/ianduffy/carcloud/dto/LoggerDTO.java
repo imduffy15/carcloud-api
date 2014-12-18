@@ -1,4 +1,4 @@
-package ie.ianduffy.carcloud.web.dto;
+package ie.ianduffy.carcloud.dto;
 
 import ch.qos.logback.classic.Logger;
 import com.fasterxml.jackson.annotation.JsonCreator;

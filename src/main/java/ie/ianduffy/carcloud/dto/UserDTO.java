@@ -1,4 +1,4 @@
-package ie.ianduffy.carcloud.web.dto;
+package ie.ianduffy.carcloud.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,11 +18,10 @@ public class UserDTO extends AbstractAuditingEntityDTO {
     private String firstName;
     @Size(min = 1, max = 50)
     private String lastName;
-    @Size(min = 0, max = 50)
-    private String login;
     @Size(min = 1, max = 100)
     private String password;
-
     @Pattern(regexp = "^\\+?[0-9. ()-]{10,25}$")
     private String phone;
+    @Size(min = 0, max = 50)
+    private String username;
 }

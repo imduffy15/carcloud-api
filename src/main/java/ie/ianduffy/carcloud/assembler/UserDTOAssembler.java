@@ -1,8 +1,8 @@
-package ie.ianduffy.carcloud.web.assembler;
+package ie.ianduffy.carcloud.assembler;
 
-import ie.ianduffy.carcloud.domain.User;
-import ie.ianduffy.carcloud.web.dto.UserDTO;
 import ie.ianduffy.carcloud.web.rest.UserAuthorityResource;
+import ie.ianduffy.carcloud.domain.User;
+import ie.ianduffy.carcloud.dto.UserDTO;
 import ie.ianduffy.carcloud.web.rest.UserResource;
 import org.dozer.Mapper;
 import org.springframework.stereotype.Component;
@@ -20,8 +20,8 @@ public class UserDTOAssembler {
     public UserDTO toResource(User user) {
         UserDTO resource = new UserDTO();
 
-        resource.add(linkTo(UserResource.class).slash(user.getLogin()).withSelfRel());
-        resource.add(linkTo(UserAuthorityResource.class, user.getLogin()).withRel("authorities"));
+        resource.add(linkTo(UserResource.class).slash(user.getUsername()).withSelfRel());
+        resource.add(linkTo(UserAuthorityResource.class, user.getUsername()).withRel("authorities"));
 
         mapper.map(user, resource);
         return resource;

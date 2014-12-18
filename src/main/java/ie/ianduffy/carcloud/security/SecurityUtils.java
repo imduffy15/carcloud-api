@@ -17,7 +17,7 @@ public final class SecurityUtils {
     }
 
     /**
-     * Get the login of the current user.
+     * Get the username of the current user.
      */
     public static String getCurrentLogin() {
         SecurityContext securityContext = SecurityContextHolder.getContext();

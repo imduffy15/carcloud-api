@@ -39,7 +39,7 @@ public class Device extends AbstractAuditingEntity implements Serializable {
     @JoinTable(
         name = "T_DEVICE_OWNER",
         joinColumns = {@JoinColumn(name = "device_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "login", referencedColumnName = "login")})
+        inverseJoinColumns = {@JoinColumn(name = "username", referencedColumnName = "username")})
     @ManyToMany(fetch = FetchType.LAZY)
     @LazyCollection(LazyCollectionOption.EXTRA)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

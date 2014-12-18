@@ -1,4 +1,4 @@
-package ie.ianduffy.carcloud.web.dto;
+package ie.ianduffy.carcloud.dto;
 
 import lombok.Data;
 import org.springframework.hateoas.Link;
