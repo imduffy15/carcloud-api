@@ -5,6 +5,7 @@ cache:
   - node_modules
 jdk:
   - oraclejdk7
+sudo: false
 install:
   - npm install
   - bower install
