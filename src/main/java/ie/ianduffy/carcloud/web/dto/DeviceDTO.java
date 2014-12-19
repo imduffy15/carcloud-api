@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class DeviceDTO extends AbstractAuditingEntityDTO {
+public class DeviceDTO extends AbstractAuditingEntityDTO<Long> {
 
     @Size(min = 1, max = 150)
     private String description;

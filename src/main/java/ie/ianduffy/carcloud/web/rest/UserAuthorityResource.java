@@ -53,7 +53,7 @@ public class UserAuthorityResource {
     @Timed
     public ResponseEntity<?> get(@PathVariable("username") String login,
                                  @PathVariable("index") int index) {
-        User user = userService.getUser(login);
+        User user = userService.findOne(login);
         if (user.getAuthorities() != null) {
             return new ResponseEntity<>(user.getAuthorities().get(index).getName(), HttpStatus.OK);
         }

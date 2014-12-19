@@ -1,5 +1,7 @@
 package ie.ianduffy.carcloud.web.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.Pattern;
@@ -10,7 +12,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class UserDTO extends AbstractAuditingEntityDTO {
+public class UserDTO extends AbstractAuditingEntityDTO<String> {
 
     @Email
     @Size(min = 0, max = 100)
@@ -30,4 +32,11 @@ public class UserDTO extends AbstractAuditingEntityDTO {
 
     @Size(min = 0, max = 50)
     private String username;
+
+
+    @Override
+    @JsonIgnore
+    public String getId() {
+        return username;
+    }
 }

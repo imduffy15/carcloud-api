@@ -38,8 +38,7 @@ public class UserResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<?> get(@PathVariable("username") String login) {
-        log.debug("REST request to get Track : {}", login);
-        User user = userService.getUser(login);
+        User user = userService.findOne(login);
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

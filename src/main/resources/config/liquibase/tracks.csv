@@ -1,2 +1,2 @@
-id;latitude;longitude;device_id
-1;1;1;1
+id;latitude;longitude;device_id;version
+1;1;1;1;0

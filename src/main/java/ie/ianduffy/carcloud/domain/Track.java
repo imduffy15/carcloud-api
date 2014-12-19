@@ -34,7 +34,7 @@ import lombok.ToString;
 @ToString(exclude = {"device"})
 @EqualsAndHashCode(exclude = {"device"}, callSuper = false)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Track implements Serializable {
+public class Track extends AbstractAuditingEntity<Long> implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "device_id")

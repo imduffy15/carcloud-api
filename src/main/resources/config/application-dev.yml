@@ -11,6 +11,7 @@ spring:
         serverName:
         username:
         password:
+        contexts: dev
 
     jpa:
         database-platform: org.hibernate.dialect.H2Dialect
@@ -62,7 +63,5 @@ hotReload:
     watchdir:
       - target/classes
 
-nexmo:
-    key: carcloud
-    secret: carcloud
-    from: CarCloud
+liquibase:
+    context: dev

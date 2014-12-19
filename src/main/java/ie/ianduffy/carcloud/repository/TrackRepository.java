@@ -15,13 +15,13 @@ import java.util.List;
  */
 public interface TrackRepository extends JpaRepository<Track, Long> {
 
-    @Query("select t from Track t where :#{#user.username} MEMBER OF t.device.owners")
-    List<Track> findAllForCurrentUser(@Param("user") User user);
+    @Query("select t from Track t where :#{#user} MEMBER OF t.device.owners")
+    List<Track> findAllForUser(@Param("user") String user);
 
     @Query("select t from Track t where t.recordedAt >= ?1 and t.recordedAt <= ?2")
     List<Track> findByDates(LocalDateTime fromDate, LocalDateTime toDate);
 
-    @Query("select t from Track t where t.id = :#{#id} and :#{#user.username} MEMBER OF t.device.owners")
-    Track findOneForCurrentUser(@Param("user") User user, @Param("id") Long id);
+    @Query("select t from Track t where t.id = :#{#id} and :#{#user} MEMBER OF t.device.owners")
+    Track findOneForUser(@Param("user") String user, @Param("id") Long id);
 
 }

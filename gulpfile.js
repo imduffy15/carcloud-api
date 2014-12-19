@@ -189,7 +189,6 @@ gulp.task('usemin', ['images', 'styles'], function () {
             ],
             js: [
                 ngAnnotate(),
-                uglify(),
                 'concat',
                 rev()
             ]

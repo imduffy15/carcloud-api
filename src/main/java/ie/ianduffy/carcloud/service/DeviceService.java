@@ -3,14 +3,14 @@ package ie.ianduffy.carcloud.service;
 import ie.ianduffy.carcloud.domain.Device;
 import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.domain.User;
+import ie.ianduffy.carcloud.repository.DeviceRepository;
+import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.DeviceDTO;
 import ie.ianduffy.carcloud.web.dto.TrackDTO;
-import ie.ianduffy.carcloud.repository.DeviceRepository;
-import ie.ianduffy.carcloud.web.exception.DeviceNotFoundException;
 
 import org.dozer.Mapper;
-import org.hibernate.StaleStateException;
 import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,19 +18,17 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.EntityNotFoundException;
 
 /**
  * Service class for managing devices.
  */
 @Service
 @Transactional
-public class DeviceService {
+public class DeviceService extends AbstractService<Device, Long, DeviceDTO> {
 
     @Inject
     private DeviceRepository deviceRepository;
-
-    @Inject
-    private Mapper mapper;
 
     @Inject
     private UserService userService;
@@ -38,72 +36,38 @@ public class DeviceService {
     public Device addOwner(Long id, String owner) {
         Device device = findOneForCurrentUser(id);
         List<User> owners = device.getOwners();
-        owners.add(userService.getUser(owner));
+        owners.add(userService.findOne(owner));
         device.setOwners(owners);
 
         deviceRepository.save(device);
         return device;
     }
 
-    public Device addTrack(Long id, TrackDTO trackDTO) {
-        Device device = findOneForCurrentUser(id);
-        List<Track> tracks = device.getTracks();
-        Track track = new Track();
-
-        mapper.map(trackDTO, track);
-
-        tracks.add(track);
-        device.setTracks(tracks);
-
-        deviceRepository.save(device);
-        return device;
-    }
-
-    private Device create(DeviceDTO deviceDTO) {
+    public Device create(DeviceDTO deviceDTO) {
         Device device = new Device();
-        device.setOwners(Arrays.asList(userService.getUser()));
-
-        mapper.map(deviceDTO, device);
-        deviceRepository.save(device);
-        return device;
+        device.setOwners(Arrays.asList(userService.findOne(SecurityUtils.getCurrentLogin())));
+        return super.create(deviceDTO, device);
     }
 
-    public Device createOrUpdate(DeviceDTO deviceDTO) {
-
-        Device device = deviceRepository.findOne(deviceDTO.getId());
-
-        if (device != null) {
-            return update(device, deviceDTO);
-        }
-
-        return create(deviceDTO);
-    }
-
+    @Override
     public void delete(Long id) {
-        Device device = findOneForCurrentUser(id);
-        deviceRepository.delete(id);
+        findOneForCurrentUser(id);
+        super.delete(id);
     }
 
-    public List<Device> findAll() {
-        return deviceRepository.findAll();
+    @Override
+    protected JpaRepository<Device, Long> getRepository() {
+        return deviceRepository;
     }
 
     public List<Device> findAllForCurrentUser() {
-        User user = userService.getUser();
-
-        return deviceRepository.findAllForCurrentUser(user);
-    }
-
-    public Device findOne(Long id) {
-        return deviceRepository.findOne(id);
+        return deviceRepository.findAllForUser(SecurityUtils.getCurrentLogin());
     }
 
     public Device findOneForCurrentUser(Long id) {
-        User user = userService.getUser();
-
-        Device device = deviceRepository.findOneForCurrentUser(user, id);
+        Device device = deviceRepository.findOneForUser(SecurityUtils.getCurrentLogin(), id);
         if (device == null) {
-            throw new DeviceNotFoundException();
+            throw new EntityNotFoundException();
         }
         return device;
     }
@@ -138,31 +102,8 @@ public class DeviceService {
         deviceRepository.save(device);
     }
 
-    public void removeTrack(Long id, int index) {
-        Device device = findOneForCurrentUser(id);
-        List<Track> tracks = device.getTracks();
-        tracks.remove(index);
-        device.setTracks(tracks);
-        deviceRepository.save(device);
-    }
-
-    private Device update(Device device, DeviceDTO deviceDTO) {
-        User user = userService.getUser();
-        deviceDTO.setId(null);
-
-        if (!device.getOwners().contains(user)) {
-            throw new DeviceNotFoundException();
-        }
-
-        if (deviceDTO.getVersion() != device.getVersion()) {
-            throw new OptimisticLockingFailureException(
-                "Unexpected version. Got " + deviceDTO.getVersion() + " expected " + device
-                    .getVersion());
-        }
-
-        mapper.map(deviceDTO, device);
-
-        deviceRepository.save(device);
-        return device;
+    public Device update(DeviceDTO deviceDTO) {
+        Device device = findOneForCurrentUser(deviceDTO.getId());
+        return super.update(deviceDTO, device);
     }
 }

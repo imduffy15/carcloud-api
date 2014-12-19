@@ -134,6 +134,13 @@
             <column name="received_at" type="timestamp" defaultValueDate="${now}"/>
             <column name="recorded_at" type="timestamp" defaultValueDate="${now}"/>
             <column name="device_id" type="BIGINT"/>
+            <column name="created_by" type="VARCHAR(50)" defaultValue="system"/>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}"/>
+            <column name="last_modified_by" type="VARCHAR(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+            <column name="version" type="INT">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump14">
@@ -187,45 +194,33 @@
     <changeSet author="duffy (generated)" id="dump21" context="prod">
         <addPrimaryKey columnNames="username" constraintName="PRIMARY" tableName="t_user"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump22" context="prod">
+    <changeSet author="duffy (generated)" id="dump22">
         <addUniqueConstraint columnNames="email" constraintName="UK_i6qjjoe560mee5ajdg7v1o6mi" deferrable="false"
                              disabled="false" initiallyDeferred="false" tableName="t_user"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump23" context="prod">
+    <changeSet author="duffy (generated)" id="dump23">
         <addUniqueConstraint columnNames="phone" constraintName="UK_m5bu5erj83eubjsa1nyms0t89" deferrable="false"
                              disabled="false" initiallyDeferred="false" tableName="t_user"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump24" context="prod">
-        <addForeignKeyConstraint baseColumnNames="username" baseTableName="t_device_owner"
-                                 constraintName="FK_62d6kr44eonfbsr5aajkttkbr" deferrable="false"
-                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="username" referencedTableName="t_user"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="dump25" context="prod">
+    <changeSet author="duffy (generated)" id="dump25">
         <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="t_persistent_audit_event_data"
                                  constraintName="FK_cekdwiaydjn97qi7ebeexb1bw" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="event_id" referencedTableName="t_persistent_audit_event"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump26" context="prod">
-        <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_track"
-                                 constraintName="FK_cwnm9lpwcabuyi89h1qkuaavj" deferrable="false"
-                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="id" referencedTableName="t_device"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="dump27" context="prod">
+    <changeSet author="duffy (generated)" id="dump27">
         <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_device_owner"
                                  constraintName="FK_ib7vnp2olk25703c5xwpshvdc" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="t_device"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump28" context="prod">
+    <changeSet author="duffy (generated)" id="dump28">
         <addForeignKeyConstraint baseColumnNames="username" baseTableName="t_user_authority"
                                  constraintName="FK_sxi66of84md6cagjs8bj9hl73" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="username" referencedTableName="t_user"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump29" context="prod">
+    <changeSet author="duffy (generated)" id="dump29">
         <addForeignKeyConstraint baseColumnNames="name" baseTableName="t_user_authority"
                                  constraintName="FK_tghvo3hwad0ifdm39n7bph8b" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"

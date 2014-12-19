@@ -40,6 +40,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -72,13 +73,13 @@ public class DeviceResourceTest extends AbstractResourceTest{
     public void testCreateDevice() throws Exception {
         DeviceDTO deviceDTO = new DeviceDTO();
 
-        deviceDTO.setId(2L);
+        deviceDTO.setId(3L);
         deviceDTO.setDescription("Test device");
 
         mockMvc.perform(post("/app/rest/devices")
                                     .contentType(TestUtil.APPLICATION_JSON_UTF8)
                                     .content(TestUtil.convertObjectToJsonBytes(deviceDTO))
-                                    .with(user(userService.getUser("user"))))
+                                    .with(user(userService.findOne("user"))))
             .andExpect(status().isCreated());
     }
 
@@ -92,11 +93,11 @@ public class DeviceResourceTest extends AbstractResourceTest{
 
         deviceDTO.setDescription("Modified device");
 
-        mockMvc.perform(post("/app/rest/devices")
+        mockMvc.perform(put("/app/rest/devices")
                                     .contentType(TestUtil.APPLICATION_JSON_UTF8)
                                     .content(TestUtil.convertObjectToJsonBytes(deviceDTO))
-                                    .with(user(userService.getUser("user"))))
-            .andExpect(status().isCreated());
+                                    .with(user(userService.findOne("user"))))
+            .andExpect(status().isOk());
     }
 
     @Test
@@ -112,14 +113,14 @@ public class DeviceResourceTest extends AbstractResourceTest{
         mockMvc.perform(post("/app/rest/devices")
                                     .contentType(TestUtil.APPLICATION_JSON_UTF8)
                                     .content(TestUtil.convertObjectToJsonBytes(deviceDTO))
-                                    .with(user(userService.getUser("user"))));
+                                    .with(user(userService.findOne("user"))));
     }
 
     @Test
     public void testDeleteADevice() throws Exception {
         mockMvc.perform(delete("/app/rest/devices/2")
                                     .accept(MediaType.APPLICATION_JSON)
-                                    .with(user(userService.getUser("user"))))
+                                    .with(user(userService.findOne("user"))))
             .andExpect(status().isOk());
     }
 
@@ -127,7 +128,7 @@ public class DeviceResourceTest extends AbstractResourceTest{
     public void testDeleteADeviceTheUserDoesntOwn() throws Exception{
         mockMvc.perform(delete("/app/rest/devices/1")
                                     .accept(MediaType.APPLICATION_JSON)
-                                    .with(user(userService.getUser("user"))))
+                                    .with(user(userService.findOne("user"))))
             .andExpect(status().isNotFound());
     }
 
@@ -135,7 +136,7 @@ public class DeviceResourceTest extends AbstractResourceTest{
     public void testGetADevice() throws Exception {
         mockMvc.perform(get("/app/rest/devices/2")
                             .accept(MediaType.APPLICATION_JSON)
-                            .with(user(userService.getUser("user"))))
+                            .with(user(userService.findOne("user"))))
             .andExpect(status().isOk());
     }
 
@@ -143,7 +144,7 @@ public class DeviceResourceTest extends AbstractResourceTest{
     public void testGetADeviceTheUserDoesntOwn() throws Exception {
         mockMvc.perform(get("/app/rest/devices/1")
                             .accept(MediaType.APPLICATION_JSON)
-                            .with(user(userService.getUser("user"))))
+                            .with(user(userService.findOne("user"))))
             .andExpect(status().isNotFound());
     }
 
@@ -151,7 +152,7 @@ public class DeviceResourceTest extends AbstractResourceTest{
     public void testGetAllDevices() throws Exception {
         mockMvc.perform(get("/app/rest/devices")
                             .accept(MediaType.APPLICATION_JSON)
-                            .with(user(userService.getUser("user"))))
+                            .with(user(userService.findOne("user"))))
             .andExpect(status().isOk());
     }
 }

@@ -9,7 +9,7 @@ import java.util.Map;
 import lombok.Data;
 
 @Data
-public abstract class AbstractAuditingEntityDTO {
+public abstract class AbstractAuditingEntityDTO<T> {
 
     private final Map<String, String> links;
 
@@ -37,4 +37,6 @@ public abstract class AbstractAuditingEntityDTO {
         }
         return link;
     }
+
+    public abstract T getId();
 }

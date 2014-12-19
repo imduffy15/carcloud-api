@@ -24,7 +24,7 @@ import lombok.Data;
 @MappedSuperclass
 @Audited
 @EntityListeners(AuditingEntityListener.class)
-abstract class AbstractAuditingEntity {
+public abstract class AbstractAuditingEntity<T> {
 
     @CreatedBy
     @Column(name = "created_by", length = 50)
@@ -46,4 +46,6 @@ abstract class AbstractAuditingEntity {
 
     @Version
     private int version;
+
+    public abstract T getId();
 }

@@ -27,6 +27,7 @@ import javax.inject.Inject;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -76,13 +77,13 @@ public class AccountResourceTest extends AbstractResourceTest{
         mockMvc.perform(post("/app/rest/account/change_password")
                                     .contentType(TestUtil.APPLICATION_JSON_UTF8)
                                     .content(TestUtil.convertObjectToJsonBytes("newPassword"))
-                                    .with(user(userService.getUser("user"))))
+                                    .with(user(userService.findOne("user"))))
             .andExpect(status().isOk());
     }
 
     @Test
     public void testGetExistingAccount() throws Exception {
-        User user = userService.getUser("user");
+        User user = userService.findOne("user");
 
         mockMvc.perform(get("/app/rest/account").with(
             user(user))
@@ -126,7 +127,7 @@ public class AccountResourceTest extends AbstractResourceTest{
         mockMvc.perform(post("/app/rest/register")
                                     .contentType(TestUtil.APPLICATION_JSON_UTF8)
                                     .content(TestUtil.convertObjectToJsonBytes(userDTO)))
-            .andExpect(status().isBadRequest());
+            .andExpect(status().isConflict());
     }
 
     @Test
@@ -134,12 +135,12 @@ public class AccountResourceTest extends AbstractResourceTest{
         UserDTO userDTO = new UserDTO();
 
         userDTO.setLastName("newLastName");
-        userDTO.setVersion(userService.getUser("user").getVersion());
+        userDTO.setVersion(userService.findOne("user").getVersion());
 
-        mockMvc.perform(post("/app/rest/account")
+        mockMvc.perform(put("/app/rest/account")
                                     .contentType(TestUtil.APPLICATION_JSON_UTF8)
                                     .content(TestUtil.convertObjectToJsonBytes(userDTO))
-                                    .with(user(userService.getUser("user"))))
+                                    .with(user(userService.findOne("user"))))
             .andExpect(status().isOk());
     }
 }

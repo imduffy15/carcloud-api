@@ -41,8 +41,16 @@ public class DeviceResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<?> create(@Valid @RequestBody DeviceDTO deviceDTO) {
-        Device device = deviceService.createOrUpdate(deviceDTO);
+        Device device = deviceService.create(deviceDTO);
         return new ResponseEntity<>(deviceDTOAssembler.toResource(device), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<?> update(@Valid @RequestBody DeviceDTO deviceDTO) {
+        Device device = deviceService.update(deviceDTO);
+        return new ResponseEntity<>(deviceDTOAssembler.toResource(device), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{device_id}",

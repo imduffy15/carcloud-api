@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class TrackDTO extends AbstractAuditingEntityDTO {
+public class TrackDTO extends AbstractAuditingEntityDTO<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)

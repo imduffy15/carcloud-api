@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 
 import ie.ianduffy.carcloud.assembler.UserDTOAssembler;
 import ie.ianduffy.carcloud.domain.User;
+import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.UserDTO;
 import ie.ianduffy.carcloud.service.UserService;
 
@@ -28,8 +29,6 @@ import javax.validation.Valid;
 @RequestMapping("/app")
 public class AccountResource {
 
-    private final Logger log = LoggerFactory.getLogger(AccountResource.class);
-
     @Inject
     private UserDTOAssembler userDTOAssembler;
 
@@ -50,7 +49,7 @@ public class AccountResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<?> getAccount() {
-        User user = userService.getUser();
+        User user = userService.findOne(SecurityUtils.getCurrentLogin());
         return new ResponseEntity<>(userDTOAssembler.toResource(user), HttpStatus.OK);
     }
 
@@ -59,7 +58,6 @@ public class AccountResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public String isAuthenticated(HttpServletRequest request) {
-        log.debug("REST request to check if the current user is authenticated");
         return request.getRemoteUser();
     }
 
@@ -69,14 +67,11 @@ public class AccountResource {
     @Timed
     public ResponseEntity<?> registerAccount(@Valid @RequestBody UserDTO userDTO) {
         User user = userService.create(userDTO);
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
         return new ResponseEntity<>(userDTOAssembler.toResource(user), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/rest/account",
-        method = RequestMethod.POST,
+        method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public void updateAccount(@Valid @RequestBody UserDTO userDTO) {

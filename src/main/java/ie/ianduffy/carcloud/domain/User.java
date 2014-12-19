@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString(exclude = {"authorities"})
 @EqualsAndHashCode(exclude = {"authorities"}, callSuper = false)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class User extends AbstractAuditingEntity implements Serializable, UserDetails {
+public class User extends AbstractAuditingEntity<String> implements Serializable, UserDetails {
 
     @OrderBy
     @JoinTable(
@@ -78,8 +78,14 @@ public class User extends AbstractAuditingEntity implements Serializable, UserDe
     @NotNull
     @Size(min = 0, max = 50)
     @Id
-    @Column(length = 50)
+    @Column(length = 50, unique = true)
     private String username;
+
+    @Override
+    @JsonIgnore
+    public String getId() {
+        return username;
+    }
 
     @Override
     public boolean isAccountNonExpired() {

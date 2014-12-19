@@ -36,7 +36,7 @@ import lombok.ToString;
 @ToString(exclude = {"owners", "tracks"})
 @EqualsAndHashCode(exclude = {"owners", "tracks"}, callSuper = false)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Device extends AbstractAuditingEntity implements Serializable {
+public class Device extends AbstractAuditingEntity<Long> implements Serializable {
 
     @Size(min = 1, max = 150)
     @Column(name = "description", length = 150)

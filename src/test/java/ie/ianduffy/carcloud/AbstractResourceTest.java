@@ -41,9 +41,6 @@ public abstract class AbstractResourceTest {
     protected AuthorityRepository authorityRepository;
 
     @Inject
-    protected Mapper mapper;
-
-    @Inject
     protected PasswordEncoder passwordEncoder;
 
     @Inject
@@ -68,17 +65,14 @@ public abstract class AbstractResourceTest {
 
     public void setup(Object controller) {
         ReflectionTestUtils.setField(userService, "authorityRepository", authorityRepository);
-        ReflectionTestUtils.setField(userService, "mapper", mapper);
         ReflectionTestUtils.setField(userService, "passwordEncoder", passwordEncoder);
         ReflectionTestUtils.setField(userService, "userRepository", userRepository);
 
-        ReflectionTestUtils.setField(deviceService, "mapper", mapper);
         ReflectionTestUtils.setField(deviceService, "deviceRepository", deviceRepository);
         ReflectionTestUtils.setField(deviceService, "userService", userService);
 
         ReflectionTestUtils.setField(trackService, "deviceService", deviceService);
         ReflectionTestUtils.setField(trackService, "trackRepository", trackRepository);
-        ReflectionTestUtils.setField(trackService, "userService", userService);
 
         final ExceptionHandlerExceptionResolver exceptionHandlerExceptionResolver = new ExceptionHandlerExceptionResolver();
 

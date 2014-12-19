@@ -35,22 +35,6 @@ public class DeviceTracksResource {
     @Inject
     private TrackDTOAssembler trackDTOAssembler;
 
-    @RequestMapping(method = RequestMethod.POST,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public void create(@PathVariable("device_id") Long deviceId,
-                       @Valid @RequestBody TrackDTO trackDTO) {
-        deviceService.addTrack(deviceId, trackDTO);
-    }
-
-    @RequestMapping(value = "/{index}",
-        method = RequestMethod.DELETE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public void delete(@PathVariable("device_id") Long deviceId, @PathVariable("index") int index) {
-        deviceService.removeTrack(deviceId, index);
-    }
-
     @RequestMapping(value = "/{index}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
