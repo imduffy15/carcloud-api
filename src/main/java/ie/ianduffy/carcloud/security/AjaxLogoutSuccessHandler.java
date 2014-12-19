@@ -8,11 +8,12 @@ import org.springframework.security.web.authentication.AbstractAuthenticationTar
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * Spring Security logout handler, specialized for Ajax requests.
@@ -22,6 +23,7 @@ public class AjaxLogoutSuccessHandler extends AbstractAuthenticationTargetUrlReq
     implements LogoutSuccessHandler {
 
     private static final String BEARER_AUTHENTICATION = "Bearer ";
+
     @Inject
     private TokenStore tokenStore;
 
@@ -34,7 +36,10 @@ public class AjaxLogoutSuccessHandler extends AbstractAuthenticationTargetUrlReq
         final String token = request.getHeader("authorization");
 
         if (token != null && token.startsWith(BEARER_AUTHENTICATION)) {
-            final OAuth2AccessToken oAuth2AccessToken = tokenStore.readAccessToken(StringUtils.substringAfter(token, BEARER_AUTHENTICATION));
+            final OAuth2AccessToken
+                oAuth2AccessToken =
+                tokenStore
+                    .readAccessToken(StringUtils.substringAfter(token, BEARER_AUTHENTICATION));
 
             if (oAuth2AccessToken != null) {
                 tokenStore.removeAccessToken(oAuth2AccessToken);

@@ -4,7 +4,9 @@ import lombok.Data;
 
 @Data
 public class GenericErrorDTO {
+
     private String exception;
+
     private String message;
 
     public GenericErrorDTO() {

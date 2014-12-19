@@ -19,7 +19,9 @@ public class ThymeleafConfiguration {
     @Description("Spring mail message resolver")
     public MessageSource emailMessageSource() {
         log.info("loading non-reloadable mail messages resources");
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        ReloadableResourceBundleMessageSource
+            messageSource =
+            new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:/mails/messages/messages");
         messageSource.setDefaultEncoding(CharEncoding.UTF_8);
         return messageSource;

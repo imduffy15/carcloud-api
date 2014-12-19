@@ -3,20 +3,19 @@ package ie.ianduffy.carcloud.service;
 import ie.ianduffy.carcloud.config.audit.AuditEventConverter;
 import ie.ianduffy.carcloud.domain.PersistentAuditEvent;
 import ie.ianduffy.carcloud.repository.PersistenceAuditEventRepository;
+
 import org.joda.time.LocalDateTime;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
- * Service for managing audit events.
- * <p/>
- * <p>
- * This is the default implementation to support SpringBoot Actuator AuditEventRepository
- * </p>
+ * Service for managing audit events. <p/> <p> This is the default implementation to support
+ * SpringBoot Actuator AuditEventRepository </p>
  */
 @Service
 @Transactional
@@ -24,6 +23,7 @@ public class AuditEventService {
 
     @Inject
     private AuditEventConverter auditEventConverter;
+
     @Inject
     private PersistenceAuditEventRepository persistenceAuditEventRepository;
 

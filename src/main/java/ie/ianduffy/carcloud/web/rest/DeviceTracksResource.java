@@ -1,19 +1,26 @@
 package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+
 import ie.ianduffy.carcloud.assembler.TrackDTOAssembler;
 import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.dto.TrackDTO;
 import ie.ianduffy.carcloud.service.DeviceService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * REST controller for managing Device.
@@ -24,13 +31,15 @@ public class DeviceTracksResource {
 
     @Inject
     private DeviceService deviceService;
+
     @Inject
     private TrackDTOAssembler trackDTOAssembler;
 
     @RequestMapping(method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void create(@PathVariable("device_id") Long deviceId, @Valid @RequestBody TrackDTO trackDTO) {
+    public void create(@PathVariable("device_id") Long deviceId,
+                       @Valid @RequestBody TrackDTO trackDTO) {
         deviceService.addTrack(deviceId, trackDTO);
     }
 
@@ -46,7 +55,8 @@ public class DeviceTracksResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<?> get(@PathVariable("device_id") Long deviceId, @PathVariable("index") int index) {
+    public ResponseEntity<?> get(@PathVariable("device_id") Long deviceId,
+                                 @PathVariable("index") int index) {
         return new ResponseEntity<>(deviceService.getTrack(deviceId, index), HttpStatus.OK);
     }
 

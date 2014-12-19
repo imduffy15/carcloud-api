@@ -1,9 +1,11 @@
 package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+
 import ie.ianduffy.carcloud.assembler.UserDTOAssembler;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.service.UserService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -24,8 +26,10 @@ import javax.inject.Inject;
 public class UserResource {
 
     private final Logger log = LoggerFactory.getLogger(UserResource.class);
+
     @Inject
     private UserDTOAssembler userDTOAssembler;
+
     @Inject
     private UserService userService;
 

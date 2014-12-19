@@ -7,11 +7,12 @@ import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StringUtils;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.sql.DataSource;
 
 /**
  * SpringBoot Actuator HealthIndicator check for the Database.
@@ -22,7 +23,7 @@ class DatabaseHealthIndicator extends AbstractHealthIndicator {
 
     static {
         queries.put("HSQL Database Engine",
-            "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SYSTEM_USERS");
+                    "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SYSTEM_USERS");
         queries.put("Oracle", "SELECT 'Hello' from DUAL");
         queries.put("Apache Derby", "SELECT 1 FROM SYSIBM.SYSDUMMY1");
         queries.put("MySQL", "SELECT 1");
@@ -31,6 +32,7 @@ class DatabaseHealthIndicator extends AbstractHealthIndicator {
     }
 
     private final JdbcTemplate jdbcTemplate;
+
     private String query = null;
 
 
@@ -57,7 +59,7 @@ class DatabaseHealthIndicator extends AbstractHealthIndicator {
         if (StringUtils.hasText(query)) {
             try {
                 builder.withDetail("hello",
-                    this.jdbcTemplate.queryForObject(query, Object.class));
+                                   this.jdbcTemplate.queryForObject(query, Object.class));
             } catch (Exception ex) {
                 builder.down(ex);
             }
@@ -68,7 +70,7 @@ class DatabaseHealthIndicator extends AbstractHealthIndicator {
         return this.jdbcTemplate.execute(new ConnectionCallback<String>() {
             @Override
             public String doInConnection(Connection connection) throws SQLException,
-                DataAccessException {
+                                                                       DataAccessException {
 
                 return connection.getMetaData().getDatabaseProductName();
             }

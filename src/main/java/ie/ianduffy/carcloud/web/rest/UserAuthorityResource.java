@@ -1,18 +1,25 @@
 package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+
 import ie.ianduffy.carcloud.domain.Authority;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.service.UserService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * REST controller for managing a user's authorities.
@@ -27,7 +34,8 @@ public class UserAuthorityResource {
     @RequestMapping(method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void create(@PathVariable("username") String login, @Valid @RequestBody String authority) {
+    public void create(@PathVariable("username") String login,
+                       @Valid @RequestBody String authority) {
         userService.addAuthority(login, authority);
     }
 
@@ -43,7 +51,8 @@ public class UserAuthorityResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<?> get(@PathVariable("username") String login, @PathVariable("index") int index) {
+    public ResponseEntity<?> get(@PathVariable("username") String login,
+                                 @PathVariable("index") int index) {
         User user = userService.getUser(login);
         if (user.getAuthorities() != null) {
             return new ResponseEntity<>(user.getAuthorities().get(index).getName(), HttpStatus.OK);

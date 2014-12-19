@@ -1,10 +1,12 @@
 package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+
 import ie.ianduffy.carcloud.assembler.TrackDTOAssembler;
 import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.dto.TrackDTO;
 import ie.ianduffy.carcloud.service.TrackService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * REST controller for managing tracks.
@@ -26,6 +29,7 @@ public class TrackResource {
 
     @Inject
     private TrackDTOAssembler trackDTOAssembler;
+
     @Inject
     private TrackService trackService;
 

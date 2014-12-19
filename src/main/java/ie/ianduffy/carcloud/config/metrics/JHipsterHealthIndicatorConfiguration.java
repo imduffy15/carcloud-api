@@ -13,6 +13,7 @@ public class JHipsterHealthIndicatorConfiguration {
 
     @Inject
     private DataSource dataSource;
+
     @Inject
     private JavaMailSenderImpl javaMailSender;
 

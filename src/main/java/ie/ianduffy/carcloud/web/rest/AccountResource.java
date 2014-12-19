@@ -1,10 +1,12 @@
 package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+
+import ie.ianduffy.carcloud.assembler.UserDTOAssembler;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.dto.UserDTO;
 import ie.ianduffy.carcloud.service.UserService;
-import ie.ianduffy.carcloud.assembler.UserDTOAssembler;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -67,7 +69,7 @@ public class AccountResource {
     @Timed
     public ResponseEntity<?> registerAccount(@Valid @RequestBody UserDTO userDTO) {
         User user = userService.create(userDTO);
-        if(user == null) {
+        if (user == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(userDTOAssembler.toResource(user), HttpStatus.CREATED);

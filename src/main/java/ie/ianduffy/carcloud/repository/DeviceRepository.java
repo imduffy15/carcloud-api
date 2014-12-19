@@ -2,6 +2,7 @@ package ie.ianduffy.carcloud.repository;
 
 import ie.ianduffy.carcloud.domain.Device;
 import ie.ianduffy.carcloud.domain.User;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

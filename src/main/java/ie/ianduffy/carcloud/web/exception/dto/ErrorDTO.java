@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class ErrorDTO {
+
     private Object error;
 
     public ErrorDTO() {

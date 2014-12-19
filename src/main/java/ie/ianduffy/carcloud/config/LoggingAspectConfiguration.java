@@ -1,6 +1,7 @@
 package ie.ianduffy.carcloud.config;
 
 import ie.ianduffy.carcloud.aop.logging.LoggingAspect;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;

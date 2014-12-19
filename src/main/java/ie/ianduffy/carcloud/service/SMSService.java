@@ -2,6 +2,7 @@ package ie.ianduffy.carcloud.service;
 
 import com.nexmo.messaging.sdk.NexmoSmsClient;
 import com.nexmo.messaging.sdk.messages.TextMessage;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
@@ -18,9 +19,12 @@ import javax.inject.Inject;
 public class SMSService {
 
     private final Logger log = LoggerFactory.getLogger(SMSService.class);
+
     @Inject
     private Environment env;
+
     private String from;
+
     @Inject
     private NexmoSmsClient nexmoSmsClient;
 
@@ -36,7 +40,7 @@ public class SMSService {
             nexmoSmsClient.submitMessage(textMessage);
         } catch (Exception e) {
             log.warn("SMS could not be sent to user '{}', exception is: {}",
-                to, e.getMessage());
+                     to, e.getMessage());
         }
     }
 }

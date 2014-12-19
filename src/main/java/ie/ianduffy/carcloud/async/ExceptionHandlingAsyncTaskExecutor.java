@@ -10,9 +10,10 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
 public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
-    InitializingBean, DisposableBean {
+                                                           InitializingBean, DisposableBean {
 
     private final AsyncTaskExecutor executor;
+
     private final Logger log = LoggerFactory.getLogger(ExceptionHandlingAsyncTaskExecutor.class);
 
     public ExceptionHandlingAsyncTaskExecutor(AsyncTaskExecutor executor) {

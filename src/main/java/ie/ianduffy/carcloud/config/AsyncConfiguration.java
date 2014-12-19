@@ -1,6 +1,7 @@
 package ie.ianduffy.carcloud.config;
 
 import ie.ianduffy.carcloud.async.ExceptionHandlingAsyncTaskExecutor;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
@@ -33,7 +34,8 @@ public class AsyncConfiguration implements AsyncConfigurer, EnvironmentAware {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(propertyResolver.getProperty("corePoolSize", Integer.class, 2));
         executor.setMaxPoolSize(propertyResolver.getProperty("maxPoolSize", Integer.class, 50));
-        executor.setQueueCapacity(propertyResolver.getProperty("queueCapacity", Integer.class, 10000));
+        executor
+            .setQueueCapacity(propertyResolver.getProperty("queueCapacity", Integer.class, 10000));
         executor.setThreadNamePrefix("carcloud-Executor-");
         return new ExceptionHandlingAsyncTaskExecutor(executor);
     }

@@ -3,6 +3,7 @@ package ie.ianduffy.carcloud.web.exception;
 import ie.ianduffy.carcloud.web.exception.dto.ErrorDTO;
 import ie.ianduffy.carcloud.web.exception.dto.FieldErrorDTO;
 import ie.ianduffy.carcloud.web.exception.dto.GenericErrorDTO;
+
 import org.hibernate.StaleStateException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -26,7 +27,8 @@ class GlobalControllerExceptionHandler {
     ErrorDTO handleException(MethodArgumentNotValidException ex) {
         List<FieldErrorDTO> fieldErrors = new LinkedList<>();
         for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
-            fieldErrors.add(new FieldErrorDTO(fieldError.getField(), fieldError.getDefaultMessage()));
+            fieldErrors
+                .add(new FieldErrorDTO(fieldError.getField(), fieldError.getDefaultMessage()));
         }
         return new ErrorDTO(fieldErrors);
     }

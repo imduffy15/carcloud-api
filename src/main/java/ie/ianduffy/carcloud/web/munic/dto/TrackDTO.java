@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class TrackDTO {
+
     private MetadataDTO meta;
+
     private PayloadDTO payload;
 }

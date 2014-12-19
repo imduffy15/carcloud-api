@@ -1,17 +1,20 @@
 package ie.ianduffy.carcloud.web.filter.gzip;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.zip.GZIPOutputStream;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
+
 class GZipServletResponseWrapper extends HttpServletResponseWrapper {
 
     private boolean disableFlushBuffer = false;
+
     private GZipServletOutputStream gzipOutputStream = null;
+
     private PrintWriter printWriter = null;
 
     public GZipServletResponseWrapper(HttpServletResponse response, GZIPOutputStream gzout)
@@ -78,8 +81,6 @@ class GZipServletResponseWrapper extends HttpServletResponseWrapper {
 
     /**
      * Flush OutputStream or PrintWriter
-     *
-     * @throws IOException
      */
     @Override
     public void flushBuffer() throws IOException {

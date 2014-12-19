@@ -1,10 +1,12 @@
 package ie.ianduffy.carcloud.web.filter.gzip;
 
-import javax.servlet.ServletOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import javax.servlet.ServletOutputStream;
+
 class GZipServletOutputStream extends ServletOutputStream {
+
     private final OutputStream stream;
 
     public GZipServletOutputStream(OutputStream output) {

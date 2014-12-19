@@ -1,11 +1,12 @@
 package ie.ianduffy.carcloud.dto;
 
-import lombok.Data;
 import org.springframework.hateoas.Link;
 import org.springframework.util.Assert;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import lombok.Data;
 
 @Data
 public abstract class AbstractAuditingEntityDTO {

@@ -3,17 +3,19 @@ package ie.ianduffy.carcloud.service;
 import ie.ianduffy.carcloud.domain.Device;
 import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.domain.User;
-import ie.ianduffy.carcloud.repository.DeviceRepository;
 import ie.ianduffy.carcloud.dto.DeviceDTO;
 import ie.ianduffy.carcloud.dto.TrackDTO;
+import ie.ianduffy.carcloud.repository.DeviceRepository;
+
 import org.dozer.Mapper;
 import org.hibernate.StaleStateException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Service class for managing devices.
@@ -24,8 +26,10 @@ public class DeviceService {
 
     @Inject
     private DeviceRepository deviceRepository;
+
     @Inject
     private Mapper mapper;
+
     @Inject
     private UserService userService;
 
@@ -91,7 +95,9 @@ public class DeviceService {
         User user = userService.getUser();
 
         Device device = deviceRepository.findOneForCurrentUser(user, id);
-        if (device == null) return null;
+        if (device == null) {
+            return null;
+        }
         return device;
     }
 
@@ -142,7 +148,9 @@ public class DeviceService {
         }
 
         if (deviceDTO.getVersion() != device.getVersion()) {
-            throw new StaleStateException("Unexpected version. Got " + deviceDTO.getVersion() + " expected " + device.getVersion());
+            throw new StaleStateException(
+                "Unexpected version. Got " + deviceDTO.getVersion() + " expected " + device
+                    .getVersion());
         }
 
         mapper.map(deviceDTO, device);

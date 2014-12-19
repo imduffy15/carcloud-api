@@ -1,6 +1,7 @@
 package ie.ianduffy.carcloud;
 
 import ie.ianduffy.carcloud.config.Constants;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -14,10 +15,7 @@ public class ApplicationWebXml extends SpringBootServletInitializer {
     private final Logger log = LoggerFactory.getLogger(ApplicationWebXml.class);
 
     /**
-     * Set a default profile if it has not been set.
-     * <p/>
-     * <p>
-     * Please use -Dspring.profiles.active=dev
+     * Set a default profile if it has not been set. <p/> <p> Please use -Dspring.profiles.active=dev
      * </p>
      */
     private String addDefaultProfile() {

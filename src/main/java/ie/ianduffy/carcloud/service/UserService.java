@@ -2,20 +2,22 @@ package ie.ianduffy.carcloud.service;
 
 import ie.ianduffy.carcloud.domain.Authority;
 import ie.ianduffy.carcloud.domain.User;
+import ie.ianduffy.carcloud.dto.UserDTO;
 import ie.ianduffy.carcloud.repository.AuthorityRepository;
 import ie.ianduffy.carcloud.repository.UserRepository;
 import ie.ianduffy.carcloud.security.AuthoritiesConstants;
 import ie.ianduffy.carcloud.security.SecurityUtils;
-import ie.ianduffy.carcloud.dto.UserDTO;
+
 import org.dozer.Mapper;
 import org.hibernate.StaleStateException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Service class for managing users.
@@ -26,10 +28,13 @@ public class UserService {
 
     @Inject
     private AuthorityRepository authorityRepository;
+
     @Inject
     private Mapper mapper;
+
     @Inject
     private PasswordEncoder passwordEncoder;
+
     @Inject
     private UserRepository userRepository;
 
@@ -90,7 +95,9 @@ public class UserService {
         User currentUser = userRepository.findOne(SecurityUtils.getCurrentLogin());
 
         if (userDTO.getVersion() != currentUser.getVersion()) {
-            throw new StaleStateException("Unexpected version. Got " + userDTO.getVersion() + " expected " + currentUser.getVersion());
+            throw new StaleStateException(
+                "Unexpected version. Got " + userDTO.getVersion() + " expected " + currentUser
+                    .getVersion());
         }
 
         mapper.map(userDTO, currentUser);

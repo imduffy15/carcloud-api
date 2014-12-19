@@ -3,6 +3,7 @@ package ie.ianduffy.carcloud.config;
 import ie.ianduffy.carcloud.security.AjaxLogoutSuccessHandler;
 import ie.ianduffy.carcloud.security.AuthoritiesConstants;
 import ie.ianduffy.carcloud.security.Http401UnauthorizedEntryPoint;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;
@@ -30,17 +31,24 @@ public class OAuth2ServerConfiguration {
 
     @Configuration
     @EnableAuthorizationServer
-    protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter implements EnvironmentAware {
+    protected static class AuthorizationServerConfiguration
+        extends AuthorizationServerConfigurerAdapter implements EnvironmentAware {
 
         private static final String ENV_OAUTH = "authentication.oauth.";
+
         private static final String PROP_CLIENTID = "clientid";
+
         private static final String PROP_SECRET = "secret";
+
         private static final String PROP_TOKEN_VALIDITY_SECONDS = "tokenValidityInSeconds";
+
         @Inject
         @Qualifier("authenticationManagerBean")
         private AuthenticationManager authenticationManager;
+
         @Inject
         private DataSource dataSource;
+
         private RelaxedPropertyResolver propertyResolver;
 
         @Override
@@ -52,7 +60,8 @@ public class OAuth2ServerConfiguration {
                 .authorities(AuthoritiesConstants.ADMIN, AuthoritiesConstants.USER)
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
                 .secret(propertyResolver.getProperty(PROP_SECRET))
-                .accessTokenValiditySeconds(propertyResolver.getProperty(PROP_TOKEN_VALIDITY_SECONDS, Integer.class, 1800));
+                .accessTokenValiditySeconds(
+                    propertyResolver.getProperty(PROP_TOKEN_VALIDITY_SECONDS, Integer.class, 1800));
         }
 
         @Override
@@ -81,12 +90,12 @@ public class OAuth2ServerConfiguration {
 
         @Inject
         private AjaxLogoutSuccessHandler ajaxLogoutSuccessHandler;
+
         @Inject
         private Http401UnauthorizedEntryPoint authenticationEntryPoint;
 
         @Override
         public void configure(HttpSecurity http) throws Exception {
-
 
             http
                 .exceptionHandling()

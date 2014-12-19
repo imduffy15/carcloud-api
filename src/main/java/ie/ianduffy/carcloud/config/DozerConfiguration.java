@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 @Configuration
 public class DozerConfiguration {
+
     @Bean
     Mapper mapper() {
         return new DozerBeanMapper(Arrays.asList("dozerMapping.xml"));

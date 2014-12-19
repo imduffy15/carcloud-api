@@ -4,9 +4,11 @@ import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.servlet.InstrumentedFilter;
 import com.codahale.metrics.servlets.MetricsServlet;
 import com.thetransactioncompany.cors.CORSFilter;
+
 import ie.ianduffy.carcloud.web.filter.CachingHttpHeadersFilter;
 import ie.ianduffy.carcloud.web.filter.StaticResourcesProductionFilter;
 import ie.ianduffy.carcloud.web.filter.gzip.GZipServletFilter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -16,12 +18,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
-import javax.inject.Inject;
-import javax.servlet.*;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.inject.Inject;
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
 
 /**
  * Configuration of web application with Servlet 3.0 APIs.
@@ -55,7 +62,7 @@ public class WebConfigurer implements ServletContextInitializer {
         log.debug("Registering Cachig HTTP Headers Filter");
         FilterRegistration.Dynamic cachingHttpHeadersFilter =
             servletContext.addFilter("cachingHttpHeadersFilter",
-                new CachingHttpHeadersFilter());
+                                     new CachingHttpHeadersFilter());
 
         cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/images/*");
         cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/fonts/*");
@@ -72,7 +79,8 @@ public class WebConfigurer implements ServletContextInitializer {
 
         corsFilter.setInitParameter("cors.allowOrigin", "*");
         corsFilter.setInitParameter("cors.supportsCredentials", "false");
-        corsFilter.setInitParameter("cors.supportedMethods", "GET, POST, HEAD, PUT, PATCH, DELETE, OPTIONS");
+        corsFilter.setInitParameter("cors.supportedMethods",
+                                    "GET, POST, HEAD, PUT, PATCH, DELETE, OPTIONS");
         corsFilter.setInitParameter("cors.maxAge", "86400");
         corsFilter.setInitParameter("targetFilterLifecycle", "true");
         corsFilter.addMappingForUrlPatterns(disps, false, "/*");
@@ -84,7 +92,9 @@ public class WebConfigurer implements ServletContextInitializer {
      */
     private void initGzipFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
         log.debug("Registering GZip Filter");
-        FilterRegistration.Dynamic compressingFilter = servletContext.addFilter("gzipFilter", new GZipServletFilter());
+        FilterRegistration.Dynamic
+            compressingFilter =
+            servletContext.addFilter("gzipFilter", new GZipServletFilter());
         Map<String, String> parameters = new HashMap<>();
         compressingFilter.setInitParameters(parameters);
         compressingFilter.addMappingForUrlPatterns(disps, true, "*.css");
@@ -101,7 +111,9 @@ public class WebConfigurer implements ServletContextInitializer {
      */
     private void initH2Console(ServletContext servletContext) {
         log.debug("Initialize H2 console");
-        ServletRegistration.Dynamic h2ConsoleServlet = servletContext.addServlet("H2Console", new org.h2.server.web.WebServlet());
+        ServletRegistration.Dynamic
+            h2ConsoleServlet =
+            servletContext.addServlet("H2Console", new org.h2.server.web.WebServlet());
         h2ConsoleServlet.addMapping("/console/*");
         h2ConsoleServlet.setLoadOnStartup(1);
     }
@@ -112,13 +124,13 @@ public class WebConfigurer implements ServletContextInitializer {
     private void initMetrics(ServletContext servletContext, EnumSet<DispatcherType> disps) {
         log.debug("Initializing Metrics registries");
         servletContext.setAttribute(InstrumentedFilter.REGISTRY_ATTRIBUTE,
-            metricRegistry);
+                                    metricRegistry);
         servletContext.setAttribute(MetricsServlet.METRICS_REGISTRY,
-            metricRegistry);
+                                    metricRegistry);
 
         log.debug("Registering Metrics Filter");
         FilterRegistration.Dynamic metricsFilter = servletContext.addFilter("webappMetricsFilter",
-            new InstrumentedFilter());
+                                                                            new InstrumentedFilter());
 
         metricsFilter.addMappingForUrlPatterns(disps, true, "/*");
         metricsFilter.setAsyncSupported(true);
@@ -141,7 +153,7 @@ public class WebConfigurer implements ServletContextInitializer {
         log.debug("Registering static resources production Filter");
         FilterRegistration.Dynamic staticResourcesProductionFilter =
             servletContext.addFilter("staticResourcesProductionFilter",
-                new StaticResourcesProductionFilter());
+                                     new StaticResourcesProductionFilter());
 
         staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/");
         staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/index.html");
@@ -155,8 +167,11 @@ public class WebConfigurer implements ServletContextInitializer {
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-        log.info("Web application configuration, using profiles: {}", Arrays.toString(env.getActiveProfiles()));
-        EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
+        log.info("Web application configuration, using profiles: {}",
+                 Arrays.toString(env.getActiveProfiles()));
+        EnumSet<DispatcherType>
+            disps =
+            EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
         initMetrics(servletContext, disps);
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
             initCachingHttpHeadersFilter(servletContext, disps);

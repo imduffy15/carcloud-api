@@ -1,15 +1,19 @@
 package ie.ianduffy.carcloud.web.filter;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
+
 /**
- * This filter is used in production, to put HTTP cache headers with a long (1 month) expiration time.
- * </p>
- * <p/>
- * SPAM 0.0.1 - Example of facade "filter"
+ * This filter is used in production, to put HTTP cache headers with a long (1 month) expiration
+ * time. </p> <p/> SPAM 0.0.1 - Example of facade "filter"
  */
 public class CachingHttpHeadersFilter implements Filter {
 
@@ -25,7 +29,8 @@ public class CachingHttpHeadersFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+        throws IOException, ServletException {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         httpResponse.setHeader("Cache-Control", "max-age=2678400000, public");

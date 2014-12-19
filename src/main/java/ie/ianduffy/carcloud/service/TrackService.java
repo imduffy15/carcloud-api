@@ -3,11 +3,13 @@ package ie.ianduffy.carcloud.service;
 import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.repository.TrackRepository;
 import ie.ianduffy.carcloud.web.munic.dto.TrackDTO;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Service class for managing tracks.
@@ -18,8 +20,10 @@ public class TrackService {
 
     @Inject
     DeviceService deviceService;
+
     @Inject
     private TrackRepository trackRepository;
+
     @Inject
     private UserService userService;
 

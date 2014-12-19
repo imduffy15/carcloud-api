@@ -1,6 +1,7 @@
 package ie.ianduffy.carcloud.config;
 
 import com.nexmo.messaging.sdk.NexmoSmsClient;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
@@ -14,9 +15,13 @@ public class SMSConfiguration implements EnvironmentAware {
 
 
     private static final String ENV_NEXOMO = "nexmo.";
+
     private static final String PROP_KEY = "key";
+
     private static final String PROP_SECRET = "secret";
+
     private final Logger log = LoggerFactory.getLogger(SMSConfiguration.class);
+
     private RelaxedPropertyResolver propertyResolver;
 
     @Bean

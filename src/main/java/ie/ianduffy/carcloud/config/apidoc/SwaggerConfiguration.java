@@ -4,6 +4,7 @@ import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
 import com.mangofactory.swagger.plugin.EnableSwagger;
 import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
 import com.wordnik.swagger.model.ApiInfo;
+
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 @Configuration
 @EnableSwagger
 public class SwaggerConfiguration implements EnvironmentAware {
+
     private static final String DEFAULT_INCLUDE_PATTERN = "/app/rest/.*";
 
     private RelaxedPropertyResolver propertyResolver;

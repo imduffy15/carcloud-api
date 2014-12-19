@@ -3,6 +3,7 @@ package ie.ianduffy.carcloud.security;
 import ie.ianduffy.carcloud.domain.Authority;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.repository.UserRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,14 +11,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
 import java.util.Collection;
+
+import javax.inject.Inject;
 
 /**
  * Authenticate a user from the database.
  */
 @Component("userDetailsService")
-public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+public class UserDetailsService
+    implements org.springframework.security.core.userdetails.UserDetailsService {
 
     private final Logger log = LoggerFactory.getLogger(UserDetailsService.class);
 
@@ -32,12 +35,15 @@ public class UserDetailsService implements org.springframework.security.core.use
 
         User userFromDatabase = userRepository.findOne(login);
         if (userFromDatabase == null) {
-            throw new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database");
+            throw new UsernameNotFoundException(
+                "User " + lowercaseLogin + " was not found in the database");
         }
 
         Collection<Authority> grantedAuthorities = userFromDatabase.getAuthorities();
 
-        return new org.springframework.security.core.userdetails.User(lowercaseLogin, userFromDatabase.getPassword(),
-            grantedAuthorities);
+        return new org.springframework.security.core.userdetails.User(lowercaseLogin,
+                                                                      userFromDatabase
+                                                                          .getPassword(),
+                                                                      grantedAuthorities);
     }
 }

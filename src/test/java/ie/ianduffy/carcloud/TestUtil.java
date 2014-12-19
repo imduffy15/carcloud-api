@@ -2,6 +2,7 @@ package ie.ianduffy.carcloud;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.http.MediaType;
 
 import java.io.IOException;
@@ -24,7 +25,6 @@ class TestUtil {
      *
      * @param object the object to convert
      * @return the JSON byte array
-     * @throws IOException
      */
     public static byte[] convertObjectToJsonBytes(Object object)
         throws IOException {

@@ -15,6 +15,7 @@ import javax.mail.MessagingException;
 class JavaMailHealthIndicator extends AbstractHealthIndicator {
 
     private final JavaMailSenderImpl javaMailSender;
+
     private final Logger log = LoggerFactory.getLogger(JavaMailHealthIndicator.class);
 
     public JavaMailHealthIndicator(JavaMailSenderImpl javaMailSender) {
@@ -27,9 +28,9 @@ class JavaMailHealthIndicator extends AbstractHealthIndicator {
         log.debug("Initializing JavaMail health indicator");
         try {
             javaMailSender.getSession().getTransport().connect(javaMailSender.getHost(),
-                javaMailSender.getPort(),
-                javaMailSender.getUsername(),
-                javaMailSender.getPassword());
+                                                               javaMailSender.getPort(),
+                                                               javaMailSender.getUsername(),
+                                                               javaMailSender.getPassword());
 
             builder.up();
 

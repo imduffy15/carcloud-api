@@ -4,7 +4,9 @@ import lombok.Data;
 
 @Data
 public class FieldErrorDTO {
+
     private String field;
+
     private String message;
 
     public FieldErrorDTO() {
