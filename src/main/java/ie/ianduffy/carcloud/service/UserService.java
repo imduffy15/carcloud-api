@@ -9,6 +9,7 @@ import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.UserDTO;
 
 import org.dozer.Mapper;
+import org.hibernate.Hibernate;
 import org.hibernate.StaleStateException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -58,10 +59,11 @@ public class UserService extends AbstractService<User, String, UserDTO> {
         return super.create(userDTO, user);
     }
 
-    @Transactional(readOnly = true)
     public List<Authority> getAuthorities(String login) {
         User user = findOne(login);
-        return user.getAuthorities();
+        List<Authority> authorities = user.getAuthorities();
+        Hibernate.initialize(authorities);
+        return authorities;
     }
 
     @Override

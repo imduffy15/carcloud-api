@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 
+@Transactional
 public abstract class AbstractService<T extends AbstractAuditingEntity, ID extends Serializable, DTO extends AbstractAuditingEntityDTO> {
 
     @Inject

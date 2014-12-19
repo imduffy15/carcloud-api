@@ -24,44 +24,4 @@ import javax.persistence.EntityNotFoundException;
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({Exception.class})
-    @ResponseBody
-    public ResponseEntity<?> handleAnyException(Exception ex, WebRequest request) {
-        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
-    }
-
-    @ExceptionHandler({ ConstraintViolationException.class })
-    public ResponseEntity<Object> handleBadRequest(final ConstraintViolationException ex, final WebRequest request) {
-        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-    }
-
-    @ExceptionHandler({ DataIntegrityViolationException.class })
-    public ResponseEntity<Object> handleBadRequest(final DataIntegrityViolationException ex, final WebRequest request) {
-        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-    }
-
-    @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(final HttpMessageNotReadableException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
-        return handleExceptionInternal(ex, ex.getMessage(), headers, HttpStatus.BAD_REQUEST, request);
-    }
-
-    @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
-        return handleExceptionInternal(ex, ex.getMessage(), headers, HttpStatus.BAD_REQUEST, request);
-    }
-
-    @ExceptionHandler(value = { EntityNotFoundException.class })
-    protected ResponseEntity<Object> handleNotFound(final RuntimeException ex, final WebRequest request) {
-        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
-    }
-
-    @ExceptionHandler({ InvalidDataAccessApiUsageException.class, DataAccessException.class, EntityExistsException.class })
-    protected ResponseEntity<Object> handleConflict(final RuntimeException ex, final WebRequest request) {
-        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);
-    }
-
-    @ExceptionHandler({ NullPointerException.class, IllegalArgumentException.class, IllegalStateException.class })
-    public ResponseEntity<Object> handleInternal(final RuntimeException ex, final WebRequest request) {
-        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
-    }
 }

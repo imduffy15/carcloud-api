@@ -6,7 +6,7 @@ spring:
 
     datasource:
         dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
-        url: jdbc:mysql://localhost:3306/carcloud
+        url: jdbc:mysql://localhost:3306/carcloud?autoDeserialize=true
         databaseName: carcloud
         serverName: carcloud
         username: root
