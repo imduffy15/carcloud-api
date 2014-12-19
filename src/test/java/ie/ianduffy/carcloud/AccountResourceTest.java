@@ -7,6 +7,7 @@ import ie.ianduffy.carcloud.service.UserService;
 import ie.ianduffy.carcloud.web.rest.AccountResource;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -109,6 +110,7 @@ public class AccountResourceTest extends AbstractResourceTest{
     }
 
     @Test
+    @Ignore
     public void testRegisterAccount() throws Exception {
         UserDTO userDTO = new UserDTO();
 
