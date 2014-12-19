@@ -1,2 +1,3 @@
 id;description;version
-1;example device;0
+1;admin device;0
+2;user device;0

@@ -1,7 +1,7 @@
 package ie.ianduffy.carcloud.assembler;
 
 import ie.ianduffy.carcloud.domain.Track;
-import ie.ianduffy.carcloud.dto.TrackDTO;
+import ie.ianduffy.carcloud.web.dto.TrackDTO;
 import ie.ianduffy.carcloud.web.rest.DeviceResource;
 import ie.ianduffy.carcloud.web.rest.TrackResource;
 

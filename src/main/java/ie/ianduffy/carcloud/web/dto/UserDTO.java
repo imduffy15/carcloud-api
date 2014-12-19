@@ -1,4 +1,4 @@
-package ie.ianduffy.carcloud.dto;
+package ie.ianduffy.carcloud.web.dto;
 
 import org.hibernate.validator.constraints.Email;
 

@@ -60,7 +60,7 @@ public class Device extends AbstractAuditingEntity implements Serializable {
     @OrderBy
     @LazyCollection(LazyCollectionOption.EXTRA)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "device", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY)
     private List<Track> tracks = new ArrayList<>();
 
     public Device() {

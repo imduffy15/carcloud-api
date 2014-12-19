@@ -1,7 +1,7 @@
 package ie.ianduffy.carcloud.assembler;
 
 import ie.ianduffy.carcloud.domain.User;
-import ie.ianduffy.carcloud.dto.UserDTO;
+import ie.ianduffy.carcloud.web.dto.UserDTO;
 import ie.ianduffy.carcloud.web.rest.UserAuthorityResource;
 import ie.ianduffy.carcloud.web.rest.UserResource;
 

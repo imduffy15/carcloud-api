@@ -3,12 +3,14 @@ package ie.ianduffy.carcloud.service;
 import ie.ianduffy.carcloud.domain.Device;
 import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.domain.User;
-import ie.ianduffy.carcloud.dto.DeviceDTO;
-import ie.ianduffy.carcloud.dto.TrackDTO;
+import ie.ianduffy.carcloud.web.dto.DeviceDTO;
+import ie.ianduffy.carcloud.web.dto.TrackDTO;
 import ie.ianduffy.carcloud.repository.DeviceRepository;
+import ie.ianduffy.carcloud.web.exception.DeviceNotFoundException;
 
 import org.dozer.Mapper;
 import org.hibernate.StaleStateException;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -78,7 +80,12 @@ public class DeviceService {
     }
 
     public void delete(Long id) {
+        Device device = findOneForCurrentUser(id);
         deviceRepository.delete(id);
+    }
+
+    public List<Device> findAll() {
+        return deviceRepository.findAll();
     }
 
     public List<Device> findAllForCurrentUser() {
@@ -96,7 +103,7 @@ public class DeviceService {
 
         Device device = deviceRepository.findOneForCurrentUser(user, id);
         if (device == null) {
-            return null;
+            throw new DeviceNotFoundException();
         }
         return device;
     }
@@ -144,11 +151,11 @@ public class DeviceService {
         deviceDTO.setId(null);
 
         if (!device.getOwners().contains(user)) {
-            return null;
+            throw new DeviceNotFoundException();
         }
 
         if (deviceDTO.getVersion() != device.getVersion()) {
-            throw new StaleStateException(
+            throw new OptimisticLockingFailureException(
                 "Unexpected version. Got " + deviceDTO.getVersion() + " expected " + device
                     .getVersion());
         }

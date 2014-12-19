@@ -6,7 +6,7 @@
 
     <mapping map-null="false">
         <class-a>ie.ianduffy.carcloud.domain.User</class-a>
-        <class-b>ie.ianduffy.carcloud.dto.UserDTO</class-b>
+        <class-b>ie.ianduffy.carcloud.web.dto.UserDTO</class-b>
         <field-exclude type="one-way">
             <a>password</a>
             <b>password</b>
@@ -15,12 +15,12 @@
 
     <mapping map-null="false">
         <class-a>ie.ianduffy.carcloud.domain.Device</class-a>
-        <class-b>ie.ianduffy.carcloud.dto.DeviceDTO</class-b>
+        <class-b>ie.ianduffy.carcloud.web.dto.DeviceDTO</class-b>
     </mapping>
 
     <mapping map-null="false">
         <class-a>ie.ianduffy.carcloud.domain.Track</class-a>
-        <class-b>ie.ianduffy.carcloud.dto.TrackDTO</class-b>
+        <class-b>ie.ianduffy.carcloud.web.dto.TrackDTO</class-b>
     </mapping>
 
 

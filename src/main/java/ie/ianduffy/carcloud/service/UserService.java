@@ -2,7 +2,7 @@ package ie.ianduffy.carcloud.service;
 
 import ie.ianduffy.carcloud.domain.Authority;
 import ie.ianduffy.carcloud.domain.User;
-import ie.ianduffy.carcloud.dto.UserDTO;
+import ie.ianduffy.carcloud.web.dto.UserDTO;
 import ie.ianduffy.carcloud.repository.AuthorityRepository;
 import ie.ianduffy.carcloud.repository.UserRepository;
 import ie.ianduffy.carcloud.security.AuthoritiesConstants;

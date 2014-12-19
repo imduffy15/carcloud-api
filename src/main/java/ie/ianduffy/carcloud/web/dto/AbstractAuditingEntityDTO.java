@@ -1,4 +1,4 @@
-package ie.ianduffy.carcloud.dto;
+package ie.ianduffy.carcloud.web.dto;
 
 import org.springframework.hateoas.Link;
 import org.springframework.util.Assert;

@@ -6,6 +6,5 @@ cache:
 jdk:
   - oraclejdk7
 install:
-  - sudo apt-get install -y nodejs npm
   - npm install
   - bower install

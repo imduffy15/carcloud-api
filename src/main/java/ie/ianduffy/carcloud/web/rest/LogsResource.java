@@ -2,7 +2,7 @@ package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 
-import ie.ianduffy.carcloud.dto.LoggerDTO;
+import ie.ianduffy.carcloud.web.dto.LoggerDTO;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
