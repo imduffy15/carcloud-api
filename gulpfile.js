@@ -19,8 +19,6 @@ var gulp = require('gulp'),
     replace = require('gulp-replace'),
     browserify = require('gulp-browserify');
 
-var karma = require('gulp-karma')({configFile: 'src/test/javascript/karma.conf.js'});
-
 var yeoman = {
     app: 'src/main/webapp/',//require('./bower.json').appPath || 'app',
     dist: 'src/main/webapp/dist/',
