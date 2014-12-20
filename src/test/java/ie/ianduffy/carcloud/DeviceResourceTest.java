@@ -102,7 +102,6 @@ public class DeviceResourceTest extends AbstractResourceTest{
     }
 
     @Test
-    @Ignore
     public void testUpdateADeviceTheUserDoesntOwn() throws Exception {
         Device device = deviceService.findOne(1L);
         DeviceDTO deviceDTO = new DeviceDTO();
@@ -127,7 +126,6 @@ public class DeviceResourceTest extends AbstractResourceTest{
     }
 
     @Test
-    @Ignore
     public void testDeleteADeviceTheUserDoesntOwn() throws Exception{
         mockMvc.perform(delete("/app/rest/devices/1")
                                     .accept(MediaType.APPLICATION_JSON)
@@ -144,7 +142,6 @@ public class DeviceResourceTest extends AbstractResourceTest{
     }
 
     @Test
-    @Ignore
     public void testGetADeviceTheUserDoesntOwn() throws Exception {
         mockMvc.perform(get("/app/rest/devices/1")
                             .accept(MediaType.APPLICATION_JSON)

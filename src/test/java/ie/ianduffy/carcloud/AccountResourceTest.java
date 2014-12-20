@@ -110,7 +110,6 @@ public class AccountResourceTest extends AbstractResourceTest{
     }
 
     @Test
-    @Ignore
     public void testRegisterAccount() throws Exception {
         UserDTO userDTO = new UserDTO();
 
