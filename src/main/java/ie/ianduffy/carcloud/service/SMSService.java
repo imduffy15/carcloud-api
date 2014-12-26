@@ -1,12 +1,12 @@
 package ie.ianduffy.carcloud.service;
 
 import com.nexmo.messaging.sdk.NexmoSmsClient;
+import com.nexmo.messaging.sdk.SmsSubmissionResult;
 import com.nexmo.messaging.sdk.messages.TextMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -33,14 +33,16 @@ public class SMSService {
         this.from = env.getProperty("nexmo.from");
     }
 
-    @Async
-    public void sendSMS(String to, String message) {
-        TextMessage textMessage = new TextMessage(from, to, message);
+    public void sendSMS(String number, String message) {
+        TextMessage textMessage = new TextMessage(from, number, message);
+        SmsSubmissionResult[] results = null;
         try {
-            nexmoSmsClient.submitMessage(textMessage);
+            results = nexmoSmsClient.submitMessage(textMessage);
+            log.debug(results.toString());
         } catch (Exception e) {
-            log.warn("SMS could not be sent to user '{}', exception is: {}",
-                     to, e.getMessage());
+            log.debug(e.getMessage());
+            throw new RuntimeException(e);
         }
+        log.debug(results.toString());
     }
 }

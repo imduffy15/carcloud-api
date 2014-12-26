@@ -1,7 +1,6 @@
 package ie.ianduffy.carcloud.repository;
 
 import ie.ianduffy.carcloud.domain.Authority;
-import ie.ianduffy.carcloud.domain.PersistentAuditEvent;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

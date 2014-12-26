@@ -6,10 +6,7 @@ import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.repository.DeviceRepository;
 import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.DeviceDTO;
-import ie.ianduffy.carcloud.web.dto.TrackDTO;
 
-import org.dozer.Mapper;
-import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

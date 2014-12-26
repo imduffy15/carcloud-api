@@ -132,7 +132,7 @@ public class OAuth2ServerConfiguration {
                 .antMatchers("/autoconfig/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/env/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                .antMatchers("/api-docs/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/api-docs/**").authenticated()
                 .antMatchers("/protected/**").authenticated();
 
         }

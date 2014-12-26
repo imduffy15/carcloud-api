@@ -10,7 +10,8 @@
                 <input type="date" class="input-sm form-control" name="start" ng-model="fromDate"
                        ng-change="onChangeDate()" required/>
                 <span class="input-group-addon">to</span>
-                <input type="date" class="input-sm form-control" name="end" ng-model="toDate" ng-change="onChangeDate()"
+                <input type="date" class="input-sm form-control" name="end" ng-model="toDate"
+                       ng-change="onChangeDate()"
                        required/>
             </p>
         </div>
@@ -28,15 +29,16 @@
         </tr>
         </thead>
 
-        <tr ng-repeat="audit in audits | filter:filter | orderBy:predicate:reverse" ng-hide="audit.filtered">
+        <tr ng-repeat="audit in audits | filter:filter | orderBy:predicate:reverse"
+            ng-hide="audit.filtered">
             <td><span>{{audit.timestamp| date:'medium'}}</span></td>
             <td>
                 <small>{{audit.principal}}</small>
             </td>
             <td>{{audit.type}}</td>
             <td>
-                <span ng-show="audit.data.message">{{audit.data.message}}</span>
-                <span ng-show="audit.data.remoteAddress">Remote address {{audit.data.remoteAddress}}</span>
+                <span ng-cloak ng-show="audit.data.message">{{audit.data.message}}</span>
+                <span ng-cloak ng-show="audit.data.remoteAddress">Remote address {{audit.data.remoteAddress}}</span>
             </td>
         </tr>
     </table>

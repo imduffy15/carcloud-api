@@ -3,7 +3,6 @@ package ie.ianduffy.carcloud.web.rest;
 import com.codahale.metrics.annotation.Timed;
 
 import ie.ianduffy.carcloud.domain.Authority;
-import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.service.UserService;
 
 import org.springframework.http.HttpStatus;

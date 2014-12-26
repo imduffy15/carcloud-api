@@ -6,14 +6,14 @@
 
             <p class="lead">Tracking, monitoring and more.</p>
 
-            <div ng-switch="authenticated">
-                <div class="alert alert-success" ng-switch-when="true"
-                    >
+            <div ng-cloak ng-switch="authenticated">
+                <div class="alert alert-success" ng-switch-when="true">
                     Login Successful.
                 </div>
 
                 <div class="alert alert-warning" ng-switch-when="false">
-                    If you want to <a href="#/login">authenticate</a>, you can try the default email="admin@carcloud.ianduffy.ie" and
+                    If you want to <a href="#/login">authenticate</a>, you can try the default
+                    email="admin@carcloud.ianduffy.ie" and
                     password="admin".
                 </div>
 

@@ -7,6 +7,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Utility class for Spring Security.
@@ -14,6 +16,23 @@ import java.util.Collection;
 public final class SecurityUtils {
 
     private SecurityUtils() {
+    }
+
+    public static Set<String> getCurrentAuthorities() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication authentication = securityContext.getAuthentication();
+        UserDetails springSecurityUser = null;
+        Set<String> authorities = new HashSet<>();
+
+        if (authentication != null) {
+            if (authentication.getPrincipal() instanceof UserDetails) {
+                springSecurityUser = (UserDetails) authentication.getPrincipal();
+                for (GrantedAuthority authority : springSecurityUser.getAuthorities()) {
+                    authorities.add(authority.getAuthority());
+                }
+            }
+        }
+        return authorities;
     }
 
     /**

@@ -4,161 +4,157 @@
         <div class="col-md-8">
             <h1>Registration</h1>
 
-            <div class="alert alert-success" ng-show="success">
+            <div class="alert alert-success" ng-cloak ng-show="success">
                 <strong>Registration saved!</strong> You can now login.
             </div>
 
-            <div class="alert alert-danger" ng-show="error">
+            <div class="alert alert-danger" ng-cloak ng-show="error">
                 <strong>Registration failed!</strong> Please check your input and try again.
             </div>
 
-            <div class="alert alert-danger" ng-show="errorUserExists">
+            <div class="alert alert-danger" ng-cloak ng-show="errorUserExists">
                 <strong>Login name already registered!</strong> Please choose another one.
             </div>
 
-            <div class="alert alert-danger" ng-show="doNotMatch">
+            <div class="alert alert-danger" ng-cloak ng-show="doNotMatch">
                 The password and its confirmation do not match!
             </div>
 
             <form ng-show="!success" name="form" role="form" novalidate
                   class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
                   ng-submit="register()">
+
                 <div class="form-group">
                     <label>Username</label>
+
                     <input type="text" class="form-control" name="username"
                            placeholder="Username"
-                           ng-model="registerAccount.username" ng-minlength=5 ng-maxlength=100 required>
+                           ng-model="registerAccount.username" ng-minlength=5 ng-maxlength=100
+                           required>
 
-                    <div class="error"
+                    <div class="error" ng-cloak
                          ng-show="form.username.$dirty && form.username.$invalid">
-                        <small class="error"
-                               ng-show="form.username.$error.required">
+                        <small class="error" ng-cloak ng-show="form.username.$error.required">
                             Your username is required.
                         </small>
-                        <small class="error"
-                               ng-show="form.username.$error.minlength"
-                            >
+
+                        <small class="error" ng-cloak ng-show="form.username.$error.minlength">
                             Your username is required to be at least 5 characters
                         </small>
-                        <small class="error"
-                               ng-show="form.username.$error.maxlength"
-                            >
+
+                        <small class="error" ng-cloak ng-show="form.username.$error.maxlength">
                             Your username cannot be longer than 100 characters
                         </small>
                     </div>
                 </div>
+
                 <div class="form-group">
+
                     <label>E-mail</label>
                     <input type="email" class="form-control" name="email"
                            placeholder="E-mail"
-                           ng-model="registerAccount.email" ng-minlength=5 ng-maxlength=100 required>
+                           ng-model="registerAccount.email" ng-minlength=5 ng-maxlength=100
+                           required>
 
-                    <div class="error"
-                         ng-show="form.email.$dirty && form.email.$invalid">
-                        <small class="error"
-                               ng-show="form.email.$error.required">
+                    <div class="error" ng-cloak ng-show="form.email.$dirty && form.email.$invalid">
+                        <small class="error" ng-cloak ng-show="form.email.$error.required">
                             Your e-mail is required.
                         </small>
-                        <small class="error"
-                               ng-show="form.email.$error.email">
+
+                        <small class="error" ng-cloak ng-show="form.email.$error.email">
                             Your e-mail is invalid.
                         </small>
-                        <small class="error"
-                               ng-show="form.email.$error.minlength"
-                            >
+
+                        <small class="error" ng-cloak ng-show="form.email.$error.minlength">
                             Your e-mail is required to be at least 5 characters
                         </small>
-                        <small class="error"
-                               ng-show="form.email.$error.maxlength"
-                            >
+
+                        <small class="error" ng-cloak ng-show="form.email.$error.maxlength">
                             Your e-mail cannot be longer than 100 characters
                         </small>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label>Phone</label>
                     <input type="text" class="form-control" name="phone"
                            placeholder="Phone number"
-                           ng-model="registerAccount.phone" ng-minlength=10 ng-maxlength=100 required>
+                           ng-model="registerAccount.phone" ng-minlength=10 ng-maxlength=100
+                           required>
 
-                    <div class="error"
-                         ng-show="form.phone.$dirty && form.phone.$invalid">
-                        <small class="error"
-                               ng-show="form.email.$error.required">
+                    <div class="error" ng-cloak ng-show="form.phone.$dirty && form.phone.$invalid">
+                        <small class="error" ng-cloak ng-show="form.email.$error.required">
                             Your phone number is required.
                         </small>
-                        <small class="error"
-                               ng-show="form.phone.$error.minlength"
-                            >
+
+                        <small class="error" ng-cloak ng-show="form.phone.$error.minlength">
                             Your phone number is required to be at least 10 characters
                         </small>
-                        <small class="error"
-                               ng-show="form.phone.$error.maxlength"
-                            >
+
+                        <small class="error" ng-cloak ng-show="form.phone.$error.maxlength">
                             Your phone number cannot be longer than 100 characters
                         </small>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label>New password</label>
                     <input type="password" class="form-control" name="password"
                            placeholder="password"
-                           ng-model="registerAccount.password" ng-minlength=5 ng-maxlength=50 required>
+                           ng-model="registerAccount.password" ng-minlength=5 ng-maxlength=50
+                           required>
 
-                    <div class="error"
+                    <div class="error" ng-cloak
                          ng-show="form.password.$dirty && form.password.$invalid">
-                        <small class="error"
-                               ng-show="form.password.$error.required"
-                            >
+                        <small class="error" ng-cloak ng-show="form.password.$error.required">
                             Your password is required.
                         </small>
-                        <small class="error"
-                               ng-show="form.password.$error.minlength"
-                            >
+
+                        <small class="error" ng-cloak ng-show="form.password.$error.minlength">
                             Your password is required to be at least 5 characters
                         </small>
-                        <small class="error"
-                               ng-show="form.password.$error.maxlength"
-                            >
+
+                        <small class="error" ng-cloak ng-show="form.password.$error.maxlength">
                             Your password cannot be longer than 50 characters
                         </small>
                     </div>
-                    <password-strength-bar password-to-check="registerAccount.password"></password-strength-bar>
+                    <password-strength-bar
+                        password-to-check="registerAccount.password"></password-strength-bar>
                 </div>
+
                 <div class="form-group">
                     <label>New password confirmation</label>
                     <input type="password" class="form-control" name="confirmPassword"
                            placeholder="password"
                            ng-model="confirmPassword" ng-minlength=5 ng-maxlength=50 required>
 
-                    <div class="error"
+                    <div class="error" ng-cloak
                          ng-show="form.confirmPassword.$dirty && form.confirmPassword.$invalid">
-                        <small class="error"
-                               ng-show="form.confirmPassword.$error.required"
-                            >
+                        <small class="error" ng-cloak
+                               ng-show="form.confirmPassword.$error.required">
                             Your password confirmation is required.
                         </small>
-                        <small class="error"
-                               ng-show="form.confirmPassword.$error.minlength"
-                            >
+
+                        <small class="error" ng-cloak
+                               ng-show="form.confirmPassword.$error.minlength">
                             Your password confirmation is required to be at least 5 characters
                         </small>
-                        <small class="error"
-                               ng-show="form.confirmPassword.$error.maxlength"
-                            >
+
+                        <small class="error" ng-cloak
+                               ng-show="form.confirmPassword.$error.maxlength">
                             Your password confirmation cannot be longer than 50 characters
                         </small>
                     </div>
                 </div>
 
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary"
-                    >Register
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
+                    Register
                 </button>
             </form>
-            <p></p>
 
             <div class="alert alert-warning">
-                If you want to <a href="#/login">authenticate</a>, you can try the default email="admin@carcloud.iandufy.ie" and
+                If you want to <a href="#/login">authenticate</a>, you can try the default
+                email="admin@carcloud.iandufy.ie" and
                 password="admin".
             </div>
         </div>

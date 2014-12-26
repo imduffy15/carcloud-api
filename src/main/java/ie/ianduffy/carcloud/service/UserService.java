@@ -8,9 +8,7 @@ import ie.ianduffy.carcloud.security.AuthoritiesConstants;
 import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.UserDTO;
 
-import org.dozer.Mapper;
 import org.hibernate.Hibernate;
-import org.hibernate.StaleStateException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

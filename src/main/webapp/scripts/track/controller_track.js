@@ -6,11 +6,11 @@ carcloudApp.controller('TrackController', function ($scope, resolvedTrack, Track
 
     $scope.create = function () {
         Track.save($scope.track,
-            function () {
-                $scope.tracks = Track.query();
-                $('#saveTrackModal').modal('hide');
-                $scope.clear();
-            });
+                   function () {
+                       $scope.tracks = Track.query();
+                       $('#saveTrackModal').modal('hide');
+                       $scope.clear();
+                   });
     };
 
     $scope.update = function (id) {
@@ -20,9 +20,9 @@ carcloudApp.controller('TrackController', function ($scope, resolvedTrack, Track
 
     $scope.delete = function (id) {
         Track.delete({id: id},
-            function () {
-                $scope.tracks = Track.query();
-            });
+                     function () {
+                         $scope.tracks = Track.query();
+                     });
     };
 
     $scope.clear = function () {

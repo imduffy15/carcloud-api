@@ -6,11 +6,11 @@ carcloudApp.controller('DeviceController', function ($scope, resolvedDevice, Dev
 
     $scope.create = function () {
         Device.save($scope.device,
-            function () {
-                $scope.devices = Device.query();
-                $('#saveDeviceModal').modal('hide');
-                $scope.clear();
-            });
+                    function () {
+                        $scope.devices = Device.query();
+                        $('#saveDeviceModal').modal('hide');
+                        $scope.clear();
+                    });
     };
 
     $scope.update = function (id) {
@@ -20,9 +20,9 @@ carcloudApp.controller('DeviceController', function ($scope, resolvedDevice, Dev
 
     $scope.delete = function (id) {
         Device.delete({id: id},
-            function () {
-                $scope.devices = Device.query();
-            });
+                      function () {
+                          $scope.devices = Device.query();
+                      });
     };
 
     $scope.clear = function () {

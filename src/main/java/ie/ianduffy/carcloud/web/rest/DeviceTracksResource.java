@@ -4,14 +4,13 @@ import com.codahale.metrics.annotation.Timed;
 
 import ie.ianduffy.carcloud.assembler.TrackDTOAssembler;
 import ie.ianduffy.carcloud.domain.Track;
-import ie.ianduffy.carcloud.web.dto.TrackDTO;
 import ie.ianduffy.carcloud.service.DeviceService;
+import ie.ianduffy.carcloud.web.dto.TrackDTO;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
 
 /**
  * REST controller for managing Device.

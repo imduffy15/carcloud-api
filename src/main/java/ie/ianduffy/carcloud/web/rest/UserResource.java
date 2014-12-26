@@ -4,6 +4,8 @@ import com.codahale.metrics.annotation.Timed;
 
 import ie.ianduffy.carcloud.assembler.UserDTOAssembler;
 import ie.ianduffy.carcloud.domain.User;
+import ie.ianduffy.carcloud.security.AuthoritiesConstants;
+import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.service.UserService;
 
 import org.slf4j.Logger;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import javax.persistence.EntityNotFoundException;
 
 /**
  * REST controller for managing users.
@@ -38,10 +41,12 @@ public class UserResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<?> get(@PathVariable("username") String login) {
-        User user = userService.findOne(login);
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (!SecurityUtils.getCurrentLogin().equals(login) && !SecurityUtils.getCurrentAuthorities()
+            .contains(
+                AuthoritiesConstants.ADMIN)) {
+            throw new EntityNotFoundException();
         }
+        User user = userService.findOne(login);
         return new ResponseEntity<>(userDTOAssembler.toResource(user), HttpStatus.OK);
     }
 }

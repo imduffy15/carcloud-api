@@ -30,6 +30,8 @@ public abstract class AbstractAuditingEntityDTO<T> {
         }
     }
 
+    public abstract T getId();
+
     public Link getLink(String rel) {
         Link link = null;
         if (links.get(rel) != null) {
@@ -37,6 +39,4 @@ public abstract class AbstractAuditingEntityDTO<T> {
         }
         return link;
     }
-
-    public abstract T getId();
 }

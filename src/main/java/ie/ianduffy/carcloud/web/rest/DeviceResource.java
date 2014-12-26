@@ -4,11 +4,9 @@ import com.codahale.metrics.annotation.Timed;
 
 import ie.ianduffy.carcloud.assembler.DeviceDTOAssembler;
 import ie.ianduffy.carcloud.domain.Device;
-import ie.ianduffy.carcloud.web.dto.DeviceDTO;
 import ie.ianduffy.carcloud.service.DeviceService;
+import ie.ianduffy.carcloud.web.dto.DeviceDTO;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -45,14 +43,6 @@ public class DeviceResource {
         return new ResponseEntity<>(deviceDTOAssembler.toResource(device), HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.PUT,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public ResponseEntity<?> update(@Valid @RequestBody DeviceDTO deviceDTO) {
-        Device device = deviceService.update(deviceDTO);
-        return new ResponseEntity<>(deviceDTOAssembler.toResource(device), HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/{device_id}",
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -81,5 +71,13 @@ public class DeviceResource {
             deviceDTOs.add(deviceDTOAssembler.toResource(device));
         }
         return new ResponseEntity<>(deviceDTOs, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<?> update(@Valid @RequestBody DeviceDTO deviceDTO) {
+        Device device = deviceService.update(deviceDTO);
+        return new ResponseEntity<>(deviceDTOAssembler.toResource(device), HttpStatus.OK);
     }
 }

@@ -122,3 +122,7 @@ ul#strength {
 }
 
 /* end Password strength bar style */
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+    display: none !important;
+}

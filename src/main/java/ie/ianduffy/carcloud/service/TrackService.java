@@ -45,7 +45,9 @@ public class TrackService extends AbstractService<Track, Long, TrackDTO> {
 
     public Track findOneForCurrentUser(Long id) {
         Track track = trackRepository.findOneForUser(SecurityUtils.getCurrentLogin(), id);
-        if(track == null) throw new EntityNotFoundException();
+        if (track == null) {
+            throw new EntityNotFoundException();
+        }
         return track;
     }
 

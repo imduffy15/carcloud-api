@@ -1,11 +1,7 @@
 package ie.ianduffy.carcloud.service;
 
 import ie.ianduffy.carcloud.domain.AbstractAuditingEntity;
-import ie.ianduffy.carcloud.domain.User;
-import ie.ianduffy.carcloud.security.AuthoritiesConstants;
-import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.AbstractAuditingEntityDTO;
-import ie.ianduffy.carcloud.web.dto.UserDTO;
 
 import org.dozer.Mapper;
 import org.hibernate.StaleStateException;
@@ -13,7 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -25,6 +20,14 @@ public abstract class AbstractService<T extends AbstractAuditingEntity, ID exten
 
     @Inject
     private Mapper mapper;
+
+    public T create(DTO dto, T entity) {
+        if (getRepository().findOne((ID) dto.getId()) != null) {
+            throw new EntityExistsException();
+        }
+        mapper.map(dto, entity);
+        return getRepository().save(entity);
+    }
 
     public void delete(ID id) {
         findOne(id);
@@ -45,6 +48,8 @@ public abstract class AbstractService<T extends AbstractAuditingEntity, ID exten
         return entity;
     }
 
+    abstract protected JpaRepository<T, ID> getRepository();
+
     public T update(DTO dto, T entity) {
         if (dto.getVersion() != entity.getVersion()) {
             throw new StaleStateException(
@@ -55,14 +60,4 @@ public abstract class AbstractService<T extends AbstractAuditingEntity, ID exten
         mapper.map(dto, entity);
         return getRepository().save(entity);
     }
-
-    public T create(DTO dto, T entity) {
-        if(getRepository().findOne((ID) dto.getId()) != null) {
-            throw new EntityExistsException();
-        }
-        mapper.map(dto, entity);
-        return getRepository().save(entity);
-    }
-
-    abstract protected JpaRepository<T, ID> getRepository();
 }

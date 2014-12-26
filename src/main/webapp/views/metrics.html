@@ -11,17 +11,17 @@
     <h3>Health Checks</h3>
 
     <div id="healthCheck" class="row">
-        <div class="col-md-3" ng-show="healthCheck.db.status == 'UP'">
+        <div class="col-md-3" ng-cloak ng-show="healthCheck.db.status == 'UP'">
             <div class="alert alert-success"><strong>Database: </strong>OK</div>
         </div>
-        <div class="col-md-4" ng-show="healthCheck.db.status != 'UP'">
+        <div class="col-md-4" ng-cloak ng-show="healthCheck.db.status != 'UP'">
             <div class="alert alert-danger">
                 <strong>Database: </strong>ERROR
             <span ng-show="healthCheck.db.error">
                 <a class="hand" ng-click="showDatabaseException = !showDatabaseException">
                     <i class="glyphicon glyphicon-eye-open"></i>
                 </a>
-                <div class="popover" ng-show="showDatabaseException">
+                <div class="popover" ng-cloak ng-show="showDatabaseException">
                     <div class="popover-title">
                         <h4>Stacktrace
                             <button type="button" class="close"
@@ -37,20 +37,21 @@
 
             </div>
         </div>
-        <div class="col-md-3" ng-show="healthCheck.mail.status == 'UP'">
+        <div class="col-md-3" ng-cloak ng-show="healthCheck.mail.status == 'UP'">
             <div class="alert alert-success"><strong>Email: </strong>OK</div>
         </div>
-        <div class="col-md-4" ng-show="healthCheck.mail.status != 'UP'">
+        <div class="col-md-4" ng-cloak ng-show="healthCheck.mail.status != 'UP'">
             <div class="alert alert-danger">
                 <strong>Email: </strong>ERROR
             <span ng-show="healthCheck.mail.error">
                 <a class="hand" ng-click="showEmailException = !showEmailException">
                     <i class="glyphicon glyphicon-eye-open"></i>
                 </a>
-                <div class="popover" ng-show="showEmailException">
+                <div class="popover" ng-cloak ng-show="showEmailException">
                     <div class="popover-title">
                         <h4>Stacktrace
-                            <button type="button" class="close" ng-click="showEmailException = !showEmailException">x
+                            <button type="button" class="close"
+                                    ng-click="showEmailException = !showEmailException">x
                             </button>
                         </h4>
                     </div>
@@ -70,7 +71,8 @@
             <b>Memory</b>
 
             <p>Total Memory ({{metrics.gauges['jvm.memory.total.used'].value / 1000000 |
-                number:0}}M / {{metrics.gauges['jvm.memory.total.max'].value / 1000000 | number:0}}M)</p>
+                number:0}}M / {{metrics.gauges['jvm.memory.total.max'].value / 1000000 |
+                number:0}}M)</p>
 
             <div class="progress progress-striped">
                 <div class="progress-bar progress-bar-success" role="progressbar"
@@ -78,13 +80,15 @@
                      aria-valuemin="0"
                      aria-valuemax="{{metrics.gauges['jvm.memory.total.max'].value / 1000000 | number:0}}"
                      style="width: {{metrics.gauges['jvm.memory.total.used'].value * 100 / metrics.gauges['jvm.memory.total.max'].value  | number:0}}%">
-                    {{metrics.gauges['jvm.memory.total.used'].value * 100 / metrics.gauges['jvm.memory.total.max'].value
+                    {{metrics.gauges['jvm.memory.total.used'].value * 100 /
+                    metrics.gauges['jvm.memory.total.max'].value
                     |
                     number:0}}%
                 </div>
             </div>
             <p>Heap memory ({{metrics.gauges['jvm.memory.heap.used'].value / 1000000 |
-                number:0}}M / {{metrics.gauges['jvm.memory.heap.max'].value / 1000000 | number:0}}M)</p>
+                number:0}}M / {{metrics.gauges['jvm.memory.heap.max'].value / 1000000 |
+                number:0}}M)</p>
 
             <div class="progress progress-striped">
                 <div class="progress-bar progress-bar-success" role="progressbar"
@@ -96,7 +100,8 @@
                 </div>
             </div>
             <p>Non-heap memory ({{metrics.gauges['jvm.memory.non-heap.used'].value / 1000000 |
-                number:0}}M / {{metrics.gauges['jvm.memory.non-heap.max'].value / 1000000 | number:0}}M)</p>
+                number:0}}M / {{metrics.gauges['jvm.memory.non-heap.max'].value / 1000000 |
+                number:0}}M)</p>
 
             <div class="progress progress-striped">
                 <div class="progress-bar progress-bar-success" role="progressbar"
@@ -171,19 +176,23 @@
 
             <div class="row">
                 <div class="col-md-9">Mark Sweep count</div>
-                <div class="col-md-3">{{metrics.gauges['jvm.garbage.PS-MarkSweep.count'].value}}</div>
+                <div class="col-md-3">{{metrics.gauges['jvm.garbage.PS-MarkSweep.count'].value}}
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-9">Mark Sweep time</div>
-                <div class="col-md-3">{{metrics.gauges['jvm.garbage.PS-MarkSweep.time'].value}}ms</div>
+                <div class="col-md-3">{{metrics.gauges['jvm.garbage.PS-MarkSweep.time'].value}}ms
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-9">Scavenge count</div>
-                <div class="col-md-3">{{metrics.gauges['jvm.garbage.PS-Scavenge.count'].value}}</div>
+                <div class="col-md-3">{{metrics.gauges['jvm.garbage.PS-Scavenge.count'].value}}
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-9">Scavenge time</div>
-                <div class="col-md-3">{{metrics.gauges['jvm.garbage.PS-Scavenge.time'].value}}ms</div>
+                <div class="col-md-3">{{metrics.gauges['jvm.garbage.PS-Scavenge.time'].value}}ms
+                </div>
             </div>
         </div>
     </div>
@@ -224,11 +233,13 @@
                     |
                     number:2}}
                 </td>
-                <td>{{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.ok'].m1_rate
+                <td>
+                    {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.ok'].m1_rate
                     |
                     number:2}}
                 </td>
-                <td>{{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.ok'].m5_rate
+                <td>
+                    {{metrics.meters['com.codahale.metrics.servlet.AbstractInstrumentedFilter.responseCodes.ok'].m5_rate
                     |
                     number:2}}
                 </td>
@@ -363,22 +374,27 @@
 
 </div>
 <!-- Modal used to display the threads dump -->
-<div id="threadDump" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="threadDump" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Threads dump</h4>
             </div>
             <div class="modal-body well">
                 <span class="label label-primary" ng-click="threadDumpFilter = {}">All&nbsp;<span
                     class="badge">{{threadDumpAll}}</span></span>&nbsp;
-                <span class="label label-success" ng-click="threadDumpFilter = {threadState: 'RUNNABLE'}">Runnable&nbsp;<span
+                <span class="label label-success"
+                      ng-click="threadDumpFilter = {threadState: 'RUNNABLE'}">Runnable&nbsp;<span
                     class="badge">{{threadDumpRunnable}}</span></span>&nbsp;
-                <span class="label label-info" ng-click="threadDumpFilter = {threadState: 'WAITING'}">Waiting&nbsp;<span
+                <span class="label label-info"
+                      ng-click="threadDumpFilter = {threadState: 'WAITING'}">Waiting&nbsp;<span
                     class="badge">{{threadDumpWaiting}}</span></span>&nbsp;
-                <span class="label label-warning" ng-click="threadDumpFilter = {threadState: 'TIMED_WAITING'}">Timed Waiting&nbsp;<span
+                <span class="label label-warning"
+                      ng-click="threadDumpFilter = {threadState: 'TIMED_WAITING'}">Timed Waiting&nbsp;<span
                     class="badge">{{threadDumpTimedWaiting}}</span></span>&nbsp;
                 <span class="label label-danger"
                       ng-click="threadDumpFilter = {threadState: 'BLOCKED'}">Blocked&nbsp;<span
@@ -407,14 +423,16 @@
                             <td>{{v.lockName}}</td>
                             <td>
                                 <a ng-click="show = !show" data-placement="left">
-                                    <span ng-show="!show">show</span>
-                                    <span ng-show="show">hide</span>
+                                    <span ng-cloak ng-show="!show">show</span>
+                                    <span ng-cloak ng-show="show">hide</span>
                                 </a>
 
-                                <div class="popover left" ng-show="show">
+                                <div class="popover left" ng-cloak ng-show="show">
                                     <div class="popover-title">
                                         <h4>Stacktrace
-                                            <button type="button" class="close" ng-click="show = !show">x</button>
+                                            <button type="button" class="close"
+                                                    ng-click="show = !show">x
+                                            </button>
                                         </h4>
                                     </div>
                                     <div class="popover-content">

@@ -2,10 +2,12 @@
 
     <h2>Tracks</h2>
 
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveTrackModal" ng-click="clear()">
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveTrackModal"
+            ng-click="clear()">
         <span class="glyphicon glyphicon-flash"></span> Create a new Track
     </button>
-    <div class="modal fade" id="saveTrackModal" tabindex="-1" role="dialog" aria-labelledby="myTrackLabel"
+    <div class="modal fade" id="saveTrackModal" tabindex="-1" role="dialog"
+         aria-labelledby="myTrackLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -28,7 +30,8 @@
                         <div class="form-group">
                             <label>Sample text attribute</label>
                             <input type="text" class="form-control" name="test"
-                                   ng-model="track.sampleTextAttribute" ng-minlength=1 ng-maxlength=50 required>
+                                   ng-model="track.sampleTextAttribute" ng-minlength=1
+                                   ng-maxlength=50 required>
                         </div>
 
                         <div class="form-group">
@@ -38,7 +41,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"
+                                ng-click="clear()">
                             <span class="glyphicon glyphicon-ban-circle"></span> Cancel
                         </button>
                         <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">

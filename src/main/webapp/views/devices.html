@@ -2,10 +2,12 @@
 
     <h2>Devices</h2>
 
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveDeviceModal" ng-click="clear()">
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveDeviceModal"
+            ng-click="clear()">
         <span class="glyphicon glyphicon-flash"></span> Create a new Device
     </button>
-    <div class="modal fade" id="saveDeviceModal" tabindex="-1" role="dialog" aria-labelledby="myDeviceLabel"
+    <div class="modal fade" id="saveDeviceModal" tabindex="-1" role="dialog"
+         aria-labelledby="myDeviceLabel"
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -28,11 +30,13 @@
                         <div class="form-group">
                             <label>Description</label>
                             <input type="text" class="form-control" name="test"
-                                   ng-model="device.description" ng-minlength=1 ng-maxlength=50 required>
+                                   ng-model="device.description" ng-minlength=1 ng-maxlength=50
+                                   required>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"
+                                ng-click="clear()">
                             <span class="glyphicon glyphicon-ban-circle"></span> Cancel
                         </button>
                         <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
