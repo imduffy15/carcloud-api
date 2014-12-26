@@ -1,5 +1,8 @@
 package ie.ianduffy.carcloud.web.dto;
 
+import com.wordnik.swagger.annotations.ApiModel;
+import com.wordnik.swagger.annotations.ApiModelProperty;
+
 import org.springframework.hateoas.Link;
 import org.springframework.util.Assert;
 
@@ -9,10 +12,13 @@ import java.util.Map;
 import lombok.Data;
 
 @Data
+@ApiModel
 public abstract class AbstractAuditingEntityDTO<T> {
 
+    @ApiModelProperty(hidden = true)
     private final Map<String, String> links;
 
+//    @ApiModelProperty
     protected int version;
 
     AbstractAuditingEntityDTO() {

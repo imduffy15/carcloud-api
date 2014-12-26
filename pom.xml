@@ -46,7 +46,7 @@
     <spring-data-releasetrain.version>Evans-RELEASE</spring-data-releasetrain.version>
     <spring-security-oauth2.version>2.0.3.RELEASE</spring-security-oauth2.version>
     <spring.version>4.1.0.RELEASE</spring.version>
-    <swagger-springmvc.version>0.8.8</swagger-springmvc.version>
+    <swagger-springmvc.version>0.9.4</swagger-springmvc.version>
     <usertype-core.version>3.2.0.GA</usertype-core.version>
   </properties>
   <dependencies>

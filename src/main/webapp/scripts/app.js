@@ -116,9 +116,10 @@ carcloudApp
                  httpHeaders.common['Authorization'] = 'Bearer ' + Token.get().accessToken;
              }
 
+             $rootScope.userRoles = USER_ROLES;
+
              $rootScope.$on('$routeChangeStart', function (event, next) {
                  //$rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
-                 //$rootScope.userRoles = USER_ROLES;
                  //AuthenticationSharedService.valid(next.access.authorities);
              });
 

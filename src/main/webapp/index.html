@@ -76,7 +76,7 @@
                         <span>Devices</span>
                     </a>
                 </li>
-                <li ng-cloak ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)"
+                <li ng-switch-when="true" ng-show="!isAuthorized(userRoles.admin)"
                     class="dropdown pointer"
                     ng-controller="AdminController">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
