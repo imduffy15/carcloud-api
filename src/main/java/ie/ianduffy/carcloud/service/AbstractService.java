@@ -51,7 +51,7 @@ public abstract class AbstractService<T extends AbstractAuditingEntity, ID exten
     abstract protected JpaRepository<T, ID> getRepository();
 
     public T update(DTO dto, T entity) {
-        if (dto.getVersion() != entity.getVersion()) {
+        if (dto.getVersion() != entity.getVersion() && dto.getVersion() != -1) {
             throw new StaleStateException(
                 "Unexpected version. Got " + dto.getVersion() + " expected " + entity
                     .getVersion());

@@ -156,8 +156,10 @@ carcloudApp.factory('AuthenticationService',
 
                             Account.get().$promise.then(
                                 function (account) {
+                                    console.log('getting account success');
                                     account.resource("authorities").query().$promise.then(
                                         function (authorities) {
+                                            console.log("getting authorities success");
                                             Session.set(
                                                 account.username,
                                                 account.firstName,
@@ -165,14 +167,20 @@ carcloudApp.factory('AuthenticationService',
                                                 account.email,
                                                 authorities
                                             );
-                                            authService.loginConfirmed();
+                                            authService.loginConfirmed(null, function(config) {
+                                                config.headers.Authorization = "Bearer " + Token.get().accessToken;
+                                                console.log(config);
+                                                return config;
+                                            });
                                         },
                                         function (data, status, headers, config) {
+                                            console.log("issue getting authorities");
                                             authenticationError(data, status, headers, config)
                                         }
                                     );
                                 },
                                 function (data, status, headers, config) {
+                                    console.log("issue getting account");
                                     authenticationError(data, status, headers, config)
                                 }
                             )
@@ -200,9 +208,11 @@ carcloudApp.factory('AuthenticationService',
                                 }
                             })
                                 .success(function (data, status, headers, config) {
+                                                                         console.log('oauth token success');
                                              authenticationSuccess(data, status, headers, config)
                                          })
                                 .error(function (data, status, headers, config) {
+                                           console.log('issue on oauth token');
                                            authenticationError(data, status, headers, config)
                                        });
                         };

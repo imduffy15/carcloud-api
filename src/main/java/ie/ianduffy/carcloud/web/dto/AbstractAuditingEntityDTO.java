@@ -18,8 +18,8 @@ public abstract class AbstractAuditingEntityDTO<T> {
     @ApiModelProperty(hidden = true)
     private final Map<String, String> links;
 
-//    @ApiModelProperty
-    protected int version;
+    @ApiModelProperty
+    protected int version = -1;
 
     AbstractAuditingEntityDTO() {
         this.links = new HashMap<>();

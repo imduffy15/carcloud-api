@@ -109,49 +109,48 @@ carcloudApp
     .run(function ($rootScope, $location, $http, AuthenticationService, Session, USER_ROLES,
                    Token) {
 
-             $rootScope.authenticated = !!Session.get();
-             $rootScope.account = Session.get();
-
-             if (Token.get()) {
-                 httpHeaders.common['Authorization'] = 'Bearer ' + Token.get().accessToken;
-             }
-
              $rootScope.userRoles = USER_ROLES;
 
              $rootScope.$on('$routeChangeStart', function (event, next) {
-                 //$rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
-                 //AuthenticationSharedService.valid(next.access.authorities);
+                 $rootScope.authenticated = !!Session.get();
+                 $rootScope.account = Session.get();
+
+                 if (Token.get()) {
+                     httpHeaders.common['Authorization'] = 'Bearer ' + Token.get().accessToken;
+                 }
              });
 
              // Call when the the client is confirmed
-             // SPAM 0.0.1 - Example of event listeners
-             $rootScope.$on('event:auth-loginConfirmed', function (data) {
+             $rootScope.$on('event:auth-loginConfirmed', function(data) {
                  $rootScope.authenticated = true;
-                 $rootScope.account = Session.get();
                  if ($location.path() === "/login") {
-                     $location.path('/');
+                     var search = $location.search();
+                     if (search.redirect !== undefined) {
+                         $location.path(search.redirect).search('redirect', null).replace();
+                     } else {
+                         $location.path('/').replace();
+                     }
                  }
              });
 
              // Call when the 401 response is returned by the server
-             $rootScope.$on('event:auth-loginRequired', function (rejection) {
+             $rootScope.$on('event:auth-loginRequired', function(rejection) {
+                 Token.invalidate();
                  Session.invalidate();
-                 $rootScope.authenticated = false;
-                 if ($location.path() !== "/" && $location.path() !== "" && $location.path()
-                                                                            !== "/register"
-                     && $location.path() !== "/login") {
-                     $location.path('/login');
+                 if ($location.path() !== "/" && $location.path() !== "" && $location.path() !== "/register" && $location.path() !== "/login") {
+                     var redirect = $location.path();
+                     $location.path('/login').search('redirect', redirect).replace();
                  }
              });
 
              // Call when the 403 response is returned by the server
-             $rootScope.$on('event:auth-notAuthorized', function (rejection) {
-                 $rootScope.errorMessage = 'You are not authorized to access the page.';
+             $rootScope.$on('event:auth-notAuthorized', function(rejection) {
+                 $rootScope.errorMessage = 'errors.403';
                  $location.path('/error');
              });
 
              // Call when the user logs out
-             $rootScope.$on('event:auth-loginCancelled', function () {
+             $rootScope.$on('event:auth-loginCancelled', function() {
                  $location.path('');
              });
          });
