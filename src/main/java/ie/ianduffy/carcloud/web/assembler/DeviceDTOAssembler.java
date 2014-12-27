@@ -1,4 +1,4 @@
-package ie.ianduffy.carcloud.assembler;
+package ie.ianduffy.carcloud.web.assembler;
 
 import ie.ianduffy.carcloud.domain.Device;
 import ie.ianduffy.carcloud.web.dto.DeviceDTO;

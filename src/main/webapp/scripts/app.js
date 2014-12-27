@@ -5,8 +5,7 @@ var httpHeaders;
 
 var carcloudApp = angular.module('carcloudApp', ['http-auth-interceptor',
                                                  'ngResource', 'ngRoute', 'ngCookies',
-                                                 'truncate', 'hateoas', 'LocalStorageModule',
-                                                 'base64']);
+                                                 'hateoas', 'LocalStorageModule', 'base64']);
 
 carcloudApp
     .config(function ($routeProvider, $httpProvider, $sceDelegateProvider,
@@ -15,13 +14,6 @@ carcloudApp
                     .when('/register', {
                               templateUrl: 'views/register.html',
                               controller: 'RegisterController',
-                              access: {
-                                  authorities: [USER_ROLES.all]
-                              }
-                          })
-                    .when('/activate', {
-                              templateUrl: 'views/activate.html',
-                              controller: 'ActivationController',
                               access: {
                                   authorities: [USER_ROLES.all]
                               }
@@ -56,25 +48,6 @@ carcloudApp
                     .when('/metrics', {
                               templateUrl: 'views/metrics.html',
                               controller: 'MetricsController',
-                              access: {
-                                  authorities: [USER_ROLES.user]
-                              }
-                          })
-                    .when('/logs', {
-                              templateUrl: 'views/logs.html',
-                              controller: 'LogsController',
-                              resolve: {
-                                  resolvedLogs: ['LogsService', function (LogsService) {
-                                      return LogsService.findAll();
-                                  }]
-                              },
-                              access: {
-                                  authorities: [USER_ROLES.user]
-                              }
-                          })
-                    .when('/audits', {
-                              templateUrl: 'views/audits.html',
-                              controller: 'AuditsController',
                               access: {
                                   authorities: [USER_ROLES.user]
                               }
@@ -121,7 +94,7 @@ carcloudApp
              });
 
              // Call when the the client is confirmed
-             $rootScope.$on('event:auth-loginConfirmed', function(data) {
+             $rootScope.$on('event:auth-loginConfirmed', function (data) {
                  $rootScope.authenticated = true;
                  if ($location.path() === "/login") {
                      var search = $location.search();
@@ -134,23 +107,25 @@ carcloudApp
              });
 
              // Call when the 401 response is returned by the server
-             $rootScope.$on('event:auth-loginRequired', function(rejection) {
+             $rootScope.$on('event:auth-loginRequired', function (rejection) {
                  Token.invalidate();
                  Session.invalidate();
-                 if ($location.path() !== "/" && $location.path() !== "" && $location.path() !== "/register" && $location.path() !== "/login") {
+                 if ($location.path() !== "/" && $location.path() !== "" && $location.path()
+                                                                            !== "/register"
+                     && $location.path() !== "/login") {
                      var redirect = $location.path();
                      $location.path('/login').search('redirect', redirect).replace();
                  }
              });
 
              // Call when the 403 response is returned by the server
-             $rootScope.$on('event:auth-notAuthorized', function(rejection) {
+             $rootScope.$on('event:auth-notAuthorized', function (rejection) {
                  $rootScope.errorMessage = 'errors.403';
                  $location.path('/error');
              });
 
              // Call when the user logs out
-             $rootScope.$on('event:auth-loginCancelled', function() {
+             $rootScope.$on('event:auth-loginCancelled', function () {
                  $location.path('');
              });
          });

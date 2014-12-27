@@ -2,8 +2,8 @@ package ie.ianduffy.carcloud.web.munic;
 
 import com.codahale.metrics.annotation.Timed;
 
-import ie.ianduffy.carcloud.assembler.TrackDTOAssembler;
 import ie.ianduffy.carcloud.service.TrackService;
+import ie.ianduffy.carcloud.web.assembler.TrackDTOAssembler;
 import ie.ianduffy.carcloud.web.munic.dto.TrackDTO;
 
 import org.springframework.http.MediaType;

@@ -1,4 +1,4 @@
-package ie.ianduffy.carcloud.assembler;
+package ie.ianduffy.carcloud.web.assembler;
 
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.web.dto.UserDTO;

@@ -40,33 +40,6 @@ carcloudApp.factory('HealthCheckService', function ($rootScope, $http) {
     };
 });
 
-carcloudApp.factory('LogsService', function ($resource) {
-    return $resource('app/rest/logs', {}, {
-        'findAll': {method: 'GET', isArray: true},
-        'changeLevel': {method: 'PUT'}
-    });
-});
-
-carcloudApp.factory('AuditsService', function ($http) {
-    return {
-        findAll: function () {
-            return $http.get('app/rest/audits/all').then(function (response) {
-                return response.data;
-            });
-        },
-        findByDates: function (fromDate, toDate) {
-            return $http.get('app/rest/audits/byDates', {
-                params: {
-                    fromDate: fromDate,
-                    toDate: toDate
-                }
-            }).then(function (response) {
-                return response.data;
-            });
-        }
-    }
-});
-
 carcloudApp.factory('Session', function (localStorageService, $rootScope) {
 
     var session = {};
@@ -167,8 +140,9 @@ carcloudApp.factory('AuthenticationService',
                                                 account.email,
                                                 authorities
                                             );
-                                            authService.loginConfirmed(null, function(config) {
-                                                config.headers.Authorization = "Bearer " + Token.get().accessToken;
+                                            authService.loginConfirmed(null, function (config) {
+                                                config.headers.Authorization =
+                                                "Bearer " + Token.get().accessToken;
                                                 console.log(config);
                                                 return config;
                                             });
@@ -208,7 +182,7 @@ carcloudApp.factory('AuthenticationService',
                                 }
                             })
                                 .success(function (data, status, headers, config) {
-                                                                         console.log('oauth token success');
+                                             console.log('oauth token success');
                                              authenticationSuccess(data, status, headers, config)
                                          })
                                 .error(function (data, status, headers, config) {

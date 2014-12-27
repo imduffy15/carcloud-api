@@ -2,9 +2,9 @@ package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 
-import ie.ianduffy.carcloud.assembler.TrackDTOAssembler;
 import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.service.TrackService;
+import ie.ianduffy.carcloud.web.assembler.TrackDTOAssembler;
 import ie.ianduffy.carcloud.web.dto.TrackDTO;
 
 import org.springframework.http.HttpStatus;

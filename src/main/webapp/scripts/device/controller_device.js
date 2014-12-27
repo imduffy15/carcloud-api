@@ -15,13 +15,12 @@ carcloudApp.controller('DeviceController', function ($scope, resolvedDevice, Dev
 
     $scope.update = function () {
         Device.update($scope.device,
-                    function () {
-                        $scope.devices = Device.query();
-                        $('#updateDeviceModal').modal('hide');
-                        $scope.clear();
-                    });
+                      function () {
+                          $scope.devices = Device.query();
+                          $('#updateDeviceModal').modal('hide');
+                          $scope.clear();
+                      });
     };
-
 
     $scope.edit = function (id) {
         $scope.device = Device.get({id: id});

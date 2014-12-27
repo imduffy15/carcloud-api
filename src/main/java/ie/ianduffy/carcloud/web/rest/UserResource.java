@@ -2,11 +2,11 @@ package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 
-import ie.ianduffy.carcloud.assembler.UserDTOAssembler;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.security.AuthoritiesConstants;
 import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.service.UserService;
+import ie.ianduffy.carcloud.web.assembler.UserDTOAssembler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

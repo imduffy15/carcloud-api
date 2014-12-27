@@ -113,17 +113,6 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump12">
-        <createTable tableName="t_persistent_audit_event_data">
-            <column name="event_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="value" type="VARCHAR(255)"/>
-            <column name="name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
     <changeSet author="duffy (generated)" id="dump13">
         <createTable tableName="t_track">
             <column name="id" type="BIGINT">
@@ -182,12 +171,6 @@
     <changeSet author="duffy (generated)" id="dump17" context="prod">
         <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_device"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump18" context="prod">
-        <addPrimaryKey columnNames="event_id" constraintName="PRIMARY" tableName="t_persistent_audit_event"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="dump19" context="prod">
-        <addPrimaryKey columnNames="event_id, name" constraintName="PRIMARY" tableName="t_persistent_audit_event_data"/>
-    </changeSet>
     <changeSet author="duffy (generated)" id="dump20" context="prod">
         <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_track"/>
     </changeSet>
@@ -201,12 +184,6 @@
     <changeSet author="duffy (generated)" id="dump23">
         <addUniqueConstraint columnNames="phone" constraintName="UK_m5bu5erj83eubjsa1nyms0t89" deferrable="false"
                              disabled="false" initiallyDeferred="false" tableName="t_user"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="dump25">
-        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="t_persistent_audit_event_data"
-                                 constraintName="FK_cekdwiaydjn97qi7ebeexb1bw" deferrable="false"
-                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="event_id" referencedTableName="t_persistent_audit_event"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump27">
         <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_device_owner"

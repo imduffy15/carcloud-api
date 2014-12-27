@@ -1,13 +1,12 @@
 package ie.ianduffy.carcloud;
 
-import ie.ianduffy.carcloud.assembler.UserDTOAssembler;
+import ie.ianduffy.carcloud.web.assembler.UserDTOAssembler;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.web.dto.UserDTO;
 import ie.ianduffy.carcloud.service.UserService;
 import ie.ianduffy.carcloud.web.rest.AccountResource;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -18,9 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
