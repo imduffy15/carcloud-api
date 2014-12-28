@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <property name="now" value="now()" dbms="mysql,h2"/>
     <property name="now" value="current_timestamp" dbms="postgresql"/>
@@ -96,33 +96,16 @@
             <column name="device_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="username" type="VARCHAR(100)">
+            <column name="username" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump11">
-        <createTable tableName="t_persistent_audit_event">
-            <column name="event_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="event_date" type="timestamp"/>
-            <column name="event_type" type="VARCHAR(255)"/>
-            <column name="principal" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="dump13">
         <createTable tableName="t_track">
             <column name="id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="latitude" type="DOUBLE"/>
-            <column name="longitude" type="DOUBLE"/>
-            <column name="received_at" type="timestamp" defaultValueDate="${now}"/>
-            <column name="recorded_at" type="timestamp" defaultValueDate="${now}"/>
-            <column name="device_id" type="BIGINT"/>
             <column name="created_by" type="VARCHAR(50)" defaultValue="system"/>
             <column name="created_date" type="timestamp" defaultValueDate="${now}"/>
             <column name="last_modified_by" type="VARCHAR(50)"/>
@@ -130,9 +113,14 @@
             <column name="version" type="INT">
                 <constraints nullable="false"/>
             </column>
+            <column name="latitude" type="DOUBLE"/>
+            <column name="longitude" type="DOUBLE"/>
+            <column name="received_at" type="timestamp"/>
+            <column name="recorded_at" type="timestamp"/>
+            <column name="device_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump14">
+    <changeSet author="duffy (generated)" id="dump12">
         <createTable tableName="t_user">
             <column name="username" type="VARCHAR(50)">
                 <constraints nullable="false"/>
@@ -155,7 +143,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump15">
+    <changeSet author="duffy (generated)" id="dump13">
         <createTable tableName="t_user_authority">
             <column name="username" type="VARCHAR(50)">
                 <constraints nullable="false"/>
@@ -165,39 +153,53 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump16" context="prod">
+    <changeSet author="duffy (generated)" id="dump14" context="prod">
         <addPrimaryKey columnNames="name" constraintName="PRIMARY" tableName="t_authority"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump17" context="prod">
+    <changeSet author="duffy (generated)" id="dump15" context="prod">
         <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_device"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump20" context="prod">
+    <changeSet author="duffy (generated)" id="dump16" context="prod">
         <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_track"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump21" context="prod">
+    <changeSet author="duffy (generated)" id="dump17" context="prod">
         <addPrimaryKey columnNames="username" constraintName="PRIMARY" tableName="t_user"/>
     </changeSet>
+    <changeSet author="duffy (generated)" id="dump18">
+        <addUniqueConstraint columnNames="email" constraintName="UK_i6qjjoe560mee5ajdg7v1o6mi"
+                             deferrable="false" disabled="false" initiallyDeferred="false"
+                             tableName="t_user"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="dump19">
+        <addUniqueConstraint columnNames="phone" constraintName="UK_m5bu5erj83eubjsa1nyms0t89"
+                             deferrable="false" disabled="false" initiallyDeferred="false"
+                             tableName="t_user"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="dump20">
+        <addForeignKeyConstraint baseColumnNames="username" baseTableName="t_device_owner"
+                                 constraintName="FK_975c8qf6dgd3gcpjpm3sdu291" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="username" referencedTableName="t_user"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="dump21">
+        <addForeignKeyConstraint baseColumnNames="username" baseTableName="t_user_authority"
+                                 constraintName="FK_a0244t2n8jvn52m3ep4myilt1" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="username" referencedTableName="t_user"/>
+    </changeSet>
     <changeSet author="duffy (generated)" id="dump22">
-        <addUniqueConstraint columnNames="email" constraintName="UK_i6qjjoe560mee5ajdg7v1o6mi" deferrable="false"
-                             disabled="false" initiallyDeferred="false" tableName="t_user"/>
+        <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_track"
+                                 constraintName="FK_cwnm9lpwcabuyi89h1qkuaavj" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="t_device"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump23">
-        <addUniqueConstraint columnNames="phone" constraintName="UK_m5bu5erj83eubjsa1nyms0t89" deferrable="false"
-                             disabled="false" initiallyDeferred="false" tableName="t_user"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="dump27">
         <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_device_owner"
                                  constraintName="FK_ib7vnp2olk25703c5xwpshvdc" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="t_device"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump28">
-        <addForeignKeyConstraint baseColumnNames="username" baseTableName="t_user_authority"
-                                 constraintName="FK_sxi66of84md6cagjs8bj9hl73" deferrable="false"
-                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
-                                 referencedColumnNames="username" referencedTableName="t_user"/>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="dump29">
+    <changeSet author="duffy (generated)" id="dump24">
         <addForeignKeyConstraint baseColumnNames="name" baseTableName="t_user_authority"
                                  constraintName="FK_tghvo3hwad0ifdm39n7bph8b" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
