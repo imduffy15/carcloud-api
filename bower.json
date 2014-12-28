@@ -16,6 +16,7 @@
     "angular-hateoas": "https://github.com/imduffy15/angular-hateoas.git#~0.2.3",
     "angular-http-auth": "~1.2.2",
     "angular-local-storage": "~0.1.5",
-    "angular-base64": "~2.0.3"
+    "angular-base64": "~2.0.3",
+    "ngmap": "~1.2.0"
   }
 }

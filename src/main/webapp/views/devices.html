@@ -104,16 +104,21 @@
                 <td>{{device.id}}</td>
                 <td>{{device.description}}</td>
                 <td>
-                    <button type="submit"
-                            ng-click="edit(device.id)"
-                            class="btn">
-                        <span class="glyphicon glyphicon-pencil"></span> Edit
-                    </button>
-                    <button type="submit"
-                            ng-click="delete(device.id)"
+                    <a href="#/device/{{device.id}}" class="btn btn-primary">
+                        <span class="ion-eye"></span> View
+                    </a>
+                    <a ng-click="edit(device.id)"
+                            class="btn btn-warning">
+                        <span class="ion-edit"></span> Edit
+                    </a>
+                    <a href="javascript:alert('not implemented');"
+                        class="btn btn-info">
+                        <span class="ion-android-share-alt"></span> Share
+                    </a>
+                    <a ng-click="delete(device.id)"
                             class="btn btn-danger">
-                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
-                    </button>
+                        <span class="ion-trash-b"></span> Delete
+                    </a>
                 </td>
             </tr>
             </tbody>

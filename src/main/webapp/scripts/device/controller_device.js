@@ -1,6 +1,6 @@
 'use strict';
 
-carcloudApp.controller('DeviceController', function ($scope, resolvedDevice, Device) {
+carcloudApp.controller('DeviceListController', function ($scope, resolvedDevice, Device) {
 
     $scope.devices = resolvedDevice;
 
@@ -37,4 +37,18 @@ carcloudApp.controller('DeviceController', function ($scope, resolvedDevice, Dev
     $scope.clear = function () {
         $scope.device = {id: null, description: null};
     };
+});
+
+carcloudApp.controller('DeviceController', function($scope, resolvedDevice) {
+
+    $scope.device = resolvedDevice;
+
+    $scope.tracks = [];
+
+    angular.forEach(resolvedDevice.tracks, function(track) {
+        $scope.tracks.push([track.latitude, track.longitude]);
+    });
+
+    $scope.center = $scope.tracks[Math.round(($scope.tracks.length - 1) / 2)];
+
 });

@@ -29,13 +29,15 @@ public class TrackService extends AbstractService<Track, Long, TrackDTO> {
 
     public void create(List<ie.ianduffy.carcloud.web.munic.dto.TrackDTO> trackDTOs) {
         for (ie.ianduffy.carcloud.web.munic.dto.TrackDTO trackDTO : trackDTOs) {
-            Track track = new Track(
-                deviceService.findOne(trackDTO.getPayload().getDeviceId()),
-                trackDTO.getPayload().getLocation(),
-                trackDTO.getPayload().getReceivedAt(),
-                trackDTO.getPayload().getRecordedAt()
-            );
-            trackRepository.save(track);
+            if(trackDTO.getMeta().getEvent().equals("track")) {
+                Track track = new Track(
+                    deviceService.findOne(trackDTO.getPayload().getDeviceId()),
+                    trackDTO.getPayload().getLocation(),
+                    trackDTO.getPayload().getReceivedAt(),
+                    trackDTO.getPayload().getRecordedAt()
+                );
+                trackRepository.save(track);
+            }
         }
     }
 

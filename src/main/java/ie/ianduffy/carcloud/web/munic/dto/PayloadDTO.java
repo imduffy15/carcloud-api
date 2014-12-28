@@ -13,7 +13,7 @@ import java.util.Map;
 import lombok.Data;
 
 @Data
-@JsonIgnoreProperties({"id_str", "id", "recorded_at"})
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PayloadDTO {
 
     private Long deviceId;

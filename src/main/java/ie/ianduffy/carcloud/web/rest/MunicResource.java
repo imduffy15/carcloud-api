@@ -1,4 +1,4 @@
-package ie.ianduffy.carcloud.web.munic;
+package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 
@@ -22,10 +22,7 @@ import javax.inject.Inject;
 @RestController
 @RequestMapping("/app/munic")
 public class MunicResource {
-
-    @Inject
-    private TrackDTOAssembler trackDTOAssembler;
-
+    
     @Inject
     private TrackService trackService;
 
