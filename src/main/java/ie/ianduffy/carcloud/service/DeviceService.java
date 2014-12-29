@@ -7,6 +7,7 @@ import ie.ianduffy.carcloud.repository.DeviceRepository;
 import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.DeviceDTO;
 
+import org.hibernate.Hibernate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,8 +87,8 @@ public class DeviceService extends AbstractService<Device, Long, DeviceDTO> {
 
     public List<Track> getTracks(Long id) {
         Device device = findOneForCurrentUser(id);
-        device.getTracks().size();
         List<Track> tracks = device.getTracks();
+        Hibernate.initialize(tracks);
         return tracks;
     }
 
