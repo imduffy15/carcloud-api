@@ -4,8 +4,8 @@
 var httpHeaders;
 
 var carcloudApp = angular.module('carcloudApp', ['http-auth-interceptor', 'ngResource', 'ngRoute',
-                                                 'ngCookies', 'hateoas', 'ngMap',
-                                                 'LocalStorageModule', 'base64']);
+                                                 'ngCookies', 'hateoas', 'ngMap', 'ngAnimate',
+                                                 'LocalStorageModule', 'base64', 'ui.bootstrap']);
 
 carcloudApp
     .config(function ($routeProvider, $httpProvider, $sceDelegateProvider,

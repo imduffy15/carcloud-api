@@ -7,8 +7,19 @@ carcloudApp
                               templateUrl: 'views/devices.html',
                               controller: 'DeviceListController',
                               resolve: {
-                                  resolvedDevice: function (Device) {
-                                      return Device.query();
+                                  resolvedDevice: function ($q, Device) {
+                                      var deferred = $q.defer();
+                                      var devices = {};
+
+                                      Device.query().$promise.then(function(resolvedDevices) {
+                                         angular.forEach(resolvedDevices, function(device) {
+                                             devices[device.id] = device;
+                                         });
+                                         deferred.resolve(devices);
+                                      });
+
+
+                                      return deferred.promise;
                                   }
                               },
                               access: {

@@ -10,6 +10,12 @@ carcloudApp.factory('Account', function ($resource) {
     });
 });
 
+carcloudApp.factory('User', function ($resource) {
+    return $resource('app/rest/users', {}, {
+        'get': {method: 'GET', isArray: true}
+    });
+});
+
 carcloudApp.factory('Password', function ($resource) {
     return $resource('app/rest/account/change_password', {}, {});
 });

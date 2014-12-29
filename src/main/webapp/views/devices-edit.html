@@ -1,0 +1,33 @@
+<form name="form" role="form" novalidate
+      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+      ng-submit="update()">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="updateDeviceLabel">Edit a Device</h4>
+    </div>
+
+    <div class="modal-body">
+        <div class="form-group">
+            <label>ID</label>
+            <input type="text" class="form-control" name="id"
+                   ng-model="device.id" disabled>
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <input type="text" class="form-control" name="description"
+                   ng-model="device.description" ng-minlength=1 ng-maxlength=50
+                   required>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="cancel()">
+            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+        </button>
+
+        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span> Save
+        </button>
+    </div>
+</form>

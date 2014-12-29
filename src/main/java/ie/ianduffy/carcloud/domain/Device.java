@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -59,7 +60,7 @@ public class Device extends AbstractAuditingEntity<Long> implements Serializable
     @OrderBy
     @LazyCollection(LazyCollectionOption.EXTRA)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
     private List<Track> tracks = new ArrayList<>();
 
     public Device() {

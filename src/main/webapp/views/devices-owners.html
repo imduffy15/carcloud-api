@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h4 class="modal-title">Edit device owners</h4>
+</div>
+<div class="modal-body">
+
+    <form name="form" role="form" novalidate
+          class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+          ng-submit="addOwner()">
+
+        <div class="input-group">
+            <span class="input-group-addon ion-person-add"></span>
+
+            <input type="text" ng-model="usernameSelected" placeholder="Add new owner"
+                   typeahead="username for username in getUsers($viewValue)"
+                   class="form-control">
+
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="submit" type="button">Add</button>
+        </span>
+
+        </div>
+    </form>
+
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="owner in device.owners">
+                <td>{{owner.username}}</td>
+                <td>
+                    <a href="javascript:alert('not implemented')"
+                       class="btn btn-danger">
+                        <span class="ion-trash-b"></span> Delete
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

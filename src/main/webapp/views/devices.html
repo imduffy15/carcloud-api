@@ -1,95 +1,6 @@
 <div>
 
-    <h2>Devices</h2>
-
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createDeviceModal"
-            ng-click="clear()">
-        <span class="glyphicon glyphicon-flash"></span> Create a new Device
-    </button>
-    <div class="modal fade" id="createDeviceModal" tabindex="-1" role="dialog"
-         aria-labelledby="createDeviceLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form name="form" role="form" novalidate
-                      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
-                      ng-submit="create()">
-
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                ng-click="clear()">&times;</button>
-                        <h4 class="modal-title" id="createDeviceLabel">Create a Device</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>ID</label>
-                            <input type="text" class="form-control" name="id"
-                                   ng-model="device.id" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Description</label>
-                            <input type="text" class="form-control" name="description"
-                                   ng-model="device.description" ng-minlength=1 ng-maxlength=50
-                                   required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"
-                                ng-click="clear()">
-                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                        </button>
-                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-save"></span> Save
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="modal fade" id="updateDeviceModal" tabindex="-1" role="dialog"
-         aria-labelledby="updateDeviceLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form name="form" role="form" novalidate
-                      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
-                      ng-submit="update()">
-
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                ng-click="clear()">&times;</button>
-                        <h4 class="modal-title" id="updateDeviceLabel">Edit a Device</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>ID</label>
-                            <input type="text" class="form-control" name="id"
-                                   ng-model="device.id" disabled>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Description</label>
-                            <input type="text" class="form-control" name="description"
-                                   ng-model="device.description" ng-minlength=1 ng-maxlength=50
-                                   required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"
-                                ng-click="clear()">
-                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                        </button>
-                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-save"></span> Save
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    <h1>My Devices</h1>
 
     <div class="table-responsive">
         <table class="table table-striped">
@@ -97,22 +8,22 @@
             <tr>
                 <th>ID</th>
                 <th>Description</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="device in devices">
+            <tr ng-repeat="device in devices" class="nga-fast nga-fade">
                 <td>{{device.id}}</td>
                 <td>{{device.description}}</td>
                 <td>
                     <a href="#/device/{{device.id}}" class="btn btn-primary">
                         <span class="ion-eye"></span> View
                     </a>
-                    <a ng-click="edit(device.id)"
+                    <a ng-click="openEditDeviceModal(device.id)"
                        class="btn btn-warning">
                         <span class="ion-edit"></span> Edit
                     </a>
-                    <a href="javascript:alert('not implemented');"
-                       class="btn btn-info">
+                    <a ng-click="openOwnersDeviceModal(device.id)" class="btn btn-info">
                         <span class="ion-android-share-alt"></span> Share
                     </a>
                     <a ng-click="delete(device.id)"
@@ -121,7 +32,14 @@
                     </a>
                 </td>
             </tr>
+            <tr ng-cloak ng-show="isEmpty(devices)">
+                <td colspan="3">{{devices.length}} No devices found.</td>
+            </tr>
             </tbody>
         </table>
     </div>
+
+    <button class="btn btn-primary btn-lg" ng-click="openAddDeviceModal()">
+        <span class="ion-android-add-circle"></span> Add a new Device
+    </button>
 </div>

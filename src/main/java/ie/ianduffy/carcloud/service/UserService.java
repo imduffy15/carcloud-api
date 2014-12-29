@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,6 +56,15 @@ public class UserService extends AbstractService<User, String, UserDTO> {
         user.setAuthorities(Arrays.asList(authorityRepository.findOne(AuthoritiesConstants.USER)));
 
         return super.create(userDTO, user);
+    }
+
+    public List<String> findLike(String username) {
+        List<User> users = userRepository.findTop10ByUsernameLike("%" + username + "%");
+        List<String> usernames = new ArrayList<>();
+        for(User user : users) {
+            usernames.add(user.getUsername());
+        }
+        return usernames;
     }
 
     public List<Authority> getAuthorities(String login) {
