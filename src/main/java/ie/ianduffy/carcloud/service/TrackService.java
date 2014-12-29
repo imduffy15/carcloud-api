@@ -4,6 +4,7 @@ import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.repository.TrackRepository;
 import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.TrackDTO;
+import ie.ianduffy.carcloud.web.munic.dto.EventDTO;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -27,18 +28,14 @@ public class TrackService extends AbstractService<Track, Long, TrackDTO> {
     @Inject
     private TrackRepository trackRepository;
 
-    public void create(List<ie.ianduffy.carcloud.web.munic.dto.TrackDTO> trackDTOs) {
-        for (ie.ianduffy.carcloud.web.munic.dto.TrackDTO trackDTO : trackDTOs) {
-            if(trackDTO.getMeta().getEvent().equals("track")) {
-                Track track = new Track(
-                    deviceService.findOne(trackDTO.getPayload().getDeviceId()),
-                    trackDTO.getPayload().getLocation(),
-                    trackDTO.getPayload().getReceivedAt(),
-                    trackDTO.getPayload().getRecordedAt()
-                );
-                trackRepository.save(track);
-            }
-        }
+    public void create(ie.ianduffy.carcloud.web.munic.dto.TrackDTO trackDTO) {
+        Track track = new Track(
+            deviceService.findOne(trackDTO.getDeviceId()),
+            trackDTO.getLocation(),
+            trackDTO.getReceivedAt(),
+            trackDTO.getRecordedAt()
+        );
+        trackRepository.save(track);
     }
 
     public List<Track> findAllForCurrentUser() {

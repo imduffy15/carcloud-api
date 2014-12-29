@@ -4,6 +4,19 @@
           xsi:schemaLocation="http://dozer.sourceforge.net
           http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
+    <configuration>
+        <custom-converters> <!-- these are always bi-directional -->
+            <converter type="ie.ianduffy.carcloud.domain.util.CustomJodaDateDozerConverter" >
+                <class-a>java.lang.String</class-a>
+                <class-b>org.joda.time.DateTime</class-b>
+            </converter>
+            <converter type="ie.ianduffy.carcloud.domain.util.CustomLatLngDozerConverter" >
+                <class-a>java.util.List</class-a>
+                <class-b>com.javadocmd.simplelatlng.LatLng</class-b>
+            </converter>
+        </custom-converters>
+    </configuration>
+
     <mapping map-null="false">
         <class-a>ie.ianduffy.carcloud.domain.User</class-a>
         <class-b>ie.ianduffy.carcloud.web.dto.UserDTO</class-b>
@@ -21,6 +34,27 @@
     <mapping map-null="false">
         <class-a>ie.ianduffy.carcloud.domain.Track</class-a>
         <class-b>ie.ianduffy.carcloud.web.dto.TrackDTO</class-b>
+    </mapping>
+
+    <mapping>
+        <class-a>java.util.Map</class-a>
+        <class-b>ie.ianduffy.carcloud.web.munic.dto.TrackDTO</class-b>
+        <field>
+            <a key="asset">this</a>
+            <b>deviceId</b>
+        </field>
+        <field>
+            <a key="loc">this</a>
+            <b>location</b>
+        </field>
+        <field>
+            <a key="received_at">this</a>
+            <b>receivedAt</b>
+        </field>
+        <field>
+            <a key="recorded_at_ms">this</a>
+            <b>recordedAt</b>
+        </field>
     </mapping>
 
 

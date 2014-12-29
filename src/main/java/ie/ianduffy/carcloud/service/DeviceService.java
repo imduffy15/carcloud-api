@@ -77,7 +77,9 @@ public class DeviceService extends AbstractService<Device, Long, DeviceDTO> {
 
     public List<User> getOwners(Long id) {
         Device device = findOneForCurrentUser(id);
-        return device.getOwners();
+        List<User> owners = device.getOwners();
+        Hibernate.initialize(owners);
+        return owners;
     }
 
     public Track getTrack(Long id, int index) {

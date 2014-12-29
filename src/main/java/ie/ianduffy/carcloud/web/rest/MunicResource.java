@@ -3,9 +3,10 @@ package ie.ianduffy.carcloud.web.rest;
 import com.codahale.metrics.annotation.Timed;
 
 import ie.ianduffy.carcloud.service.TrackService;
-import ie.ianduffy.carcloud.web.assembler.TrackDTOAssembler;
+import ie.ianduffy.carcloud.web.munic.dto.EventDTO;
 import ie.ianduffy.carcloud.web.munic.dto.TrackDTO;
 
+import org.dozer.Mapper;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,14 +23,24 @@ import javax.inject.Inject;
 @RestController
 @RequestMapping("/app/munic")
 public class MunicResource {
-    
+
     @Inject
     private TrackService trackService;
+
+    @Inject
+    private Mapper mapper;
 
     @RequestMapping(method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void create(@RequestBody List<TrackDTO> trackDTOs) {
-        trackService.create(trackDTOs);
+    public void create(@RequestBody List<EventDTO> eventDTOs) {
+        for(EventDTO eventDTO : eventDTOs) {
+            if(eventDTO.getMeta().getEvent().equals("track")) {
+                TrackDTO trackDTO = new TrackDTO();
+                mapper.map(eventDTO.getPayload(), trackDTO);
+                trackService.create(trackDTO);
+            }
+        }
+
     }
 }
