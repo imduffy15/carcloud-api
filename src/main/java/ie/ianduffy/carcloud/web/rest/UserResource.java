@@ -59,7 +59,6 @@ public class UserResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> search(@RequestParam("username") String username) {
-        List<String> users = userService.findLike(username);
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        return new ResponseEntity<>(userService.findLike(username), HttpStatus.OK);
     }
 }

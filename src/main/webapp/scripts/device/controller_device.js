@@ -105,8 +105,6 @@ carcloudApp.controller('DeviceEditController',
 
                            $scope.device = resolvedDevice;
 
-                           console.log(resolvedDevice);
-
                            $scope.update = function () {
                                Device.update($scope.device,
                                              function () {

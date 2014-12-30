@@ -38,10 +38,12 @@ public class TrackService extends AbstractService<Track, Long, TrackDTO> {
         trackRepository.save(track);
     }
 
+    @Transactional(readOnly = true)
     public List<Track> findAllForCurrentUser() {
         return trackRepository.findAllForUser(SecurityUtils.getCurrentLogin());
     }
 
+    @Transactional(readOnly = true)
     public Track findOneForCurrentUser(Long id) {
         Track track = trackRepository.findOneForUser(SecurityUtils.getCurrentLogin(), id);
         if (track == null) {

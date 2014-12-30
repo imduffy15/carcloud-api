@@ -57,10 +57,12 @@ public class DeviceService extends AbstractService<Device, Long, DeviceDTO> {
         return deviceRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<Device> findAllForCurrentUser() {
         return deviceRepository.findAllForUser(SecurityUtils.getCurrentLogin());
     }
 
+    @Transactional(readOnly = true)
     public Device findOneForCurrentUser(Long id) {
         Device device = deviceRepository.findOneForUser(SecurityUtils.getCurrentLogin(), id);
         if (device == null) {
@@ -69,12 +71,14 @@ public class DeviceService extends AbstractService<Device, Long, DeviceDTO> {
         return device;
     }
 
+    @Transactional(readOnly = true)
     public User getOwner(Long id, String username) {
         User user = userService.findOne(username);
         Device device = findOneForCurrentUser(id);
         return device.getOwners().get(device.getOwners().indexOf(user));
     }
 
+    @Transactional(readOnly = true)
     public List<User> getOwners(Long id) {
         Device device = findOneForCurrentUser(id);
         List<User> owners = device.getOwners();
@@ -82,11 +86,13 @@ public class DeviceService extends AbstractService<Device, Long, DeviceDTO> {
         return owners;
     }
 
+    @Transactional(readOnly = true)
     public Track getTrack(Long id, int index) {
         Device device = findOneForCurrentUser(id);
         return device.getTracks().get(index);
     }
 
+    @Transactional(readOnly = true)
     public List<Track> getTracks(Long id) {
         Device device = findOneForCurrentUser(id);
         List<Track> tracks = device.getTracks();

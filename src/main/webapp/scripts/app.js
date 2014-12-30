@@ -4,11 +4,12 @@
 var httpHeaders;
 
 var carcloudApp = angular.module('carcloudApp', ['http-auth-interceptor', 'ngResource', 'ngRoute',
-                                                 'ngCookies', 'hateoas', 'ngMap', 'ngAnimate',
-                                                 'LocalStorageModule', 'base64', 'mgcrea.ngStrap']);
+                                                 'ngCookies', 'hateoas', 'ngMap', 'angular-loading-bar',
+                                                 'ngAnimate', 'LocalStorageModule', 'base64',
+                                                 'ui.bootstrap']);
 
 carcloudApp
-    .config(function ($routeProvider, $httpProvider, $sceDelegateProvider,
+    .config(function ($routeProvider, $httpProvider, $sceDelegateProvider, cfpLoadingBarProvider,
                       localStorageServiceProvider, HateoasInterceptorProvider, USER_ROLES) {
                 $routeProvider
                     .when('/register', {
@@ -75,6 +76,10 @@ carcloudApp
 
                 HateoasInterceptorProvider.transformAllResponses();
                 httpHeaders = $httpProvider.defaults.headers;
+
+                cfpLoadingBarProvider.includeBar = true;
+                cfpLoadingBarProvider.includeSpinner = true;
+                cfpLoadingBarProvider.latencyThreshold = 500;
 
                 localStorageServiceProvider.setPrefix("CarCloud");
 

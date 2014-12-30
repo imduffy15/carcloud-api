@@ -58,15 +58,12 @@ public class UserService extends AbstractService<User, String, UserDTO> {
         return super.create(userDTO, user);
     }
 
-    public List<String> findLike(String username) {
-        List<User> users = userRepository.findTop10ByUsernameLike("%" + username + "%");
-        List<String> usernames = new ArrayList<>();
-        for(User user : users) {
-            usernames.add(user.getUsername());
-        }
-        return usernames;
+    @Transactional(readOnly = true)
+    public List<User> findLike(String username) {
+        return userRepository.findTop10ByUsernameLike("%" + username + "%");
     }
 
+    @Transactional(readOnly = true)
     public List<Authority> getAuthorities(String login) {
         User user = findOne(login);
         List<Authority> authorities = user.getAuthorities();

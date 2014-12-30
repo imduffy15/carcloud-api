@@ -20,25 +20,19 @@
 
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="bower_components/angular-animate-css/build/nga.all.css">
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
     <link rel="stylesheet" href="bower_components/ionicons/css/ionicons.css">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/loading-bar.css">
     <!-- endbuild -->
 </head>
 <body ng-app="carcloudApp" ng-controller="MainController">
 <nav class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#"><span>CarCloud</span></a>
+            <a class="navbar-brand" href="#"><span class="ion-cloud"></span> <span>CarCloud</span></a>
         </div>
-        <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="authenticated">
+        <div ng-switch="authenticated">
             <ul class="nav navbar-nav nav-pills navbar-right">
                 <li>
                     <a href="#">
@@ -120,13 +114,14 @@
 <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
 <script src="bower_components/angular-http-auth/src/http-auth-interceptor.js"></script>
 <script src="bower_components/angular-base64/angular-base64.js"></script>
-<script src="bower_components/ngmap/build/scripts/ng-map.js"></script>
+<script src="bower_components/ngmap/build/scripts/ng-map.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
 <script src="scripts/app.js"></script>
 <script src="scripts/constants.js"></script>
 <script src="scripts/controllers.js"></script>
 <script src="scripts/factories.js"></script>
 <script src="scripts/directives.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="scripts/device/router_device.js"></script>
 <script src="scripts/device/controller_device.js"></script>
 <script src="scripts/device/service_device.js"></script>

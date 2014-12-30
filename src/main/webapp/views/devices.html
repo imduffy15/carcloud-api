@@ -12,7 +12,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="device in devices" class="nga-fast nga-fade">
+            <tr ng-repeat="device in devices" class="animate">
                 <td>{{device.id}}</td>
                 <td>{{device.description}}</td>
                 <td>
@@ -23,7 +23,7 @@
                        class="btn btn-warning">
                         <span class="ion-edit"></span> Edit
                     </a>
-                    <a data-template="views/devices-owners.html" bs-modal="modal" class="btn btn-info">
+                    <a ng-click="openOwnersDeviceModal(device.id)" class="btn btn-info">
                         <span class="ion-android-share-alt"></span> Share
                     </a>
                     <a ng-click="delete(device.id)"
@@ -33,7 +33,7 @@
                 </td>
             </tr>
             <tr ng-cloak ng-show="isEmpty(devices)">
-                <td colspan="3">{{devices.length}} No devices found.</td>
+                <td colspan="3">No devices found.</td>
             </tr>
             </tbody>
         </table>
