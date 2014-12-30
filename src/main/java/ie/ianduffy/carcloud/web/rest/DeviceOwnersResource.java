@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -38,35 +40,35 @@ public class DeviceOwnersResource {
     @RequestMapping(method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void create(@PathVariable("device_id") Long deviceId, @Valid @RequestBody String owner) {
-        deviceService.addOwner(deviceId, owner);
+    public void create(@PathVariable("device_id") Long deviceId, @Valid @RequestBody String username) {
+        deviceService.addOwner(deviceId, username);
     }
 
-    @RequestMapping(value = "/{index}",
+    @RequestMapping(value = "/{username}",
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void delete(@PathVariable("device_id") Long deviceId, @PathVariable("index") int index) {
-        deviceService.removeOwner(deviceId, index);
+    public void delete(@PathVariable("device_id") Long deviceId, @PathVariable("username") String username) {
+        deviceService.removeOwner(deviceId, username);
     }
 
-    @RequestMapping(value = "/{index}",
+    @RequestMapping(value = "/{username}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<?> get(@PathVariable("device_id") Long deviceId,
-                                 @PathVariable("index") int index) {
+                                 @PathVariable("username") String username) {
         return new ResponseEntity<>(
-            userDTOAssembler.toResource(deviceService.getOwner(deviceId, index)), HttpStatus.OK);
+            userDTOAssembler.toResource(deviceService.getOwner(deviceId, username)), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<?> getAll(@PathVariable("device_id") Long deviceId) {
-        List<UserDTO> owners = new ArrayList<>();
+        Map<String, UserDTO> owners = new HashMap<>();
         for (User user : deviceService.getOwners(deviceId)) {
-            owners.add(userDTOAssembler.toResource(user));
+            owners.put(user.getUsername(), userDTOAssembler.toResource(user));
         }
         return new ResponseEntity<>(owners, HttpStatus.OK);
     }

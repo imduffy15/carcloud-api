@@ -31,12 +31,11 @@ public class DeviceService extends AbstractService<Device, Long, DeviceDTO> {
     @Inject
     private UserService userService;
 
-    public Device addOwner(Long id, String owner) {
+    public Device addOwner(Long id, String username) {
+        User user = userService.findOne(username);
         Device device = findOneForCurrentUser(id);
         List<User> owners = device.getOwners();
-        owners.add(userService.findOne(owner));
-        device.setOwners(owners);
-
+        owners.add(user);
         deviceRepository.save(device);
         return device;
     }
@@ -70,9 +69,10 @@ public class DeviceService extends AbstractService<Device, Long, DeviceDTO> {
         return device;
     }
 
-    public User getOwner(Long id, int index) {
+    public User getOwner(Long id, String username) {
+        User user = userService.findOne(username);
         Device device = findOneForCurrentUser(id);
-        return device.getOwners().get(index);
+        return device.getOwners().get(device.getOwners().indexOf(user));
     }
 
     public List<User> getOwners(Long id) {
@@ -94,11 +94,11 @@ public class DeviceService extends AbstractService<Device, Long, DeviceDTO> {
         return tracks;
     }
 
-    public void removeOwner(Long id, int index) {
+    public void removeOwner(Long id, String username) {
+        User user = userService.findOne(username);
         Device device = findOneForCurrentUser(id);
         List<User> owners = device.getOwners();
-        owners.remove(index);
-        device.setOwners(owners);
+        owners.remove(owners.indexOf(user));
         deviceRepository.save(device);
     }
 
