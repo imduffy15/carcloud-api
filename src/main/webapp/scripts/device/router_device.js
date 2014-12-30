@@ -11,13 +11,12 @@ carcloudApp
                                       var deferred = $q.defer();
                                       var devices = {};
 
-                                      Device.query().$promise.then(function(resolvedDevices) {
-                                         angular.forEach(resolvedDevices, function(device) {
-                                             devices[device.id] = device;
-                                         });
-                                         deferred.resolve(devices);
+                                      Device.query().$promise.then(function (resolvedDevices) {
+                                          angular.forEach(resolvedDevices, function (device) {
+                                              devices[device.id] = device;
+                                          });
+                                          deferred.resolve(devices);
                                       });
-
 
                                       return deferred.promise;
                                   }
@@ -34,8 +33,8 @@ carcloudApp
 
                                       var deferred = $q.defer();
 
-                                      Device.get({id: $route.current.params.id}, function(device) {
-                                          device.resource("tracks").query().$promise.then(function(tracks) {
+                                      Device.get({id: $route.current.params.id}, function (device) {
+                                          device.resource("tracks").query().$promise.then(function (tracks) {
                                               device.tracks = tracks;
                                               deferred.resolve(device);
                                           });

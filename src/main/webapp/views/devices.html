@@ -23,7 +23,7 @@
                        class="btn btn-warning">
                         <span class="ion-edit"></span> Edit
                     </a>
-                    <a ng-click="openOwnersDeviceModal(device.id)" class="btn btn-info">
+                    <a data-template="views/devices-owners.html" bs-modal="modal" class="btn btn-info">
                         <span class="ion-android-share-alt"></span> Share
                     </a>
                     <a ng-click="delete(device.id)"

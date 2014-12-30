@@ -13,15 +13,17 @@
 
             <input type="text" ng-model="usernameSelected" placeholder="Add new owner"
                    typeahead="username for username in getUsers($viewValue)"
+                   typeahead-wait-ms="200"
                    class="form-control">
 
         <span class="input-group-btn">
-            <button class="btn btn-default" type="submit" type="button">Add</button>
+            <button class="btn btn-primary" type="submit" type="button">Add</button>
         </span>
 
         </div>
     </form>
 
+    <p></p>
 
     <div class="table-responsive">
         <table class="table table-striped">
@@ -35,7 +37,7 @@
             <tr ng-repeat="owner in device.owners">
                 <td>{{owner.username}}</td>
                 <td>
-                    <a href="javascript:alert('not implemented')"
+                    <a ng-click="removeOwner(owner.username)"
                        class="btn btn-danger">
                         <span class="ion-trash-b"></span> Delete
                     </a>
