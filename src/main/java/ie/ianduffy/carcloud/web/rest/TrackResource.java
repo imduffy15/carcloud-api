@@ -63,7 +63,7 @@ public class TrackResource {
         response = TrackDTO.class
     )
     @RequestMapping(
-        value = "/{device_id}",
+        value = "/{track_id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
