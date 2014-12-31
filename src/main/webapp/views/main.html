@@ -1,28 +1,22 @@
 <div>
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <h1>CarCloud!</h1>
+    <h1>CarCloud!</h1>
 
-            <p class="lead">Tracking, monitoring and more.</p>
+    <p class="lead">Tracking, monitoring and more.</p>
 
 
-            <div ng-cloak ng-switch="authenticated">
-                <div class="alert alert-success" ng-switch-when="true">
-                    Login Successful.
-                </div>
+    <div ng-cloak ng-switch="authenticated">
+        <div class="alert alert-success" ng-switch-when="true">
+            Login Successful.
+        </div>
 
-                <div class="alert alert-warning" ng-switch-when="false">
-                    If you want to <a href="#/login">authenticate</a>, you can try the default
-                    email="admin" and
-                    password="admin".
-                </div>
+        <div class="alert alert-warning" ng-switch-when="false">
+            If you want to <a href="#/login">authenticate</a>, you can try the default
+            email="admin" and
+            password="admin".
+        </div>
 
-                <div class="alert alert-warning" ng-switch-when="false">
-                    Don't have an account? <a href="#/register">Register</a>
-                </div>
-            </div>
+        <div class="alert alert-warning" ng-switch-when="false">
+            Don't have an account? <a href="#/register">Register</a>
         </div>
     </div>
-    <div class="col-md-1"></div>
 </div>
