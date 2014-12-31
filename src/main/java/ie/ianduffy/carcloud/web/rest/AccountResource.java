@@ -59,7 +59,8 @@ public class AccountResource {
     @Timed
     @ApiOperation(
         value = "Get account",
-        notes = "Gets the current account"
+        notes = "Gets the current account",
+        response = UserDTO.class
     )
     @RequestMapping(
         value = "/rest/account",
@@ -74,7 +75,8 @@ public class AccountResource {
     @Timed
     @ApiOperation(
         value = "Update account",
-        notes = "Updates the current account"
+        notes = "Updates the current account",
+        response = UserDTO.class
     )
     @RequestMapping(
         value = "/rest/account",

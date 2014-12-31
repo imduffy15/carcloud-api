@@ -43,7 +43,9 @@ public class DeviceTracksResource {
     @Timed
     @ApiOperation(
         value = "Get device tracks",
-        notes = "Gets all the tracks of the specified device"
+        notes = "Gets all the tracks of the specified device",
+        response = TrackDTO.class,
+        responseContainer = "List"
     )
     @RequestMapping(
         method = RequestMethod.GET,

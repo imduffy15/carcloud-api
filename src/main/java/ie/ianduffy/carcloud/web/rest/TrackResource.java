@@ -59,7 +59,8 @@ public class TrackResource {
     @Timed
     @ApiOperation(
         value = "Get track",
-        notes = "Gets the specified track"
+        notes = "Gets the specified track",
+        response = TrackDTO.class
     )
     @RequestMapping(
         value = "/{device_id}",
@@ -80,6 +81,8 @@ public class TrackResource {
     @ApiOperation(
         value = "Get all tracks",
         notes = "Gets all tracks",
+        response = TrackDTO.class,
+        responseContainer = "List",
         hidden = true
     )
     @RequestMapping(

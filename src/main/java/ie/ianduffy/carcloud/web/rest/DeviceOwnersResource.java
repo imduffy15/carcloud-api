@@ -77,6 +77,10 @@ public class DeviceOwnersResource {
     @ApiOperation(
         value = "Get device owners",
         notes = "Gets all owners of the specified device"
+//        Unsupported until swagger 1.5.0
+//        response = UserDTO.class,
+//        responseContainer = "Map",
+//        responseKey = String.class
     )
     @RequestMapping(
         method = RequestMethod.GET,

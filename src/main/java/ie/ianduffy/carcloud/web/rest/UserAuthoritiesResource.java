@@ -8,6 +8,7 @@ import com.wordnik.swagger.annotations.ApiParam;
 import ie.ianduffy.carcloud.domain.Authority;
 import ie.ianduffy.carcloud.service.UserService;
 
+import org.apache.http.auth.AUTH;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -54,7 +55,8 @@ public class UserAuthoritiesResource {
     @Timed
     @ApiOperation(
         value = "Get authority",
-        notes = "Get the specified authority by name for the specified user"
+        notes = "Get the specified authority by name for the specified user",
+        response = Authority.class
     )
     @RequestMapping(
         value = "/{authorityName}",
@@ -72,7 +74,9 @@ public class UserAuthoritiesResource {
     @Timed
     @ApiOperation(
         value = "Get all authorities",
-        notes = "Get all authorities for the specified user"
+        notes = "Get all authorities for the specified user",
+        response = String.class,
+        responseContainer = "List"
     )
     @RequestMapping(
         method = RequestMethod.GET,

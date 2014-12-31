@@ -9,6 +9,7 @@ import ie.ianduffy.carcloud.domain.Device;
 import ie.ianduffy.carcloud.service.DeviceService;
 import ie.ianduffy.carcloud.web.assembler.DeviceDTOAssembler;
 import ie.ianduffy.carcloud.web.dto.DeviceDTO;
+import ie.ianduffy.carcloud.web.dto.TrackDTO;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -45,7 +46,8 @@ public class DeviceResource {
     @Timed
     @ApiOperation(
         value = "Create device",
-        notes = "Creates a new device"
+        notes = "Creates a new device",
+        response = Device.class
     )
     @RequestMapping(
         method = RequestMethod.POST,
@@ -68,17 +70,17 @@ public class DeviceResource {
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> delete(
+    public void delete(
         @ApiParam(value = "device to delete") @PathVariable("device_id") Long deviceId
     ) {
         deviceService.delete(deviceId);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Timed
     @ApiOperation(
         value = "Get device",
-        notes = "Gets the specified device"
+        notes = "Gets the specified device",
+        response = Device.class
     )
     @RequestMapping(
         value = "/{device_id}",
@@ -95,7 +97,9 @@ public class DeviceResource {
     @Timed
     @ApiOperation(
         value = "Get devices",
-        notes = "Gets all devices"
+        notes = "Gets all devices",
+        response = Device.class,
+        responseContainer = "List"
     )
     @RequestMapping(
         method = RequestMethod.GET,
@@ -113,7 +117,8 @@ public class DeviceResource {
     @Timed
     @ApiOperation(
         value = "Update device",
-        notes = "Updates the specified device"
+        notes = "Updates the specified device",
+        response = Device.class
     )
     @RequestMapping(
         method = RequestMethod.PUT,
