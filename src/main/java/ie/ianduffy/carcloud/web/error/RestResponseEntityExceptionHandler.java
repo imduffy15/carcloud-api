@@ -1,6 +1,7 @@
 package ie.ianduffy.carcloud.web.error;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,6 +20,12 @@ public class RestResponseEntityExceptionHandler {
 
     @ExceptionHandler
     public void handleException(MethodArgumentNotValidException e, HttpServletResponse response)
+        throws IOException {
+        response.sendError(HttpStatus.BAD_REQUEST.value());
+    }
+
+    @ExceptionHandler
+    public void handleException(JpaSystemException e, HttpServletResponse response)
         throws IOException {
         response.sendError(HttpStatus.BAD_REQUEST.value());
     }

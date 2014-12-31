@@ -4,7 +4,6 @@ import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.repository.TrackRepository;
 import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.TrackDTO;
-import ie.ianduffy.carcloud.web.munic.dto.EventDTO;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;

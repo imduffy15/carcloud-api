@@ -56,30 +56,6 @@ public class AccountResourceTest extends AbstractResourceTest{
     }
 
     @Test
-    public void testAuthenticatedUser() throws Exception {
-        mockMvc.perform(get("/app/rest/authenticate")
-                                    .with(new RequestPostProcessor() {
-                                        public MockHttpServletRequest postProcessRequest(
-                                            MockHttpServletRequest request) {
-                                            request.setRemoteUser("test");
-                                            return request;
-                                        }
-                                    })
-                                    .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(content().string("test"));
-    }
-
-    @Test
-    public void testChangePassword() throws Exception {
-        mockMvc.perform(post("/app/rest/account/change_password")
-                                    .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                                    .content(TestUtil.convertObjectToJsonBytes("newPassword"))
-                                    .with(user(userService.findOne("user"))))
-            .andExpect(status().isOk());
-    }
-
-    @Test
     public void testGetExistingAccount() throws Exception {
         User user = userService.findOne("user");
 
@@ -98,15 +74,6 @@ public class AccountResourceTest extends AbstractResourceTest{
     }
 
     @Test
-    public void testNonAuthenticatedUser() throws Exception {
-        mockMvc.perform(get("/app/rest/authenticate")
-                                    .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(content().string(""));
-
-    }
-
-    @Test
     public void testRegisterAccount() throws Exception {
         UserDTO userDTO = new UserDTO();
 
@@ -117,12 +84,12 @@ public class AccountResourceTest extends AbstractResourceTest{
         userDTO.setPhone("+3530000000000");
         userDTO.setPassword("password");
 
-        mockMvc.perform(post("/app/rest/register")
+        mockMvc.perform(post("/app/rest/account")
                                     .contentType(TestUtil.APPLICATION_JSON_UTF8)
                                     .content(TestUtil.convertObjectToJsonBytes(userDTO)))
             .andExpect(status().isCreated());
 
-        mockMvc.perform(post("/app/rest/register")
+        mockMvc.perform(post("/app/rest/account")
                                     .contentType(TestUtil.APPLICATION_JSON_UTF8)
                                     .content(TestUtil.convertObjectToJsonBytes(userDTO)))
             .andExpect(status().isConflict());

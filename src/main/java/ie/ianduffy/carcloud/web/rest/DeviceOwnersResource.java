@@ -1,6 +1,9 @@
 package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.service.DeviceService;
@@ -16,17 +19,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
 
 /**
  * REST controller for managing a device's owners.
  */
+@Api(
+    value = "device owners",
+    description = "Device Owners API"
+)
 @RestController
 @RequestMapping("/app/rest/devices/{device_id}/owners")
 public class DeviceOwnersResource {
@@ -37,35 +41,50 @@ public class DeviceOwnersResource {
     @Inject
     private UserDTOAssembler userDTOAssembler;
 
-    @RequestMapping(method = RequestMethod.POST,
-        produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void create(@PathVariable("device_id") Long deviceId, @Valid @RequestBody String username) {
+    @ApiOperation(
+        value = "Add a device owner",
+        notes = "Adds a new owner to the specified device"
+    )
+    @RequestMapping(
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public void create(
+        @ApiParam(value = "device to add owner to", required = true) @PathVariable("device_id") Long deviceId,
+        @ApiParam(value = "user to add as an owner", required = true) @RequestBody String username
+    ) {
         deviceService.addOwner(deviceId, username);
     }
 
-    @RequestMapping(value = "/{username}",
-        method = RequestMethod.DELETE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void delete(@PathVariable("device_id") Long deviceId, @PathVariable("username") String username) {
+    @ApiOperation(
+        value = "Remove a device owner",
+        notes = "Removes a owner from the specified device"
+    )
+    @RequestMapping(
+        method = RequestMethod.DELETE,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public void delete(
+        @ApiParam(value = "device to delete owner from", required = true) @PathVariable("device_id") Long deviceId,
+        @ApiParam(value = "user to remove as an owner", required = true) @PathVariable("username") String username
+    ) {
         deviceService.removeOwner(deviceId, username);
     }
 
-    @RequestMapping(value = "/{username}",
+    @Timed
+    @ApiOperation(
+        value = "Get device owners",
+        notes = "Gets all owners of the specified device"
+    )
+    @RequestMapping(
         method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public ResponseEntity<?> get(@PathVariable("device_id") Long deviceId,
-                                 @PathVariable("username") String username) {
-        return new ResponseEntity<>(
-            userDTOAssembler.toResource(deviceService.getOwner(deviceId, username)), HttpStatus.OK);
-    }
-
-    @RequestMapping(method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public ResponseEntity<?> getAll(@PathVariable("device_id") Long deviceId) {
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<?> getAll(
+        @ApiParam(value = "device to get owners for", required = true) @PathVariable("device_id") Long deviceId
+    ) {
         Map<String, UserDTO> owners = new HashMap<>();
         for (User user : deviceService.getOwners(deviceId)) {
             owners.put(user.getUsername(), userDTOAssembler.toResource(user));

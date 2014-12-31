@@ -1,6 +1,9 @@
 package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 
 import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.service.DeviceService;
@@ -23,6 +26,10 @@ import javax.inject.Inject;
 /**
  * REST controller for managing Device.
  */
+@Api(
+    value = "device tracks",
+    description = "Device Tracks API"
+)
 @RestController
 @RequestMapping("/app/rest/devices/{device_id}/tracks")
 public class DeviceTracksResource {
@@ -33,19 +40,18 @@ public class DeviceTracksResource {
     @Inject
     private TrackDTOAssembler trackDTOAssembler;
 
-    @RequestMapping(value = "/{index}",
+    @Timed
+    @ApiOperation(
+        value = "Get device tracks",
+        notes = "Gets all the tracks of the specified device"
+    )
+    @RequestMapping(
         method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public ResponseEntity<?> get(@PathVariable("device_id") Long deviceId,
-                                 @PathVariable("index") int index) {
-        return new ResponseEntity<>(deviceService.getTrack(deviceId, index), HttpStatus.OK);
-    }
-
-    @RequestMapping(method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public ResponseEntity<?> getAll(@PathVariable("device_id") Long deviceId) {
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<?> getAll(
+        @ApiParam(value = "device to get tracks for", required = true) @PathVariable("device_id") Long deviceId
+    ) {
         List<TrackDTO> tracks = new ArrayList<>();
         for (Track track : deviceService.getTracks(deviceId)) {
             tracks.add(trackDTOAssembler.toResource(track));

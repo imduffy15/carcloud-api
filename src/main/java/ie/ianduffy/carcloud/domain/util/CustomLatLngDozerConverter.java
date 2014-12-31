@@ -3,9 +3,6 @@ package ie.ianduffy.carcloud.domain.util;
 import com.javadocmd.simplelatlng.LatLng;
 
 import org.dozer.DozerConverter;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
 
 import java.util.Arrays;
 import java.util.List;

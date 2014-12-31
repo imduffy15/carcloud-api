@@ -2,7 +2,7 @@ package ie.ianduffy.carcloud.web.assembler;
 
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.web.dto.UserDTO;
-import ie.ianduffy.carcloud.web.rest.UserAuthorityResource;
+import ie.ianduffy.carcloud.web.rest.UserAuthoritiesResource;
 import ie.ianduffy.carcloud.web.rest.UserResource;
 
 import org.dozer.Mapper;
@@ -23,7 +23,7 @@ public class UserDTOAssembler {
 
         resource.add(linkTo(UserResource.class).slash(user.getUsername()).withSelfRel());
         resource
-            .add(linkTo(UserAuthorityResource.class, user.getUsername()).withRel("authorities"));
+            .add(linkTo(UserAuthoritiesResource.class, user.getUsername()).withRel("authorities"));
 
         mapper.map(user, resource);
         return resource;

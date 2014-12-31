@@ -11,9 +11,11 @@ import javax.validation.constraints.Size;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @ApiModel
+@ToString(exclude = {"password"})
 @EqualsAndHashCode(callSuper = false)
 public class UserDTO extends AbstractAuditingEntityDTO<String> {
 
@@ -39,7 +41,7 @@ public class UserDTO extends AbstractAuditingEntityDTO<String> {
     private String phone;
 
     @ApiModelProperty
-    @Size(min = 0, max = 50)
+    @Size(min = 1, max = 50)
     private String username;
 
     @Override

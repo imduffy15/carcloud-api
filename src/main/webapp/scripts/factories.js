@@ -1,9 +1,5 @@
 'use strict';
 
-carcloudApp.factory('Register', function ($resource) {
-    return $resource('app/rest/register', {}, {});
-});
-
 carcloudApp.factory('Account', function ($resource) {
     return $resource('app/rest/account', {}, {
         'update': {method: 'PUT'}
@@ -14,10 +10,6 @@ carcloudApp.factory('User', function ($resource) {
     return $resource('app/rest/users', {}, {
         'get': {method: 'GET', isArray: true}
     });
-});
-
-carcloudApp.factory('Password', function ($resource) {
-    return $resource('app/rest/account/change_password', {}, {});
 });
 
 carcloudApp.factory('MetricsService', function ($resource) {

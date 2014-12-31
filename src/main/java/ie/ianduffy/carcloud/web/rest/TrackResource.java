@@ -1,6 +1,9 @@
 package ie.ianduffy.carcloud.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 
 import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.service.TrackService;
@@ -23,6 +26,10 @@ import javax.inject.Inject;
 /**
  * REST controller for managing tracks.
  */
+@Api(
+    value = "track",
+    description = "Track API"
+)
 @RestController
 @RequestMapping("/app/rest/tracks")
 public class TrackResource {
@@ -33,19 +40,35 @@ public class TrackResource {
     @Inject
     private TrackService trackService;
 
-    @RequestMapping(value = "/{track_id}",
-        method = RequestMethod.DELETE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public void delete(@PathVariable("track_id") Long trackId) {
+    @ApiOperation(
+        value = "Delete track",
+        notes = "Deletes the specified track"
+    )
+    @RequestMapping(
+        value = "/{track_id}",
+        method = RequestMethod.DELETE,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public void delete(
+        @ApiParam(value = "track to be deleted", required = true) @PathVariable("track_id") Long trackId
+    ) {
         trackService.delete(trackId);
     }
 
-    @RequestMapping(value = "/{device_id}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<?> get(@PathVariable("track_id") Long trackId) {
+    @ApiOperation(
+        value = "Get track",
+        notes = "Gets the specified track"
+    )
+    @RequestMapping(
+        value = "/{device_id}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<?> get(
+        @ApiParam(value = "track to get", required = true) @PathVariable("track_id") Long trackId
+    ) {
         Track track = trackService.findOneForCurrentUser(trackId);
         if (track == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -53,9 +76,16 @@ public class TrackResource {
         return new ResponseEntity<>(trackDTOAssembler.toResource(track), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @ApiOperation(
+        value = "Get all tracks",
+        notes = "Gets all tracks",
+        hidden = true
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<?> getAll() {
         List<Track> tracks = trackService.findAllForCurrentUser();
         List<TrackDTO> trackDTOs = new LinkedList<>();

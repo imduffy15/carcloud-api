@@ -2,8 +2,6 @@ package ie.ianduffy.carcloud.domain.util;
 
 import org.dozer.DozerConverter;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
 
 public class CustomJodaDateDozerConverter extends DozerConverter<String, DateTime> {
 

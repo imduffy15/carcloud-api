@@ -10,6 +10,7 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -115,13 +116,9 @@ public class OAuth2ServerConfiguration {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/views/**").permitAll()
-                .antMatchers("/app/rest/authenticate").permitAll()
-                .antMatchers("/app/rest/register").permitAll()
+                .antMatchers(HttpMethod.POST, "/app/rest/account").permitAll()
                 .antMatchers("/app/munic").permitAll()
-                .antMatchers("/app/rest/logs/**").hasAnyAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/app/**").authenticated()
-                .antMatchers("/websocket/tracker").hasAuthority(AuthoritiesConstants.ADMIN)
-                .antMatchers("/websocket/**").permitAll()
                 .antMatchers("/metrics/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/health/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)

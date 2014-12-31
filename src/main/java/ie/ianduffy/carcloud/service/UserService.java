@@ -14,11 +14,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.EntityNotFoundException;
 
 /**
  * Service class for managing users.
@@ -43,12 +43,6 @@ public class UserService extends AbstractService<User, String, UserDTO> {
         userRepository.save(user);
     }
 
-    public void changePassword(String password) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setPassword(passwordEncoder.encode(password));
-        update(userDTO);
-    }
-
     public User create(UserDTO userDTO) {
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
@@ -60,7 +54,11 @@ public class UserService extends AbstractService<User, String, UserDTO> {
 
     @Transactional(readOnly = true)
     public List<User> findLike(String username) {
-        return userRepository.findTop10ByUsernameLike("%" + username + "%");
+        List<User> users = userRepository.findTop10ByUsernameLike("%" + username + "%");
+        if (users == null) {
+            throw new EntityNotFoundException();
+        }
+        return users;
     }
 
     @Transactional(readOnly = true)
@@ -68,7 +66,23 @@ public class UserService extends AbstractService<User, String, UserDTO> {
         User user = findOne(login);
         List<Authority> authorities = user.getAuthorities();
         Hibernate.initialize(authorities);
+        if (authorities == null) {
+            throw new EntityNotFoundException();
+        }
         return authorities;
+    }
+
+    @Transactional(readOnly = true)
+    public Authority getAuthority(String login, String authorityName) {
+        List<Authority> authorities = getAuthorities(login);
+
+        for (Authority authority : authorities) {
+            if (authority.getName().equals(authorityName)) {
+                return authority;
+            }
+        }
+
+        throw new EntityNotFoundException();
     }
 
     @Override
@@ -76,13 +90,16 @@ public class UserService extends AbstractService<User, String, UserDTO> {
         return userRepository;
     }
 
-    public void removeAuthority(String login, int index) {
+    public void removeAuthority(String login, String authorityName) {
         User user = findOne(login);
-        user.getAuthorities().remove(index);
+        user.getAuthorities().remove(getAuthority(login, authorityName));
         userRepository.save(user);
     }
 
-    public void update(UserDTO userDTO) {
-        super.update(userDTO, findOne(SecurityUtils.getCurrentLogin()));
+    public User update(UserDTO userDTO) {
+        if (userDTO.getPassword() != null) {
+            userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        }
+        return super.update(userDTO, findOne(SecurityUtils.getCurrentLogin()));
     }
 }

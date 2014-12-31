@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 @EnableSwagger
 public class SwaggerConfiguration implements EnvironmentAware {
 
-    private static final String DEFAULT_INCLUDE_PATTERN = "/app/rest/.*";
+    private static final String DEFAULT_INCLUDE_PATTERN = "/app/.*";
 
     private RelaxedPropertyResolver propertyResolver;
 

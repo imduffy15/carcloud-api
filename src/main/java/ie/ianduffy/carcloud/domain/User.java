@@ -36,7 +36,7 @@ import lombok.ToString;
 @Data
 @Entity
 @Table(name = "T_USER")
-@ToString(exclude = {"authorities"})
+@ToString(exclude = {"authorities", "password"})
 @EqualsAndHashCode(exclude = {"authorities"}, callSuper = false)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractAuditingEntity<String> implements Serializable, UserDetails {
