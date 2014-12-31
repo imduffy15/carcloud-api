@@ -24,20 +24,11 @@ public class LoggingAspect {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Inject
-    private Environment env;
-
     @AfterThrowing(pointcut = "loggingPoincut()", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
-        if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
-            log.error("Exception in {}.{}() with cause = {}",
-                      joinPoint.getSignature().getDeclaringTypeName(),
-                      joinPoint.getSignature().getName(), e.getCause(), e);
-        } else {
-            log.error("Exception in {}.{}() with cause = {}",
-                      joinPoint.getSignature().getDeclaringTypeName(),
-                      joinPoint.getSignature().getName(), e.getCause());
-        }
+        log.error("Exception in {}.{}() with cause = {}",
+                  joinPoint.getSignature().getDeclaringTypeName(),
+                  joinPoint.getSignature().getName(), e.getCause(), e);
     }
 
     @Around("loggingPoincut()")

@@ -1,4 +1,4 @@
-package ie.ianduffy.carcloud.web.error;
+package ie.ianduffy.carcloud.web.advice;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.orm.jpa.JpaSystemException;
