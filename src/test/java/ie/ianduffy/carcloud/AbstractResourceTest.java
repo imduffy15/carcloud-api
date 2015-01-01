@@ -55,7 +55,6 @@ public abstract class AbstractResourceTest {
         ReflectionTestUtils.setField(deviceService, "deviceRepository", deviceRepository);
         ReflectionTestUtils.setField(deviceService, "userService", userService);
 
-        ReflectionTestUtils.setField(trackService, "deviceService", deviceService);
         ReflectionTestUtils.setField(trackService, "trackRepository", trackRepository);
 
         final ExceptionHandlerExceptionResolver exceptionHandlerExceptionResolver = new ExceptionHandlerExceptionResolver();
