@@ -54,7 +54,9 @@ public class MunicResource {
             if (eventDTO.getMeta().getEvent().equals("track")) {
                 TrackDTO trackDTO = new TrackDTO();
                 mapper.map(eventDTO.getPayload(), trackDTO);
-                trackService.create(trackDTO);
+                if(null != trackDTO.getLocation()) {
+                    trackService.create(trackDTO);
+                }
             }
         }
 

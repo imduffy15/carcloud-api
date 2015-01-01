@@ -41,7 +41,7 @@
     <nexmo.version>1.5.0</nexmo.version>
     <!-- Spring-Boot settings -->
     <run.addResources>false</run.addResources>
-    <simple-lat-long.version>RELEASE</simple-lat-long.version>
+    <simple-lat-long.version>1.3.0</simple-lat-long.version>
     <sonar-maven-plugin.version>2.2</sonar-maven-plugin.version>
     <spring-data-releasetrain.version>Evans-RELEASE</spring-data-releasetrain.version>
     <spring-security-oauth2.version>2.0.3.RELEASE</spring-security-oauth2.version>

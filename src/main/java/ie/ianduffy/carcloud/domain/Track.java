@@ -63,10 +63,8 @@ public class Track extends AbstractAuditingEntity<Long> implements Serializable 
 
     public Track(Device device, LatLng location, DateTime receivedAt, DateTime recordedAt) {
         this.device = device;
-        if(location != null) {
-            this.longitude = location.getLongitude();
-            this.latitude = location.getLatitude();
-        }
+        this.longitude = location.getLongitude();
+        this.latitude = location.getLatitude();
         this.receivedAt = receivedAt;
         this.recordedAt = recordedAt;
     }
