@@ -10,7 +10,7 @@
     "angular-resource": "1.2.22",
     "angular-cookies": "1.2.22",
     "angular-sanitize": "1.2.22",
-    "swagger-ui": "2.0.24",
+    "swagger-ui": "2.0.18",
     "ionicons": "~2.0.0",
     "angular-hateoas": "https://github.com/imduffy15/angular-hateoas.git#master",
     "angular-http-auth": "~1.2.2",
