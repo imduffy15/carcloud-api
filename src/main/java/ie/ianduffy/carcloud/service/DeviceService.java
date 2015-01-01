@@ -6,6 +6,7 @@ import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.repository.DeviceRepository;
 import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.DeviceDTO;
+import ie.ianduffy.carcloud.web.munic.dto.TrackDTO;
 
 import org.hibernate.Hibernate;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -30,6 +31,17 @@ public class DeviceService extends AbstractService<Device, Long, DeviceDTO> {
 
     @Inject
     private UserService userService;
+
+    public void addTrack(TrackDTO trackDTO) {
+        Device device = findOne(trackDTO.getDeviceId());
+        device.getTracks().add(new Track(
+           device,
+           trackDTO.getLocation(),
+           trackDTO.getReceivedAt(),
+           trackDTO.getRecordedAt()
+        ));
+        deviceRepository.save(device);
+    }
 
     public Device addOwner(Long id, String username) {
         User user = userService.findOne(username);

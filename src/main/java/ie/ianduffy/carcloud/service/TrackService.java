@@ -22,20 +22,7 @@ import javax.persistence.EntityNotFoundException;
 public class TrackService extends AbstractService<Track, Long, TrackDTO> {
 
     @Inject
-    DeviceService deviceService;
-
-    @Inject
     private TrackRepository trackRepository;
-
-    public void create(ie.ianduffy.carcloud.web.munic.dto.TrackDTO trackDTO) {
-        Track track = new Track(
-            deviceService.findOne(trackDTO.getDeviceId()),
-            trackDTO.getLocation(),
-            trackDTO.getReceivedAt(),
-            trackDTO.getRecordedAt()
-        );
-        trackRepository.save(track);
-    }
 
     @Transactional(readOnly = true)
     public List<Track> findAllForCurrentUser() {

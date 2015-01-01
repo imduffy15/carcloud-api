@@ -5,6 +5,7 @@ import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 
+import ie.ianduffy.carcloud.service.DeviceService;
 import ie.ianduffy.carcloud.service.TrackService;
 import ie.ianduffy.carcloud.web.munic.dto.EventDTO;
 import ie.ianduffy.carcloud.web.munic.dto.TrackDTO;
@@ -36,7 +37,7 @@ public class MunicResource {
     private Mapper mapper;
 
     @Inject
-    private TrackService trackService;
+    private DeviceService deviceService;
 
     @Timed
     @ApiOperation(
@@ -54,7 +55,7 @@ public class MunicResource {
             if (eventDTO.getMeta().getEvent().equals("track")) {
                 TrackDTO trackDTO = new TrackDTO();
                 mapper.map(eventDTO.getPayload(), trackDTO);
-                trackService.create(trackDTO);
+                deviceService.addTrack(trackDTO);
             }
         }
 
