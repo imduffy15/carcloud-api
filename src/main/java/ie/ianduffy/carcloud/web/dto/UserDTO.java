@@ -49,4 +49,10 @@ public class UserDTO extends AbstractAuditingEntityDTO<String> {
     public String getId() {
         return username;
     }
+
+    @Override
+    @JsonIgnore
+    public void setId(String id) {
+        this.username = id;
+    }
 }
