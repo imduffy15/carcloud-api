@@ -22,7 +22,7 @@
     <commons-io.version>2.4</commons-io.version>
     <commons-lang.version>2.6</commons-lang.version>
     <cors-filter.version>2.1.2</cors-filter.version>
-    <dozer.version>5.4.0</dozer.version>
+    <dozer.version>5.5.1</dozer.version>
     <geronimo-javamail_1.4_mail.version>1.8.4</geronimo-javamail_1.4_mail.version>
     <hibernate-entitymanager.version>4.3.7.Final</hibernate-entitymanager.version>
     <hibernate.version>4.3.7.Final</hibernate.version>
