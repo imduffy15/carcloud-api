@@ -7,7 +7,7 @@ public class DecoderUtil {
     private DecoderUtil() {
     }
 
-    public String decodeToString(String encrypted) {
+    public static String decodeToString(String encrypted) {
         byte[] decrypted = Base64.decodeBase64(encrypted);
         StringBuilder result = new StringBuilder();
         for(int i=0; i < decrypted.length; i++) {
@@ -16,7 +16,7 @@ public class DecoderUtil {
         return result.toString();
     }
 
-    public int decodeToInt(String encrypted) {
+    public static int decodeToInt(String encrypted) {
         byte[] decrypted = Base64.decodeBase64(encrypted);
         int result = 0;
         for(int i=0; i < decrypted.length; i++) {
@@ -26,7 +26,7 @@ public class DecoderUtil {
         return result;
     }
 
-    public boolean decodeToBoolean(String encrypted) {
+    public static boolean decodeToBoolean(String encrypted) {
         byte[] decrypted = Base64.decodeBase64(encrypted);
         return decrypted[0] == 1 ? true : false;
     }
