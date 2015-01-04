@@ -35,11 +35,15 @@ import javax.inject.Inject;
 @RequestMapping("/app/rest/users")
 public class UserResource {
 
-    @Inject
     private UserDTOAssembler userDTOAssembler;
 
-    @Inject
     private UserService userService;
+
+    @Inject
+    public UserResource(UserDTOAssembler userDTOAssembler, UserService userService) {
+        this.userDTOAssembler = userDTOAssembler;
+        this.userService = userService;
+    }
 
     @Timed
     @ApiOperation(

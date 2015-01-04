@@ -37,11 +37,15 @@ import javax.validation.Valid;
 @RequestMapping("/app/rest/devices")
 public class DeviceResource {
 
-    @Inject
     private DeviceDTOAssembler deviceDTOAssembler;
 
-    @Inject
     private DeviceService deviceService;
+
+    @Inject
+    public DeviceResource(DeviceDTOAssembler deviceDTOAssembler, DeviceService deviceService) {
+        this.deviceDTOAssembler = deviceDTOAssembler;
+        this.deviceService = deviceService;
+    }
 
     @Timed
     @ApiOperation(

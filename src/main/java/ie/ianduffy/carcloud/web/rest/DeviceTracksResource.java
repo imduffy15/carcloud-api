@@ -34,11 +34,15 @@ import javax.inject.Inject;
 @RequestMapping("/app/rest/devices/{device_id}/tracks")
 public class DeviceTracksResource {
 
-    @Inject
     private DeviceService deviceService;
 
-    @Inject
     private TrackDTOAssembler trackDTOAssembler;
+
+    @Inject
+    public DeviceTracksResource(DeviceService deviceService, TrackDTOAssembler trackDTOAssembler) {
+        this.deviceService = deviceService;
+        this.trackDTOAssembler = trackDTOAssembler;
+    }
 
     @Timed
     @ApiOperation(

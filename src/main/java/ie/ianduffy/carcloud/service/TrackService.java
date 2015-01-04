@@ -1,6 +1,7 @@
 package ie.ianduffy.carcloud.service;
 
 import ie.ianduffy.carcloud.domain.Track;
+import ie.ianduffy.carcloud.repository.RestrictedRepository;
 import ie.ianduffy.carcloud.repository.TrackRepository;
 import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.TrackDTO;
@@ -19,27 +20,13 @@ import javax.persistence.EntityNotFoundException;
  */
 @Service
 @Transactional
-public class TrackService extends AbstractService<Track, Long, TrackDTO> {
+public class TrackService extends AbstractRestrictedService<Track, Long, TrackDTO> {
 
     @Inject
     private TrackRepository trackRepository;
 
-    @Transactional(readOnly = true)
-    public List<Track> findAllForCurrentUser() {
-        return trackRepository.findAllForUser(SecurityUtils.getCurrentLogin());
-    }
-
-    @Transactional(readOnly = true)
-    public Track findOneForCurrentUser(Long id) {
-        Track track = trackRepository.findOneForUser(SecurityUtils.getCurrentLogin(), id);
-        if (track == null) {
-            throw new EntityNotFoundException();
-        }
-        return track;
-    }
-
     @Override
-    protected JpaRepository<Track, Long> getRepository() {
+    protected RestrictedRepository<Track, Long> getRepository() {
         return trackRepository;
     }
 }

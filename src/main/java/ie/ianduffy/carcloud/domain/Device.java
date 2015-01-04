@@ -17,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -32,6 +34,10 @@ import lombok.ToString;
  */
 @Data
 @Entity
+@NamedQueries({
+    @NamedQuery(name="Device.findAllForUser", query="select d from Device d where ?1 MEMBER OF d.owners"),
+    @NamedQuery(name="Device.findOneForUser", query="select d from Device d where ?1 MEMBER OF d.owners and d.id = ?2")
+})
 @Table(name = "T_DEVICE")
 @ToString(exclude = {"owners", "tracks"})
 @EqualsAndHashCode(exclude = {"owners", "tracks"}, callSuper = false)

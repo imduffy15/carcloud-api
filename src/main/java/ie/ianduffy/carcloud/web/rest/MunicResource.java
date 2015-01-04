@@ -33,11 +33,15 @@ import javax.inject.Inject;
 @RequestMapping("/app/munic")
 public class MunicResource {
 
-    @Inject
     private Mapper mapper;
 
-    @Inject
     private DeviceService deviceService;
+
+    @Inject
+    public MunicResource(Mapper mapper, DeviceService deviceService) {
+        this.mapper = mapper;
+        this.deviceService = deviceService;
+    }
 
     @Timed
     @ApiOperation(

@@ -5,6 +5,7 @@ import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 
+import ie.ianduffy.carcloud.domain.Device;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.service.DeviceService;
 import ie.ianduffy.carcloud.web.assembler.UserDTOAssembler;
@@ -35,11 +36,15 @@ import javax.inject.Inject;
 @RequestMapping("/app/rest/devices/{device_id}/owners")
 public class DeviceOwnersResource {
 
-    @Inject
     private DeviceService deviceService;
 
-    @Inject
     private UserDTOAssembler userDTOAssembler;
+
+    @Inject
+    public DeviceOwnersResource(DeviceService deviceService, UserDTOAssembler userDTOAssembler) {
+        this.deviceService = deviceService;
+        this.userDTOAssembler = userDTOAssembler;
+    }
 
     @Timed
     @ApiOperation(

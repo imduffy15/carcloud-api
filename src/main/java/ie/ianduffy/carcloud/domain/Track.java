@@ -20,6 +20,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -31,6 +33,10 @@ import lombok.ToString;
  */
 @Data
 @Entity
+@NamedQueries({
+    @NamedQuery(name="Track.findAllForUser", query="select t from Track t where ?1 MEMBER OF t.device.owners"),
+    @NamedQuery(name="Track.findOneForUser", query="select t from Track t where t.id = ?2 and ?1 MEMBER OF t.device.owners")
+})
 @Table(name = "T_TRACK")
 @ToString(exclude = {"device"})
 @EqualsAndHashCode(exclude = {"device"}, callSuper = false)

@@ -4,6 +4,7 @@ import ie.ianduffy.carcloud.domain.Device;
 import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.repository.DeviceRepository;
+import ie.ianduffy.carcloud.repository.RestrictedRepository;
 import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.DeviceDTO;
 import ie.ianduffy.carcloud.web.munic.dto.TrackDTO;
@@ -24,7 +25,7 @@ import javax.persistence.EntityNotFoundException;
  */
 @Service
 @Transactional
-public class DeviceService extends AbstractService<Device, Long, DeviceDTO> {
+public class DeviceService extends AbstractRestrictedService<Device, Long, DeviceDTO> {
 
     @Inject
     private DeviceRepository deviceRepository;
@@ -65,22 +66,8 @@ public class DeviceService extends AbstractService<Device, Long, DeviceDTO> {
     }
 
     @Override
-    protected JpaRepository<Device, Long> getRepository() {
+    protected RestrictedRepository<Device, Long> getRepository() {
         return deviceRepository;
-    }
-
-    @Transactional(readOnly = true)
-    public List<Device> findAllForCurrentUser() {
-        return deviceRepository.findAllForUser(SecurityUtils.getCurrentLogin());
-    }
-
-    @Transactional(readOnly = true)
-    public Device findOneForCurrentUser(Long id) {
-        Device device = deviceRepository.findOneForUser(SecurityUtils.getCurrentLogin(), id);
-        if (device == null) {
-            throw new EntityNotFoundException();
-        }
-        return device;
     }
 
     @Transactional(readOnly = true)

@@ -34,11 +34,15 @@ import javax.inject.Inject;
 @RequestMapping("/app/rest/tracks")
 public class TrackResource {
 
-    @Inject
     private TrackDTOAssembler trackDTOAssembler;
 
-    @Inject
     private TrackService trackService;
+
+    @Inject
+    public TrackResource(TrackDTOAssembler trackDTOAssembler, TrackService trackService) {
+        this.trackDTOAssembler = trackDTOAssembler;
+        this.trackService = trackService;
+    }
 
     @Timed
     @ApiOperation(

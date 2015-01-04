@@ -33,11 +33,15 @@ import javax.validation.Valid;
 @RequestMapping("/app")
 public class AccountResource {
 
-    @Inject
     private UserDTOAssembler userDTOAssembler;
 
-    @Inject
     private UserService userService;
+
+    @Inject
+    public AccountResource(UserDTOAssembler userDTOAssembler, UserService userService) {
+        this.userDTOAssembler = userDTOAssembler;
+        this.userService = userService;
+    }
 
     @Timed
     @ApiOperation(

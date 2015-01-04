@@ -33,8 +33,12 @@ import javax.inject.Inject;
 @RequestMapping("/app/rest/users/{username}/authorities")
 public class UserAuthoritiesResource {
 
-    @Inject
     private UserService userService;
+
+    @Inject
+    public UserAuthoritiesResource(UserService userService) {
+        this.userService = userService;
+    }
 
     @Timed
     @ApiOperation(

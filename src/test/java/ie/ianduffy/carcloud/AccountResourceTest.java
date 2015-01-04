@@ -43,15 +43,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("dev")
 public class AccountResourceTest extends AbstractResourceTest{
 
-    @Inject
-    private UserDTOAssembler userDTOAssembler;
-
     @Before
     public void setup() {
-        AccountResource accountResource = new AccountResource();
-        ReflectionTestUtils.setField(accountResource, "userDTOAssembler", userDTOAssembler);
-        ReflectionTestUtils.setField(accountResource, "userService", userService);
-
+        AccountResource accountResource = new AccountResource(userDTOAssembler, userService);
         super.setup(accountResource);
     }
 

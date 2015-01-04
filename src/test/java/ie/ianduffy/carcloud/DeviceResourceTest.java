@@ -40,14 +40,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("dev")
 public class DeviceResourceTest extends AbstractResourceTest{
 
-    @Inject
-    private DeviceDTOAssembler deviceDTOAssembler;
-
     @Before
     public void setup() {
-        DeviceResource deviceResource = new DeviceResource();
-        ReflectionTestUtils.setField(deviceResource, "deviceDTOAssembler", deviceDTOAssembler);
-        ReflectionTestUtils.setField(deviceResource, "deviceService", deviceService);
+        DeviceResource deviceResource = new DeviceResource(deviceDTOAssembler, deviceService);
         super.setup(deviceResource);
     }
 
