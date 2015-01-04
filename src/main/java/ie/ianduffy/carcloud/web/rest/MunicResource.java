@@ -11,12 +11,15 @@ import ie.ianduffy.carcloud.web.munic.dto.EventDTO;
 import ie.ianduffy.carcloud.web.munic.dto.TrackDTO;
 
 import org.dozer.Mapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -52,16 +55,18 @@ public class MunicResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public void create(
+    public ResponseEntity<?> create(
         @ApiParam(value = "a munic.io event", required = true) @RequestBody List<EventDTO> eventDTOs
     ) {
+        List<TrackDTO> processedEvents = new ArrayList<>();
         for (EventDTO eventDTO : eventDTOs) {
             if (eventDTO.getMeta().getEvent().equals("track")) {
                 TrackDTO trackDTO = new TrackDTO();
                 mapper.map(eventDTO.getPayload(), trackDTO);
                 deviceService.addTrack(trackDTO);
+                processedEvents.add(trackDTO);
             }
         }
-
+        return new ResponseEntity<>(processedEvents, HttpStatus.OK);
     }
 }

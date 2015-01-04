@@ -55,6 +55,10 @@
             <a key="recorded_at_ms">this</a>
             <b>recordedAt</b>
         </field>
+        <field custom-converter="ie.ianduffy.carcloud.web.munic.util.CustomMunicFieldDozerConverter">
+            <a key="fields">this</a>
+            <b>fields</b>
+        </field>
     </mapping>
 
 
