@@ -121,6 +121,12 @@
             <artifactId>commons-lang</artifactId>
             <version>${commons-lang.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>cz.jirutka.spring</groupId>
+            <artifactId>spring-rest-exception-handler</artifactId>
+            <version>1.0.1</version>
+        </dependency>
         <dependency>
             <groupId>io.dropwizard.metrics</groupId>
             <artifactId>metrics-annotation</artifactId>
@@ -289,12 +295,6 @@
             <groupId>org.springframework.security.oauth</groupId>
             <artifactId>spring-security-oauth2</artifactId>
             <version>${spring-security-oauth2.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>cz.jirutka.spring</groupId>
-            <artifactId>spring-rest-exception-handler</artifactId>
-            <version>1.0.1</version>
         </dependency>
 
     </dependencies>
