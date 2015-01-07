@@ -6,7 +6,6 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 
 import ie.ianduffy.carcloud.service.DeviceService;
-import ie.ianduffy.carcloud.service.TrackService;
 import ie.ianduffy.carcloud.web.munic.dto.EventDTO;
 import ie.ianduffy.carcloud.web.munic.dto.TrackDTO;
 
@@ -36,9 +35,9 @@ import javax.inject.Inject;
 @RequestMapping("/app/munic")
 public class MunicResource {
 
-    private Mapper mapper;
-
     private DeviceService deviceService;
+
+    private Mapper mapper;
 
     @Inject
     public MunicResource(Mapper mapper, DeviceService deviceService) {

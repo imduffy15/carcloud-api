@@ -10,7 +10,6 @@ import ie.ianduffy.carcloud.web.dto.DeviceDTO;
 import ie.ianduffy.carcloud.web.munic.dto.TrackDTO;
 
 import org.hibernate.Hibernate;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +17,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.persistence.EntityNotFoundException;
 
 /**
  * Service class for managing devices.
@@ -33,17 +31,6 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
     @Inject
     private UserService userService;
 
-    public void addTrack(TrackDTO trackDTO) {
-        Device device = findOne(trackDTO.getDeviceId());
-        device.getTracks().add(new Track(
-           device,
-           trackDTO.getLocation(),
-           trackDTO.getReceivedAt(),
-           trackDTO.getRecordedAt()
-        ));
-        deviceRepository.save(device);
-    }
-
     public Device addOwner(Long id, String username) {
         User user = userService.findOne(username);
         Device device = findOneForCurrentUser(id);
@@ -51,6 +38,17 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
         owners.add(user);
         deviceRepository.save(device);
         return device;
+    }
+
+    public void addTrack(TrackDTO trackDTO) {
+        Device device = findOne(trackDTO.getDeviceId());
+        device.getTracks().add(new Track(
+            device,
+            trackDTO.getLocation(),
+            trackDTO.getReceivedAt(),
+            trackDTO.getRecordedAt()
+        ));
+        deviceRepository.save(device);
     }
 
     public Device create(DeviceDTO deviceDTO) {
@@ -63,11 +61,6 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
     public void delete(Long id) {
         findOneForCurrentUser(id);
         super.delete(id);
-    }
-
-    @Override
-    protected RestrictedRepository<Device, Long> getRepository() {
-        return deviceRepository;
     }
 
     @Transactional(readOnly = true)
@@ -83,6 +76,11 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
         List<User> owners = device.getOwners();
         Hibernate.initialize(owners);
         return owners;
+    }
+
+    @Override
+    protected RestrictedRepository<Device, Long> getRepository() {
+        return deviceRepository;
     }
 
     @Transactional(readOnly = true)

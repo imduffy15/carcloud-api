@@ -5,7 +5,6 @@ import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 
-import ie.ianduffy.carcloud.domain.Device;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.service.DeviceService;
 import ie.ianduffy.carcloud.web.assembler.UserDTOAssembler;

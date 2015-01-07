@@ -21,11 +21,12 @@ public class CustomMunicFieldDozerConverter extends DozerConverter<Object, List>
     public List convertTo(Object o, List list) {
         List<FieldDTO> fields = new ArrayList<>();
         Map<String, Map<String, String>> fieldsData = (Map<String, Map<String, String>>) o;
-        if(fieldsData.size() > 0) {
+        if (fieldsData.size() > 0) {
             Set<String> keys = fieldsData.keySet();
-            for(String key : keys) {
+            for (String key : keys) {
                 String keyData = fieldsData.get(key).get("b64_value");
-                fields.add(FieldDTOFactory.getFieldDTO(new FieldDTO(key, new FieldDTOStringValue(keyData))));
+                fields.add(FieldDTOFactory
+                               .getFieldDTO(new FieldDTO(key, new FieldDTOStringValue(keyData))));
             }
         }
         return fields;

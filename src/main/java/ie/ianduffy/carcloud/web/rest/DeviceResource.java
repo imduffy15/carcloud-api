@@ -9,7 +9,6 @@ import ie.ianduffy.carcloud.domain.Device;
 import ie.ianduffy.carcloud.service.DeviceService;
 import ie.ianduffy.carcloud.web.assembler.DeviceDTOAssembler;
 import ie.ianduffy.carcloud.web.dto.DeviceDTO;
-import ie.ianduffy.carcloud.web.dto.TrackDTO;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

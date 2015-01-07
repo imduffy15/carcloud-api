@@ -43,6 +43,8 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
 
     private static final String PROP_GRAPHITE_ENABLED = "enabled";
 
+    private static final String PROP_GRAPHITE_PREFIX = "";
+
     private static final String PROP_HOST = "host";
 
     private static final String PROP_JMX_ENABLED = "jmx.enabled";
@@ -118,16 +120,19 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
                 Integer
                     graphitePort =
                     propertyResolver.getRequiredProperty(PROP_PORT, Integer.class);
+                String
+                    graphitePrefix =
+                    propertyResolver.getProperty(PROP_GRAPHITE_PREFIX, String.class, "");
+
                 Graphite graphite = new Graphite(new InetSocketAddress(graphiteHost, graphitePort));
                 GraphiteReporter graphiteReporter = GraphiteReporter.forRegistry(metricRegistry)
                     .convertRatesTo(TimeUnit.SECONDS)
                     .convertDurationsTo(TimeUnit.MILLISECONDS)
+                    .prefixedWith(graphitePrefix)
                     .build(graphite);
                 graphiteReporter.start(1, TimeUnit.MINUTES);
             }
-        }
-
-        @Override
+        }        @Override
         public void setEnvironment(Environment environment) {
             this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_METRICS_GRAPHITE);
         }

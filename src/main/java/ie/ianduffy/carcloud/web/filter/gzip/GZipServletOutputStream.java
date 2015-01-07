@@ -1,22 +1,27 @@
 package ie.ianduffy.carcloud.web.filter.gzip;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.servlet.ServletOutputStream;
-
 class GZipServletOutputStream extends ServletOutputStream {
+    private OutputStream stream;
 
-    private final OutputStream stream;
-
-    public GZipServletOutputStream(OutputStream output) {
+    public GZipServletOutputStream(OutputStream output)
+            throws IOException {
         super();
         this.stream = output;
     }
 
     @Override
-    public void write(int b) throws IOException {
-        this.stream.write(b);
+    public void close() throws IOException {
+        this.stream.close();
+    }
+
+    @Override
+    public void flush() throws IOException {
+        this.stream.flush();
     }
 
     @Override
@@ -30,12 +35,17 @@ class GZipServletOutputStream extends ServletOutputStream {
     }
 
     @Override
-    public void flush() throws IOException {
-        this.stream.flush();
+    public void write(int b) throws IOException {
+        this.stream.write(b);
     }
 
     @Override
-    public void close() throws IOException {
-        this.stream.close();
+    public boolean isReady() {
+        return true;
+    }
+
+    @Override
+    public void setWriteListener(WriteListener listener) {
+
     }
 }

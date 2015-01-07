@@ -8,7 +8,6 @@ import com.wordnik.swagger.annotations.ApiParam;
 import ie.ianduffy.carcloud.domain.Authority;
 import ie.ianduffy.carcloud.service.UserService;
 
-import org.apache.http.auth.AUTH;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

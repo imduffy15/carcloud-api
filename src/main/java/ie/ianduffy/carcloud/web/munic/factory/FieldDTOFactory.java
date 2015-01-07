@@ -4,14 +4,13 @@ import ie.ianduffy.carcloud.web.munic.dto.FieldDTO;
 import ie.ianduffy.carcloud.web.munic.dto.FieldDTOBooleanValue;
 import ie.ianduffy.carcloud.web.munic.dto.FieldDTOIntegerValue;
 import ie.ianduffy.carcloud.web.munic.dto.FieldDTOStringValue;
-import ie.ianduffy.carcloud.web.munic.dto.FieldDTOValue;
 import ie.ianduffy.carcloud.web.munic.util.DecoderUtil;
 
 import java.util.HashMap;
 
 public class FieldDTOFactory {
 
-    private static HashMap<String, FieldType> fieldDefinations = new HashMap(){{
+    private static HashMap<String, FieldType> fieldDefinations = new HashMap() {{
         put("GPRMC_VALID", FieldType.STRING);
         put("GPS_SPEED", FieldType.INTEGER);
         put("GPS_DIR", FieldType.INTEGER);
@@ -92,10 +91,6 @@ public class FieldDTOFactory {
         put("MDI_RECORD_REASON", FieldType.STRING);
     }};
 
-    private enum FieldType {
-        STRING, INTEGER,BOOLEAN;
-    }
-
     public static FieldDTO getFieldDTO(FieldDTO fieldDTO) {
         switch (fieldDefinations.get(fieldDTO.getName())) {
             case STRING:
@@ -115,5 +110,9 @@ public class FieldDTOFactory {
                 ));
         }
         return fieldDTO;
+    }
+
+    private enum FieldType {
+        STRING, INTEGER, BOOLEAN;
     }
 }

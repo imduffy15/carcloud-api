@@ -35,8 +35,8 @@ import lombok.ToString;
 @Data
 @Entity
 @NamedQueries({
-    @NamedQuery(name="Device.findAllForUser", query="select d from Device d where ?1 MEMBER OF d.owners"),
-    @NamedQuery(name="Device.findOneForUser", query="select d from Device d where ?1 MEMBER OF d.owners and d.id = ?2")
+    @NamedQuery(name = "Device.findAllForUser", query = "select d from Device d where ?1 MEMBER OF d.owners"),
+    @NamedQuery(name = "Device.findOneForUser", query = "select d from Device d where ?1 MEMBER OF d.owners and d.id = ?2")
 })
 @Table(name = "T_DEVICE")
 @ToString(exclude = {"owners", "tracks"})

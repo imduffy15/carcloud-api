@@ -78,7 +78,7 @@ public class UserResource {
         @ApiParam(value = "username to search for", required = true) @RequestParam("username") String username
     ) {
         List<UserDTO> users = new ArrayList<>();
-        for(User user : userService.findLike(username)) {
+        for (User user : userService.findLike(username)) {
             users.add(userDTOAssembler.toResource(user));
         }
         return new ResponseEntity<>(users, HttpStatus.OK);

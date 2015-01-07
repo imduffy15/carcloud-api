@@ -34,8 +34,8 @@ import lombok.ToString;
 @Data
 @Entity
 @NamedQueries({
-    @NamedQuery(name="Track.findAllForUser", query="select t from Track t where ?1 MEMBER OF t.device.owners"),
-    @NamedQuery(name="Track.findOneForUser", query="select t from Track t where t.id = ?2 and ?1 MEMBER OF t.device.owners")
+    @NamedQuery(name = "Track.findAllForUser", query = "select t from Track t where ?1 MEMBER OF t.device.owners"),
+    @NamedQuery(name = "Track.findOneForUser", query = "select t from Track t where t.id = ?2 and ?1 MEMBER OF t.device.owners")
 })
 @Table(name = "T_TRACK")
 @ToString(exclude = {"device"})
@@ -69,7 +69,7 @@ public class Track extends AbstractAuditingEntity<Long> implements Serializable 
 
     public Track(Device device, LatLng location, DateTime receivedAt, DateTime recordedAt) {
         this.device = device;
-        if(location != null) {
+        if (location != null) {
             this.longitude = location.getLongitude();
             this.latitude = location.getLatitude();
         }

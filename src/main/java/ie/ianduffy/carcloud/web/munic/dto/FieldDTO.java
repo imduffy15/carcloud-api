@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class FieldDTO {
+
     private String name;
 
     @JsonUnwrapped

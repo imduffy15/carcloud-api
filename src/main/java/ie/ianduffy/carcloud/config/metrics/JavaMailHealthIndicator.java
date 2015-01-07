@@ -12,11 +12,11 @@ import javax.mail.MessagingException;
 /**
  * SpringBoot Actuator HealthIndicator check for JavaMail.
  */
-class JavaMailHealthIndicator extends AbstractHealthIndicator {
-
-    private final JavaMailSenderImpl javaMailSender;
+public class JavaMailHealthIndicator extends AbstractHealthIndicator {
 
     private final Logger log = LoggerFactory.getLogger(JavaMailHealthIndicator.class);
+
+    private JavaMailSenderImpl javaMailSender;
 
     public JavaMailHealthIndicator(JavaMailSenderImpl javaMailSender) {
         Assert.notNull(javaMailSender, "javaMailSender must not be null");
@@ -35,7 +35,7 @@ class JavaMailHealthIndicator extends AbstractHealthIndicator {
             builder.up();
 
         } catch (MessagingException e) {
-            log.debug("Cannot connect to e-mail server.", e);
+            log.debug("Cannot connect to e-mail server. Error: {}", e.getMessage());
             builder.down(e);
         }
     }

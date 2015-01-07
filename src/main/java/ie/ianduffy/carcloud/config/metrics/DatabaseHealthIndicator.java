@@ -17,9 +17,11 @@ import javax.sql.DataSource;
 /**
  * SpringBoot Actuator HealthIndicator check for the Database.
  */
-class DatabaseHealthIndicator extends AbstractHealthIndicator {
+public class DatabaseHealthIndicator extends AbstractHealthIndicator {
 
-    private static final Map<String, String> queries = new HashMap<>();
+    private static String DEFAULT_QUERY = "SELECT 1";
+
+    private static Map<String, String> queries = new HashMap<>();
 
     static {
         queries.put("HSQL Database Engine",
@@ -31,22 +33,24 @@ class DatabaseHealthIndicator extends AbstractHealthIndicator {
         queries.put("Microsoft SQL Server", "SELECT 1");
     }
 
-    private final JdbcTemplate jdbcTemplate;
+    private DataSource dataSource;
+
+    private JdbcTemplate jdbcTemplate;
 
     private String query = null;
 
-
     public DatabaseHealthIndicator(DataSource dataSource) {
+        this.dataSource = dataSource;
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    String detectQuery(String product) {
+    protected String detectQuery(String product) {
         String query = this.query;
         if (!StringUtils.hasText(query)) {
             query = queries.get(product);
         }
         if (!StringUtils.hasText(query)) {
-            query = "SELECT 1";
+            query = DEFAULT_QUERY;
         }
         return query;
     }

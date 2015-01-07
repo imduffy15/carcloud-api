@@ -37,6 +37,7 @@ public abstract class AbstractAuditingEntityDTO<T> {
     }
 
     public abstract T getId();
+
     public abstract void setId(T id);
 
     public Link getLink(String rel) {

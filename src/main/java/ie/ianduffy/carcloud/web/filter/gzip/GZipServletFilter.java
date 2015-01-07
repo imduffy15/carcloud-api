@@ -3,31 +3,16 @@ package ie.ianduffy.carcloud.web.filter.gzip;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.zip.GZIPOutputStream;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-/**
- * This filter is used in production, to gzip resources. </p> <p/> SPAM 0.0.1 - Example of facade
- * "filter"
- */
 public class GZipServletFilter implements Filter {
 
-    private final Logger log = LoggerFactory.getLogger(GZipServletFilter.class);
-
-    private boolean acceptsGZipEncoding(HttpServletRequest httpRequest) {
-        String acceptEncoding = httpRequest.getHeader("Accept-Encoding");
-        return acceptEncoding != null && acceptEncoding.contains("gzip");
-    }
+    private Logger log = LoggerFactory.getLogger(GZipServletFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -35,14 +20,17 @@ public class GZipServletFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-        throws IOException, ServletException {
+    public void destroy() {
+        // Nothing to destroy
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        if (!isIncluded(httpRequest) && acceptsGZipEncoding(httpRequest) && !response
-            .isCommitted()) {
+        if (!isIncluded(httpRequest) && acceptsGZipEncoding(httpRequest) && !response.isCommitted()) {
             // Client accepts zipped content
             if (log.isTraceEnabled()) {
                 log.trace("{} Written with gzip compression", httpRequest.getRequestURL());
@@ -53,9 +41,7 @@ public class GZipServletFilter implements Filter {
             final GZIPOutputStream gzout = new GZIPOutputStream(compressed);
 
             // Handle the request
-            final GZipServletResponseWrapper
-                wrapper =
-                new GZipServletResponseWrapper(httpResponse, gzout);
+            final GZipServletResponseWrapper wrapper = new GZipServletResponseWrapper(httpResponse, gzout);
             wrapper.setDisableFlushBuffer(true);
             chain.doFilter(request, wrapper);
             wrapper.flush();
@@ -79,12 +65,8 @@ public class GZipServletFilter implements Filter {
 
             // Saneness checks
             byte[] compressedBytes = compressed.toByteArray();
-            boolean
-                shouldGzippedBodyBeZero =
-                GZipResponseUtil.shouldGzippedBodyBeZero(compressedBytes, httpRequest);
-            boolean
-                shouldBodyBeZero =
-                GZipResponseUtil.shouldBodyBeZero(httpRequest, wrapper.getStatus());
+            boolean shouldGzippedBodyBeZero = GZipResponseUtil.shouldGzippedBodyBeZero(compressedBytes, httpRequest);
+            boolean shouldBodyBeZero = GZipResponseUtil.shouldBodyBeZero(httpRequest, wrapper.getStatus());
             if (shouldGzippedBodyBeZero || shouldBodyBeZero) {
                 // No reason to add GZIP headers or write body if no content was written or status code specifies no
                 // content
@@ -102,17 +84,10 @@ public class GZipServletFilter implements Filter {
         } else {
             // Client does not accept zipped content - don't bother zipping
             if (log.isTraceEnabled()) {
-                log.trace(
-                    "{} Written without gzip compression because the request does not accept gzip",
-                    httpRequest.getRequestURL());
+                log.trace("{} Written without gzip compression because the request does not accept gzip", httpRequest.getRequestURL());
             }
             chain.doFilter(request, response);
         }
-    }
-
-    @Override
-    public void destroy() {
-        // Nothing to destroy
     }
 
     /**
@@ -124,9 +99,14 @@ public class GZipServletFilter implements Filter {
 
         if (includeRequest && log.isDebugEnabled()) {
             log.debug("{} resulted in an include request. This is unusable, because"
-                      + "the response will be assembled into the overrall response. Not gzipping.",
-                      request.getRequestURL());
+                    + "the response will be assembled into the overrall response. Not gzipping.",
+                    request.getRequestURL());
         }
         return includeRequest;
+    }
+
+    private boolean acceptsGZipEncoding(HttpServletRequest httpRequest) {
+        String acceptEncoding = httpRequest.getHeader("Accept-Encoding");
+        return acceptEncoding != null && acceptEncoding.contains("gzip");
     }
 }
