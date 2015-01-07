@@ -2,11 +2,6 @@ language: java
 cache:
   directories:
   - $HOME/.m2
-  - node_modules
-  - src/main/webapp/bower_components
 jdk:
   - oraclejdk7
 sudo: false
-install:
-  - npm install
-  - bower install
