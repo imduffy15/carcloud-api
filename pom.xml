@@ -154,7 +154,6 @@
     <dependency>
       <groupId>com.zaxxer</groupId>
       <artifactId>HikariCP</artifactId>
-      <version>${HikariCP.version}</version>
       <exclusions>
         <exclusion>
           <artifactId>tools</artifactId>
@@ -214,7 +213,6 @@
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
-      <version>${apache-http.version}</version>
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
@@ -242,7 +240,6 @@
     <dependency>
       <groupId>org.liquibase</groupId>
       <artifactId>liquibase-core</artifactId>
-      <version>${liquibase.version}</version>
       <exclusions>
         <exclusion>
           <artifactId>jetty-servlet</artifactId>
@@ -277,12 +274,10 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-autoconfigure</artifactId>
-      <version>${spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-loader-tools</artifactId>
-      <version>${spring-boot.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -311,7 +306,6 @@
     <dependency>
       <groupId>org.springframework.hateoas</groupId>
       <artifactId>spring-hateoas</artifactId>
-      <version>0.16.0.RELEASE</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
@@ -332,7 +326,6 @@
     <dependency>
       <groupId>com.jayway.jsonpath</groupId>
       <artifactId>json-path</artifactId>
-      <version>${json-path.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
