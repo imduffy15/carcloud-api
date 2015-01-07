@@ -6,7 +6,6 @@ import com.codahale.metrics.servlets.MetricsServlet;
 import com.thetransactioncompany.cors.CORSFilter;
 
 import ie.ianduffy.carcloud.web.filter.CachingHttpHeadersFilter;
-import ie.ianduffy.carcloud.web.filter.StaticResourcesProductionFilter;
 import ie.ianduffy.carcloud.web.filter.gzip.GZipServletFilter;
 
 import org.slf4j.Logger;
@@ -144,26 +143,6 @@ public class WebConfigurer implements ServletContextInitializer {
         metricsAdminServlet.setLoadOnStartup(2);
     }
 
-    /**
-     * Initializes the static resources production Filter.
-     */
-    private void initStaticResourcesProductionFilter(ServletContext servletContext,
-                                                     EnumSet<DispatcherType> disps) {
-
-        log.debug("Registering static resources production Filter");
-        FilterRegistration.Dynamic staticResourcesProductionFilter =
-            servletContext.addFilter("staticResourcesProductionFilter",
-                                     new StaticResourcesProductionFilter());
-
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/index.html");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/images/*");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/fonts/*");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/scripts/*");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/styles/*");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/views/*");
-        staticResourcesProductionFilter.setAsyncSupported(true);
-    }
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
@@ -175,7 +154,6 @@ public class WebConfigurer implements ServletContextInitializer {
         initMetrics(servletContext, disps);
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
             initCachingHttpHeadersFilter(servletContext, disps);
-            initStaticResourcesProductionFilter(servletContext, disps);
         }
 
         initGzipFilter(servletContext, disps);

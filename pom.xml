@@ -15,7 +15,6 @@
   </prerequisites>
   <properties>
     <HikariCP.version>1.4.0</HikariCP.version>
-    <!-- Libraries versions -->
     <apache-http.version>4.1.1</apache-http.version>
     <assertj-core.version>1.6.1</assertj-core.version>
     <awaitility.version>1.4.0</awaitility.version>
@@ -26,7 +25,6 @@
     <geronimo-javamail_1.4_mail.version>1.8.4</geronimo-javamail_1.4_mail.version>
     <hibernate-entitymanager.version>4.3.7.Final</hibernate-entitymanager.version>
     <hibernate.version>4.3.7.Final</hibernate.version>
-    <!-- Maven build properties -->
     <java.version>1.7</java.version>
     <javax.inject.version>1</javax.inject.version>
     <jhipster-loaded.version>0.12</jhipster-loaded.version>
@@ -35,11 +33,9 @@
     <liquibase-hibernate.version>3.4</liquibase-hibernate.version>
     <liquibase-slf4j.version>1.2.1</liquibase-slf4j.version>
     <liquibase.version>3.1.1</liquibase.version>
-    <!-- Maven plugins versions -->
     <maven-enforcer-plugin.version>1.3.1</maven-enforcer-plugin.version>
     <metrics-spring.version>3.0.1</metrics-spring.version>
     <nexmo.version>1.5.0</nexmo.version>
-    <!-- Spring-Boot settings -->
     <run.addResources>false</run.addResources>
     <simple-lat-long.version>RELEASE</simple-lat-long.version>
     <sonar-maven-plugin.version>2.2</sonar-maven-plugin.version>
@@ -171,13 +167,6 @@
       <artifactId>commons-io</artifactId>
       <version>${commons-io.version}</version>
     </dependency>
-    <!-- The HikariCP Java Agent is disabled by default, as it is experimental
-            <dependency>
-                <groupId>com.zaxxer</groupId>
-                <artifactId>HikariCP-agent</artifactId>
-                <version>${HikariCP.version}</version>
-            </dependency>
-            -->
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
@@ -202,7 +191,6 @@
       <artifactId>joda-time-hibernate</artifactId>
       <version>${joda-time-hibernate.version}</version>
     </dependency>
-    <!-- Database dependencies-->
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
@@ -314,10 +302,6 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-thymeleaf</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-tomcat</artifactId>
     </dependency>
     <dependency>
@@ -339,7 +323,6 @@
       <artifactId>spring-security-oauth2</artifactId>
       <version>${spring-security-oauth2.version}</version>
     </dependency>
-    <!-- Test dependencies -->
     <dependency>
       <groupId>com.jayway.awaitility</groupId>
       <artifactId>awaitility</artifactId>
@@ -455,63 +438,6 @@
         <directory>src/main/resources</directory>
       </resource>
     </resources>
-    <pluginManagement>
-      <plugins>
-        <!--This plugin's configuration is used to store Eclipse m2e settings only.
-                        It has no influence on the Maven build itself.-->
-        <plugin>
-          <groupId>org.eclipse.m2e</groupId>
-          <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
-          <configuration>
-            <lifecycleMappingMetadata>
-              <pluginExecutions>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <versionRange>[1.0,)</versionRange>
-                    <goals>
-                      <goal>copy</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <execute></execute>
-                  </action>
-                </pluginExecution>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <versionRange>[1.0,)</versionRange>
-                    <goals>
-                      <goal>enforce</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <execute></execute>
-                  </action>
-                </pluginExecution>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>exec-maven-plugin</artifactId>
-                    <versionRange>[1.2.1,)</versionRange>
-                    <goals>
-                      <goal>java</goal>
-                      <goal>exec</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore></ignore>
-                  </action>
-                </pluginExecution>
-              </pluginExecutions>
-            </lifecycleMappingMetadata>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>com.google.code.sortpom</groupId>
@@ -579,13 +505,11 @@
             <configuration>
               <rules>
                 <requireMavenVersion>
-                  <message>You are running an older version of Maven. JHipster requires at least Maven
-                                        3.0</message>
+                  <message>You are running an older version of Maven. Requires at least Maven 3.0</message>
                   <version>[3.0.0,)</version>
                 </requireMavenVersion>
                 <requireJavaVersion>
-                  <message>You are running an older version of Java. JHipster requires at least JDK
-                                        1.7</message>
+                  <message>You are running an older version of Java. Requires at least JDK 1.7</message>
                   <version>[1.7.0,)</version>
                 </requireJavaVersion>
               </rules>
@@ -600,7 +524,6 @@
           <argLine>-XX:MaxPermSize=128m -Xmx256m</argLine>
           <forkCount>1</forkCount>
           <reuseForks>false</reuseForks>
-          <!-- Force alphabetical order to have a reproducible build -->
           <runOrder>alphabetical</runOrder>
           <classpathDependencyExcludes>
             <classpathDependencyExclude>org.springsource.loaded:springloaded</classpathDependencyExclude>
@@ -613,42 +536,6 @@
         <configuration>
           <packagingExcludes>WEB-INF/lib/tomcat-*.jar</packagingExcludes>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>Build Frontend with Gulp.JS</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>${runner}</executable>
-              <workingDirectory>${project.basedir}</workingDirectory>
-              <arguments>
-                <argument>${runprefix}</argument>
-                <argument>gulp</argument>
-              </arguments>
-            </configuration>
-          </execution>
-          <execution>
-            <id>Test Frontend with Gulp.JS</id>
-            <phase>test</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>${runner}</executable>
-              <workingDirectory>${project.basedir}</workingDirectory>
-              <arguments>
-                <argument>${runprefix}</argument>
-                <argument>gulp test</argument>
-              </arguments>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -674,9 +561,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <!-- log configuration -->
         <logback.loglevel>DEBUG</logback.loglevel>
-        <!-- Spring profile to use -->
         <spring.profiles.active>dev</spring.profiles.active>
       </properties>
     </profile>
@@ -684,32 +569,6 @@
       <id>prod</id>
       <build>
         <plugins>
-          <plugin>
-            <groupId>com.github.trecloux</groupId>
-            <artifactId>yeoman-maven-plugin</artifactId>
-            <version>0.2</version>
-            <executions></executions>
-            <configuration>
-              <yeomanProjectDirectory>${project.basedir}</yeomanProjectDirectory>
-            </configuration>
-          </plugin>
-          <plugin>
-            <artifactId>maven-clean-plugin</artifactId>
-            <version>2.5</version>
-            <configuration>
-              <filesets>
-                <fileset>
-                  <directory>src/main/webapp/dist</directory>
-                </fileset>
-                <fileset>
-                  <directory>.tmp</directory>
-                </fileset>
-                <fileset>
-                  <directory>node_modules</directory>
-                </fileset>
-              </filesets>
-            </configuration>
-          </plugin>
           <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
@@ -722,34 +581,8 @@
         </plugins>
       </build>
       <properties>
-        <!-- log configuration -->
         <logback.loglevel>INFO</logback.loglevel>
-        <!-- Spring profile to use -->
         <spring.profiles.active>prod</spring.profiles.active>
-      </properties>
-    </profile>
-    <profile>
-      <id>Windows</id>
-      <activation>
-        <os>
-          <family>windows</family>
-        </os>
-      </activation>
-      <properties>
-        <runner>cmd</runner>
-        <runprefix>/C</runprefix>
-      </properties>
-    </profile>
-    <profile>
-      <id>*nix</id>
-      <activation>
-        <os>
-          <family>!windows</family>
-        </os>
-      </activation>
-      <properties>
-        <runner>sh</runner>
-        <runprefix>-c</runprefix>
       </properties>
     </profile>
   </profiles>
