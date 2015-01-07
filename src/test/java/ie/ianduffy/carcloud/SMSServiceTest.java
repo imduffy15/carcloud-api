@@ -23,7 +23,7 @@ import javax.inject.Inject;
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
                          DirtiesContextTestExecutionListener.class,
                          TransactionalTestExecutionListener.class})
-@ActiveProfiles("dev")
+@ActiveProfiles({"dev", "test"})
 public class SMSServiceTest {
 
     @Inject

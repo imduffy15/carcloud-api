@@ -6,7 +6,11 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jta.JtaAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.context.EnvironmentAware;
@@ -38,7 +42,6 @@ public class DatabaseConfiguration implements EnvironmentAware {
     private RelaxedPropertyResolver propertyResolver;
 
     @Bean(destroyMethod = "shutdown")
-    @ConditionalOnMissingClass(name = "ie.ianduffy.carcloud.config.HerokuDatabaseConfiguration.class")
     public DataSource dataSource() {
         log.debug("Configuring Datasource");
         if (propertyResolver.getProperty("url") == null
@@ -88,16 +91,6 @@ public class DatabaseConfiguration implements EnvironmentAware {
     @Bean
     public Hibernate4Module hibernate4Module() {
         return new Hibernate4Module();
-    }
-
-    @Bean
-    public SpringLiquibase liquibase(DataSource dataSource) {
-        log.debug("Configuring Liquibase");
-        SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setDataSource(dataSource);
-        liquibase.setChangeLog("classpath:config/liquibase/master.xml");
-        liquibase.setContexts(propertyResolver.getProperty("contexts"));
-        return liquibase;
     }
 
     @Override

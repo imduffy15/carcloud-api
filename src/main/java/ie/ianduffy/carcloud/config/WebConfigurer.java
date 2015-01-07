@@ -10,6 +10,7 @@ import ie.ianduffy.carcloud.web.filter.gzip.GZipServletFilter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
@@ -41,7 +42,7 @@ public class WebConfigurer implements ServletContextInitializer {
     @Inject
     private Environment env;
 
-    @Inject
+    @Autowired(required = false)
     private MetricRegistry metricRegistry;
 
     /**
@@ -151,14 +152,16 @@ public class WebConfigurer implements ServletContextInitializer {
         EnumSet<DispatcherType>
             disps =
             EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
-        initMetrics(servletContext, disps);
+
+        if(!env.acceptsProfiles(Constants.SPRING_PROFILE_TEST)) {
+            initMetrics(servletContext, disps);
+            initGzipFilter(servletContext, disps);
+            initCorsFilter(servletContext, disps);
+        }
+
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
             initCachingHttpHeadersFilter(servletContext, disps);
         }
-
-        initGzipFilter(servletContext, disps);
-
-        initCorsFilter(servletContext, disps);
 
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
             initH2Console(servletContext);

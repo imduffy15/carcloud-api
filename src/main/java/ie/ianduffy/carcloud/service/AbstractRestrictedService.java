@@ -5,12 +5,12 @@ import ie.ianduffy.carcloud.repository.RestrictedRepository;
 import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.AbstractAuditingEntityDTO;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
 
 @Transactional
 public abstract class AbstractRestrictedService<T extends AbstractAuditingEntity, ID extends Serializable, DTO extends AbstractAuditingEntityDTO>
@@ -25,7 +25,7 @@ public abstract class AbstractRestrictedService<T extends AbstractAuditingEntity
     public T findOneForCurrentUser(ID id) {
         T entity = getRepository().findOneForUser(SecurityUtils.getCurrentLogin(), id);
         if (entity == null) {
-            throw new EntityNotFoundException();
+            throw new EmptyResultDataAccessException(1);
         }
         return entity;
     }

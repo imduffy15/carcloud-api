@@ -9,6 +9,7 @@ import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.UserDTO;
 
 import org.hibernate.Hibernate;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.persistence.EntityNotFoundException;
 
 /**
  * Service class for managing users.
@@ -54,11 +54,7 @@ public class UserService extends AbstractService<User, String, UserDTO> {
 
     @Transactional(readOnly = true)
     public List<User> findLike(String username) {
-        List<User> users = userRepository.findTop10ByUsernameLike("%" + username + "%");
-        if (users == null) {
-            throw new EntityNotFoundException();
-        }
-        return users;
+        return userRepository.findTop10ByUsernameLike("%" + username + "%");
     }
 
     @Transactional(readOnly = true)
@@ -67,7 +63,7 @@ public class UserService extends AbstractService<User, String, UserDTO> {
         List<Authority> authorities = user.getAuthorities();
         Hibernate.initialize(authorities);
         if (authorities == null) {
-            throw new EntityNotFoundException();
+            throw new EmptyResultDataAccessException(1);
         }
         return authorities;
     }
@@ -82,7 +78,7 @@ public class UserService extends AbstractService<User, String, UserDTO> {
             }
         }
 
-        throw new EntityNotFoundException();
+        throw new EmptyResultDataAccessException(1);
     }
 
     @Override

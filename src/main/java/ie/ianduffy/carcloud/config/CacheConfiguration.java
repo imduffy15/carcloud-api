@@ -11,6 +11,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
@@ -25,6 +26,7 @@ import javax.persistence.metamodel.EntityType;
 
 @Configuration
 @EnableCaching
+@Profile("!" + Constants.SPRING_PROFILE_TEST)
 @AutoConfigureAfter(value = {MetricsConfiguration.class, DatabaseConfiguration.class})
 public class CacheConfiguration {
 

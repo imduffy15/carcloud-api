@@ -7,7 +7,6 @@ import ie.ianduffy.carcloud.repository.UserRepository;
 import ie.ianduffy.carcloud.service.DeviceService;
 import ie.ianduffy.carcloud.service.TrackService;
 import ie.ianduffy.carcloud.service.UserService;
-import ie.ianduffy.carcloud.web.advice.RestResponseEntityExceptionHandler;
 import ie.ianduffy.carcloud.web.assembler.DeviceDTOAssembler;
 import ie.ianduffy.carcloud.web.assembler.TrackDTOAssembler;
 import ie.ianduffy.carcloud.web.assembler.UserDTOAssembler;
@@ -62,7 +61,7 @@ public abstract class AbstractResourceTest {
         final ExceptionHandlerExceptionResolver exceptionHandlerExceptionResolver = new ExceptionHandlerExceptionResolver();
 
         final StaticApplicationContext applicationContext = new StaticApplicationContext();
-        applicationContext.registerBeanDefinition("advice", new RootBeanDefinition(RestResponseEntityExceptionHandler.class, null, null));
+//        applicationContext.registerBeanDefinition("advice", new RootBeanDefinition(RestResponseEntityExceptionHandler.class, null, null));
 
         exceptionHandlerExceptionResolver.setApplicationContext(applicationContext);
 

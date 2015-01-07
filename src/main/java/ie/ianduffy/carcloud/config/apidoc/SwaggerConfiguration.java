@@ -5,15 +5,19 @@ import com.mangofactory.swagger.models.dto.ApiInfo;
 import com.mangofactory.swagger.plugin.EnableSwagger;
 import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
 
+import ie.ianduffy.carcloud.config.Constants;
+
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 
 @Configuration
 @EnableSwagger
+@Profile("!" + Constants.SPRING_PROFILE_TEST)
 public class SwaggerConfiguration implements EnvironmentAware {
 
     private static final String DEFAULT_INCLUDE_PATTERN = "/app/.*";

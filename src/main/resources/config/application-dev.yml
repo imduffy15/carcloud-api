@@ -40,17 +40,5 @@ cache:
     ehcache:
         maxBytesLocalHeap: 16M
 
-# You can add as many as folders to watch
-# You just need to add a dash + the directory to watch
-hotReload:
-    enabled: true
-    package:
-      project: ie.ianduffy.carcloud
-      domain: ie.ianduffy.carcloud.domain
-      restdto: ie.ianduffy.carcloud.web.rest.dto
-    liquibase:
-      defaultCatalogName:
-      defaultSchema: public
-      excludeTables: T_AUTHORITY,T_PERSISTENT_AUDIT_EVENT,T_PERSISTENT_AUDIT_EVENT_DATA,T_PERSISTENT_TOKEN,T_USER,T_USER_AUTHORITY,oauth_access_token,oauth_approvals,oauth_client_details,oauth_client_token,oauth_code,oauth_refresh_token
-    watchdir:
-      - target/classes
+liquibase:
+    contexts: dev
