@@ -15,6 +15,7 @@ spring:
         prepStmtCacheSize: 250
         prepStmtCacheSqlLimit: 2048
         useServerPrepStmts: true
+        contexts: prod
 
     jpa:
         database-platform: org.hibernate.dialect.MySQLDialect

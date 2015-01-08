@@ -26,13 +26,11 @@ import javax.persistence.metamodel.EntityType;
 
 @Configuration
 @EnableCaching
-@Profile("!" + Constants.SPRING_PROFILE_TEST)
 @AutoConfigureAfter(value = {MetricsConfiguration.class, DatabaseConfiguration.class})
+@Profile("!" + Constants.SPRING_PROFILE_TEST)
 public class CacheConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(CacheConfiguration.class);
-
-    private net.sf.ehcache.CacheManager cacheManager;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -42,6 +40,19 @@ public class CacheConfiguration {
 
     @Inject
     private MetricRegistry metricRegistry;
+
+    private net.sf.ehcache.CacheManager cacheManager;
+
+    @PreDestroy
+    public void destroy() {
+        log.info("Remove Cache Manager metrics");
+        SortedSet<String> names = metricRegistry.getNames();
+        for (String name : names) {
+            metricRegistry.remove(name);
+        }
+        log.info("Closing Cache Manager");
+        cacheManager.shutdown();
+    }
 
     @Bean
     public CacheManager cacheManager() {
@@ -72,16 +83,5 @@ public class CacheConfiguration {
         EhCacheCacheManager ehCacheManager = new EhCacheCacheManager();
         ehCacheManager.setCacheManager(cacheManager);
         return ehCacheManager;
-    }
-
-    @PreDestroy
-    public void destroy() {
-        log.info("Remove Cache Manager metrics");
-        SortedSet<String> names = metricRegistry.getNames();
-        for (String name : names) {
-            metricRegistry.remove(name);
-        }
-        log.info("Closing Cache Manager");
-        cacheManager.shutdown();
     }
 }
