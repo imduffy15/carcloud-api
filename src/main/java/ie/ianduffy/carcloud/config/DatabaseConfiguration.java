@@ -93,6 +93,16 @@ public class DatabaseConfiguration implements EnvironmentAware {
         return new Hibernate4Module();
     }
 
+    @Bean
+    public SpringLiquibase liquibase(DataSource dataSource) {
+        log.debug("Configuring Liquibase");
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setDataSource(dataSource);
+        liquibase.setChangeLog("classpath:config/liquibase/master.xml");
+        liquibase.setContexts(propertyResolver.getProperty("contexts"));
+        return liquibase;
+    }
+
     @Override
     public void setEnvironment(Environment environment) {
         this.environment = environment;

@@ -42,8 +42,7 @@ public class DeviceResourceTest extends AbstractResourceTest{
 
     @Before
     public void setup() {
-        DeviceResource deviceResource = new DeviceResource(deviceDTOAssembler, deviceService);
-        super.setup(deviceResource);
+        super.setup();
     }
 
     @Test

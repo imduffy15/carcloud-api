@@ -42,6 +42,3 @@ cache:
     timeToLiveSeconds: 3600
     ehcache:
         maxBytesLocalHeap: 256M
-
-liquibase:
-    contexts: prod

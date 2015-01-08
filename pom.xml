@@ -16,6 +16,7 @@
     </prerequisites>
     <properties>
         <commons-io.version>2.4</commons-io.version>
+        <liquibase.version>3.1.1</liquibase.version>
         <commons-lang.version>2.6</commons-lang.version>
         <cors-filter.version>2.1.2</cors-filter.version>
         <dozer.version>5.5.1</dozer.version>

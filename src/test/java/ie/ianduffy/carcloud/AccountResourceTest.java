@@ -45,8 +45,7 @@ public class AccountResourceTest extends AbstractResourceTest{
 
     @Before
     public void setup() {
-        AccountResource accountResource = new AccountResource(userDTOAssembler, userService);
-        super.setup(accountResource);
+        super.setup();
     }
 
     @Test

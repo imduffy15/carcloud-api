@@ -43,9 +43,3 @@ nexmo:
     key: carcloud
     secret: carcloud
     from: CarCloud
-
-
-liquibase:
-    changeLog: classpath:config/liquibase/master.xml
-    contexts: dev
-    enabled: true

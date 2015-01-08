@@ -16,6 +16,7 @@ import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
 import javax.inject.Inject;
@@ -55,18 +56,12 @@ public abstract class AbstractResourceTest {
     @Inject
     protected TrackDTOAssembler trackDTOAssembler;
 
+    @Inject
+    WebApplicationContext webApplicationContext;
+
     protected MockMvc mockMvc;
 
-    public void setup(Object controller) {
-        final ExceptionHandlerExceptionResolver exceptionHandlerExceptionResolver = new ExceptionHandlerExceptionResolver();
-
-        final StaticApplicationContext applicationContext = new StaticApplicationContext();
-//        applicationContext.registerBeanDefinition("advice", new RootBeanDefinition(RestResponseEntityExceptionHandler.class, null, null));
-
-        exceptionHandlerExceptionResolver.setApplicationContext(applicationContext);
-
-        exceptionHandlerExceptionResolver.afterPropertiesSet();
-
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).setHandlerExceptionResolvers(exceptionHandlerExceptionResolver).build();
+    public void setup() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 }
