@@ -1,9 +1,7 @@
 package ie.ianduffy.carcloud.web.munic.factory;
 
-import ie.ianduffy.carcloud.web.munic.dto.FieldDTO;
-import ie.ianduffy.carcloud.web.munic.dto.FieldDTOBooleanValue;
-import ie.ianduffy.carcloud.web.munic.dto.FieldDTOIntegerValue;
-import ie.ianduffy.carcloud.web.munic.dto.FieldDTOStringValue;
+import ie.ianduffy.carcloud.domain.Field;
+import ie.ianduffy.carcloud.domain.FieldString;
 import ie.ianduffy.carcloud.web.munic.util.DecoderUtil;
 
 import java.util.HashMap;
@@ -91,25 +89,16 @@ public class FieldDTOFactory {
         put("MDI_RECORD_REASON", FieldType.STRING);
     }};
 
-    public static FieldDTO getFieldDTO(FieldDTO fieldDTO) {
-        switch (fieldDefinations.get(fieldDTO.getName())) {
-            case STRING:
-                return new FieldDTO(fieldDTO.getName(), new FieldDTOStringValue(
-                    DecoderUtil.decodeToString(
-                        ((FieldDTOStringValue) fieldDTO.getValue()).getValue())
-                ));
-            case INTEGER:
-                return new FieldDTO(fieldDTO.getName(), new FieldDTOIntegerValue(
-                    DecoderUtil.decodeToInt(
-                        ((FieldDTOStringValue) fieldDTO.getValue()).getValue())
-                ));
-            case BOOLEAN:
-                return new FieldDTO(fieldDTO.getName(), new FieldDTOBooleanValue(
-                    DecoderUtil.decodeToBoolean(
-                        ((FieldDTOStringValue) fieldDTO.getValue()).getValue())
-                ));
+    public static Field getFieldDTO(String key, String value) {
+        switch (fieldDefinations.get(key)) {
+            default:
+                return new FieldString(key, DecoderUtil.decodeToString(value));
+//            case INTEGER:
+//                return new FieldInteger(key, DecoderUtil.decodeToInt(value));
+//            case BOOLEAN:
+//                return new FieldBoolean(key, DecoderUtil.decodeToBoolean(value));
         }
-        return fieldDTO;
+//        throw new IllegalArgumentException();
     }
 
     private enum FieldType {

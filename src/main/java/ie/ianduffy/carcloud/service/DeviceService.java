@@ -5,6 +5,7 @@ import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.repository.DeviceRepository;
 import ie.ianduffy.carcloud.repository.RestrictedRepository;
+import ie.ianduffy.carcloud.repository.TrackRepository;
 import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.DeviceDTO;
 import ie.ianduffy.carcloud.web.munic.dto.TrackDTO;
@@ -29,6 +30,9 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
     private DeviceRepository deviceRepository;
 
     @Inject
+    private TrackRepository trackRepository;
+
+    @Inject
     private UserService userService;
 
     public Device addOwner(Long id, String username) {
@@ -42,13 +46,18 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
 
     public void addTrack(TrackDTO trackDTO) {
         Device device = findOne(trackDTO.getDeviceId());
-        device.getTracks().add(new Track(
+        Track track = new Track(
             device,
+            trackDTO.getFields(),
             trackDTO.getLocation(),
             trackDTO.getReceivedAt(),
             trackDTO.getRecordedAt()
-        ));
-        deviceRepository.save(device);
+        );
+
+        trackRepository.save(track);
+        System.out.println(track);
+
+//        deviceRepository.save(device);
     }
 
     public Device create(DeviceDTO deviceDTO) {

@@ -5,6 +5,7 @@ import com.javadocmd.simplelatlng.LatLng;
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 
+import ie.ianduffy.carcloud.domain.Field;
 import org.joda.time.DateTime;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class TrackDTO {
     private Long deviceId;
 
     @ApiModelProperty
-    private List<FieldDTO> fields;
+    private List<Field> fields;
 
     @ApiModelProperty
     private LatLng location;
