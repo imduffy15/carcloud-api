@@ -30,7 +30,7 @@ liquibase --classpath="$DRIVER_JAR"  \
     --driver=com.mysql.jdbc.Driver \
     --changeLogFile=dump.xml \
     --url="jdbc:mysql://localhost:3306/${DB}" \
-    --username=root generateChangeLog
+    --username=root --password=password generateChangeLog
 
 sed -i -E \
     -e '2r header.xml' \
