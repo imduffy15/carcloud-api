@@ -5,9 +5,11 @@ import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 
+import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.service.DeviceService;
+import ie.ianduffy.carcloud.web.assembler.TrackDTOAssembler;
+import ie.ianduffy.carcloud.web.dto.TrackDTO;
 import ie.ianduffy.carcloud.web.munic.dto.EventDTO;
-import ie.ianduffy.carcloud.web.munic.dto.TrackDTO;
 
 import org.dozer.Mapper;
 import org.springframework.http.HttpStatus;
@@ -39,10 +41,13 @@ public class MunicResource {
 
     private Mapper mapper;
 
+    private TrackDTOAssembler trackDTOAssembler;
+
     @Inject
-    public MunicResource(Mapper mapper, DeviceService deviceService) {
+    public MunicResource(Mapper mapper, DeviceService deviceService, TrackDTOAssembler trackDTOAssembler) {
         this.mapper = mapper;
         this.deviceService = deviceService;
+        this.trackDTOAssembler = trackDTOAssembler;
     }
 
     @Timed
@@ -60,10 +65,10 @@ public class MunicResource {
         List<TrackDTO> processedEvents = new ArrayList<>();
         for (EventDTO eventDTO : eventDTOs) {
             if (eventDTO.getMeta().getEvent().equals("track")) {
-                TrackDTO trackDTO = new TrackDTO();
+                ie.ianduffy.carcloud.web.munic.dto.TrackDTO trackDTO = new ie.ianduffy.carcloud.web.munic.dto.TrackDTO ();
                 mapper.map(eventDTO.getPayload(), trackDTO);
-                deviceService.addTrack(trackDTO);
-                processedEvents.add(trackDTO);
+                Track track = deviceService.addTrack(trackDTO);
+                processedEvents.add(trackDTOAssembler.toResource(track));
             }
         }
         return new ResponseEntity<>(processedEvents, HttpStatus.OK);

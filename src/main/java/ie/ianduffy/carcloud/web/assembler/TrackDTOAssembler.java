@@ -21,9 +21,13 @@ public class TrackDTOAssembler {
     public TrackDTO toResource(Track track) {
         TrackDTO resource = new TrackDTO();
 
+
+        resource.setFields(track.getFields());
+
+        track.setFields(null);
+
         resource.add(linkTo(TrackResource.class).slash(track.getId()).withSelfRel());
-        resource
-            .add(linkTo(DeviceResource.class).slash(track.getDevice().getId()).withRel("device"));
+        resource.add(linkTo(DeviceResource.class).slash(track.getDevice().getId()).withRel("device"));
 
         mapper.map(track, resource);
         return resource;

@@ -62,24 +62,24 @@ public class Track extends AbstractAuditingEntity<Long> implements Serializable 
     private DateTime recordedAt;
 
     @OrderBy
-//    @JoinTable(
-//        name = "T_TRACK_FIELD",
-//        joinColumns = {@JoinColumn(name = "track_id", referencedColumnName = "id")},
-//        inverseJoinColumns = {@JoinColumn(name = "field_id", referencedColumnName = "id")})
+    @JoinTable(
+        name = "T_TRACK_FIELD",
+        joinColumns = {@JoinColumn(name = "track_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "field_id", referencedColumnName = "id")})
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private List<Field> fields = new ArrayList<>();
+    private List<Field> fields;
 
 
     public Track() {
     }
 
     public Track(Device device, List<Field> fields, LatLng location, DateTime receivedAt, DateTime recordedAt) {
-//        this.device = device;
+        this.device = device;
         this.fields = fields;
-//        this.latitude = location.getLatitude();
-//        this.longitude = location.getLongitude();
-//        this.receivedAt = receivedAt;
-//        this.recordedAt = recordedAt;
+        this.latitude = location.getLatitude();
+        this.longitude = location.getLongitude();
+        this.receivedAt = receivedAt;
+        this.recordedAt = recordedAt;
     }
 }

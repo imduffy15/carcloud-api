@@ -44,8 +44,9 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
         return device;
     }
 
-    public void addTrack(TrackDTO trackDTO) {
+    public Track addTrack(TrackDTO trackDTO) {
         Device device = findOne(trackDTO.getDeviceId());
+
         Track track = new Track(
             device,
             trackDTO.getFields(),
@@ -54,10 +55,11 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
             trackDTO.getRecordedAt()
         );
 
-        trackRepository.save(track);
-        System.out.println(track);
+        device.getTracks().add(track);
 
-//        deviceRepository.save(device);
+        deviceRepository.save(device);
+
+        return track;
     }
 
     public Device create(DeviceDTO deviceDTO) {

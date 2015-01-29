@@ -11,6 +11,7 @@ import javax.persistence.*;
 /**
  * A Field.
  */
+@Data
 @Entity
 @Table(name = "T_FIELD")
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)

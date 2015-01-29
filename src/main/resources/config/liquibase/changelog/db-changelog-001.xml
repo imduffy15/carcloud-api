@@ -227,9 +227,9 @@
     <changeSet author="duffy (generated)" id="dump30">
         <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_device_owner" constraintName="FK_ib7vnp2olk25703c5xwpshvdc" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_device"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump31">
-        <addForeignKeyConstraint baseColumnNames="t_track" baseTableName="t_track_fields" constraintName="FK_kgirif8osovai9m5ub2tdg3x7" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_track"/>
-    </changeSet>
+    <!--<changeSet author="duffy (generated)" id="dump31">-->
+        <!--<addForeignKeyConstraint baseColumnNames="t_track" baseTableName="t_track_fields" constraintName="FK_kgirif8osovai9m5ub2tdg3x7" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_track"/>-->
+    <!--</changeSet>-->
     <changeSet author="duffy (generated)" id="dump32">
         <addForeignKeyConstraint baseColumnNames="name" baseTableName="t_user_authority" constraintName="FK_tghvo3hwad0ifdm39n7bph8b" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="name" referencedTableName="t_authority"/>
     </changeSet>

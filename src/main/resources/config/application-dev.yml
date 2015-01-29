@@ -18,9 +18,9 @@ spring:
         database: H2
         openInView: false
         show_sql: false
-        generate-ddl: false
+        generate-ddl: true
         hibernate:
-            ddl-auto: none
+            ddl-auto: create
             naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
         properties:
             hibernate.cache.use_second_level_cache: true
