@@ -2,11 +2,10 @@ package ie.ianduffy.carcloud.web.dto;
 
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-
-import javax.validation.constraints.Size;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import javax.validation.constraints.Size;
 
 @Data
 @ApiModel

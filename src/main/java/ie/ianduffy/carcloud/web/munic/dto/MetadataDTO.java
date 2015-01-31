@@ -2,7 +2,6 @@ package ie.ianduffy.carcloud.web.munic.dto;
 
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-
 import lombok.Data;
 
 @Data

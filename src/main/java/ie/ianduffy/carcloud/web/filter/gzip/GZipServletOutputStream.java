@@ -9,7 +9,7 @@ class GZipServletOutputStream extends ServletOutputStream {
     private OutputStream stream;
 
     public GZipServletOutputStream(OutputStream output)
-            throws IOException {
+        throws IOException {
         super();
         this.stream = output;
     }

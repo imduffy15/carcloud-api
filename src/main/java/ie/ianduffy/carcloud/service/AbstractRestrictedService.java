@@ -4,7 +4,6 @@ import ie.ianduffy.carcloud.domain.AbstractAuditingEntity;
 import ie.ianduffy.carcloud.repository.RestrictedRepository;
 import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.AbstractAuditingEntityDTO;
-
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 

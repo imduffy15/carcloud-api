@@ -1,7 +1,6 @@
 package ie.ianduffy.carcloud.repository;
 
 import ie.ianduffy.carcloud.domain.Authority;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

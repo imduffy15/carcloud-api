@@ -3,7 +3,6 @@ package ie.ianduffy.carcloud.security;
 import ie.ianduffy.carcloud.domain.Authority;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.repository.UserRepository;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,9 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
-
 import javax.inject.Inject;
+import java.util.Collection;
 
 /**
  * Authenticate a user from the database.
@@ -42,8 +40,8 @@ public class UserDetailsService
         Collection<Authority> grantedAuthorities = userFromDatabase.getAuthorities();
 
         return new org.springframework.security.core.userdetails.User(lowercaseLogin,
-                                                                      userFromDatabase
-                                                                          .getPassword(),
-                                                                      grantedAuthorities);
+            userFromDatabase
+                .getPassword(),
+            grantedAuthorities);
     }
 }

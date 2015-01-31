@@ -1,7 +1,6 @@
 package ie.ianduffy.carcloud.service;
 
 import ie.ianduffy.carcloud.domain.Device;
-import ie.ianduffy.carcloud.domain.Field;
 import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.repository.DeviceRepository;
@@ -10,15 +9,14 @@ import ie.ianduffy.carcloud.repository.TrackRepository;
 import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.DeviceDTO;
 import ie.ianduffy.carcloud.web.munic.dto.TrackDTO;
-
 import org.hibernate.Hibernate;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.inject.Inject;
 
 /**
  * Service class for managing devices.
@@ -106,6 +104,14 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
         Device device = findOneForCurrentUser(id);
         List<Track> tracks = device.getTracks();
         Hibernate.initialize(tracks);
+        return tracks;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Track> getTracks(Long id, DateTime fromDate, DateTime toDate) {
+        Device device = findOneForCurrentUser(id);
+        if (toDate == null) toDate = fromDate.plusDays(1);
+        List<Track> tracks = trackRepository.findAllForDeviceByDate(device, fromDate, toDate);
         return tracks;
     }
 

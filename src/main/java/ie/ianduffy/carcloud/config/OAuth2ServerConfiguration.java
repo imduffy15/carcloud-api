@@ -3,7 +3,6 @@ package ie.ianduffy.carcloud.config;
 import ie.ianduffy.carcloud.security.AjaxLogoutSuccessHandler;
 import ie.ianduffy.carcloud.security.AuthoritiesConstants;
 import ie.ianduffy.carcloud.security.Http401UnauthorizedEntryPoint;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;

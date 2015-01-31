@@ -2,7 +2,6 @@ package ie.ianduffy.carcloud.service;
 
 import ie.ianduffy.carcloud.domain.AbstractAuditingEntity;
 import ie.ianduffy.carcloud.web.dto.AbstractAuditingEntityDTO;
-
 import org.dozer.Mapper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
@@ -10,11 +9,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
-
-import javax.inject.Inject;
-import javax.persistence.EntityExistsException;
 
 @Transactional
 public abstract class AbstractService<T extends AbstractAuditingEntity, ID extends Serializable, DTO extends AbstractAuditingEntityDTO> {

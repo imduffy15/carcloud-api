@@ -1,7 +1,6 @@
 package ie.ianduffy.carcloud.domain.util;
 
 import com.javadocmd.simplelatlng.LatLng;
-
 import org.dozer.DozerConverter;
 
 import java.util.Arrays;

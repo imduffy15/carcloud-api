@@ -4,7 +4,6 @@ import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.web.dto.UserDTO;
 import ie.ianduffy.carcloud.web.rest.UserAuthoritiesResource;
 import ie.ianduffy.carcloud.web.rest.UserResource;
-
 import org.dozer.Mapper;
 import org.springframework.stereotype.Component;
 

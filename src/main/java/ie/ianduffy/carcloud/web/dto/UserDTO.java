@@ -3,15 +3,13 @@ package ie.ianduffy.carcloud.web.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 @Data
 @ApiModel

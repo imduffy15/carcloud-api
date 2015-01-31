@@ -3,14 +3,9 @@ package ie.ianduffy.carcloud.config;
 import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-
+import liquibase.integration.spring.SpringLiquibase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.jta.JtaAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.context.EnvironmentAware;
@@ -21,13 +16,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.sql.DataSource;
-
-import liquibase.integration.spring.SpringLiquibase;
 
 @Configuration
 @EnableJpaRepositories("ie.ianduffy.carcloud.repository")
@@ -47,8 +39,8 @@ public class DatabaseConfiguration implements EnvironmentAware {
         if (propertyResolver.getProperty("url") == null
             && propertyResolver.getProperty("databaseName") == null) {
             log.error("Your database connection pool configuration is incorrect! The application" +
-                      "cannot start. Please check your Spring profile, current profiles are: {}",
-                      Arrays.toString(environment.getActiveProfiles()));
+                    "cannot start. Please check your Spring profile, current profiles are: {}",
+                Arrays.toString(environment.getActiveProfiles()));
 
             throw new ApplicationContextException(
                 "Database connection pool is not configured correctly");
@@ -58,7 +50,7 @@ public class DatabaseConfiguration implements EnvironmentAware {
         if (propertyResolver.getProperty("url") == null || ""
             .equals(propertyResolver.getProperty("url"))) {
             config.addDataSourceProperty("databaseName",
-                                         propertyResolver.getProperty("databaseName"));
+                propertyResolver.getProperty("databaseName"));
             config.addDataSourceProperty("serverName", propertyResolver.getProperty("serverName"));
         } else {
             config.addDataSourceProperty("url", propertyResolver.getProperty("url"));
@@ -70,9 +62,9 @@ public class DatabaseConfiguration implements EnvironmentAware {
         if ("com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
             .equals(propertyResolver.getProperty("dataSourceClassName"))) {
             config.addDataSourceProperty("cachePrepStmts",
-                                         propertyResolver.getProperty("cachePrepStmts", "true"));
+                propertyResolver.getProperty("cachePrepStmts", "true"));
             config.addDataSourceProperty("prepStmtCacheSize",
-                                         propertyResolver.getProperty("prepStmtCacheSize", "250"));
+                propertyResolver.getProperty("prepStmtCacheSize", "250"));
             config.addDataSourceProperty("prepStmtCacheSqlLimit", propertyResolver
                 .getProperty("prepStmtCacheSqlLimit", "2048"));
             config.addDataSourceProperty("useServerPrepStmts", propertyResolver

@@ -1,7 +1,6 @@
 package ie.ianduffy.carcloud;
 
 import ie.ianduffy.carcloud.config.Constants;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -12,15 +11,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import java.io.IOException;
 import java.util.Arrays;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
 @ComponentScan
 @EnableAutoConfiguration(exclude = {MetricFilterAutoConfiguration.class,
-                                    MetricRepositoryAutoConfiguration.class})
+    MetricRepositoryAutoConfiguration.class})
 public class Application {
 
     private final Logger log = LoggerFactory.getLogger(Application.class);
@@ -65,7 +63,7 @@ public class Application {
             log.warn("No Spring profile configured, running with default configuration");
         } else {
             log.info("Running with Spring profile(s) : {}",
-                     Arrays.toString(env.getActiveProfiles()));
+                Arrays.toString(env.getActiveProfiles()));
         }
     }
 }

@@ -2,7 +2,6 @@ package ie.ianduffy.carcloud.web.munic.util;
 
 import ie.ianduffy.carcloud.domain.Field;
 import ie.ianduffy.carcloud.web.munic.factory.FieldDTOFactory;
-
 import org.dozer.DozerConverter;
 
 import java.util.ArrayList;

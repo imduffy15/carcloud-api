@@ -3,7 +3,6 @@ package ie.ianduffy.carcloud.service;
 import com.nexmo.messaging.sdk.NexmoSmsClient;
 import com.nexmo.messaging.sdk.SmsSubmissionResult;
 import com.nexmo.messaging.sdk.messages.TextMessage;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;

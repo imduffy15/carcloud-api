@@ -4,10 +4,8 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
-
 import ie.ianduffy.carcloud.domain.Authority;
 import ie.ianduffy.carcloud.service.UserService;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 /**
  * REST controller for managing a user's authorities.

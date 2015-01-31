@@ -7,7 +7,6 @@ import ie.ianduffy.carcloud.repository.UserRepository;
 import ie.ianduffy.carcloud.security.AuthoritiesConstants;
 import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.web.dto.UserDTO;
-
 import org.hibernate.Hibernate;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,10 +14,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.inject.Inject;
 
 /**
  * Service class for managing users.

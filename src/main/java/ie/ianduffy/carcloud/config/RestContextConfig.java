@@ -1,5 +1,7 @@
 package ie.ianduffy.carcloud.config;
 
+import cz.jirutka.spring.exhandler.RestHandlerExceptionResolver;
+import cz.jirutka.spring.exhandler.support.HttpMessageConverterUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,17 +18,14 @@ import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExc
 
 import java.util.List;
 
-import cz.jirutka.spring.exhandler.RestHandlerExceptionResolver;
-import cz.jirutka.spring.exhandler.support.HttpMessageConverterUtils;
-
 @EnableWebMvc
 @Configuration
 public class RestContextConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
-        resolvers.add( exceptionHandlerExceptionResolver() ); // resolves @ExceptionHandler
-        resolvers.add( restExceptionResolver() );
+        resolvers.add(exceptionHandlerExceptionResolver()); // resolves @ExceptionHandler
+        resolvers.add(restExceptionResolver());
     }
 
     @Bean

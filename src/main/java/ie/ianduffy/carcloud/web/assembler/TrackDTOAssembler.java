@@ -4,7 +4,6 @@ import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.web.dto.TrackDTO;
 import ie.ianduffy.carcloud.web.rest.DeviceResource;
 import ie.ianduffy.carcloud.web.rest.TrackResource;
-
 import org.dozer.Mapper;
 import org.springframework.stereotype.Component;
 

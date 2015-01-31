@@ -1,7 +1,6 @@
 package ie.ianduffy.carcloud;
 
 import ie.ianduffy.carcloud.config.Constants;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.builder.SpringApplicationBuilder;

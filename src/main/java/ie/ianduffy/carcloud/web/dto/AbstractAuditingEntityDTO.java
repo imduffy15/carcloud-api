@@ -2,14 +2,12 @@ package ie.ianduffy.carcloud.web.dto;
 
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-
+import lombok.Data;
 import org.springframework.hateoas.Link;
 import org.springframework.util.Assert;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import lombok.Data;
 
 @Data
 @ApiModel

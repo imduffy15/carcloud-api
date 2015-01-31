@@ -4,13 +4,11 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
-
 import ie.ianduffy.carcloud.domain.User;
 import ie.ianduffy.carcloud.security.SecurityUtils;
 import ie.ianduffy.carcloud.service.UserService;
 import ie.ianduffy.carcloud.web.assembler.UserDTOAssembler;
 import ie.ianduffy.carcloud.web.dto.UserDTO;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -91,6 +89,6 @@ public class AccountResource {
         @ApiParam(value = "updated user object") @Valid @RequestBody UserDTO userDTO
     ) {
         return new ResponseEntity<>(userDTOAssembler.toResource(userService.update(userDTO)),
-                                    HttpStatus.OK);
+            HttpStatus.OK);
     }
 }

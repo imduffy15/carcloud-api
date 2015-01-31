@@ -4,13 +4,11 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
-
 import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.service.DeviceService;
 import ie.ianduffy.carcloud.web.assembler.TrackDTOAssembler;
 import ie.ianduffy.carcloud.web.dto.TrackDTO;
 import ie.ianduffy.carcloud.web.munic.dto.EventDTO;
-
 import org.dozer.Mapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,10 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 /**
  * REST controller for allowing munic devices to submit information.
@@ -65,7 +62,7 @@ public class MunicResource {
         List<TrackDTO> processedEvents = new ArrayList<>();
         for (EventDTO eventDTO : eventDTOs) {
             if (eventDTO.getMeta().getEvent().equals("track")) {
-                ie.ianduffy.carcloud.web.munic.dto.TrackDTO trackDTO = new ie.ianduffy.carcloud.web.munic.dto.TrackDTO ();
+                ie.ianduffy.carcloud.web.munic.dto.TrackDTO trackDTO = new ie.ianduffy.carcloud.web.munic.dto.TrackDTO();
                 mapper.map(eventDTO.getPayload(), trackDTO);
                 Track track = deviceService.addTrack(trackDTO);
                 processedEvents.add(trackDTOAssembler.toResource(track));

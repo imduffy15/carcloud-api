@@ -1,27 +1,18 @@
 package ie.ianduffy.carcloud.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.javadocmd.simplelatlng.LatLng;
-
-import org.hibernate.annotations.*;
-import org.hibernate.annotations.Cache;
-import org.joda.time.DateTime;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A Track.
@@ -30,8 +21,13 @@ import lombok.ToString;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Track.findAllForUser", query = "select t from Track t where ?1 MEMBER OF t.device.owners"),
-    @NamedQuery(name = "Track.findOneForUser", query = "select t from Track t where t.id = ?2 and ?1 MEMBER OF t.device.owners")
+    @NamedQuery(name = "Track.findOneForUser", query = "select t from Track t where t.id = ?2 and ?1 MEMBER OF t.device.owners"),
+    @NamedQuery(name = "Track.findAllForDeviceByDate", query = "select t from Track t where t.device = ?1 and t.recordedAt >= ?2 and t.recordedAt < ?3")
 })
+
+
+// findAllForDeviceByDate
+
 @Table(name = "T_TRACK")
 @ToString(exclude = {"device"})
 @EqualsAndHashCode(exclude = {"device"}, callSuper = false)
