@@ -28,11 +28,6 @@
                   file="config/liquibase/devices_owners.csv"
                   separator=";"
                   tableName="t_device_owner"/>
-
-        <loadData encoding="UTF-8"
-                  file="config/liquibase/tracks.csv"
-                  separator=";"
-                  tableName="t_track"/>
     </changeSet>
 
 </databaseChangeLog>

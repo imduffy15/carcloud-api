@@ -1,6 +1,8 @@
 package ie.ianduffy.carcloud.web.munic.factory;
 
 import ie.ianduffy.carcloud.domain.Field;
+import ie.ianduffy.carcloud.domain.FieldBoolean;
+import ie.ianduffy.carcloud.domain.FieldInteger;
 import ie.ianduffy.carcloud.domain.FieldString;
 import ie.ianduffy.carcloud.web.munic.util.DecoderUtil;
 
@@ -91,14 +93,15 @@ public class FieldDTOFactory {
 
     public static Field getFieldDTO(String key, String value) {
         switch (fieldDefinations.get(key)) {
-            default:
+            case INTEGER:
+                return new FieldInteger(key, (DecoderUtil.decodeToInt(value)));
+            case BOOLEAN:
+                return new FieldBoolean(key, (DecoderUtil.decodeToBoolean(value)));
+            case STRING:
                 return new FieldString(key, DecoderUtil.decodeToString(value));
-//            case INTEGER:
-//                return new FieldInteger(key, DecoderUtil.decodeToInt(value));
-//            case BOOLEAN:
-//                return new FieldBoolean(key, DecoderUtil.decodeToBoolean(value));
+            default:
+                throw new IllegalArgumentException();
         }
-//        throw new IllegalArgumentException();
     }
 
     private enum FieldType {

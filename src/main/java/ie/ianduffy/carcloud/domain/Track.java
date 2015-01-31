@@ -38,8 +38,7 @@ import lombok.ToString;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Track extends AbstractAuditingEntity<Long> implements Serializable {
 
-    @LazyCollection(LazyCollectionOption.EXTRA)
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "device_id")
     private Device device;
 
@@ -61,14 +60,13 @@ public class Track extends AbstractAuditingEntity<Long> implements Serializable 
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime recordedAt;
 
-    @OrderBy
     @JoinTable(
         name = "T_TRACK_FIELD",
         joinColumns = {@JoinColumn(name = "track_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "field_id", referencedColumnName = "id")})
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private List<Field> fields;
+    private List<Field> fields = new ArrayList<>();
 
 
     public Track() {

@@ -17,10 +17,10 @@ spring:
         database-platform: org.hibernate.dialect.H2Dialect
         database: H2
         openInView: false
-        show_sql: false
-        generate-ddl: true
+        show_sql: true
+        generate-ddl: false
         hibernate:
-            ddl-auto: create
+            ddl-auto: none
             naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
         properties:
             hibernate.cache.use_second_level_cache: true

@@ -4,10 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -15,15 +12,23 @@ import javax.persistence.Table;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class FieldBoolean extends Field<Boolean> {
 
-
     private Boolean value;
 
     public FieldBoolean() {
-
+        super();
     }
 
     public FieldBoolean(String name, Boolean value) {
-        super(name);
+        super(name, value);
+    }
+
+    @Override
+    public Boolean getValue() {
+        return value;
+    }
+
+    @Override
+    public void setValue(Boolean value) {
         this.value = value;
     }
 }

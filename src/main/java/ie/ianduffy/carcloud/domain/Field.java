@@ -7,6 +7,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * A Field.
@@ -14,9 +16,8 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "T_FIELD")
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-abstract public class Field<T> {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Field<T> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -24,14 +25,13 @@ abstract public class Field<T> {
 
     private String name;
 
-    Field(){
-    }
-
-    protected Field(String name) {
+    public Field() {}
+    public Field(String name, T value) {
         this.name = name;
+        this.setValue(value);
     }
 
-    abstract T getValue();
-    abstract void setValue(T value);
+    public abstract T getValue();
+    public abstract void setValue(T value);
 
 }

@@ -1,8 +1,6 @@
 package ie.ianduffy.carcloud.domain;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -17,10 +15,20 @@ public class FieldString extends Field<String> {
     private String value;
 
     public FieldString() {
+        super();
     }
 
     public FieldString(String name, String value) {
-        super(name);
+        super(name, value);
+    }
+
+    @Override
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public void setValue(String value) {
         this.value = value;
     }
 }

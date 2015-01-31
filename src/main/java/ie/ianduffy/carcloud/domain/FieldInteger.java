@@ -4,10 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -15,15 +12,23 @@ import javax.persistence.Table;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class FieldInteger extends Field<Integer> {
 
-
     private Integer value;
 
     public FieldInteger() {
-
+        super();
     }
 
     public FieldInteger(String name, Integer value) {
-        super(name);
+        super(name, value);
+    }
+
+    @Override
+    public Integer getValue() {
+        return value;
+    }
+
+    @Override
+    public void setValue(Integer value) {
         this.value = value;
     }
 }
