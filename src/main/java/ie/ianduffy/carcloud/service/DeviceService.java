@@ -110,7 +110,6 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
     @Transactional(readOnly = true)
     public List<Track> getTracks(Long id, DateTime fromDate, DateTime toDate) {
         Device device = findOneForCurrentUser(id);
-        if (toDate == null) toDate = fromDate.plusDays(1);
         List<Track> tracks = trackRepository.findAllForDeviceByDate(device, fromDate, toDate);
         return tracks;
     }

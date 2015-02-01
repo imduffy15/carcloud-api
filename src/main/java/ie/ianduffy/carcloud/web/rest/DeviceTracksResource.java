@@ -62,10 +62,10 @@ public class DeviceTracksResource {
         @ApiParam(value = "start date to filter by", required = false) @RequestParam(value = "fromDate", required = false) DateTime fromDate,
         @ApiParam(value = "end date to filter by", required = false) @RequestParam(value = "toDate", required = false) DateTime toDate
     ) {
-        List<Track> tracks;
+        if (fromDate == null) fromDate = new DateTime().withTimeAtStartOfDay();
+        if (toDate == null) toDate = fromDate.plusDays(1);
 
-        if (fromDate != null) tracks = deviceService.getTracks(deviceId, fromDate, toDate);
-        else tracks = deviceService.getTracks(deviceId);
+        List<Track> tracks = deviceService.getTracks(deviceId, fromDate, toDate);
 
         List<TrackDTO> trackDTOs = new ArrayList<>();
         for (Track track : tracks) {
