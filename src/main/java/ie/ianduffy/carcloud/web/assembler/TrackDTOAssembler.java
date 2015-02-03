@@ -21,8 +21,13 @@ public class TrackDTOAssembler {
         TrackDTO resource = new TrackDTO();
 
 
-        resource.setFields(track.getFields());
+        resource.setReceivedAt(track.getReceivedAt());
+        track.setReceivedAt(null);
 
+        resource.setRecordedAt(track.getRecordedAt());
+        track.setRecordedAt(null);
+
+        resource.setFields(track.getFields());
         track.setFields(null);
 
         resource.add(linkTo(TrackResource.class).slash(track.getId()).withSelfRel());
