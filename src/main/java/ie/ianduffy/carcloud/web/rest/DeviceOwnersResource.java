@@ -60,6 +60,7 @@ public class DeviceOwnersResource {
         notes = "Removes a owner from the specified device"
     )
     @RequestMapping(
+        value = "/{username}",
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )

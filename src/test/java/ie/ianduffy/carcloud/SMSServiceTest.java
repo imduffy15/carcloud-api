@@ -16,7 +16,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.inject.Inject;
 
-@Ignore
+//@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
@@ -31,7 +31,7 @@ public class SMSServiceTest {
 
     @Test
     public void sendSms() {
-        smsService.sendSMS("+3530000000000", "CarCloud SMS Test");
+        smsService.sendSMS("+353861770680", "Example CarCloud SMS.");
     }
 
 }

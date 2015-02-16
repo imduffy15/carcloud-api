@@ -16,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Service class for managing devices.
@@ -37,7 +39,7 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
     public Device addOwner(Long id, String username) {
         User user = userService.findOne(username);
         Device device = findOneForCurrentUser(id);
-        List<User> owners = device.getOwners();
+        Set<User> owners = device.getOwners();
         owners.add(user);
         deviceRepository.save(device);
         return device;
@@ -63,7 +65,7 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
 
     public Device create(DeviceDTO deviceDTO) {
         Device device = new Device();
-        device.setOwners(Arrays.asList(userService.findOne(SecurityUtils.getCurrentLogin())));
+        device.setOwners(new HashSet(Arrays.asList(userService.findOne(SecurityUtils.getCurrentLogin()))));
         return super.create(deviceDTO, device);
     }
 
@@ -74,16 +76,9 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
     }
 
     @Transactional(readOnly = true)
-    public User getOwner(Long id, String username) {
-        User user = userService.findOne(username);
+    public Set<User> getOwners(Long id) {
         Device device = findOneForCurrentUser(id);
-        return device.getOwners().get(device.getOwners().indexOf(user));
-    }
-
-    @Transactional(readOnly = true)
-    public List<User> getOwners(Long id) {
-        Device device = findOneForCurrentUser(id);
-        List<User> owners = device.getOwners();
+        Set<User> owners = device.getOwners();
         Hibernate.initialize(owners);
         return owners;
     }
@@ -117,8 +112,8 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
     public void removeOwner(Long id, String username) {
         User user = userService.findOne(username);
         Device device = findOneForCurrentUser(id);
-        List<User> owners = device.getOwners();
-        owners.remove(owners.indexOf(user));
+        Set<User> owners = device.getOwners();
+        owners.remove(user);
         deviceRepository.save(device);
     }
 

@@ -13,7 +13,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A Device.
@@ -47,7 +49,7 @@ public class Device extends AbstractAuditingEntity<Long> implements Serializable
     @ManyToMany(fetch = FetchType.LAZY)
     @LazyCollection(LazyCollectionOption.EXTRA)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private List<User> owners = new ArrayList<>();
+    private Set<User> owners = new HashSet<>();
 
     @LazyCollection(LazyCollectionOption.EXTRA)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
