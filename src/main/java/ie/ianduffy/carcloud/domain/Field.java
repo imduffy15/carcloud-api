@@ -1,8 +1,12 @@
 package ie.ianduffy.carcloud.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * A Field.
@@ -11,6 +15,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "T_FIELD")
 @Inheritance(strategy = InheritanceType.JOINED)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public abstract class Field<T> {
 
     @Id

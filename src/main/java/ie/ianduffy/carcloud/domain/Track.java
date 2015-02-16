@@ -24,11 +24,9 @@ import java.util.List;
     @NamedQuery(name = "Track.findOneForUser", query = "select t from Track t where t.id = ?2 and ?1 MEMBER OF t.device.owners"),
     @NamedQuery(name = "Track.findAllForDeviceByDate", query = "select t from Track t where t.device = ?1 and t.recordedAt >= ?2 and t.recordedAt < ?3")
 })
-
-
-// findAllForDeviceByDate
-
-@Table(name = "T_TRACK")
+@Table(name = "T_TRACK", indexes = {
+    @Index(columnList = "recorded_at")
+})
 @ToString(exclude = {"device"})
 @EqualsAndHashCode(exclude = {"device"}, callSuper = false)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -60,7 +58,7 @@ public class Track extends AbstractAuditingEntity<Long> implements Serializable 
         name = "T_TRACK_FIELD",
         joinColumns = {@JoinColumn(name = "track_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "field_id", referencedColumnName = "id")})
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<Field> fields = new ArrayList<>();
 

@@ -9,7 +9,7 @@
     </appender>
 
     <logger name="javax.activation" level="WARN"/>
-    <logger name="ie.ianduffy.carcloud" level="WARN"/>
+    <logger name="ie.ianduffy.carcloud" level="DEBUG"/>
     <logger name="ch.qos.logback" level="WARN"/>
     <logger name="com.codahale.metrics" level="WARN"/>
     <logger name="com.ryantenney" level="WARN"/>
@@ -39,7 +39,7 @@
         <resetJUL>true</resetJUL>
     </contextListener>
 
-    <root level="WARN">
+    <root level="DEBUG">
         <appender-ref ref="CONSOLE"/>
     </root>
 

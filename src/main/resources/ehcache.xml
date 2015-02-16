@@ -45,6 +45,10 @@
            timeToLiveSeconds="3600">
     </cache>
 
+    <cache name="ie.ianduffy.carcloud.domain.Track.fields"
+           timeToLiveSeconds="3600">
+    </cache>
+
     <cache name="ie.ianduffy.carcloud.domain.Device"
            timeToLiveSeconds="3600">
     </cache>
