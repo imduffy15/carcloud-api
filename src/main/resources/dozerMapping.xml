@@ -23,7 +23,7 @@
         <class-b>ie.ianduffy.carcloud.web.dto.TrackDTO</class-b>
     </mapping>
 
-    <mapping>
+    <mapping map-null="false">
         <class-a>java.util.Map</class-a>
         <class-b>ie.ianduffy.carcloud.web.munic.dto.TrackDTO</class-b>
         <field>

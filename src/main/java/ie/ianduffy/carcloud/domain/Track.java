@@ -58,7 +58,7 @@ public class Track extends AbstractAuditingEntity<Long> implements Serializable 
         name = "T_TRACK_FIELD",
         joinColumns = {@JoinColumn(name = "track_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "field_id", referencedColumnName = "id")})
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.DETACH})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<Field> fields = new ArrayList<>();
 
