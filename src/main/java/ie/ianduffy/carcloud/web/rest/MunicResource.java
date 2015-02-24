@@ -9,6 +9,7 @@ import ie.ianduffy.carcloud.service.DeviceService;
 import ie.ianduffy.carcloud.web.assembler.TrackDTOAssembler;
 import ie.ianduffy.carcloud.web.dto.TrackDTO;
 import ie.ianduffy.carcloud.web.munic.dto.EventDTO;
+import lombok.extern.java.Log;
 import org.dozer.Mapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,6 +26,7 @@ import java.util.List;
 /**
  * REST controller for allowing munic devices to submit information.
  */
+@Log
 @Api(
     value = "munic",
     description = "Munic API",
@@ -62,10 +64,14 @@ public class MunicResource {
         List<TrackDTO> processedEvents = new ArrayList<>();
         for (EventDTO eventDTO : eventDTOs) {
             if (eventDTO.getMeta().getEvent().equals("track")) {
-                ie.ianduffy.carcloud.web.munic.dto.TrackDTO trackDTO = new ie.ianduffy.carcloud.web.munic.dto.TrackDTO();
-                mapper.map(eventDTO.getPayload(), trackDTO);
-                Track track = deviceService.addTrack(trackDTO);
-                processedEvents.add(trackDTOAssembler.toResource(track));
+                try {
+                    ie.ianduffy.carcloud.web.munic.dto.TrackDTO trackDTO = new ie.ianduffy.carcloud.web.munic.dto.TrackDTO();
+                    mapper.map(eventDTO.getPayload(), trackDTO);
+                    Track track = deviceService.addTrack(trackDTO);
+                    processedEvents.add(trackDTOAssembler.toResource(track));
+                } catch(IllegalArgumentException e) {
+                    log.info("Ignoring track due to incomplete information.");
+                }
             }
         }
         return new ResponseEntity<>(processedEvents, HttpStatus.OK);

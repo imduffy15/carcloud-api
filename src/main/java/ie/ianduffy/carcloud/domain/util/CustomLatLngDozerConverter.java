@@ -14,6 +14,9 @@ public class CustomLatLngDozerConverter extends DozerConverter<List, LatLng> {
 
     @Override
     public LatLng convertTo(List source, LatLng destination) {
+        if(source == null) {
+            throw new IllegalArgumentException();
+        }
         return new LatLng((Double) source.get(1), (Double) source.get(0));
     }
 
