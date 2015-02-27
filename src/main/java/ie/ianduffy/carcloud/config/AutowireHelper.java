@@ -3,17 +3,19 @@ package ie.ianduffy.carcloud.config;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * Helper class which is able to autowire a specified class. It holds a static reference to the {@link org
  * .springframework.context.ApplicationContext}.
  */
-public final class AutowireHelper implements ApplicationContextAware {
+@Configuration
+public class AutowireHelper implements ApplicationContextAware {
 
     private static final AutowireHelper INSTANCE = new AutowireHelper();
     private static ApplicationContext applicationContext;
 
-    private AutowireHelper() {
+    AutowireHelper() {
     }
 
     /**
