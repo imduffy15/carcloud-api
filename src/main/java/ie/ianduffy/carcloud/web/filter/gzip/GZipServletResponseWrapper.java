@@ -10,9 +10,9 @@ import java.util.zip.GZIPOutputStream;
 
 class GZipServletResponseWrapper extends HttpServletResponseWrapper {
 
+    private boolean disableFlushBuffer = false;
     private GZipServletOutputStream gzipOutputStream = null;
     private PrintWriter printWriter = null;
-    private boolean disableFlushBuffer = false;
 
     public GZipServletResponseWrapper(HttpServletResponse response, GZIPOutputStream gzout)
         throws IOException {
@@ -30,6 +30,19 @@ class GZipServletResponseWrapper extends HttpServletResponseWrapper {
 
         if (this.gzipOutputStream != null) {
             this.gzipOutputStream.close();
+        }
+    }
+
+    /**
+     * Flushes all the streams for this response.
+     */
+    public void flush() throws IOException {
+        if (printWriter != null) {
+            printWriter.flush();
+        }
+
+        if (gzipOutputStream != null) {
+            gzipOutputStream.flush();
         }
     }
 
@@ -83,24 +96,10 @@ class GZipServletResponseWrapper extends HttpServletResponseWrapper {
         return this.printWriter;
     }
 
-
     @Override
     public void setContentLength(int length) {
         //ignore, since content length of zipped content
         //does not match content length of unzipped content.
-    }
-
-    /**
-     * Flushes all the streams for this response.
-     */
-    public void flush() throws IOException {
-        if (printWriter != null) {
-            printWriter.flush();
-        }
-
-        if (gzipOutputStream != null) {
-            gzipOutputStream.flush();
-        }
     }
 
     /**

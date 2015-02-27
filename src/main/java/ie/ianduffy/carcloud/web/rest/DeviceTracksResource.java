@@ -41,11 +41,6 @@ public class DeviceTracksResource {
         this.trackDTOAssembler = trackDTOAssembler;
     }
 
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(DateTime.class, new DateTimeEditor("yyyy-MM-dd", false));
-    }
-
     @Timed
     @ApiOperation(
         value = "Get device tracks for a specific date",
@@ -72,5 +67,10 @@ public class DeviceTracksResource {
             trackDTOs.add(trackDTOAssembler.toResource(track));
         }
         return new ResponseEntity<>(trackDTOs, HttpStatus.OK);
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(DateTime.class, new DateTimeEditor("yyyy-MM-dd", false));
     }
 }

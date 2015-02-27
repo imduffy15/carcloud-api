@@ -75,9 +75,8 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
         executor.execute(createWrappedRunnable(task), startTimeout);
     }
 
-    @Override
-    public Future<?> submit(Runnable task) {
-        return executor.submit(createWrappedRunnable(task));
+    void handle(Exception e) {
+        log.error("Caught async exception", e);
     }
 
     @Override
@@ -85,7 +84,8 @@ public class ExceptionHandlingAsyncTaskExecutor implements AsyncTaskExecutor,
         return executor.submit(createCallable(task));
     }
 
-    void handle(Exception e) {
-        log.error("Caught async exception", e);
+    @Override
+    public Future<?> submit(Runnable task) {
+        return executor.submit(createWrappedRunnable(task));
     }
 }

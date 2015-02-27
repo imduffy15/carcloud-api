@@ -10,12 +10,12 @@ public class CustomJodaDateDozerConverter extends DozerConverter<String, DateTim
     }
 
     @Override
-    public DateTime convertTo(String source, DateTime destination) {
-        return DateTime.parse(source);
+    public String convertFrom(DateTime source, String destination) {
+        return source.toString();
     }
 
     @Override
-    public String convertFrom(DateTime source, String destination) {
-        return source.toString();
+    public DateTime convertTo(String source, DateTime destination) {
+        return DateTime.parse(source);
     }
 }

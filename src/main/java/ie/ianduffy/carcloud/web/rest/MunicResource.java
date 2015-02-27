@@ -69,7 +69,7 @@ public class MunicResource {
                     mapper.map(eventDTO.getPayload(), trackDTO);
                     Track track = deviceService.addTrack(trackDTO);
                     processedEvents.add(trackDTOAssembler.toResource(track));
-                } catch(IllegalArgumentException e) {
+                } catch (IllegalArgumentException e) {
                     log.info("Ignoring track due to incomplete information.");
                 }
             }

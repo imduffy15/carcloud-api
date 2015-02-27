@@ -1,6 +1,7 @@
 package ie.ianduffy.carcloud.domain;
 
 import com.javadocmd.simplelatlng.LatLng;
+import ie.ianduffy.carcloud.domain.eventlisteners.PublishTrack;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -29,31 +30,13 @@ import java.util.List;
 })
 @ToString(exclude = {"device"})
 @EqualsAndHashCode(exclude = {"device"}, callSuper = false)
+@EntityListeners({PublishTrack.class})
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Track extends AbstractAuditingEntity<Long> implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "device_id")
     private Device device;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
-
-    @Column(name = "latitude")
-    private Double latitude;
-
-    @Column(name = "longitude")
-    private Double longitude;
-
-    @Column(name = "received_at")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime receivedAt;
-
-    @Column(name = "recorded_at")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime recordedAt;
-
     @JoinTable(
         name = "T_TRACK_FIELD",
         joinColumns = {@JoinColumn(name = "track_id", referencedColumnName = "id")},
@@ -61,6 +44,19 @@ public class Track extends AbstractAuditingEntity<Long> implements Serializable 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.DETACH})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<Field> fields = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private Long id;
+    @Column(name = "latitude")
+    private Double latitude;
+    @Column(name = "longitude")
+    private Double longitude;
+    @Column(name = "received_at")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime receivedAt;
+    @Column(name = "recorded_at")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime recordedAt;
 
 
     public Track() {

@@ -29,14 +29,10 @@ public class RestContextConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public RestHandlerExceptionResolver restExceptionResolver() {
-        return RestHandlerExceptionResolver.builder()
-            .messageSource(httpErrorMessageSource())
-            .defaultContentType(MediaType.APPLICATION_JSON)
-            .addErrorMessageHandler(EmptyResultDataAccessException.class, HttpStatus.NOT_FOUND)
-            .addErrorMessageHandler(DataIntegrityViolationException.class, HttpStatus.CONFLICT)
-            .addErrorMessageHandler(DuplicateKeyException.class, HttpStatus.CONFLICT)
-            .build();
+    public ExceptionHandlerExceptionResolver exceptionHandlerExceptionResolver() {
+        ExceptionHandlerExceptionResolver resolver = new ExceptionHandlerExceptionResolver();
+        resolver.setMessageConverters(HttpMessageConverterUtils.getDefaultHttpMessageConverters());
+        return resolver;
     }
 
     @Bean
@@ -48,9 +44,13 @@ public class RestContextConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public ExceptionHandlerExceptionResolver exceptionHandlerExceptionResolver() {
-        ExceptionHandlerExceptionResolver resolver = new ExceptionHandlerExceptionResolver();
-        resolver.setMessageConverters(HttpMessageConverterUtils.getDefaultHttpMessageConverters());
-        return resolver;
+    public RestHandlerExceptionResolver restExceptionResolver() {
+        return RestHandlerExceptionResolver.builder()
+            .messageSource(httpErrorMessageSource())
+            .defaultContentType(MediaType.APPLICATION_JSON)
+            .addErrorMessageHandler(EmptyResultDataAccessException.class, HttpStatus.NOT_FOUND)
+            .addErrorMessageHandler(DataIntegrityViolationException.class, HttpStatus.CONFLICT)
+            .addErrorMessageHandler(DuplicateKeyException.class, HttpStatus.CONFLICT)
+            .build();
     }
 }

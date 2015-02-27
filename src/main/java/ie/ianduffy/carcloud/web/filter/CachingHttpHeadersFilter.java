@@ -18,8 +18,8 @@ public class CachingHttpHeadersFilter implements Filter {
     private final static long LAST_MODIFIED = System.currentTimeMillis();
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        // Nothing to initialize
+    public void destroy() {
+        // Nothing to destroy
     }
 
     @Override
@@ -40,7 +40,7 @@ public class CachingHttpHeadersFilter implements Filter {
     }
 
     @Override
-    public void destroy() {
-        // Nothing to destroy
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // Nothing to initialize
     }
 }

@@ -63,14 +63,14 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
 
     @Override
     @Bean
-    public MetricRegistry getMetricRegistry() {
-        return METRIC_REGISTRY;
+    public HealthCheckRegistry getHealthCheckRegistry() {
+        return HEALTH_CHECK_REGISTRY;
     }
 
     @Override
     @Bean
-    public HealthCheckRegistry getHealthCheckRegistry() {
-        return HEALTH_CHECK_REGISTRY;
+    public MetricRegistry getMetricRegistry() {
+        return METRIC_REGISTRY;
     }
 
     @PostConstruct

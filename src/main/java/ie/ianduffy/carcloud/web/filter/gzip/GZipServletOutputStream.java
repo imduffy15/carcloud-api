@@ -25,13 +25,13 @@ class GZipServletOutputStream extends ServletOutputStream {
     }
 
     @Override
-    public void write(byte b[]) throws IOException {
-        this.stream.write(b);
+    public boolean isReady() {
+        return true;
     }
 
     @Override
-    public void write(byte b[], int off, int len) throws IOException {
-        this.stream.write(b, off, len);
+    public void setWriteListener(WriteListener listener) {
+
     }
 
     @Override
@@ -40,12 +40,12 @@ class GZipServletOutputStream extends ServletOutputStream {
     }
 
     @Override
-    public boolean isReady() {
-        return true;
+    public void write(byte b[]) throws IOException {
+        this.stream.write(b);
     }
 
     @Override
-    public void setWriteListener(WriteListener listener) {
-
+    public void write(byte b[], int off, int len) throws IOException {
+        this.stream.write(b, off, len);
     }
 }

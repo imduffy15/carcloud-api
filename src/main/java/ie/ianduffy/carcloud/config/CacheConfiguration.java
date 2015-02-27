@@ -29,28 +29,13 @@ import java.util.SortedSet;
 public class CacheConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(CacheConfiguration.class);
-
+    private net.sf.ehcache.CacheManager cacheManager;
     @PersistenceContext
     private EntityManager entityManager;
-
     @Inject
     private Environment env;
-
     @Inject
     private MetricRegistry metricRegistry;
-
-    private net.sf.ehcache.CacheManager cacheManager;
-
-    @PreDestroy
-    public void destroy() {
-        log.info("Remove Cache Manager metrics");
-        SortedSet<String> names = metricRegistry.getNames();
-        for (String name : names) {
-            metricRegistry.remove(name);
-        }
-        log.info("Closing Cache Manager");
-        cacheManager.shutdown();
-    }
 
     @Bean
     public CacheManager cacheManager() {
@@ -81,5 +66,16 @@ public class CacheConfiguration {
         EhCacheCacheManager ehCacheManager = new EhCacheCacheManager();
         ehCacheManager.setCacheManager(cacheManager);
         return ehCacheManager;
+    }
+
+    @PreDestroy
+    public void destroy() {
+        log.info("Remove Cache Manager metrics");
+        SortedSet<String> names = metricRegistry.getNames();
+        for (String name : names) {
+            metricRegistry.remove(name);
+        }
+        log.info("Closing Cache Manager");
+        cacheManager.shutdown();
     }
 }

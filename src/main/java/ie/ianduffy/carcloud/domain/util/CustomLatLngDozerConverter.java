@@ -13,15 +13,15 @@ public class CustomLatLngDozerConverter extends DozerConverter<List, LatLng> {
     }
 
     @Override
-    public LatLng convertTo(List source, LatLng destination) {
-        if(source == null) {
-            throw new IllegalArgumentException();
-        }
-        return new LatLng((Double) source.get(1), (Double) source.get(0));
+    public List convertFrom(LatLng source, List destination) {
+        return Arrays.asList(source.getLatitude(), source.getLongitude());
     }
 
     @Override
-    public List convertFrom(LatLng source, List destination) {
-        return Arrays.asList(source.getLatitude(), source.getLongitude());
+    public LatLng convertTo(List source, LatLng destination) {
+        if (source == null) {
+            throw new IllegalArgumentException();
+        }
+        return new LatLng((Double) source.get(1), (Double) source.get(0));
     }
 }

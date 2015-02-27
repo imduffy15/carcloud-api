@@ -16,6 +16,11 @@ public class CustomMunicFieldDozerConverter extends DozerConverter<Object, List>
     }
 
     @Override
+    public Object convertFrom(List list, Object o) {
+        return null;
+    }
+
+    @Override
     public List convertTo(Object o, List list) {
         List<Field> fields = new ArrayList<>();
         Map<String, Map<String, String>> fieldsData = (Map<String, Map<String, String>>) o;
@@ -27,10 +32,5 @@ public class CustomMunicFieldDozerConverter extends DozerConverter<Object, List>
             }
         }
         return fields;
-    }
-
-    @Override
-    public Object convertFrom(List list, Object o) {
-        return null;
     }
 }
