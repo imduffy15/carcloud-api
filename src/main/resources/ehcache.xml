@@ -61,6 +61,11 @@
            timeToLiveSeconds="3600">
     </cache>
 
+    <cache name="ie.ianduffy.carcloud.domain.Field"
+           timeToLiveSeconds="3600">
+    </cache>
+
+
     <cache name="org.hibernate.cache.spi.UpdateTimestampsCache"
            timeToLiveSeconds="3600">
     </cache>
