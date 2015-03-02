@@ -117,6 +117,8 @@ public class OAuth2ServerConfiguration {
                 .antMatchers("/views/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/app/rest/account").permitAll()
                 .antMatchers("/app/munic").permitAll()
+                .antMatchers("/ws/**").permitAll()
+                .antMatchers("/topic/**").permitAll()
                 .antMatchers("/app/**").authenticated()
                 .antMatchers("/metrics/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/health/**").hasAuthority(AuthoritiesConstants.ADMIN)
