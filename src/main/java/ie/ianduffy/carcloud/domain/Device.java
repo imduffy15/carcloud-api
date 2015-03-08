@@ -32,6 +32,11 @@ import java.util.Set;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Device extends AbstractAuditingEntity<Long> implements Serializable {
 
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.DETACH})
+    private List<Track> alerts = new ArrayList<>();
+
     @Size(min = 1, max = 150)
     @Column(name = "description", length = 150)
     private String description;
