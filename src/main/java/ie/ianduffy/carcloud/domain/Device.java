@@ -27,8 +27,8 @@ import java.util.Set;
     @NamedQuery(name = "Device.findOneForUser", query = "select d from Device d where ?1 MEMBER OF d.owners and d.id = ?2")
 })
 @Table(name = "T_DEVICE")
-@ToString(exclude = {"owners", "tracks"})
-@EqualsAndHashCode(exclude = {"owners", "tracks"}, callSuper = false)
+@ToString(exclude = {"owners", "tracks", "alerts"})
+@EqualsAndHashCode(exclude = {"owners", "tracks", "alerts"}, callSuper = false)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Device extends AbstractAuditingEntity<Long> implements Serializable {
 
@@ -63,5 +63,4 @@ public class Device extends AbstractAuditingEntity<Long> implements Serializable
 
     public Device() {
     }
-
 }
