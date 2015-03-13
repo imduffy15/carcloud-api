@@ -27,12 +27,12 @@ spring:
         generate-ddl: true
         hibernate:
             ddl-auto: update
-            naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+            naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
         properties:
-            hibernate.cache.use_second_level_cache: false
-            hibernate.cache.use_query_cache: false
+            hibernate.cache.use_second_level_cache: true
+            hibernate.cache.use_query_cache: true
             hibernate.generate_statistics: true
-            hibernate.hbm2ddl.auto: validate
+            hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
 
     mail:
         host: localhost
