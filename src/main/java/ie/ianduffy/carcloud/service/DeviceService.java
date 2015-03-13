@@ -1,5 +1,6 @@
 package ie.ianduffy.carcloud.service;
 
+import ie.ianduffy.carcloud.domain.Alert;
 import ie.ianduffy.carcloud.domain.Device;
 import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.domain.User;
@@ -7,6 +8,7 @@ import ie.ianduffy.carcloud.repository.DeviceRepository;
 import ie.ianduffy.carcloud.repository.RestrictedRepository;
 import ie.ianduffy.carcloud.repository.TrackRepository;
 import ie.ianduffy.carcloud.security.SecurityUtils;
+import ie.ianduffy.carcloud.web.dto.AlertDTO;
 import ie.ianduffy.carcloud.web.dto.DeviceDTO;
 import ie.ianduffy.carcloud.web.munic.dto.TrackDTO;
 import org.hibernate.Hibernate;
@@ -28,13 +30,22 @@ import java.util.Set;
 public class DeviceService extends AbstractRestrictedService<Device, Long, DeviceDTO> {
 
     @Inject
+    private AlertService alertService;
+    @Inject
     private DeviceRepository deviceRepository;
-
     @Inject
     private TrackRepository trackRepository;
-
     @Inject
     private UserService userService;
+
+    public Device addAlert(Long id, AlertDTO alertDTO) {
+        Device device = findOneForCurrentUser(id);
+        Alert alert = new Alert(device);
+        List<Alert> alerts = device.getAlerts();
+        alerts.add(alert);
+        deviceRepository.save(device);
+        return device;
+    }
 
     public Device addOwner(Long id, String username) {
         User user = userService.findOne(username);
@@ -76,6 +87,14 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
     }
 
     @Transactional(readOnly = true)
+    public List<Alert> getAlerts(Long id) {
+        Device device = findOneForCurrentUser(id);
+        List<Alert> alerts = device.getAlerts();
+        Hibernate.initialize(alerts);
+        return alerts;
+    }
+
+    @Transactional(readOnly = true)
     public Set<User> getOwners(Long id) {
         Device device = findOneForCurrentUser(id);
         Set<User> owners = device.getOwners();
@@ -107,6 +126,14 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
         Device device = findOneForCurrentUser(id);
         List<Track> tracks = trackRepository.findAllForDeviceByDate(device, fromDate, toDate);
         return tracks;
+    }
+
+    public void removeAlert(Long deviceId, Long alertId) {
+        Alert alert = alertService.findOne(alertId);
+        Device device = findOneForCurrentUser(deviceId);
+        List<Alert> alerts = device.getAlerts();
+        alerts.remove(alert);
+        deviceRepository.save(device);
     }
 
     public void removeOwner(Long id, String username) {

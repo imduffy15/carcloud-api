@@ -11,6 +11,7 @@ import java.io.Serializable;
 
 @Data
 @Entity
+@Table(name = "T_ALERT")
 @ToString(exclude = {"device"})
 @NamedQueries({
     @NamedQuery(name = "Alert.findAllForUser", query = "select a from Alert a where ?1 MEMBER OF a.device.owners"),
@@ -29,5 +30,9 @@ public class Alert extends AbstractAuditingEntity<Long> implements Serializable 
     private Long id;
 
     public Alert() {
+    }
+
+    public Alert(Device device) {
+        this.device = device;
     }
 }
