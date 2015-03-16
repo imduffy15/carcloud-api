@@ -1,6 +1,7 @@
 package ie.ianduffy.carcloud.domain;
 
 import com.javadocmd.simplelatlng.LatLng;
+import ie.ianduffy.carcloud.domain.eventlisteners.CheckAlert;
 import ie.ianduffy.carcloud.domain.eventlisteners.PublishTrack;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,7 +31,7 @@ import java.util.List;
 })
 @ToString(exclude = {"device"})
 @EqualsAndHashCode(exclude = {"device"}, callSuper = false)
-@EntityListeners({PublishTrack.class})
+@EntityListeners({CheckAlert.class, PublishTrack.class})
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Track extends AbstractAuditingEntity<Long> implements Serializable {
 
@@ -43,7 +44,7 @@ public class Track extends AbstractAuditingEntity<Long> implements Serializable 
         inverseJoinColumns = {@JoinColumn(name = "field_id", referencedColumnName = "id")})
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.DETACH})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private List<Field> fields = new ArrayList<>();
+    private List<Field> fields;
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;

@@ -1,7 +1,7 @@
 package ie.ianduffy.carcloud.web.munic.util;
 
 import ie.ianduffy.carcloud.domain.Field;
-import ie.ianduffy.carcloud.web.munic.factory.FieldDTOFactory;
+import ie.ianduffy.carcloud.web.munic.factory.FieldFactory;
 import org.dozer.DozerConverter;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class CustomMunicFieldDozerConverter extends DozerConverter<Object, List>
             Set<String> keys = fieldsData.keySet();
             for (String key : keys) {
                 String value = fieldsData.get(key).get("b64_value");
-                fields.add(FieldDTOFactory.getFieldDTO(key, value));
+                fields.add(FieldFactory.getFieldDTO(key, value));
             }
         }
         return fields;

@@ -11,7 +11,9 @@ import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Entity
@@ -28,14 +30,13 @@ public class Alert extends AbstractAuditingEntity<Long> implements Serializable 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "device_id")
     private Device device;
-    @LazyCollection(LazyCollectionOption.EXTRA)
-    @JoinTable(
-        name = "T_ALERT_FIELD",
-        joinColumns = {@JoinColumn(name = "alert_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "field_id", referencedColumnName = "id")})
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.DETACH})
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private List<Field> fields = new ArrayList<>();
+
+    @ElementCollection
+    @MapKeyColumn(name="name")
+    @Column(name="value")
+    @CollectionTable(name="T_ALERT_FIELDS", joinColumns=@JoinColumn(name="alert_id"))
+    private Map<String, String> fields;
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;

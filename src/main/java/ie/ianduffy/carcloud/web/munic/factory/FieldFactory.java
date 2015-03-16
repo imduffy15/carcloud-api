@@ -8,7 +8,7 @@ import ie.ianduffy.carcloud.web.munic.util.DecoderUtil;
 
 import java.util.HashMap;
 
-public class FieldDTOFactory {
+public class FieldFactory {
 
     private static HashMap<String, FieldType> fieldDefinations = new HashMap() {{
         put("GPRMC_VALID", FieldType.STRING);
