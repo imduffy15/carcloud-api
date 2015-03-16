@@ -5,14 +5,9 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Data
@@ -32,9 +27,9 @@ public class Alert extends AbstractAuditingEntity<Long> implements Serializable 
     private Device device;
 
     @ElementCollection
-    @MapKeyColumn(name="name")
-    @Column(name="value")
-    @CollectionTable(name="T_ALERT_FIELDS", joinColumns=@JoinColumn(name="alert_id"))
+    @MapKeyColumn(name = "name")
+    @Column(name = "value")
+    @CollectionTable(name = "T_ALERT_FIELDS", joinColumns = @JoinColumn(name = "alert_id"))
     private Map<String, String> fields;
 
     @Id

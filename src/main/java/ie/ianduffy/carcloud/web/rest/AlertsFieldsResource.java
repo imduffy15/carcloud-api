@@ -4,18 +4,14 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
-import ie.ianduffy.carcloud.domain.Field;
-import ie.ianduffy.carcloud.domain.FieldString;
 import ie.ianduffy.carcloud.service.AlertService;
 import ie.ianduffy.carcloud.web.dto.PairDTO;
-import jdk.internal.util.xml.impl.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import java.util.Map;
 
 /**
  * REST controller for managing Device.

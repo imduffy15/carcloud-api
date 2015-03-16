@@ -9,7 +9,6 @@ import org.dozer.Mapper;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 

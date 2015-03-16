@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
     <property name="now" value="now()" dbms="mysql,h2"/>
     <property name="now" value="current_timestamp" dbms="postgresql"/>
     <changeSet author="duffy (generated)" id="dump1">
@@ -68,29 +70,29 @@
         </createTable>
     </changeSet>
     <!--<changeSet author="duffy (generated)" id="dump8">-->
-        <!--<createTable tableName="t_alert">-->
-            <!--<column name="id" type="BIGINT">-->
-                <!--<constraints nullable="false"/>-->
-            <!--</column>-->
-            <!--<column name="created_by" type="VARCHAR(50)" defaultValue="system"/>-->
-            <!--<column name="created_date" type="timestamp" defaultValueDate="${now}"/>-->
-            <!--<column name="last_modified_by" type="VARCHAR(50)"/>-->
-            <!--<column name="last_modified_date" type="timestamp"/>-->
-            <!--<column name="version" type="INT">-->
-                <!--<constraints nullable="false"/>-->
-            <!--</column>-->
-            <!--<column name="device_id" type="BIGINT"/>-->
-        <!--</createTable>-->
+    <!--<createTable tableName="t_alert">-->
+    <!--<column name="id" type="BIGINT">-->
+    <!--<constraints nullable="false"/>-->
+    <!--</column>-->
+    <!--<column name="created_by" type="VARCHAR(50)" defaultValue="system"/>-->
+    <!--<column name="created_date" type="timestamp" defaultValueDate="${now}"/>-->
+    <!--<column name="last_modified_by" type="VARCHAR(50)"/>-->
+    <!--<column name="last_modified_date" type="timestamp"/>-->
+    <!--<column name="version" type="INT">-->
+    <!--<constraints nullable="false"/>-->
+    <!--</column>-->
+    <!--<column name="device_id" type="BIGINT"/>-->
+    <!--</createTable>-->
     <!--</changeSet>-->
     <!--<changeSet author="duffy (generated)" id="dump9">-->
-        <!--<createTable tableName="t_alert_field">-->
-            <!--<column name="alert_id" type="BIGINT">-->
-                <!--<constraints nullable="false"/>-->
-            <!--</column>-->
-            <!--<column name="field_id" type="BIGINT">-->
-                <!--<constraints nullable="false"/>-->
-            <!--</column>-->
-        <!--</createTable>-->
+    <!--<createTable tableName="t_alert_field">-->
+    <!--<column name="alert_id" type="BIGINT">-->
+    <!--<constraints nullable="false"/>-->
+    <!--</column>-->
+    <!--<column name="field_id" type="BIGINT">-->
+    <!--<constraints nullable="false"/>-->
+    <!--</column>-->
+    <!--</createTable>-->
     <!--</changeSet>-->
     <changeSet author="duffy (generated)" id="dump10">
         <createTable tableName="t_authority">
@@ -219,7 +221,7 @@
         </createTable>
     </changeSet>
     <!--<changeSet author="duffy (generated)" id="dump21" context="prod">-->
-        <!--<addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_alert"/>-->
+    <!--<addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_alert"/>-->
     <!--</changeSet>-->
     <changeSet author="duffy (generated)" id="dump22" context="prod">
         <addPrimaryKey columnNames="name" constraintName="PRIMARY" tableName="t_authority"/>
@@ -249,48 +251,80 @@
         <addPrimaryKey columnNames="username" constraintName="PRIMARY" tableName="t_user"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump31">
-        <addUniqueConstraint columnNames="email" constraintName="UK_i6qjjoe560mee5ajdg7v1o6mi" deferrable="false" disabled="false" initiallyDeferred="false" tableName="t_user"/>
+        <addUniqueConstraint columnNames="email" constraintName="UK_i6qjjoe560mee5ajdg7v1o6mi" deferrable="false"
+                             disabled="false" initiallyDeferred="false" tableName="t_user"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump32">
-        <addUniqueConstraint columnNames="phone" constraintName="UK_m5bu5erj83eubjsa1nyms0t89" deferrable="false" disabled="false" initiallyDeferred="false" tableName="t_user"/>
+        <addUniqueConstraint columnNames="phone" constraintName="UK_m5bu5erj83eubjsa1nyms0t89" deferrable="false"
+                             disabled="false" initiallyDeferred="false" tableName="t_user"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump33">
-        <addForeignKeyConstraint baseColumnNames="track_id" baseTableName="t_track_field" constraintName="FK_7jgt559hliud53rxrkl4vb968" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_track"/>
+        <addForeignKeyConstraint baseColumnNames="track_id" baseTableName="t_track_field"
+                                 constraintName="FK_7jgt559hliud53rxrkl4vb968" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="t_track"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump34">
-        <addForeignKeyConstraint baseColumnNames="id" baseTableName="t_field_integer" constraintName="FK_7oeof42ip34i1cod9ycujapp6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_field"/>
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="t_field_integer"
+                                 constraintName="FK_7oeof42ip34i1cod9ycujapp6" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="t_field"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump35">
-        <addForeignKeyConstraint baseColumnNames="username" baseTableName="t_device_owner" constraintName="FK_975c8qf6dgd3gcpjpm3sdu291" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="username" referencedTableName="t_user"/>
+        <addForeignKeyConstraint baseColumnNames="username" baseTableName="t_device_owner"
+                                 constraintName="FK_975c8qf6dgd3gcpjpm3sdu291" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="username" referencedTableName="t_user"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump36">
-        <addForeignKeyConstraint baseColumnNames="username" baseTableName="t_user_authority" constraintName="FK_a0244t2n8jvn52m3ep4myilt1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="username" referencedTableName="t_user"/>
+        <addForeignKeyConstraint baseColumnNames="username" baseTableName="t_user_authority"
+                                 constraintName="FK_a0244t2n8jvn52m3ep4myilt1" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="username" referencedTableName="t_user"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump37">
-        <addForeignKeyConstraint baseColumnNames="field_id" baseTableName="t_track_field" constraintName="FK_cocxlclkcpkv73l0ln2j93kgr" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_field"/>
+        <addForeignKeyConstraint baseColumnNames="field_id" baseTableName="t_track_field"
+                                 constraintName="FK_cocxlclkcpkv73l0ln2j93kgr" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="t_field"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump38">
-        <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_track" constraintName="FK_cwnm9lpwcabuyi89h1qkuaavj" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_device"/>
+        <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_track"
+                                 constraintName="FK_cwnm9lpwcabuyi89h1qkuaavj" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="t_device"/>
     </changeSet>
     <!--<changeSet author="duffy (generated)" id="dump39">-->
-        <!--<addForeignKeyConstraint baseColumnNames="alert_id" baseTableName="t_alert_field" constraintName="FK_fay0bfr3udndc35e1bvhmf9bo" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_alert"/>-->
+    <!--<addForeignKeyConstraint baseColumnNames="alert_id" baseTableName="t_alert_field" constraintName="FK_fay0bfr3udndc35e1bvhmf9bo" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_alert"/>-->
     <!--</changeSet>-->
     <changeSet author="duffy (generated)" id="dump40">
-        <addForeignKeyConstraint baseColumnNames="id" baseTableName="t_field_boolean" constraintName="FK_h2jvwt8lwgg4eqpfg76ylj3o0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_field"/>
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="t_field_boolean"
+                                 constraintName="FK_h2jvwt8lwgg4eqpfg76ylj3o0" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="t_field"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump41">
-        <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_device_owner" constraintName="FK_ib7vnp2olk25703c5xwpshvdc" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_device"/>
+        <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_device_owner"
+                                 constraintName="FK_ib7vnp2olk25703c5xwpshvdc" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="t_device"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump42">
-        <addForeignKeyConstraint baseColumnNames="id" baseTableName="t_field_string" constraintName="FK_la0xes4v0bey12crpi5ijqgj5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_field"/>
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="t_field_string"
+                                 constraintName="FK_la0xes4v0bey12crpi5ijqgj5" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="t_field"/>
     </changeSet>
     <!--<changeSet author="duffy (generated)" id="dump43">-->
-        <!--<addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_alert" constraintName="FK_p4wrb6acqhv25lw0kbrlx5jbu" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_device"/>-->
+    <!--<addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_alert" constraintName="FK_p4wrb6acqhv25lw0kbrlx5jbu" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_device"/>-->
     <!--</changeSet>-->
     <!--<changeSet author="duffy (generated)" id="dump44">-->
-        <!--<addForeignKeyConstraint baseColumnNames="field_id" baseTableName="t_alert_field" constraintName="FK_t44am0tenkns9pnmp2f9ixl8x" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_field"/>-->
+    <!--<addForeignKeyConstraint baseColumnNames="field_id" baseTableName="t_alert_field" constraintName="FK_t44am0tenkns9pnmp2f9ixl8x" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_field"/>-->
     <!--</changeSet>-->
     <changeSet author="duffy (generated)" id="dump45">
-        <addForeignKeyConstraint baseColumnNames="name" baseTableName="t_user_authority" constraintName="FK_tghvo3hwad0ifdm39n7bph8b" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="name" referencedTableName="t_authority"/>
+        <addForeignKeyConstraint baseColumnNames="name" baseTableName="t_user_authority"
+                                 constraintName="FK_tghvo3hwad0ifdm39n7bph8b" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="name" referencedTableName="t_authority"/>
     </changeSet>
 </databaseChangeLog>

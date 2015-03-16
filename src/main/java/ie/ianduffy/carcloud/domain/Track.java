@@ -13,7 +13,6 @@ import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

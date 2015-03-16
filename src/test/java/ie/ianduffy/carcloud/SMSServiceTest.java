@@ -1,8 +1,6 @@
 package ie.ianduffy.carcloud;
 
 import ie.ianduffy.carcloud.service.SMSService;
-
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -21,8 +19,8 @@ import javax.inject.Inject;
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
-                         DirtiesContextTestExecutionListener.class,
-                         TransactionalTestExecutionListener.class})
+    DirtiesContextTestExecutionListener.class,
+    TransactionalTestExecutionListener.class})
 @ActiveProfiles({"dev", "test"})
 public class SMSServiceTest {
 
