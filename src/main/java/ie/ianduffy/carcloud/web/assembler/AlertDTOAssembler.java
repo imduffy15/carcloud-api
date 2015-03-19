@@ -21,11 +21,18 @@ public class AlertDTOAssembler {
     public AlertDTO toResource(Alert alert) {
         AlertDTO resource = new AlertDTO();
 
+        resource.setAfter(alert.getAfter());
+        alert.setAfter(null);
+
+        resource.setBefore(alert.getBefore());
+        alert.setBefore(null);
+
         resource.add(linkTo(AlertsResource.class).slash(alert.getId()).withSelfRel());
         resource.add(linkTo(DeviceResource.class).slash(alert.getDevice().getId()).withRel("device"));
         resource.add(linkTo(AlertsFieldsResource.class, alert.getId()).withRel("fields"));
 
         mapper.map(alert, resource);
+
         return resource;
     }
 

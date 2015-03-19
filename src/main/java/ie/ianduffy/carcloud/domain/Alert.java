@@ -5,10 +5,12 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Map;
+import java.util.List;
 
 @Data
 @Entity
@@ -22,16 +24,20 @@ import java.util.Map;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Alert extends AbstractAuditingEntity<Long> implements Serializable {
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalTime")
+    private LocalTime after;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalTime")
+    private LocalTime before;
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "device_id")
     private Device device;
-
-    @ElementCollection
-    @MapKeyColumn(name = "name")
-    @Column(name = "value")
-    @CollectionTable(name = "T_ALERT_FIELDS", joinColumns = @JoinColumn(name = "alert_id"))
-    private Map<String, String> fields;
-
+    @JoinTable(
+        name = "T_ALERT_FIELD",
+        joinColumns = {@JoinColumn(name = "alert_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "field_id", referencedColumnName = "id")})
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.MERGE})
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private List<AlertFieldWrapper> fields;
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
@@ -39,7 +45,9 @@ public class Alert extends AbstractAuditingEntity<Long> implements Serializable 
     public Alert() {
     }
 
-    public Alert(Device device) {
+    public Alert(Device device, LocalTime after, LocalTime before) {
         this.device = device;
+        this.after = after;
+        this.before = before;
     }
 }

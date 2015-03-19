@@ -23,6 +23,11 @@
         <class-b>ie.ianduffy.carcloud.web.dto.TrackDTO</class-b>
     </mapping>
 
+    <mapping map-null="false">
+        <class-a>ie.ianduffy.carcloud.domain.Alert</class-a>
+        <class-b>ie.ianduffy.carcloud.web.dto.AlertDTO</class-b>
+    </mapping>
+
     <mapping map-null="true">
         <class-a>java.util.Map</class-a>
         <class-b>ie.ianduffy.carcloud.web.munic.dto.TrackDTO</class-b>

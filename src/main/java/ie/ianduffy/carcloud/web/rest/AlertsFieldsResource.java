@@ -4,8 +4,8 @@ import com.codahale.metrics.annotation.Timed;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
+import ie.ianduffy.carcloud.domain.AlertFieldWrapper;
 import ie.ianduffy.carcloud.service.AlertService;
-import ie.ianduffy.carcloud.web.dto.PairDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 
 /**
- * REST controller for managing Device.
+ * REST controller for managing Alert fields.
  */
 @Api(
     value = "alert field",
@@ -42,9 +42,9 @@ public class AlertsFieldsResource {
     )
     public void create(
         @ApiParam(value = "device to add alert to", required = true) @PathVariable("alert_id") Long alertId,
-        @ApiParam(value = "field to add", required = true) @RequestBody PairDTO pair
+        @ApiParam(value = "field to add", required = true) @RequestBody AlertFieldWrapper field
     ) {
-        alertService.addField(alertId, pair.getKey(), pair.getValue());
+        alertService.addField(alertId, field);
     }
 
     @Timed

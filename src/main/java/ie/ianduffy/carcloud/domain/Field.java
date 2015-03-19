@@ -1,5 +1,7 @@
 package ie.ianduffy.carcloud.domain;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -14,7 +16,16 @@ import javax.persistence.*;
 @Table(name = "T_FIELD")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public abstract class Field<T> {
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "type")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = FieldString.class, name = "string"),
+    @JsonSubTypes.Type(value = FieldBoolean.class, name = "boolean"),
+    @JsonSubTypes.Type(value = FieldInteger.class, name = "integer"),
+})
+public abstract class Field<T extends Comparable> implements Comparable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -29,6 +40,9 @@ public abstract class Field<T> {
         this.name = name;
         this.setValue(value);
     }
+
+    @Override
+    public abstract int compareTo(Object obj);
 
     public abstract T getValue();
 

@@ -20,7 +20,6 @@ public class TrackDTOAssembler {
     public TrackDTO toResource(Track track) {
         TrackDTO resource = new TrackDTO();
 
-
         resource.setReceivedAt(track.getReceivedAt());
         track.setReceivedAt(null);
 
@@ -34,6 +33,7 @@ public class TrackDTOAssembler {
         resource.add(linkTo(DeviceResource.class).slash(track.getDevice().getId()).withRel("device"));
 
         mapper.map(track, resource);
+
         return resource;
     }
 

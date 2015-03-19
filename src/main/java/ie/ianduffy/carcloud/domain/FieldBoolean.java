@@ -1,6 +1,7 @@
 package ie.ianduffy.carcloud.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "T_FIELD_BOOLEAN")
+@EqualsAndHashCode(callSuper = true)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class FieldBoolean extends Field<Boolean> {
 
@@ -21,6 +23,11 @@ public class FieldBoolean extends Field<Boolean> {
 
     public FieldBoolean(String name, Boolean value) {
         super(name, value);
+    }
+
+    @Override
+    public int compareTo(Object obj) {
+        return 0;
     }
 
     @Override

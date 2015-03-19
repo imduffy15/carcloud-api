@@ -1,6 +1,7 @@
 package ie.ianduffy.carcloud.service;
 
 import ie.ianduffy.carcloud.domain.Alert;
+import ie.ianduffy.carcloud.domain.AlertFieldWrapper;
 import ie.ianduffy.carcloud.repository.AlertRepository;
 import ie.ianduffy.carcloud.repository.RestrictedRepository;
 import ie.ianduffy.carcloud.web.dto.AlertDTO;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Service class for managing tracks.
@@ -21,17 +22,17 @@ public class AlertService extends AbstractRestrictedService<Alert, Long, AlertDT
     @Inject
     private AlertRepository alertRepository;
 
-    public Alert addField(Long alertId, String key, String value) {
+    public Alert addField(Long alertId, AlertFieldWrapper field) {
         Alert alert = findOneForCurrentUser(alertId);
-        alert.getFields().put(key, value);
+        alert.getFields().add(field);
         alertRepository.save(alert);
         return alert;
     }
 
     @Transactional(readOnly = true)
-    public Map<String, String> getFields(Long id) {
+    public List<AlertFieldWrapper> getFields(Long id) {
         Alert alert = findOneForCurrentUser(id);
-        Map<String, String> fields = alert.getFields();
+        List<AlertFieldWrapper> fields = alert.getFields();
         Hibernate.initialize(fields);
         return fields;
     }

@@ -34,7 +34,7 @@ public class Device extends AbstractAuditingEntity<Long> implements Serializable
 
     @LazyCollection(LazyCollectionOption.EXTRA)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.DETACH})
+    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.MERGE})
     private List<Alert> alerts = new ArrayList<>();
 
     @Size(min = 1, max = 150)
@@ -58,7 +58,7 @@ public class Device extends AbstractAuditingEntity<Long> implements Serializable
 
     @LazyCollection(LazyCollectionOption.EXTRA)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.DETACH})
+    @OneToMany(mappedBy = "device", fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.PERSIST})
     private List<Track> tracks = new ArrayList<>();
 
     public Device() {
