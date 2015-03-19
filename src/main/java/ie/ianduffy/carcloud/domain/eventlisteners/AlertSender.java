@@ -3,27 +3,16 @@ package ie.ianduffy.carcloud.domain.eventlisteners;
 import ie.ianduffy.carcloud.config.AutowireHelper;
 import ie.ianduffy.carcloud.domain.*;
 import ie.ianduffy.carcloud.service.SMSService;
-import ie.ianduffy.carcloud.web.assembler.TrackDTOAssembler;
 import org.joda.time.LocalTime;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 
 import javax.inject.Inject;
 import javax.persistence.PostPersist;
 import java.util.List;
 
-public class TrackEntityListener {
+public class AlertSender {
 
-    private final static String TRACK_TOPIC = "/topic/device/";
-    @Inject
-    private SimpMessageSendingOperations messagingTemplate;
     @Inject
     private SMSService smsService;
-    @Inject
-    private TrackDTOAssembler trackDTOAssembler;
-
-    private void broadcast(Track track) {
-        messagingTemplate.convertAndSend(TRACK_TOPIC + track.getDevice().getId(), trackDTOAssembler.toResource(track));
-    }
 
     private void checkFields(Track track, Alert alert) {
         for (AlertFieldWrapper alertField : alert.getFields()) {
@@ -45,11 +34,8 @@ public class TrackEntityListener {
 
     @PostPersist
     public void onPostPersist(Track track) {
-        AutowireHelper.autowire(this, this.messagingTemplate);
-        AutowireHelper.autowire(this, this.trackDTOAssembler);
         AutowireHelper.autowire(this, this.smsService);
         sendAlerts(track);
-        broadcast(track);
     }
 
     private void sendAlerts(Track track) {

@@ -1,7 +1,8 @@
 package ie.ianduffy.carcloud.domain;
 
 import com.javadocmd.simplelatlng.LatLng;
-import ie.ianduffy.carcloud.domain.eventlisteners.TrackEntityListener;
+import ie.ianduffy.carcloud.domain.eventlisteners.AlertSender;
+import ie.ianduffy.carcloud.domain.eventlisteners.TrackPublisher;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -29,7 +30,7 @@ import java.util.List;
 })
 @ToString(exclude = {"device"})
 @EqualsAndHashCode(exclude = {"device"}, callSuper = false)
-@EntityListeners({TrackEntityListener.class})
+@EntityListeners({TrackPublisher.class, AlertSender.class})
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Track extends AbstractAuditingEntity<Long> implements Serializable {
 
