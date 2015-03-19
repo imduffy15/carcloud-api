@@ -71,7 +71,7 @@ public class AlertsResource {
     public ResponseEntity<?> get(
         @ApiParam(value = "alert to get", required = true) @PathVariable("alert_id") Long alertId
     ) {
-        Alert alert = alertService.findOneForCurrentUser(alertId);
+        Alert alert = alertService.findOneForCurrentUserWithDevice(alertId);
         if (alert == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -91,7 +91,7 @@ public class AlertsResource {
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<?> getAll() {
-        List<Alert> alerts = alertService.findAllForCurrentUser();
+        List<Alert> alerts = alertService.findAllForCurrentUserWithDevice();
         List<AlertDTO> alertDTOs = new LinkedList<>();
         for (Alert alert : alerts) {
             alertDTOs.add(alertDTOAssembler.toResource(alert));

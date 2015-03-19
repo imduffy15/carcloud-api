@@ -30,6 +30,20 @@ public class AlertService extends AbstractRestrictedService<Alert, Long, AlertDT
     }
 
     @Transactional(readOnly = true)
+    public List<Alert> findAllForCurrentUserWithDevice() {
+        List<Alert> alerts = findAllForCurrentUser();
+        for (Alert alert : alerts) Hibernate.initialize(alert.getDevice());
+        return alerts;
+    }
+
+    @Transactional(readOnly = true)
+    public Alert findOneForCurrentUserWithDevice(Long id) {
+        Alert alert = findOneForCurrentUser(id);
+        Hibernate.initialize(alert.getDevice());
+        return alert;
+    }
+
+    @Transactional(readOnly = true)
     public List<AlertFieldWrapper> getFields(Long id) {
         Alert alert = findOneForCurrentUser(id);
         List<AlertFieldWrapper> fields = alert.getFields();

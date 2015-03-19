@@ -22,10 +22,8 @@ public class AlertDTOAssembler {
         AlertDTO resource = new AlertDTO();
 
         resource.setAfter(alert.getAfter());
-        alert.setAfter(null);
 
         resource.setBefore(alert.getBefore());
-        alert.setBefore(null);
 
         resource.add(linkTo(AlertsResource.class).slash(alert.getId()).withSelfRel());
         resource.add(linkTo(DeviceResource.class).slash(alert.getDevice().getId()).withRel("device"));

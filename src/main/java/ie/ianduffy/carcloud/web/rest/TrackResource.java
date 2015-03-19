@@ -71,7 +71,7 @@ public class TrackResource {
     public ResponseEntity<?> get(
         @ApiParam(value = "track to get", required = true) @PathVariable("track_id") Long trackId
     ) {
-        Track track = trackService.findOneForCurrentUser(trackId);
+        Track track = trackService.findOneForCurrentUserWithDevice(trackId);
         if (track == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -91,7 +91,7 @@ public class TrackResource {
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<?> getAll() {
-        List<Track> tracks = trackService.findAllForCurrentUser();
+        List<Track> tracks = trackService.findAllForCurrentUserWithDevice();
         List<TrackDTO> trackDTOs = new LinkedList<>();
         for (Track track : tracks) {
             trackDTOs.add(trackDTOAssembler.toResource(track));

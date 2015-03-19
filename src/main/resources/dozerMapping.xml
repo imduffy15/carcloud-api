@@ -21,11 +21,31 @@
     <mapping map-null="false">
         <class-a>ie.ianduffy.carcloud.domain.Track</class-a>
         <class-b>ie.ianduffy.carcloud.web.dto.TrackDTO</class-b>
+        <field-exclude>
+            <a>receivedAt</a>
+            <b>receivedAt</b>
+        </field-exclude>
+        <field-exclude>
+            <a>recordedAt</a>
+            <b>recordedAt</b>
+        </field-exclude>
+        <field-exclude>
+            <a>fields</a>
+            <b>fields</b>
+        </field-exclude>
     </mapping>
 
     <mapping map-null="false">
         <class-a>ie.ianduffy.carcloud.domain.Alert</class-a>
         <class-b>ie.ianduffy.carcloud.web.dto.AlertDTO</class-b>
+        <field-exclude>
+            <a>before</a>
+            <b>before</b>
+        </field-exclude>
+        <field-exclude>
+            <a>after</a>
+            <b>after</b>
+        </field-exclude>
     </mapping>
 
     <mapping map-null="true">
