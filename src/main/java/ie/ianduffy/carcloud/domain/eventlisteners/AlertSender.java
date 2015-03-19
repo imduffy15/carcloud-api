@@ -57,7 +57,7 @@ public class AlertSender {
                 if (input.compareTo(criteria) < 0) return true;
             } else if (operation == Operation.GREATERTHAN) {
                 if (input.compareTo(criteria) > 0) return true;
-            } else if (operation == operation.LESSTHANANDEQUALSTO) {
+            } else if (operation == Operation.LESSTHANANDEQUALSTO) {
                 if (input.compareTo(criteria) <= 0) return true;
             } else if (operation == Operation.GREATERTHANANDEQUALSTO) {
                 if (input.compareTo(criteria) >= 0) return true;
