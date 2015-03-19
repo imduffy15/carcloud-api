@@ -26,11 +26,6 @@ public class FieldInteger extends Field<Integer> {
     }
 
     @Override
-    public int compareTo(Object obj) {
-        return 0;
-    }
-
-    @Override
     public Integer getValue() {
         return value;
     }

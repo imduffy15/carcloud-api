@@ -26,11 +26,6 @@ public class FieldBoolean extends Field<Boolean> {
     }
 
     @Override
-    public int compareTo(Object obj) {
-        return 0;
-    }
-
-    @Override
     public Boolean getValue() {
         return value;
     }

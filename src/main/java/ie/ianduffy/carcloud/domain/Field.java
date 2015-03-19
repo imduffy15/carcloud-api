@@ -42,7 +42,10 @@ public abstract class Field<T extends Comparable> implements Comparable {
     }
 
     @Override
-    public abstract int compareTo(Object obj);
+    public int compareTo(Object obj) {
+        Field that = (Field) obj;
+        return this.getValue().compareTo(that.getValue());
+    }
 
     public abstract T getValue();
 
