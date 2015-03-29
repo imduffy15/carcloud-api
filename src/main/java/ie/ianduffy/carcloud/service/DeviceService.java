@@ -38,13 +38,13 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
     @Inject
     private UserService userService;
 
-    public Device addAlert(Long id, AlertDTO alertDTO) {
+    public Alert addAlert(Long id, AlertDTO alertDTO) {
         Device device = findOneForCurrentUser(id);
-        Alert alert = new Alert(device, alertDTO.getAfter(), alertDTO.getBefore());
+        Alert alert = new Alert(device, alertDTO.getDescription(), alertDTO.getAfter(), alertDTO.getBefore());
         List<Alert> alerts = device.getAlerts();
         alerts.add(alert);
         deviceRepository.save(device);
-        return device;
+        return alert;
     }
 
     public Device addOwner(Long id, String username) {

@@ -46,11 +46,11 @@ public class DeviceAlertsResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public void create(
+    public ResponseEntity<?> create(
         @ApiParam(value = "device to add alert to", required = true) @PathVariable("device_id") Long deviceId,
         @ApiParam(value = "alert to add", required = true) @RequestBody AlertDTO alertDTO
     ) {
-        deviceService.addAlert(deviceId, alertDTO);
+        return new ResponseEntity<>(alertDTOAssembler.toResource(deviceService.addAlert(deviceId, alertDTO)), HttpStatus.OK);
     }
 
     @Timed

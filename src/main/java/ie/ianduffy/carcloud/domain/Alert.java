@@ -9,6 +9,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.LocalTime;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -28,6 +29,9 @@ public class Alert extends AbstractAuditingEntity<Long> implements Serializable 
     private LocalTime after;
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalTime")
     private LocalTime before;
+    @Size(min = 1, max = 150)
+    @Column(name = "description", length = 150)
+    private String description;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "device_id")
     private Device device;
@@ -45,8 +49,9 @@ public class Alert extends AbstractAuditingEntity<Long> implements Serializable 
     public Alert() {
     }
 
-    public Alert(Device device, LocalTime after, LocalTime before) {
+    public Alert(Device device, String description, LocalTime after, LocalTime before) {
         this.device = device;
+        this.description = description;
         this.after = after;
         this.before = before;
     }

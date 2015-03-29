@@ -19,6 +19,8 @@ public class AlertDTO extends AbstractAuditingEntityDTO<Long> {
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalTime")
     private LocalTime before;
     @ApiModelProperty
+    private String description;
+    @ApiModelProperty
     private Long id;
 
     public AlertDTO() {
