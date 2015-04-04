@@ -46,6 +46,10 @@
             <a>after</a>
             <b>after</b>
         </field-exclude>
+        <field-exclude>
+            <a>fields</a>
+            <b>fields</b>
+        </field-exclude>
     </mapping>
 
     <mapping map-null="true">

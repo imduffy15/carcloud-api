@@ -39,7 +39,7 @@ public class Alert extends AbstractAuditingEntity<Long> implements Serializable 
         name = "T_ALERT_FIELD",
         joinColumns = {@JoinColumn(name = "alert_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "field_id", referencedColumnName = "id")})
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.MERGE})
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.ALL})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<AlertFieldWrapper> fields;
     @Id
@@ -49,10 +49,11 @@ public class Alert extends AbstractAuditingEntity<Long> implements Serializable 
     public Alert() {
     }
 
-    public Alert(Device device, String description, LocalTime after, LocalTime before) {
+    public Alert(Device device, String description, LocalTime after, LocalTime before, List<AlertFieldWrapper> fields) {
         this.device = device;
         this.description = description;
         this.after = after;
         this.before = before;
+        this.fields = fields;
     }
 }

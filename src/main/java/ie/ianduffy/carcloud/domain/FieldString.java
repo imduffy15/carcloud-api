@@ -5,8 +5,10 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Data
 @Entity
@@ -15,6 +17,8 @@ import javax.persistence.Table;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class FieldString extends Field<String> {
 
+    @Size(min = 1, max = 150)
+    @Column(name = "value", length = 150)
     private String value;
 
     public FieldString() {

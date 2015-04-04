@@ -40,7 +40,7 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
 
     public Alert addAlert(Long id, AlertDTO alertDTO) {
         Device device = findOneForCurrentUser(id);
-        Alert alert = new Alert(device, alertDTO.getDescription(), alertDTO.getAfter(), alertDTO.getBefore());
+        Alert alert = new Alert(device, alertDTO.getDescription(), alertDTO.getAfter(), alertDTO.getBefore(), alertDTO.getFields());
         List<Alert> alerts = device.getAlerts();
         alerts.add(alert);
         deviceRepository.save(device);
