@@ -3,6 +3,7 @@ package ie.ianduffy.carcloud.service;
 import ie.ianduffy.carcloud.domain.Alert;
 import ie.ianduffy.carcloud.domain.AlertFieldWrapper;
 import ie.ianduffy.carcloud.repository.AlertRepository;
+import ie.ianduffy.carcloud.repository.FieldRepository;
 import ie.ianduffy.carcloud.repository.RestrictedRepository;
 import ie.ianduffy.carcloud.web.dto.AlertDTO;
 import org.hibernate.Hibernate;
@@ -21,6 +22,9 @@ public class AlertService extends AbstractRestrictedService<Alert, Long, AlertDT
 
     @Inject
     private AlertRepository alertRepository;
+
+    @Inject
+    private FieldRepository fieldRepository;
 
     public Alert addField(Long alertId, AlertFieldWrapper field) {
         Alert alert = findOneForCurrentUser(alertId);
@@ -56,7 +60,15 @@ public class AlertService extends AbstractRestrictedService<Alert, Long, AlertDT
         return alertRepository;
     }
 
-    public void removeAlert(Long fieldId, Long alertId) {
+    public void removeAlertField(Long fieldId) {
+        fieldRepository.delete(fieldId);
+    }
 
+    public Alert update(AlertDTO alertDTO) {
+        Alert alert = findOneForCurrentUser(alertDTO.getId());
+        alert.getFields().clear();
+        alert.getFields().addAll(alertDTO.getFields());
+        Hibernate.initialize(alert.getDevice());
+        return super.update(alertDTO, alert);
     }
 }

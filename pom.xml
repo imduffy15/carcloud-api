@@ -35,6 +35,7 @@
         <spring-security-oauth2.version>2.0.3.RELEASE</spring-security-oauth2.version>
         <swagger-springmvc.version>0.9.4</swagger-springmvc.version>
         <usertype-core.version>3.2.0.GA</usertype-core.version>
+        <jackson.version>2.5.1</jackson.version>
     </properties>
     <dependencies>
         <dependency>
@@ -45,6 +46,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-joda</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -190,6 +192,7 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
+            <version>2.7</version>
         </dependency>
         <dependency>
             <groupId>joda-time</groupId>

@@ -31,7 +31,7 @@ import java.util.List;
 @ToString(exclude = {"device"})
 @EqualsAndHashCode(exclude = {"device"}, callSuper = false)
 @EntityListeners({TrackPublisher.class, AlertSender.class})
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Track extends AbstractAuditingEntity<Long> implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,7 +42,6 @@ public class Track extends AbstractAuditingEntity<Long> implements Serializable 
         joinColumns = {@JoinColumn(name = "track_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "field_id", referencedColumnName = "id")})
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade = {CascadeType.PERSIST})
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<Field> fields;
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)

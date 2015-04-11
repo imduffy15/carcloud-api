@@ -29,6 +29,12 @@ public abstract class AbstractRestrictedService<T extends AbstractAuditingEntity
         return entity;
     }
 
+    @Override
+    public void delete(ID id) {
+        findOneForCurrentUser(id);
+        getRepository().delete(id);
+    }
+
     abstract protected RestrictedRepository<T, ID> getRepository();
 
 }

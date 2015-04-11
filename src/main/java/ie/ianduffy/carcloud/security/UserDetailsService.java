@@ -29,17 +29,16 @@ public class UserDetailsService
     @Transactional
     public UserDetails loadUserByUsername(final String login) {
         log.debug("Authenticating {}", login);
-        String lowercaseLogin = login.toLowerCase();
 
-        User userFromDatabase = userRepository.findOne(login);
+        User userFromDatabase = userRepository.findOneByUsernameOrEmailOrPhone(login);
         if (userFromDatabase == null) {
             throw new UsernameNotFoundException(
-                "User " + lowercaseLogin + " was not found in the database");
+                "User " + login + " was not found in the database");
         }
 
         Collection<Authority> grantedAuthorities = userFromDatabase.getAuthorities();
 
-        return new org.springframework.security.core.userdetails.User(lowercaseLogin,
+        return new org.springframework.security.core.userdetails.User(userFromDatabase.getUsername().toLowerCase(),
             userFromDatabase
                 .getPassword(),
             grantedAuthorities);

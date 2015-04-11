@@ -5,15 +5,19 @@ import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 import ie.ianduffy.carcloud.domain.Alert;
+import ie.ianduffy.carcloud.domain.Device;
+import ie.ianduffy.carcloud.service.AlertService;
 import ie.ianduffy.carcloud.service.DeviceService;
 import ie.ianduffy.carcloud.web.assembler.AlertDTOAssembler;
 import ie.ianduffy.carcloud.web.dto.AlertDTO;
+import ie.ianduffy.carcloud.web.dto.DeviceDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,11 +34,13 @@ public class DeviceAlertsResource {
 
     private AlertDTOAssembler alertDTOAssembler;
     private DeviceService deviceService;
+    private AlertService alertService;
 
     @Inject
-    public DeviceAlertsResource(DeviceService deviceService, AlertDTOAssembler alertDTOAssembler) {
+    public DeviceAlertsResource(DeviceService deviceService, AlertDTOAssembler alertDTOAssembler, AlertService alertService) {
         this.deviceService = deviceService;
         this.alertDTOAssembler = alertDTOAssembler;
+        this.alertService = alertService;
     }
 
     @Timed
@@ -63,11 +69,32 @@ public class DeviceAlertsResource {
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public void delete(
-        @ApiParam(value = "device to delete owner from", required = true) @PathVariable("device_id") Long deviceId,
+    public ResponseEntity<?> delete(
+        @ApiParam(value = "device to delete alert from", required = true) @PathVariable("device_id") Long deviceId,
         @ApiParam(value = "alert to remove", required = true) @PathVariable("alert_id") Long alertId
     ) {
-        deviceService.removeAlert(deviceId, alertId);
+        Alert alert = alertService.findOneForCurrentUserWithDevice(alertId);
+        if(alert.getDevice().getId().equals(deviceId)) {
+            alertService.delete(alertId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @Timed
+    @ApiOperation(
+        value = "Updates a device alert",
+        notes = "updates the specified alert"
+    )
+    @RequestMapping(
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<?> update(
+        @ApiParam(value = "updated alert object") @Valid @RequestBody AlertDTO alertDTO
+    ) {
+        Alert alert = alertService.update(alertDTO);
+        return new ResponseEntity<>(alertDTOAssembler.toResource(alert), HttpStatus.OK);
     }
 
     @Timed
@@ -91,5 +118,27 @@ public class DeviceAlertsResource {
             alerts.add(alertDTOAssembler.toResource(alert));
         }
         return new ResponseEntity<>(alerts, HttpStatus.OK);
+    }
+
+    @Timed
+    @ApiOperation(
+        value = "Get alert",
+        notes = "Gets the specified alert",
+        response = AlertDTO.class
+    )
+    @RequestMapping(
+        value = "/{alert_id}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<?> get(
+        @ApiParam(value = "device the alert belongs to", required = true) @PathVariable("device_id") Long deviceId,
+        @ApiParam(value = "alert to get", required = true) @PathVariable("alert_id") Long alertId
+    ) {
+        Alert alert = alertService.findOneForCurrentUserWithDevice(alertId);
+        if(alert.getDevice().getId().equals(deviceId)) {
+            return new ResponseEntity<>(alertDTOAssembler.toResource(alert), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

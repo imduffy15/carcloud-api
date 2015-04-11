@@ -25,6 +25,9 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "T_USER")
+@NamedQueries({
+    @NamedQuery(name = "User.findOneByUsernameOrEmailOrPhone", query = "select u from User u where u.username = ?1 or u.email = ?1 or u.phone = ?1"),
+})
 @ToString(exclude = {"authorities", "password"})
 @EqualsAndHashCode(exclude = {"authorities"}, callSuper = false)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

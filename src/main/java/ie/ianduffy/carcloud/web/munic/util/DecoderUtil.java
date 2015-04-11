@@ -2,6 +2,8 @@ package ie.ianduffy.carcloud.web.munic.util;
 
 import org.apache.commons.codec.binary.Base64;
 
+import java.math.BigInteger;
+
 public class DecoderUtil {
 
     private DecoderUtil() {
@@ -14,11 +16,7 @@ public class DecoderUtil {
 
     public static int decodeToInt(String encrypted) {
         byte[] decrypted = Base64.decodeBase64(encrypted);
-        int result = 0;
-        for (int i = 0; i < decrypted.length; i++) {
-            result = result << 8;
-            result += decrypted[i];
-        }
+        int result = new BigInteger(decrypted).intValue();
         return result;
     }
 

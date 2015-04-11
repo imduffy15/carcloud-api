@@ -17,17 +17,17 @@ import javax.inject.Inject;
  * REST controller for managing Alert fields.
  */
 @Api(
-    value = "alert field",
-    description = "Alert Fields API"
+    value = "device alert field",
+    description = "Device Alert Fields API"
 )
 @RestController
-@RequestMapping("/app/rest/alerts/{alert_id}/fields")
-public class AlertsFieldsResource {
+@RequestMapping("/app/rest/devices/{device_id}/alerts/{alert_id}/fields")
+public class DeviceAlertsFieldsResource {
 
     private AlertService alertService;
 
     @Inject
-    public AlertsFieldsResource(AlertService alertService) {
+    public DeviceAlertsFieldsResource(AlertService alertService) {
         this.alertService = alertService;
     }
 
@@ -61,7 +61,7 @@ public class AlertsFieldsResource {
         @ApiParam(value = "alert to delete field from", required = true) @PathVariable("alert_id") Long alertId,
         @ApiParam(value = "field to remove", required = true) @PathVariable("field_id") Long fieldId
     ) {
-        alertService.removeAlert(fieldId, alertId);
+        alertService.removeAlertField(fieldId);
     }
 
     @Timed

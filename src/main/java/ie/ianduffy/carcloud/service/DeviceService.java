@@ -128,14 +128,6 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
         return tracks;
     }
 
-    public void removeAlert(Long deviceId, Long alertId) {
-        Alert alert = alertService.findOne(alertId);
-        Device device = findOneForCurrentUser(deviceId);
-        List<Alert> alerts = device.getAlerts();
-        alerts.remove(alert);
-        deviceRepository.save(device);
-    }
-
     public void removeOwner(Long id, String username) {
         User user = userService.findOne(username);
         Device device = findOneForCurrentUser(id);

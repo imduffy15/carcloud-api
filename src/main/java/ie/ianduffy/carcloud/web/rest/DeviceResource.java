@@ -43,7 +43,7 @@ public class DeviceResource {
     @ApiOperation(
         value = "Create device",
         notes = "Creates a new device",
-        response = Device.class
+        response = DeviceDTO.class
     )
     @RequestMapping(
         method = RequestMethod.POST,
@@ -76,7 +76,7 @@ public class DeviceResource {
     @ApiOperation(
         value = "Get device",
         notes = "Gets the specified device",
-        response = Device.class
+        response = DeviceDTO.class
     )
     @RequestMapping(
         value = "/{device_id}",
@@ -94,7 +94,7 @@ public class DeviceResource {
     @ApiOperation(
         value = "Get devices",
         notes = "Gets all devices",
-        response = Device.class,
+        response = DeviceDTO.class,
         responseContainer = "List"
     )
     @RequestMapping(
@@ -114,7 +114,7 @@ public class DeviceResource {
     @ApiOperation(
         value = "Update device",
         notes = "Updates the specified device",
-        response = Device.class
+        response = DeviceDTO.class
     )
     @RequestMapping(
         method = RequestMethod.PUT,

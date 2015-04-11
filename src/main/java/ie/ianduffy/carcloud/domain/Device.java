@@ -33,7 +33,6 @@ import java.util.Set;
 public class Device extends AbstractAuditingEntity<Long> implements Serializable {
 
     @LazyCollection(LazyCollectionOption.EXTRA)
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @OneToMany(mappedBy = "device", fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.PERSIST})
     private List<Alert> alerts = new ArrayList<>();
 
@@ -53,11 +52,9 @@ public class Device extends AbstractAuditingEntity<Long> implements Serializable
         inverseJoinColumns = {@JoinColumn(name = "username", referencedColumnName = "username")})
     @ManyToMany(fetch = FetchType.LAZY)
     @LazyCollection(LazyCollectionOption.EXTRA)
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<User> owners = new HashSet<>();
 
     @LazyCollection(LazyCollectionOption.EXTRA)
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @OneToMany(mappedBy = "device", fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.PERSIST})
     private List<Track> tracks = new ArrayList<>();
 
