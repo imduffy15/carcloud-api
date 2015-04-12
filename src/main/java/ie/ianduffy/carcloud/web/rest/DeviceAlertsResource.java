@@ -5,12 +5,10 @@ import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 import ie.ianduffy.carcloud.domain.Alert;
-import ie.ianduffy.carcloud.domain.Device;
 import ie.ianduffy.carcloud.service.AlertService;
 import ie.ianduffy.carcloud.service.DeviceService;
 import ie.ianduffy.carcloud.web.assembler.AlertDTOAssembler;
 import ie.ianduffy.carcloud.web.dto.AlertDTO;
-import ie.ianduffy.carcloud.web.dto.DeviceDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +31,8 @@ import java.util.List;
 public class DeviceAlertsResource {
 
     private AlertDTOAssembler alertDTOAssembler;
-    private DeviceService deviceService;
     private AlertService alertService;
+    private DeviceService deviceService;
 
     @Inject
     public DeviceAlertsResource(DeviceService deviceService, AlertDTOAssembler alertDTOAssembler, AlertService alertService) {
@@ -73,51 +71,12 @@ public class DeviceAlertsResource {
         @ApiParam(value = "device to delete alert from", required = true) @PathVariable("device_id") Long deviceId,
         @ApiParam(value = "alert to remove", required = true) @PathVariable("alert_id") Long alertId
     ) {
-        Alert alert = alertService.findOneForCurrentUserWithDevice(alertId);
-        if(alert.getDevice().getId().equals(deviceId)) {
+        Alert alert = alertService.findOneForCurrentUser(alertId);
+        if (alert.getDevice().getId().equals(deviceId)) {
             alertService.delete(alertId);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @Timed
-    @ApiOperation(
-        value = "Updates a device alert",
-        notes = "updates the specified alert"
-    )
-    @RequestMapping(
-        method = RequestMethod.PUT,
-        produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity<?> update(
-        @ApiParam(value = "updated alert object") @Valid @RequestBody AlertDTO alertDTO
-    ) {
-        Alert alert = alertService.update(alertDTO);
-        return new ResponseEntity<>(alertDTOAssembler.toResource(alert), HttpStatus.OK);
-    }
-
-    @Timed
-    @ApiOperation(
-        value = "Get device alerts",
-        notes = "Gets all alerts of the specified device"
-//        Unsupported until swagger 1.5.0
-//        response = UserDTO.class,
-//        responseContainer = "Map",
-//        responseKey = String.class
-    )
-    @RequestMapping(
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity<?> getAll(
-        @ApiParam(value = "device to get alerts for", required = true) @PathVariable("device_id") Long deviceId
-    ) {
-        List<AlertDTO> alerts = new ArrayList<>();
-        for (Alert alert : deviceService.getAlerts(deviceId)) {
-            alerts.add(alertDTOAssembler.toResource(alert));
-        }
-        return new ResponseEntity<>(alerts, HttpStatus.OK);
     }
 
     @Timed
@@ -135,10 +94,45 @@ public class DeviceAlertsResource {
         @ApiParam(value = "device the alert belongs to", required = true) @PathVariable("device_id") Long deviceId,
         @ApiParam(value = "alert to get", required = true) @PathVariable("alert_id") Long alertId
     ) {
-        Alert alert = alertService.findOneForCurrentUserWithDevice(alertId);
-        if(alert.getDevice().getId().equals(deviceId)) {
+        Alert alert = alertService.findOneForCurrentUser(alertId);
+        if (alert.getDevice().getId().equals(deviceId)) {
             return new ResponseEntity<>(alertDTOAssembler.toResource(alert), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @Timed
+    @ApiOperation(
+        value = "Get device alerts",
+        notes = "Gets all alerts of the specified device"
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<?> getAll(
+        @ApiParam(value = "device to get alerts for", required = true) @PathVariable("device_id") Long deviceId
+    ) {
+        List<AlertDTO> alerts = new ArrayList<>();
+        for (Alert alert : deviceService.getAlerts(deviceId)) {
+            alerts.add(alertDTOAssembler.toResource(alert));
+        }
+        return new ResponseEntity<>(alerts, HttpStatus.OK);
+    }
+
+    @Timed
+    @ApiOperation(
+        value = "Updates a device alert",
+        notes = "updates the specified alert"
+    )
+    @RequestMapping(
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<?> update(
+        @ApiParam(value = "updated alert object") @Valid @RequestBody AlertDTO alertDTO
+    ) {
+        Alert alert = deviceService.updateAlert(alertDTO);
+        return new ResponseEntity<>(alertDTOAssembler.toResource(alert), HttpStatus.OK);
     }
 }

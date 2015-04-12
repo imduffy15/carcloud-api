@@ -11,5 +11,6 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, String> {
 
     User findOneByUsernameOrEmailOrPhone(String user);
+
     List<User> findTop10ByUsernameLike(String username);
 }

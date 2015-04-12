@@ -2,7 +2,6 @@ package ie.ianduffy.carcloud.web.assembler;
 
 import ie.ianduffy.carcloud.domain.Alert;
 import ie.ianduffy.carcloud.web.dto.AlertDTO;
-import ie.ianduffy.carcloud.web.rest.DeviceAlertsFieldsResource;
 import ie.ianduffy.carcloud.web.rest.DeviceAlertsResource;
 import ie.ianduffy.carcloud.web.rest.DeviceResource;
 import org.dozer.Mapper;
@@ -25,9 +24,10 @@ public class AlertDTOAssembler {
 
         resource.setBefore(alert.getBefore());
 
+        resource.setFields(alert.getFields());
+
         resource.add(linkTo(DeviceAlertsResource.class, alert.getDevice().getId()).slash(alert.getId()).withSelfRel());
         resource.add(linkTo(DeviceResource.class).slash(alert.getDevice().getId()).withRel("device"));
-        resource.add(linkTo(DeviceAlertsFieldsResource.class, alert.getDevice().getId(), alert.getId()).withRel("fields"));
 
         mapper.map(alert, resource);
 

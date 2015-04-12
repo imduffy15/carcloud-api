@@ -32,14 +32,14 @@ public class Alert extends AbstractAuditingEntity<Long> implements Serializable 
     @Size(min = 1, max = 150)
     @Column(name = "description", length = 150)
     private String description;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "device_id")
     private Device device;
     @JoinTable(
         name = "T_ALERT_FIELD",
         joinColumns = {@JoinColumn(name = "alert_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "field_id", referencedColumnName = "id")})
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.ALL})
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade = {CascadeType.ALL})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<AlertFieldWrapper> fields;
     @Id

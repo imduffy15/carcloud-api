@@ -15,6 +15,12 @@ import java.util.List;
 public abstract class AbstractRestrictedService<T extends AbstractAuditingEntity, ID extends Serializable, DTO extends AbstractAuditingEntityDTO>
     extends AbstractService<T, ID, DTO> {
 
+    @Override
+    public void delete(ID id) {
+        findOneForCurrentUser(id);
+        getRepository().delete(id);
+    }
+
     @Transactional(readOnly = true)
     public List<T> findAllForCurrentUser() {
         return getRepository().findAllForUser(SecurityUtils.getCurrentLogin());
@@ -27,12 +33,6 @@ public abstract class AbstractRestrictedService<T extends AbstractAuditingEntity
             throw new EmptyResultDataAccessException(1);
         }
         return entity;
-    }
-
-    @Override
-    public void delete(ID id) {
-        findOneForCurrentUser(id);
-        getRepository().delete(id);
     }
 
     abstract protected RestrictedRepository<T, ID> getRepository();

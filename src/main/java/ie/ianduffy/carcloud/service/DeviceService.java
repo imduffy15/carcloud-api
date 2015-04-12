@@ -140,4 +140,14 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
         Device device = findOneForCurrentUser(deviceDTO.getId());
         return super.update(deviceDTO, device);
     }
+
+    public Alert updateAlert(AlertDTO alertDTO) {
+        Alert alert = alertService.findOneForCurrentUser(alertDTO.getId());
+        alert.getFields().clear();
+        alert.getFields().addAll(alertDTO.getFields());
+        alert.setAfter(alertDTO.getAfter());
+        alert.setBefore(alertDTO.getBefore());
+        Hibernate.initialize(alert.getDevice());
+        return alertService.update(alertDTO, alert);
+    }
 }
