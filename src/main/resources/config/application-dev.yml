@@ -17,7 +17,7 @@ spring:
         database-platform: org.hibernate.dialect.H2Dialect
         database: H2
         openInView: false
-        show_sql: true
+        show_sql: false
         generate-ddl: true
         hibernate:
             ddl-auto: update
@@ -42,5 +42,5 @@ cache:
 
 nexmo:
     key: 16d5d300
-    secret: nul
+    secret: vaX6giko
     from: CarCloud

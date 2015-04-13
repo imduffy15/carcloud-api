@@ -33,6 +33,7 @@
     <logger name="javax.xml.bind" level="WARN"/>
     <logger name="com.sun.xml" level="WARN"/>
     <logger name="org.jboss.logging" level="WARN"/>
+    <logger name="org.dozer.MappingProcessor" level="OFF" />
 
 
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
