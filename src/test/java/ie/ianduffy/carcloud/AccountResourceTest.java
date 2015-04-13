@@ -73,7 +73,7 @@ public class AccountResourceTest extends AbstractResourceTest {
         mockMvc.perform(post("/app/rest/account")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(userDTO)))
-            .andExpect(status().isConflict());
+            .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
