@@ -42,5 +42,5 @@ cache:
 
 nexmo:
     key: 16d5d300
-    secret: b39cbd60
+    secret: nul
     from: CarCloud

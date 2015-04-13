@@ -7,6 +7,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -30,10 +31,12 @@ public abstract class Field<T extends Comparable> implements Comparable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    @Size(min = 1, max = 150)
-    @Column(name = "name", length = 150)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
 
     public Field() {

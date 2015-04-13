@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 public class DeviceDTO extends AbstractAuditingEntityDTO<Long> {
 
     @ApiModelProperty
-    @Size(min = 1, max = 150)
+    @Size(min = 1, max = 100)
     private String description;
 
     @ApiModelProperty

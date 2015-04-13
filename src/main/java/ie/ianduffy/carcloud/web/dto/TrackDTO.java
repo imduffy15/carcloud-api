@@ -17,15 +17,20 @@ public class TrackDTO extends AbstractAuditingEntityDTO<Long> {
 
     @ApiModelProperty
     private List<Field> fields;
+
     @ApiModelProperty
     private Long id;
+
     @ApiModelProperty
     private Double latitude;
+
     @ApiModelProperty
     private Double longitude;
+
     @ApiModelProperty
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime receivedAt;
+
     @ApiModelProperty
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime recordedAt;

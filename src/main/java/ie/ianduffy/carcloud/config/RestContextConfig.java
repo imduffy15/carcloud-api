@@ -38,7 +38,7 @@ public class RestContextConfig extends WebMvcConfigurerAdapter {
     @Bean
     public MessageSource httpErrorMessageSource() {
         ReloadableResourceBundleMessageSource m = new ReloadableResourceBundleMessageSource();
-        m.setBasename("classpath:/org/example/messages");
+        m.setBasename("classpath:/messages");
         m.setDefaultEncoding("UTF-8");
         return m;
     }
@@ -49,8 +49,8 @@ public class RestContextConfig extends WebMvcConfigurerAdapter {
             .messageSource(httpErrorMessageSource())
             .defaultContentType(MediaType.APPLICATION_JSON)
             .addErrorMessageHandler(EmptyResultDataAccessException.class, HttpStatus.NOT_FOUND)
-            .addErrorMessageHandler(DataIntegrityViolationException.class, HttpStatus.CONFLICT)
-            .addErrorMessageHandler(DuplicateKeyException.class, HttpStatus.CONFLICT)
+            .addErrorMessageHandler(DuplicateKeyException.class, HttpStatus.UNPROCESSABLE_ENTITY)
+            .addErrorMessageHandler(DataIntegrityViolationException.class, HttpStatus.UNPROCESSABLE_ENTITY)
             .build();
     }
 }

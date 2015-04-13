@@ -36,13 +36,14 @@ public class Device extends AbstractAuditingEntity<Long> implements Serializable
     @OneToMany(mappedBy = "device", fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.PERSIST})
     private List<Alert> alerts = new ArrayList<>();
 
-    @Size(min = 1, max = 150)
-    @Column(name = "description", length = 150)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "description", length = 100, nullable = false)
     private String description;
 
     @Id
     @NotNull
-    @Column(unique = true)
+    @Column(unique = true, nullable = false, updatable = false)
     private Long id;
 
     @OrderBy

@@ -22,10 +22,10 @@ import java.io.Serializable;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Authority implements Serializable, GrantedAuthority {
 
-    @NotNull
-    @Size(min = 0, max = 50)
     @Id
-    @Column(length = 50)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(length = 100, nullable = false, updatable = false)
     private String name;
 
     @Override

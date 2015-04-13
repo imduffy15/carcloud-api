@@ -26,7 +26,7 @@ import javax.persistence.Version;
 public abstract class AbstractAuditingEntity<T> {
 
     @CreatedBy
-    @Column(name = "created_by", length = 50)
+    @Column(name = "created_by", length = 100)
     private String createdBy;
 
     @CreatedDate
@@ -35,7 +35,7 @@ public abstract class AbstractAuditingEntity<T> {
     private DateTime createdDate = DateTime.now();
 
     @LastModifiedBy
-    @Column(name = "last_modified_by", length = 50)
+    @Column(name = "last_modified_by", length = 100)
     private String lastModifiedBy;
 
     @LastModifiedDate

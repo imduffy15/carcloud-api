@@ -18,9 +18,10 @@ public class AlertSender {
         for (AlertFieldWrapper alertField : alert.getFields()) {
             for (Field field : track.getFields()) {
                 if (shouldTakeAction(field, alertField.getField(), alertField.getOperation())) {
-                    smsService.sendSMS("00353861770680", "alert");
+                    for (User user : alert.getDevice().getOwners()) {
+                        smsService.sendSMS(user.getPhone(), alert.getDescription() + " was triggered at " + track.getRecordedAt());
+                    }
                 }
-
             }
         }
     }

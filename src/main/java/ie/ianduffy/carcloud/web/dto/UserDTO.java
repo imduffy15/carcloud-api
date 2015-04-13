@@ -19,15 +19,15 @@ public class UserDTO extends AbstractAuditingEntityDTO<String> {
 
     @Email
     @ApiModelProperty
-    @Size(min = 0, max = 100)
+    @Size(min = 1, max = 100)
     private String email;
 
     @ApiModelProperty
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 100)
     private String firstName;
 
     @ApiModelProperty
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 100)
     private String lastName;
 
     @ApiModelProperty
@@ -39,7 +39,7 @@ public class UserDTO extends AbstractAuditingEntityDTO<String> {
     private String phone;
 
     @ApiModelProperty
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 100)
     private String username;
 
     @Override

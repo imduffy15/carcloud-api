@@ -45,33 +45,34 @@ public class User extends AbstractAuditingEntity<String> implements Serializable
 
     @Email
     @NotNull
-    @Size(min = 0, max = 100)
+    @Size(min = 1, max = 100)
     @Column(length = 100, unique = true)
     private String email;
 
-    @Size(min = 1, max = 50)
-    @Column(name = "first_name", length = 50)
+    @Size(min = 1, max = 100)
+    @Column(name = "first_name", length = 100)
     private String firstName;
 
-    @Size(min = 1, max = 50)
-    @Column(name = "last_name", length = 50)
+    @Size(min = 1, max = 100)
+    @Column(name = "last_name", length = 100)
     private String lastName;
 
     @NotNull
     @JsonIgnore
-    @Size(min = 0, max = 100)
+    @Size(min = 5, max = 100)
     @Column(length = 100)
     private String password;
 
     @NotNull
+    @Size(min = 1, max = 100)
     @Pattern(regexp = "^\\+?[0-9. ()-]{10,25}$")
     @Column(length = 100, unique = true)
     private String phone;
 
-    @NotNull
-    @Size(min = 0, max = 50)
     @Id
-    @Column(length = 50, unique = true)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(length = 100, unique = true, nullable = false, updatable = false)
     private String username;
 
     @Override

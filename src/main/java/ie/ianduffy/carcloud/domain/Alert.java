@@ -9,6 +9,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.LocalTime;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
@@ -27,14 +28,19 @@ public class Alert extends AbstractAuditingEntity<Long> implements Serializable 
 
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalTime")
     private LocalTime after;
+
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalTime")
     private LocalTime before;
-    @Size(min = 1, max = 150)
-    @Column(name = "description", length = 150)
+
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "description", length = 100, nullable = false)
     private String description;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "device_id")
     private Device device;
+
     @JoinTable(
         name = "T_ALERT_FIELD",
         joinColumns = {@JoinColumn(name = "alert_id", referencedColumnName = "id")},
@@ -42,7 +48,10 @@ public class Alert extends AbstractAuditingEntity<Long> implements Serializable 
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade = {CascadeType.ALL})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<AlertFieldWrapper> fields;
+
     @Id
+    @NotNull
+    @Column(name = "id", nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 

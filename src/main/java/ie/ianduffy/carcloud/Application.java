@@ -18,7 +18,8 @@ import java.util.Arrays;
 
 @ComponentScan
 @EnableAutoConfiguration(exclude = {MetricFilterAutoConfiguration.class,
-    MetricRepositoryAutoConfiguration.class})
+    MetricRepositoryAutoConfiguration.class
+})
 public class Application {
 
     private final Logger log = LoggerFactory.getLogger(Application.class);

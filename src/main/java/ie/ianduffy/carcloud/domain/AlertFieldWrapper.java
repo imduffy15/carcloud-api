@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -14,8 +15,11 @@ public class AlertFieldWrapper {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Field field;
+
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "id", nullable = false, updatable = false)
     private Long id;
     private Operation operation;
 }
