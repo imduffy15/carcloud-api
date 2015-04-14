@@ -19,9 +19,6 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * REST controller for managing Device.
- */
 @Api(
     value = "device alerts",
     description = "Device Alerts API"
@@ -52,7 +49,7 @@ public class DeviceAlertsResource {
     )
     public ResponseEntity<?> create(
         @ApiParam(value = "device to add alert to", required = true) @PathVariable("device_id") Long deviceId,
-        @ApiParam(value = "alert to add", required = true) @RequestBody AlertDTO alertDTO
+        @ApiParam(value = "alert to add", required = true) @Valid @RequestBody AlertDTO alertDTO
     ) {
         return new ResponseEntity<>(alertDTOAssembler.toResource(deviceService.addAlert(deviceId, alertDTO)), HttpStatus.OK);
     }

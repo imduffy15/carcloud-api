@@ -20,9 +20,6 @@ import javax.inject.Inject;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * REST controller for managing tracks.
- */
 @Api(
     value = "track",
     description = "Track API"

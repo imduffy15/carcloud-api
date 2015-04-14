@@ -18,9 +18,6 @@ import javax.validation.Valid;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * REST controller for managing devices.
- */
 @Api(
     value = "device",
     description = "Device API"

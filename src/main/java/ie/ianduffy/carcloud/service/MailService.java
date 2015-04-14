@@ -1,8 +1,7 @@
 package ie.ianduffy.carcloud.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.CharEncoding;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -13,15 +12,10 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
-import java.util.Locale;
 
-/**
- * Service for sending e-mails.
- */
+@Slf4j
 @Service
 public class MailService {
-
-    private final Logger log = LoggerFactory.getLogger(MailService.class);
 
     @Inject
     private Environment env;
@@ -40,19 +34,11 @@ public class MailService {
     }
 
     @Async
-    public void sendActivationEmail(final String email, String content, Locale locale) {
-        log.debug("Sending activation e-mail to '{}'", email);
-        String subject = messageSource.getMessage("email.activation.title", null, locale);
-        sendEmail(email, subject, content, false, true);
-    }
-
-    @Async
     void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
         log.debug(
             "Send e-mail[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
             isMultipart, isHtml, to, subject, content);
 
-        // Prepare message using a Spring helper
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper

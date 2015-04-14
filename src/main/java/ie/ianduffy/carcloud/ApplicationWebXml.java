@@ -1,22 +1,13 @@
 package ie.ianduffy.carcloud;
 
 import ie.ianduffy.carcloud.config.Constants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 
-/**
- * This is an helper Java class that provides an alternative to creating a web.xml.
- */
+@Slf4j
 public class ApplicationWebXml extends SpringBootServletInitializer {
 
-    private final Logger log = LoggerFactory.getLogger(ApplicationWebXml.class);
-
-    /**
-     * Set a default profile if it has not been set. <p/> <p> Please use -Dspring.profiles.active=dev
-     * </p>
-     */
     private String addDefaultProfile() {
         String profile = System.getProperty("spring.profiles.active");
         if (profile != null) {

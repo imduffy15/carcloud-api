@@ -17,12 +17,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * REST controller for managing Device.
- */
 @Api(
     value = "device tracks",
     description = "Device Tracks API"
@@ -54,8 +52,8 @@ public class DeviceTracksResource {
     )
     public ResponseEntity<?> getForDate(
         @ApiParam(value = "device to get tracks for", required = true) @PathVariable("device_id") Long deviceId,
-        @ApiParam(value = "start date to filter by", required = false) @RequestParam(value = "fromDate", required = false) DateTime fromDate,
-        @ApiParam(value = "end date to filter by", required = false) @RequestParam(value = "toDate", required = false) DateTime toDate
+        @ApiParam(value = "start date to filter by", required = false) @Valid @RequestParam(value = "fromDate", required = false) DateTime fromDate,
+        @ApiParam(value = "end date to filter by", required = false) @Valid @RequestParam(value = "toDate", required = false) DateTime toDate
     ) {
         if (fromDate == null) fromDate = new DateTime().withTimeAtStartOfDay();
         if (toDate == null) toDate = fromDate.plusDays(1);

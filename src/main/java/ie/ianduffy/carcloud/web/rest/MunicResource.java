@@ -23,9 +23,6 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * REST controller for allowing munic devices to submit information.
- */
 @Log
 @Api(
     value = "munic",

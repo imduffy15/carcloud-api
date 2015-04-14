@@ -1,8 +1,7 @@
 package ie.ianduffy.carcloud.config;
 
 import ie.ianduffy.carcloud.async.ExceptionHandlingAsyncTaskExecutor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.aop.interceptor.SimpleAsyncUncaughtExceptionHandler;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
@@ -18,13 +17,12 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
 
+@Slf4j
 @Configuration
 @EnableAsync
 @EnableScheduling
 @Profile("!" + Constants.SPRING_PROFILE_TEST)
 public class AsyncConfiguration implements AsyncConfigurer, EnvironmentAware {
-
-    private final Logger log = LoggerFactory.getLogger(AsyncConfiguration.class);
 
     private RelaxedPropertyResolver propertyResolver;
 

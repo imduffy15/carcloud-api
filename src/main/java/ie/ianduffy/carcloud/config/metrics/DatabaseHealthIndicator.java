@@ -13,9 +13,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * SpringBoot Actuator HealthIndicator check for the Database.
- */
 public class DatabaseHealthIndicator extends AbstractHealthIndicator {
 
     private static String DEFAULT_QUERY = "SELECT 1";

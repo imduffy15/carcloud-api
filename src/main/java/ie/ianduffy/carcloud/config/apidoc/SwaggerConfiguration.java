@@ -22,9 +22,6 @@ public class SwaggerConfiguration implements EnvironmentAware {
 
     private RelaxedPropertyResolver propertyResolver;
 
-    /**
-     * API Info as it appears on the swagger-ui page
-     */
     private ApiInfo apiInfo() {
         return new ApiInfo(
             propertyResolver.getProperty("title"),
@@ -40,9 +37,6 @@ public class SwaggerConfiguration implements EnvironmentAware {
         this.propertyResolver = new RelaxedPropertyResolver(environment, "swagger.");
     }
 
-    /**
-     * Swagger Spring MVC configuration
-     */
     @Bean
     public SwaggerSpringMvcPlugin swaggerSpringMvcPlugin(SpringSwaggerConfig springSwaggerConfig) {
         return new SwaggerSpringMvcPlugin(springSwaggerConfig)

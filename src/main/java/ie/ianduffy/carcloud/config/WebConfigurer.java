@@ -6,8 +6,7 @@ import com.codahale.metrics.servlets.MetricsServlet;
 import com.thetransactioncompany.cors.CORSFilter;
 import ie.ianduffy.carcloud.web.filter.CachingHttpHeadersFilter;
 import ie.ianduffy.carcloud.web.filter.gzip.GZipServletFilter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.embedded.ServletContextInitializer;
@@ -23,14 +22,10 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Configuration of web application with Servlet 3.0 APIs.
- */
+@Slf4j
 @Configuration
 @AutoConfigureAfter(CacheConfiguration.class)
 public class WebConfigurer implements ServletContextInitializer {
-
-    private final Logger log = LoggerFactory.getLogger(WebConfigurer.class);
 
     @Inject
     private Environment env;
@@ -38,18 +33,11 @@ public class WebConfigurer implements ServletContextInitializer {
     @Autowired(required = false)
     private MetricRegistry metricRegistry;
 
-    /**
-     * Initializes the CORS Filter.
-     */
-
     @Bean
     public CORSFilter corsFilter() {
         return new CORSFilter();
     }
 
-    /**
-     * Initializes the cachig HTTP Headers Filter.
-     */
     private void initCachingHttpHeadersFilter(ServletContext servletContext,
                                               EnumSet<DispatcherType> disps) {
         log.debug("Registering Cachig HTTP Headers Filter");
@@ -80,9 +68,6 @@ public class WebConfigurer implements ServletContextInitializer {
         corsFilter.setAsyncSupported(true);
     }
 
-    /**
-     * Initializes the GZip filter.
-     */
     private void initGzipFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
         log.debug("Registering GZip Filter");
         FilterRegistration.Dynamic
@@ -99,9 +84,6 @@ public class WebConfigurer implements ServletContextInitializer {
         compressingFilter.setAsyncSupported(true);
     }
 
-    /**
-     * Initializes H2 console
-     */
     private void initH2Console(ServletContext servletContext) {
         log.debug("Initialize H2 console");
         ServletRegistration.Dynamic
@@ -111,9 +93,6 @@ public class WebConfigurer implements ServletContextInitializer {
         h2ConsoleServlet.setLoadOnStartup(1);
     }
 
-    /**
-     * Initializes Metrics.
-     */
     private void initMetrics(ServletContext servletContext, EnumSet<DispatcherType> disps) {
         log.debug("Initializing Metrics registries");
         servletContext.setAttribute(InstrumentedFilter.REGISTRY_ATTRIBUTE,

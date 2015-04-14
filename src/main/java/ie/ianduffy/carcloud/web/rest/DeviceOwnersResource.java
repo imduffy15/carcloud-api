@@ -17,9 +17,6 @@ import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * REST controller for managing a device's owners.
- */
 @Api(
     value = "device owners",
     description = "Device Owners API"

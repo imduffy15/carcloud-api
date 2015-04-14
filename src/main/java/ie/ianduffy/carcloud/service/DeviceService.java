@@ -22,9 +22,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Service class for managing devices.
- */
 @Service
 @Transactional
 public class DeviceService extends AbstractRestrictedService<Device, Long, DeviceDTO> {

@@ -17,9 +17,6 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * REST controller for managing users.
- */
 @Api(
     value = "user",
     description = "User API"

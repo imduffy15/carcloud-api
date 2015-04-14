@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class FieldFactory {
 
-    private static HashMap<String, FieldType> fieldDefinations = new HashMap() {
+    private static HashMap<String, FieldType> fieldDefinitions = new HashMap() {
         {
             put("GPRMC_VALID", FieldType.STRING);
             put("GPS_SPEED", FieldType.INTEGER);
@@ -94,7 +94,7 @@ public class FieldFactory {
     };
 
     public static Field getFieldDTO(String key, String value) {
-        switch (fieldDefinations.get(key)) {
+        switch (fieldDefinitions.get(key)) {
             case INTEGER:
                 return new FieldInteger(key, (DecoderUtil.decodeToInt(value)));
             case BOOLEAN:

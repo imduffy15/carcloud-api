@@ -1,7 +1,6 @@
 package ie.ianduffy.carcloud.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
+@Slf4j
 @Configuration
 public class MailConfiguration implements EnvironmentAware {
 
@@ -39,8 +39,6 @@ public class MailConfiguration implements EnvironmentAware {
     private static final String PROP_TRANSPORT_PROTO = "mail.transport.protocol";
 
     private static final String PROP_USER = "user";
-
-    private final Logger log = LoggerFactory.getLogger(MailConfiguration.class);
 
     private RelaxedPropertyResolver propertyResolver;
 

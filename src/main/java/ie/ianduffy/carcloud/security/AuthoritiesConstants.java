@@ -1,8 +1,5 @@
 package ie.ianduffy.carcloud.security;
 
-/**
- * Constants for Spring Security authorities. <p/> SPAM 0.0.1 - Usage of constants
- */
 public final class AuthoritiesConstants {
 
     public static final String ADMIN = "ROLE_ADMIN";

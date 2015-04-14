@@ -20,9 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
-/**
- * REST controller for managing the current user's account.
- */
 @Api(
     value = "account",
     description = "Account API"

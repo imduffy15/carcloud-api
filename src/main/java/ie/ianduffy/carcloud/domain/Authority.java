@@ -13,9 +13,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-/**
- * An authority (a security role) used by Spring Security.
- */
 @Data
 @Entity
 @Table(name = "T_AUTHORITY")

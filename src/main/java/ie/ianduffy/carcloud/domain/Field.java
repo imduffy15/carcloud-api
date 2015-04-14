@@ -10,9 +10,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- * A Field.
- */
 @Data
 @Entity
 @Table(name = "T_FIELD")

@@ -6,7 +6,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ public class RestContextConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
-        resolvers.add(exceptionHandlerExceptionResolver()); // resolves @ExceptionHandler
+        resolvers.add(exceptionHandlerExceptionResolver());
         resolvers.add(restExceptionResolver());
     }
 
@@ -50,7 +50,7 @@ public class RestContextConfig extends WebMvcConfigurerAdapter {
             .defaultContentType(MediaType.APPLICATION_JSON)
             .addErrorMessageHandler(EmptyResultDataAccessException.class, HttpStatus.NOT_FOUND)
             .addErrorMessageHandler(DuplicateKeyException.class, HttpStatus.UNPROCESSABLE_ENTITY)
-            .addErrorMessageHandler(DataIntegrityViolationException.class, HttpStatus.UNPROCESSABLE_ENTITY)
+            .addErrorMessageHandler(DataAccessException.class, HttpStatus.UNPROCESSABLE_ENTITY)
             .build();
     }
 }

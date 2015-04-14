@@ -12,9 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.util.List;
 
-/**
- * Service class for managing tracks.
- */
 @Service
 @Transactional
 public class AlertService extends AbstractRestrictedService<Alert, Long, AlertDTO> {

@@ -18,9 +18,6 @@ import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Service class for managing users.
- */
 @Service
 @Transactional
 public class UserService extends AbstractService<User, String, UserDTO> {

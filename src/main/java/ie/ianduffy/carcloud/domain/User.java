@@ -19,9 +19,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A user.
- */
 @Data
 @Entity
 @Table(name = "T_USER")

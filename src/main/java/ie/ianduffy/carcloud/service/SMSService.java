@@ -3,8 +3,7 @@ package ie.ianduffy.carcloud.service;
 import com.nexmo.messaging.sdk.NexmoSmsClient;
 import com.nexmo.messaging.sdk.SmsSubmissionResult;
 import com.nexmo.messaging.sdk.messages.TextMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -12,14 +11,10 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-/**
- * Service for sending SMSs.
- */
+@Slf4j
 @Async
 @Service
 public class SMSService {
-
-    private final Logger log = LoggerFactory.getLogger(SMSService.class);
 
     @Inject
     private Environment env;

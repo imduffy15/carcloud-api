@@ -10,9 +10,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Utility class for Spring Security.
- */
 public final class SecurityUtils {
 
     private SecurityUtils() {

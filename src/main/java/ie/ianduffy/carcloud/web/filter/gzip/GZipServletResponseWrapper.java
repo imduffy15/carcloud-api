@@ -22,8 +22,6 @@ class GZipServletResponseWrapper extends HttpServletResponseWrapper {
 
     public void close() throws IOException {
 
-        //PrintWriter.close does not throw exceptions. Thus, the call does not need
-        //be inside a try-catch block.
         if (this.printWriter != null) {
             this.printWriter.close();
         }
@@ -33,9 +31,6 @@ class GZipServletResponseWrapper extends HttpServletResponseWrapper {
         }
     }
 
-    /**
-     * Flushes all the streams for this response.
-     */
     public void flush() throws IOException {
         if (printWriter != null) {
             printWriter.flush();
@@ -46,15 +41,9 @@ class GZipServletResponseWrapper extends HttpServletResponseWrapper {
         }
     }
 
-    /**
-     * Flush OutputStream or PrintWriter
-     *
-     * @throws IOException
-     */
     @Override
     public void flushBuffer() throws IOException {
 
-        //PrintWriter.flush() does not throw exception
         if (this.printWriter != null) {
             this.printWriter.flush();
         }
@@ -62,12 +51,6 @@ class GZipServletResponseWrapper extends HttpServletResponseWrapper {
         if (this.gzipOutputStream != null) {
             this.gzipOutputStream.flush();
         }
-
-        // doing this might leads to response already committed exception
-        // when the PageInfo has not yet built but the buffer already flushed
-        // Happens in Weblogic when a servlet forward to a JSP page and the forward
-        // method trigger a flush before it forwarded to the JSP
-        // disableFlushBuffer for that purpose is 'true' by default
         if (!disableFlushBuffer) {
             super.flushBuffer();
         }
@@ -98,15 +81,8 @@ class GZipServletResponseWrapper extends HttpServletResponseWrapper {
 
     @Override
     public void setContentLength(int length) {
-        //ignore, since content length of zipped content
-        //does not match content length of unzipped content.
     }
 
-    /**
-     * Set if the wrapped reponse's buffer flushing should be disabled.
-     *
-     * @param disableFlushBuffer true if the wrapped reponse's buffer flushing should be disabled
-     */
     public void setDisableFlushBuffer(boolean disableFlushBuffer) {
         this.disableFlushBuffer = disableFlushBuffer;
     }

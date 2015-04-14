@@ -1,7 +1,6 @@
 package ie.ianduffy.carcloud;
 
 import ie.ianduffy.carcloud.domain.User;
-import ie.ianduffy.carcloud.service.UserService;
 import ie.ianduffy.carcloud.web.dto.UserDTO;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,11 +17,6 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-/**
- * Test class for the AccountResource REST controller.
- *
- * @see UserService
- */
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -80,7 +74,12 @@ public class AccountResourceTest extends AbstractResourceTest {
     public void testUpdateAnAccount() throws Exception {
         UserDTO userDTO = new UserDTO();
 
-        userDTO.setLastName("newLastName");
+        userDTO.setUsername("mburns");
+        userDTO.setFirstName("montgomery");
+        userDTO.setLastName("burns");
+        userDTO.setEmail("mburns@carcloud.ianduffy.ie");
+        userDTO.setPhone("+3530000000000");
+        userDTO.setPassword("password");
         userDTO.setVersion(userService.findOne("user").getVersion());
 
         mockMvc.perform(put("/app/rest/account")

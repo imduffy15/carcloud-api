@@ -4,14 +4,14 @@ import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import liquibase.integration.spring.SpringLiquibase;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -21,13 +21,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @Configuration
 @EnableJpaRepositories("ie.ianduffy.carcloud.repository")
 @EnableTransactionManagement
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 public class DatabaseConfiguration implements EnvironmentAware {
-
-    private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
 
     private Environment environment;
 
@@ -58,7 +57,6 @@ public class DatabaseConfiguration implements EnvironmentAware {
         config.addDataSourceProperty("user", propertyResolver.getProperty("username"));
         config.addDataSourceProperty("password", propertyResolver.getProperty("password"));
 
-        //MySQL optimizations, see https://github.com/brettwooldridge/HikariCP/wiki/MySQL-Configuration
         if ("com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
             .equals(propertyResolver.getProperty("dataSourceClassName"))) {
             config.addDataSourceProperty("cachePrepStmts",
@@ -71,6 +69,11 @@ public class DatabaseConfiguration implements EnvironmentAware {
                 .getProperty("useServerPrepStmts", "true"));
         }
         return new HikariDataSource(config);
+    }
+
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+        return new PersistenceExceptionTranslationPostProcessor();
     }
 
     @Bean(name = {"org.springframework.boot.autoconfigure.AutoConfigurationUtils.basePackages"})

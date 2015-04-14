@@ -1,8 +1,7 @@
 package ie.ianduffy.carcloud;
 
 import ie.ianduffy.carcloud.config.Constants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfiguration;
@@ -16,20 +15,16 @@ import javax.inject.Inject;
 import java.io.IOException;
 import java.util.Arrays;
 
+@Slf4j
 @ComponentScan
 @EnableAutoConfiguration(exclude = {MetricFilterAutoConfiguration.class,
     MetricRepositoryAutoConfiguration.class
 })
 public class Application {
 
-    private final Logger log = LoggerFactory.getLogger(Application.class);
-
     @Inject
     private Environment env;
 
-    /**
-     * Set a default profile if it has not been set
-     */
     private static void addDefaultProfile(SpringApplication app,
                                           SimpleCommandLinePropertySource source) {
         if (!source.containsProperty("spring.profiles.active")) {
@@ -37,27 +32,16 @@ public class Application {
         }
     }
 
-    /**
-     * Main method, used to run the application. <p/> To run the application with hot reload enabled,
-     * add the following arguments to your JVM: "-javaagent:spring_loaded/springloaded-jhipster.jar
-     * -noverify -Dspringloaded=plugins=io.github.jhipster.loaded.instrument.JHipsterLoadtimeInstrumentationPlugin"
-     */
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(Application.class);
 
         SimpleCommandLinePropertySource source = new SimpleCommandLinePropertySource(args);
 
-        // Check if the selected profile has been set as argument.
-        // if not the development profile will be added
         addDefaultProfile(app, source);
 
         app.run(args);
     }
 
-    /**
-     * Initializes carcloud. <p/> Spring profiles can be configured with a program arguments
-     * --spring.profiles.active=your-active-profile <p/>
-     */
     @PostConstruct
     public void initApplication() throws IOException {
         if (env.getActiveProfiles().length == 0) {

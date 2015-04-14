@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.joda.time.LocalTime;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
@@ -22,7 +24,9 @@ public class AlertDTO extends AbstractAuditingEntityDTO<Long> {
     @ApiModelProperty
     private LocalTime before;
 
+    @NotNull
     @ApiModelProperty
+    @Size(min = 1, max = 100)
     private String description;
 
     @ApiModelProperty

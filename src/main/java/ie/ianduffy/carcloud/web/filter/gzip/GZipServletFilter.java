@@ -1,7 +1,6 @@
 package ie.ianduffy.carcloud.web.filter.gzip;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -10,9 +9,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.zip.GZIPOutputStream;
 
+@Slf4j
 public class GZipServletFilter implements Filter {
-
-    private Logger log = LoggerFactory.getLogger(GZipServletFilter.class);
 
     private boolean acceptsGZipEncoding(HttpServletRequest httpRequest) {
         String acceptEncoding = httpRequest.getHeader("Accept-Encoding");
@@ -21,7 +19,6 @@ public class GZipServletFilter implements Filter {
 
     @Override
     public void destroy() {
-        // Nothing to destroy
     }
 
     @Override
@@ -31,16 +28,13 @@ public class GZipServletFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         if (!isIncluded(httpRequest) && acceptsGZipEncoding(httpRequest) && !response.isCommitted()) {
-            // Client accepts zipped content
             if (log.isTraceEnabled()) {
                 log.trace("{} Written with gzip compression", httpRequest.getRequestURL());
             }
 
-            // Create a gzip stream
             final ByteArrayOutputStream compressed = new ByteArrayOutputStream();
             final GZIPOutputStream gzout = new GZIPOutputStream(compressed);
 
-            // Handle the request
             final GZipServletResponseWrapper wrapper = new GZipServletResponseWrapper(httpResponse, gzout);
             wrapper.setDisableFlushBuffer(true);
             chain.doFilter(request, wrapper);
@@ -48,13 +42,10 @@ public class GZipServletFilter implements Filter {
 
             gzout.close();
 
-            // double check one more time before writing out
-            // repsonse might have been committed due to error
             if (response.isCommitted()) {
                 return;
             }
 
-            // return on these special cases when content is empty or unchanged
             switch (wrapper.getStatus()) {
                 case HttpServletResponse.SC_NO_CONTENT:
                 case HttpServletResponse.SC_RESET_CONTENT:
@@ -63,13 +54,10 @@ public class GZipServletFilter implements Filter {
                 default:
             }
 
-            // Saneness checks
             byte[] compressedBytes = compressed.toByteArray();
             boolean shouldGzippedBodyBeZero = GZipResponseUtil.shouldGzippedBodyBeZero(compressedBytes, httpRequest);
             boolean shouldBodyBeZero = GZipResponseUtil.shouldBodyBeZero(httpRequest, wrapper.getStatus());
             if (shouldGzippedBodyBeZero || shouldBodyBeZero) {
-                // No reason to add GZIP headers or write body if no content was written or status code specifies no
-                // content
                 response.setContentLength(0);
                 return;
             }
@@ -82,7 +70,6 @@ public class GZipServletFilter implements Filter {
             response.getOutputStream().write(compressedBytes);
 
         } else {
-            // Client does not accept zipped content - don't bother zipping
             if (log.isTraceEnabled()) {
                 log.trace("{} Written without gzip compression because the request does not accept gzip", httpRequest.getRequestURL());
             }
@@ -92,12 +79,8 @@ public class GZipServletFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        // Nothing to initialize
     }
 
-    /**
-     * Checks if the request uri is an include. These cannot be gzipped.
-     */
     private boolean isIncluded(final HttpServletRequest request) {
         final String uri = (String) request.getAttribute("javax.servlet.include.request_uri");
         final boolean includeRequest = !(uri == null);
