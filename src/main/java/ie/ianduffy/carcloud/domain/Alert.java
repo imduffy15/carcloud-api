@@ -26,9 +26,11 @@ import java.util.List;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Alert extends AbstractAuditingEntity<Long> implements Serializable {
 
+    @Column(name = "after_time")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalTime")
     private LocalTime after;
 
+    @Column(name = "before_time")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalTime")
     private LocalTime before;
 
@@ -51,8 +53,8 @@ public class Alert extends AbstractAuditingEntity<Long> implements Serializable 
 
     @Id
     @NotNull
-    @Column(name = "id", nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
     public Alert() {
@@ -65,4 +67,5 @@ public class Alert extends AbstractAuditingEntity<Long> implements Serializable 
         this.before = before;
         this.fields = fields;
     }
+
 }

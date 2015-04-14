@@ -69,115 +69,147 @@
             <column name="authentication" type="BLOB"/>
         </createTable>
     </changeSet>
-    <!--<changeSet author="duffy (generated)" id="dump8">-->
-    <!--<createTable tableName="t_alert">-->
-    <!--<column name="id" type="BIGINT">-->
-    <!--<constraints nullable="false"/>-->
-    <!--</column>-->
-    <!--<column name="created_by" type="VARCHAR(50)" defaultValue="system"/>-->
-    <!--<column name="created_date" type="timestamp" defaultValueDate="${now}"/>-->
-    <!--<column name="last_modified_by" type="VARCHAR(50)"/>-->
-    <!--<column name="last_modified_date" type="timestamp"/>-->
-    <!--<column name="version" type="INT">-->
-    <!--<constraints nullable="false"/>-->
-    <!--</column>-->
-    <!--<column name="device_id" type="BIGINT"/>-->
-    <!--</createTable>-->
-    <!--</changeSet>-->
-    <!--<changeSet author="duffy (generated)" id="dump9">-->
-    <!--<createTable tableName="t_alert_field">-->
-    <!--<column name="alert_id" type="BIGINT">-->
-    <!--<constraints nullable="false"/>-->
-    <!--</column>-->
-    <!--<column name="field_id" type="BIGINT">-->
-    <!--<constraints nullable="false"/>-->
-    <!--</column>-->
-    <!--</createTable>-->
-    <!--</changeSet>-->
-    <changeSet author="duffy (generated)" id="dump10">
-        <createTable tableName="t_authority">
-            <column name="name" type="VARCHAR(50)">
+    <changeSet author="duffy (generated)" id="dump8">
+        <createTable tableName="t_alert">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(100)"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_date" type="TIMESTAMP"/>
+            <column name="last_modified_by" type="VARCHAR(100)"/>
+            <column name="last_modified_date" type="TIMESTAMP"/>
+            <column name="version" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="after_time" type="time"/>
+            <column name="before_time" type="time"/>
+            <column name="description" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="device_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="dump9">
+        <createTable tableName="t_alert_field">
+            <column name="alert_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="field_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
+    <changeSet author="duffy (generated)" id="dump10">
+        <createTable tableName="t_alert_field_wrapper">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="operation" type="INT"/>
+            <column name="field" type="BIGINT"/>
+        </createTable>
+    </changeSet>
     <changeSet author="duffy (generated)" id="dump11">
+        <createTable tableName="t_authority">
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="dump12">
         <createTable tableName="t_device">
             <column name="id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by" type="VARCHAR(50)" defaultValue="system"/>
-            <column name="created_date" type="timestamp" defaultValueDate="${now}"/>
-            <column name="last_modified_by" type="VARCHAR(50)"/>
-            <column name="last_modified_date" type="timestamp"/>
+            <column name="created_by" type="VARCHAR(100)"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_date" type="TIMESTAMP"/>
+            <column name="last_modified_by" type="VARCHAR(100)"/>
+            <column name="last_modified_date" type="TIMESTAMP"/>
             <column name="version" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column name="description" type="VARCHAR(150)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="dump12">
-        <createTable tableName="t_device_owner">
-            <column name="device_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="username" type="VARCHAR(50)">
+            <column name="description" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump13">
+        <createTable tableName="t_device_owner">
+            <column name="device_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="dump14">
         <createTable tableName="t_field">
             <column name="id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="name" type="VARCHAR(255)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="duffy (generated)" id="dump14">
-        <createTable tableName="t_field_boolean">
-            <column name="value" type="BIT"/>
-            <column name="id" type="BIGINT">
+            <column name="name" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump15">
-        <createTable tableName="t_field_integer">
-            <column name="value" type="INT"/>
+        <createTable tableName="t_field_boolean">
+            <column name="value" type="BIT">
+                <constraints nullable="false"/>
+            </column>
             <column name="id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump16">
-        <createTable tableName="t_field_string">
-            <column name="value" type="VARCHAR(255)"/>
+        <createTable tableName="t_field_integer">
+            <column name="value" type="INT">
+                <constraints nullable="false"/>
+            </column>
             <column name="id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump17">
+        <createTable tableName="t_field_string">
+            <column name="value" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="dump18">
         <createTable tableName="t_track">
             <column name="id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by" type="VARCHAR(50)" defaultValue="system"/>
-            <column name="created_date" type="timestamp" defaultValueDate="${now}"/>
-            <column name="last_modified_by" type="VARCHAR(50)"/>
-            <column name="last_modified_date" type="timestamp"/>
+            <column name="created_by" type="VARCHAR(100)"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_date" type="TIMESTAMP"/>
+            <column name="last_modified_by" type="VARCHAR(100)"/>
+            <column name="last_modified_date" type="TIMESTAMP"/>
             <column name="version" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column name="latitude" type="DOUBLE"/>
-            <column name="longitude" type="DOUBLE"/>
-            <column name="received_at" type="timestamp"/>
-            <column name="recorded_at" type="timestamp"/>
+            <column name="latitude" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="longitude" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="0000-00-00 00:00:00" name="received_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="0000-00-00 00:00:00" name="recorded_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
             <column name="device_id" type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump18">
+    <changeSet author="duffy (generated)" id="dump19">
         <createTable tableName="t_track_field">
             <column name="track_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -187,141 +219,169 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump19">
+    <changeSet author="duffy (generated)" id="dump20">
         <createTable tableName="t_user">
-            <column name="username" type="VARCHAR(50)">
+            <column name="username" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by" type="VARCHAR(50)" defaultValue="system"/>
-            <column name="created_date" type="timestamp" defaultValueDate="${now}"/>
-            <column name="last_modified_by" type="VARCHAR(50)"/>
-            <column name="last_modified_date" type="timestamp"/>
+            <column name="created_by" type="VARCHAR(100)"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_date" type="TIMESTAMP"/>
+            <column name="last_modified_by" type="VARCHAR(100)"/>
+            <column name="last_modified_date" type="TIMESTAMP"/>
             <column name="version" type="INT">
                 <constraints nullable="false"/>
             </column>
             <column name="email" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="first_name" type="VARCHAR(50)"/>
-            <column name="last_name" type="VARCHAR(50)"/>
-            <column name="password" type="VARCHAR(100)"/>
+            <column name="first_name" type="VARCHAR(100)"/>
+            <column name="last_name" type="VARCHAR(100)"/>
+            <column name="password" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
             <column name="phone" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump20">
+    <changeSet author="duffy (generated)" id="dump21">
         <createTable tableName="t_user_authority">
-            <column name="username" type="VARCHAR(50)">
+            <column name="username" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="name" type="VARCHAR(50)">
+            <column name="name" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <!--<changeSet author="duffy (generated)" id="dump21" context="prod">-->
-    <!--<addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_alert"/>-->
-    <!--</changeSet>-->
     <changeSet author="duffy (generated)" id="dump22" context="prod">
-        <addPrimaryKey columnNames="name" constraintName="PRIMARY" tableName="t_authority"/>
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_alert"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump23" context="prod">
-        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_device"/>
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_alert_field_wrapper"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump24" context="prod">
-        <addPrimaryKey columnNames="device_id, username" constraintName="PRIMARY" tableName="t_device_owner"/>
+        <addPrimaryKey columnNames="name" constraintName="PRIMARY" tableName="t_authority"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump25" context="prod">
-        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_field"/>
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_device"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump26" context="prod">
-        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_field_boolean"/>
+        <addPrimaryKey columnNames="device_id, username" constraintName="PRIMARY" tableName="t_device_owner"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump27" context="prod">
-        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_field_integer"/>
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_field"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump28" context="prod">
-        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_field_string"/>
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_field_boolean"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump29" context="prod">
-        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_track"/>
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_field_integer"/>
     </changeSet>
     <changeSet author="duffy (generated)" id="dump30" context="prod">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_field_string"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="dump31" context="prod">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="t_track"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="dump32" context="prod">
         <addPrimaryKey columnNames="username" constraintName="PRIMARY" tableName="t_user"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump31">
+    <changeSet author="duffy (generated)" id="dump33">
+        <addUniqueConstraint columnNames="field_id" constraintName="UK_cocxlclkcpkv73l0ln2j93kgr" deferrable="false"
+                             disabled="false" initiallyDeferred="false" tableName="t_track_field"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="dump34">
         <addUniqueConstraint columnNames="email" constraintName="UK_i6qjjoe560mee5ajdg7v1o6mi" deferrable="false"
                              disabled="false" initiallyDeferred="false" tableName="t_user"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump32">
+    <changeSet author="duffy (generated)" id="dump35">
         <addUniqueConstraint columnNames="phone" constraintName="UK_m5bu5erj83eubjsa1nyms0t89" deferrable="false"
                              disabled="false" initiallyDeferred="false" tableName="t_user"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump33">
+    <changeSet author="duffy (generated)" id="dump36">
+        <addUniqueConstraint columnNames="field_id" constraintName="UK_t44am0tenkns9pnmp2f9ixl8x" deferrable="false"
+                             disabled="false" initiallyDeferred="false" tableName="t_alert_field"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="dump37">
         <addForeignKeyConstraint baseColumnNames="track_id" baseTableName="t_track_field"
                                  constraintName="FK_7jgt559hliud53rxrkl4vb968" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="t_track"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump34">
+    <changeSet author="duffy (generated)" id="dump38">
         <addForeignKeyConstraint baseColumnNames="id" baseTableName="t_field_integer"
                                  constraintName="FK_7oeof42ip34i1cod9ycujapp6" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="t_field"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump35">
+    <changeSet author="duffy (generated)" id="dump39">
         <addForeignKeyConstraint baseColumnNames="username" baseTableName="t_device_owner"
                                  constraintName="FK_975c8qf6dgd3gcpjpm3sdu291" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="username" referencedTableName="t_user"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump36">
+    <changeSet author="duffy (generated)" id="dump40">
+        <addForeignKeyConstraint baseColumnNames="field" baseTableName="t_alert_field_wrapper"
+                                 constraintName="FK_9xe1pv9j51ax32swg295w6fcu" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="t_field"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="dump41">
         <addForeignKeyConstraint baseColumnNames="username" baseTableName="t_user_authority"
                                  constraintName="FK_a0244t2n8jvn52m3ep4myilt1" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="username" referencedTableName="t_user"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump37">
+    <changeSet author="duffy (generated)" id="dump42">
         <addForeignKeyConstraint baseColumnNames="field_id" baseTableName="t_track_field"
                                  constraintName="FK_cocxlclkcpkv73l0ln2j93kgr" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="t_field"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump38">
+    <changeSet author="duffy (generated)" id="dump43">
         <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_track"
                                  constraintName="FK_cwnm9lpwcabuyi89h1qkuaavj" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="t_device"/>
     </changeSet>
-    <!--<changeSet author="duffy (generated)" id="dump39">-->
-    <!--<addForeignKeyConstraint baseColumnNames="alert_id" baseTableName="t_alert_field" constraintName="FK_fay0bfr3udndc35e1bvhmf9bo" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_alert"/>-->
-    <!--</changeSet>-->
-    <changeSet author="duffy (generated)" id="dump40">
+    <changeSet author="duffy (generated)" id="dump44">
+        <addForeignKeyConstraint baseColumnNames="alert_id" baseTableName="t_alert_field"
+                                 constraintName="FK_fay0bfr3udndc35e1bvhmf9bo" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="t_alert"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="dump45">
         <addForeignKeyConstraint baseColumnNames="id" baseTableName="t_field_boolean"
                                  constraintName="FK_h2jvwt8lwgg4eqpfg76ylj3o0" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="t_field"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump41">
+    <changeSet author="duffy (generated)" id="dump46">
         <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_device_owner"
                                  constraintName="FK_ib7vnp2olk25703c5xwpshvdc" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="t_device"/>
     </changeSet>
-    <changeSet author="duffy (generated)" id="dump42">
+    <changeSet author="duffy (generated)" id="dump47">
         <addForeignKeyConstraint baseColumnNames="id" baseTableName="t_field_string"
                                  constraintName="FK_la0xes4v0bey12crpi5ijqgj5" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="t_field"/>
     </changeSet>
-    <!--<changeSet author="duffy (generated)" id="dump43">-->
-    <!--<addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_alert" constraintName="FK_p4wrb6acqhv25lw0kbrlx5jbu" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_device"/>-->
-    <!--</changeSet>-->
-    <!--<changeSet author="duffy (generated)" id="dump44">-->
-    <!--<addForeignKeyConstraint baseColumnNames="field_id" baseTableName="t_alert_field" constraintName="FK_t44am0tenkns9pnmp2f9ixl8x" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="t_field"/>-->
-    <!--</changeSet>-->
-    <changeSet author="duffy (generated)" id="dump45">
+    <changeSet author="duffy (generated)" id="dump48">
+        <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="t_alert"
+                                 constraintName="FK_p4wrb6acqhv25lw0kbrlx5jbu" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="t_device"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="dump49">
+        <addForeignKeyConstraint baseColumnNames="field_id" baseTableName="t_alert_field"
+                                 constraintName="FK_t44am0tenkns9pnmp2f9ixl8x" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="t_alert_field_wrapper"/>
+    </changeSet>
+    <changeSet author="duffy (generated)" id="dump50">
         <addForeignKeyConstraint baseColumnNames="name" baseTableName="t_user_authority"
                                  constraintName="FK_tghvo3hwad0ifdm39n7bph8b" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
