@@ -21,7 +21,8 @@ import javax.inject.Inject;
 @WebAppConfiguration
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
     DirtiesContextTestExecutionListener.class,
-    TransactionalTestExecutionListener.class})
+    TransactionalTestExecutionListener.class
+})
 @ActiveProfiles({"dev", "test"})
 public class SMSServiceTest {
 
