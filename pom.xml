@@ -31,7 +31,7 @@
         <nexmo.version>1.5.0</nexmo.version>
         <run.addResources>false</run.addResources>
         <simple-lat-long.version>RELEASE</simple-lat-long.version>
-        <sonar-maven-plugin.version>2.2</sonar-maven-plugin.version>
+        <sonar-maven-plugin.version>2.3</sonar-maven-plugin.version>
         <spring-security-oauth2.version>2.0.3.RELEASE</spring-security-oauth2.version>
         <swagger-springmvc.version>1.0.2</swagger-springmvc.version>
         <usertype-core.version>3.2.0.GA</usertype-core.version>
