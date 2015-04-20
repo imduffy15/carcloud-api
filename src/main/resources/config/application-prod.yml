@@ -43,3 +43,7 @@ cache:
     timeToLiveSeconds: 3600
     ehcache:
         maxBytesLocalHeap: 256M
+nexmo:
+    key: 16d5d300
+    secret: vaX6giko
+    from: CarCloud

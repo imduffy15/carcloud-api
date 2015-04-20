@@ -38,3 +38,28 @@ swagger:
     contact: Ian Duffy (ian@ianduffy.ie)
     license: Apache 2.0
     licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.html
+
+logging:
+    level:
+        javax.activation: WARN
+        com.codahale.metrics: WARN
+        com.ryantenney: WARN
+        com.zaxxer: WARN
+        net.sf.ehcache: WARN
+        org.apache: WARN
+        org.hibernate.validator: WARN
+        org.hibernate: WARN
+        org.hibernate.ejb.HibernatePersistence: WARN
+        org.atmosphere: WARN
+        org.springframework: WARN
+        org.springframework.web: WARN
+        org.springframework.security: WARN
+        org.springframework.cache: WARN
+        org.thymeleaf: WARN
+        com.mangofactory.swagger: WARN
+        com.wordnik.swagger: WARN
+        liquibase: WARN
+        org.dozer: WARN
+        javax.xml.bind: WARN
+        com.sun.xml: WARN
+        org.jboss.logging: WARN
