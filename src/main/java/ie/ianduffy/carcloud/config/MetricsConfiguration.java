@@ -81,7 +81,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
         METRIC_REGISTRY.register(PROP_METRIC_REG_JVM_BUFFERS, new BufferPoolMetricSet(
             ManagementFactory.getPlatformMBeanServer()));
         if (propertyResolver.getProperty(PROP_JMX_ENABLED, Boolean.class, false)) {
-            log.info("Initializing Metrics JMX reporting");
+            log.debug("Initializing Metrics JMX reporting");
             final JmxReporter jmxReporter = JmxReporter.forRegistry(METRIC_REGISTRY).build();
             jmxReporter.start();
         }
@@ -109,7 +109,7 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter implements En
                 graphiteEnabled =
                 propertyResolver.getProperty(PROP_GRAPHITE_ENABLED, Boolean.class, false);
             if (graphiteEnabled) {
-                log.info("Initializing Metrics Graphite reporting");
+                log.debug("Initializing Metrics Graphite reporting");
                 String graphiteHost = propertyResolver.getRequiredProperty(PROP_HOST);
                 Integer
                     graphitePort =

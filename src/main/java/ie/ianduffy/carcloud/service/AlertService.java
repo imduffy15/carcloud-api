@@ -19,12 +19,14 @@ public class AlertService extends AbstractRestrictedService<Alert, Long, AlertDT
     @Inject
     private AlertRepository alertRepository;
 
-    @Transactional(readOnly = true)
-    public List<AlertFieldWrapper> getFields(Long id) {
-        Alert alert = findOneForCurrentUser(id);
-        List<AlertFieldWrapper> fields = alert.getFields();
-        Hibernate.initialize(fields);
-        return fields;
+    public Alert update(AlertDTO alertDTO) {
+        Alert alert = findOneForCurrentUser(alertDTO.getId());
+        alert.getFields().clear();
+        alert.getFields().addAll(alertDTO.getFields());
+        alert.setAfter(alertDTO.getAfter());
+        alert.setBefore(alertDTO.getBefore());
+        Hibernate.initialize(alert.getDevice());
+        return update(alertDTO, alert);
     }
 
     @Override

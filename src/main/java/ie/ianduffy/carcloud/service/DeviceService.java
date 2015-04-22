@@ -105,24 +105,9 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
     }
 
     @Transactional(readOnly = true)
-    public Track getTrack(Long id, int index) {
-        Device device = findOneForCurrentUser(id);
-        return device.getTracks().get(index);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Track> getTracks(Long id) {
-        Device device = findOneForCurrentUser(id);
-        List<Track> tracks = device.getTracks();
-        Hibernate.initialize(tracks);
-        return tracks;
-    }
-
-    @Transactional(readOnly = true)
     public List<Track> getTracks(Long id, DateTime fromDate, DateTime toDate) {
         Device device = findOneForCurrentUser(id);
-        List<Track> tracks = trackRepository.findAllForDeviceByDate(device, fromDate, toDate);
-        return tracks;
+        return trackRepository.findAllForDeviceByDate(device, fromDate, toDate);
     }
 
     public void removeOwner(Long id, String username) {
@@ -136,15 +121,5 @@ public class DeviceService extends AbstractRestrictedService<Device, Long, Devic
     public Device update(DeviceDTO deviceDTO) {
         Device device = findOneForCurrentUser(deviceDTO.getId());
         return super.update(deviceDTO, device);
-    }
-
-    public Alert updateAlert(AlertDTO alertDTO) {
-        Alert alert = alertService.findOneForCurrentUser(alertDTO.getId());
-        alert.getFields().clear();
-        alert.getFields().addAll(alertDTO.getFields());
-        alert.setAfter(alertDTO.getAfter());
-        alert.setBefore(alertDTO.getBefore());
-        Hibernate.initialize(alert.getDevice());
-        return alertService.update(alertDTO, alert);
     }
 }

@@ -40,7 +40,7 @@ public class WebConfigurer implements ServletContextInitializer {
 
     private void initCachingHttpHeadersFilter(ServletContext servletContext,
                                               EnumSet<DispatcherType> disps) {
-        log.debug("Registering Cachig HTTP Headers Filter");
+        log.debug("Registering caching HTTP Headers Filter");
         FilterRegistration.Dynamic cachingHttpHeadersFilter =
             servletContext.addFilter("cachingHttpHeadersFilter",
                 new CachingHttpHeadersFilter());

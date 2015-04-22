@@ -129,7 +129,7 @@ public class DeviceAlertsResource {
     public ResponseEntity<?> update(
         @ApiParam(value = "updated alert object") @Valid @RequestBody AlertDTO alertDTO
     ) {
-        Alert alert = deviceService.updateAlert(alertDTO);
+        Alert alert = alertService.update(alertDTO);
         return new ResponseEntity<>(alertDTOAssembler.toResource(alert), HttpStatus.OK);
     }
 }
