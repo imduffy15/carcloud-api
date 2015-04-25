@@ -41,7 +41,7 @@ swagger:
 
 logging:
     level:
-        ie.ianduffy: DEBUG
+        ie.ianduffy: INFO
         javax.activation: WARN
         com.codahale.metrics: WARN
         com.ryantenney: WARN
