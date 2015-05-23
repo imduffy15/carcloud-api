@@ -58,19 +58,17 @@ public class MunicResource {
     public ResponseEntity<?> create(
         @ApiParam(value = "a munic.io event", required = true) @RequestBody List<EventDTO> eventDTOs
     ) {
-        List<TrackDTO> processedEvents = new ArrayList<>();
         for (EventDTO eventDTO : eventDTOs) {
             if (eventDTO.getMeta().getEvent().equals("track")) {
                 try {
                     ie.ianduffy.carcloud.web.munic.dto.TrackDTO trackDTO = new ie.ianduffy.carcloud.web.munic.dto.TrackDTO();
                     mapper.map(eventDTO.getPayload(), trackDTO);
                     Track track = deviceService.addTrack(trackDTO);
-                    processedEvents.add(trackDTOAssembler.toResource(track));
                 } catch (IllegalArgumentException e) {
                     log.info("Ignoring track due to incomplete information.");
                 }
             }
         }
-        return new ResponseEntity<>(processedEvents, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
