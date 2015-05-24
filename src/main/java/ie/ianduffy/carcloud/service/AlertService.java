@@ -1,7 +1,6 @@
 package ie.ianduffy.carcloud.service;
 
 import ie.ianduffy.carcloud.domain.Alert;
-import ie.ianduffy.carcloud.domain.AlertFieldWrapper;
 import ie.ianduffy.carcloud.repository.AlertRepository;
 import ie.ianduffy.carcloud.repository.RestrictedRepository;
 import ie.ianduffy.carcloud.web.dto.AlertDTO;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.List;
 
 @Service
 @Transactional

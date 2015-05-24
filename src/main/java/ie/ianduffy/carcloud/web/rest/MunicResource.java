@@ -7,7 +7,6 @@ import com.wordnik.swagger.annotations.ApiParam;
 import ie.ianduffy.carcloud.domain.Track;
 import ie.ianduffy.carcloud.service.DeviceService;
 import ie.ianduffy.carcloud.web.assembler.TrackDTOAssembler;
-import ie.ianduffy.carcloud.web.dto.TrackDTO;
 import ie.ianduffy.carcloud.web.munic.dto.EventDTO;
 import lombok.extern.java.Log;
 import org.dozer.Mapper;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 
 @Log
