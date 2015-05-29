@@ -39,9 +39,14 @@ swagger:
     license: Apache 2.0
     licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.html
 
+nexmo:
+    key: 16d5d300
+    secret: vaX6giko
+    from: CarCloud
+
 logging:
     level:
-        ie.ianduffy: INFO
+        ie.ianduffy: DEBUG
         javax.activation: WARN
         com.codahale.metrics: WARN
         com.ryantenney: WARN
@@ -60,7 +65,8 @@ logging:
         com.mangofactory.swagger: WARN
         com.wordnik.swagger: WARN
         liquibase: WARN
-        org.dozer: WARN
+        org.dozer: ERROR
         javax.xml.bind: WARN
         com.sun.xml: WARN
         org.jboss.logging: WARN
+        com.nexmo: ERROR

@@ -19,7 +19,6 @@ import javax.validation.constraints.Size;
 public class UserDTO extends AbstractAuditingEntityDTO<String> {
 
     @Email
-    @NotNull
     @ApiModelProperty
     @Size(min = 1, max = 100)
     private String email;
@@ -36,12 +35,10 @@ public class UserDTO extends AbstractAuditingEntityDTO<String> {
     @Size(min = 1, max = 100)
     private String password;
 
-    @NotNull
     @ApiModelProperty
     @Pattern(regexp = "^\\+?[0-9. ()-]{10,25}$")
     private String phone;
 
-    @NotNull
     @ApiModelProperty
     @Size(min = 1, max = 100)
     private String username;
