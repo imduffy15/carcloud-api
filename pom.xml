@@ -20,7 +20,7 @@
         <cors-filter.version>2.1.2</cors-filter.version>
         <dozer.version>5.5.1</dozer.version>
         <hibernate.version>4.3.6.Final</hibernate.version>
-        <jackson.version>2.5.1</jackson.version>
+        <jackson.version>2.11.0</jackson.version>
         <jacoco.version>0.7.3.201502191951</jacoco.version>
         <java.version>1.8</java.version>
         <javax.inject.version>1</javax.inject.version>
